@@ -33,7 +33,7 @@ const sitemapFiles = [];
 
 // 1. Generate core english sitemap (sitemap-en.xml)
 let enUrls = [];
-staticRoutes.forEach(r => enUrls.push({ loc: `${baseDomain}${r}`, changefreq: 'daily', priority: '1.0' }));
+staticRoutes.forEach(r => enUrls.push({ loc: `${baseDomain}${r === '' ? '/' : r}`, changefreq: 'daily', priority: '1.0' }));
 taxRoutes.forEach(r => enUrls.push({ loc: `${baseDomain}/calculator/${r.slug}`, changefreq: 'weekly', priority: '0.8' }));
 llmRoutes.forEach(r => enUrls.push({ loc: `${baseDomain}/tools/${r.slug}`, changefreq: 'weekly', priority: '0.7' }));
 

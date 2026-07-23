@@ -224,19 +224,26 @@ function ContentWrapper({ lang, t }) {
 }
 
 export default function App() {
-  const [lang, setLang] = useState('en');
   const location = useLocation();
+  const [lang, setLang] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const pathSegments = window.location.pathname.split('/').filter(Boolean);
+      const possibleLang = pathSegments[0];
+      if (supportedLanguages.some(l => l.code === possibleLang)) return possibleLang;
+    }
+    return 'en';
+  });
 
   useEffect(() => {
-    // Detect lang from URL
+    // Keep lang synced if URL changes via client-side routing
     const pathSegments = location.pathname.split('/').filter(Boolean);
     const possibleLang = pathSegments[0];
     const isSupported = supportedLanguages.some(l => l.code === possibleLang);
     
     if (isSupported) {
-      setLang(possibleLang);
+      if (lang !== possibleLang) setLang(possibleLang);
     } else {
-      setLang('en');
+      if (lang !== 'en') setLang('en');
     }
   }, [location.pathname]);
 
