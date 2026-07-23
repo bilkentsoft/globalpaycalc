@@ -3146,8 +3146,8 @@ function ProgrammaticSeoGrid({ lang = "en" }) {
     const appSchema = generateSeoSchema({
       type: "WebApplication",
       url: "https://globalpaycalc.com",
-      name: "GlobalPayCalc.com Suite",
-      description: "Universal media, AI & global salary utility engine."
+      name: getTranslation(lang, "hero.title") || "GlobalPayCalc",
+      description: getTranslation(lang, "hero.subtitle") || "Universal media, AI & global salary utility engine."
     });
     const faqSchema = generateSeoSchema({
       type: "FAQPage",
@@ -4524,7 +4524,7 @@ function ContentWrapper({ lang, t }) {
   const hasLangPrefix = supportedLanguages.some((l) => l.code === pathSegments[0]);
   const activeTab = hasLangPrefix ? pathSegments[1] || "video" : pathSegments[0] || "video";
   const basePath = hasLangPrefix ? `/${pathSegments[0]}` : "";
-  let pageTitle = t("hero.title");
+  let pageTitle = `${t("hero.title")} | GlobalPayCalc`;
   let pageDesc = t("hero.subtitle");
   if (activeTab === "salary") {
     pageTitle = "Remote Salary Calculator & Global Tax Parity Estimator | GlobalPayCalc";

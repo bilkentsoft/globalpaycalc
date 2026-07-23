@@ -145,8 +145,8 @@ export default function ProgrammaticSeoGrid({ lang = 'en' }) {
     const appSchema = generateSeoSchema({
       type: 'WebApplication',
       url: 'https://globalpaycalc.com',
-      name: 'GlobalPayCalc.com Suite',
-      description: 'Universal media, AI & global salary utility engine.'
+      name: getTranslation(lang, 'hero.title') || 'GlobalPayCalc',
+      description: getTranslation(lang, 'hero.subtitle') || 'Universal media, AI & global salary utility engine.'
     });
 
     const faqSchema = generateSeoSchema({
