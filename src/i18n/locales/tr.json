@@ -11,7 +11,9 @@
   "hero": {
     "badge": "%100 Ücretsiz • Sınırsız • Gizlilik Odaklı",
     "title": "Evrensel Medya, Yapay Zeka ve Maaş Hesaplama Motoru",
-    "subtitle": "Uzaktan çalışma maaşlarını hesaplayın, filigransız HD video indirin ve siber güvenli yapay zeka ile görsel arka planı silin."
+    "subtitle": "Tüm dünyada uzaktan çalışma maaşlarını hesaplayın, filigransız HD sosyal videolar indirin ve siber güvenli yapay zeka ile görsel arka planı %100 yerel silin.",
+    "seoTitle": "Nasıl Çalışır ve Temel Özellikler",
+    "seoText": "GlobalPayCalc, dijital göçebeler ve geliştiriciler için oluşturulmuş kapsamlı bir araç paketidir. Platformumuz, TikTok, Instagram Reels ve YouTube Shorts platformlarından <strong class='font-semibold text-slate-300'>filigransız HD sosyal medya videolarını</strong> ve MP3 ses dosyalarını güvenle indirmenizi sağlar. Uzaktan çalışanlar (remote worker) için, 150'den fazla ülkede net geliri, vergi dilimlerini ve satın alma gücü paritesini (PPP) karşılaştıran bir <strong class='font-semibold text-slate-300'>küresel maaş hesaplayıcı</strong> sunuyoruz. Geliştiriciler, GPT-4o ve Claude 3.5 için API masraflarını tahmin etmek amacıyla <strong class='font-semibold text-slate-300'>yapay zeka token maliyeti simülatörümüzü</strong> kullanabilirler. Ayrıca <strong class='font-semibold text-slate-300'>istemci tabanlı AI görüntü stüdyomuz</strong>, sunucu yüklemesi olmadan WebAssembly üzerinden fotoğrafların arka planını yerel olarak silerek tam veri gizliliği sağlar."
   },
   "video": {
     "title": "Sosyal Medya Video & Ses İndirici",

@@ -11,7 +11,9 @@
   "hero": {
     "badge": "100% Kostenlos • Unbegrenzt • Datenschutz Zuerst",
     "title": "Universelles Medien-, KI- und Gehaltsberechnungs-System",
-    "subtitle": "Berechnen Sie Remote-Gehälter, laden Sie HD-Videos ohne Wasserzeichen herunter und verarbeiten Sie Bilder mit sicherer KI."
+    "subtitle": "Berechnen Sie weltweite Remote-Nettogehälter, laden Sie HD-Social-Videos ohne Wasserzeichen herunter und verarbeiten Sie Bilder sicher mit Client-seitiger KI.",
+    "seoTitle": "Wie es funktioniert & Kernfunktionen",
+    "seoText": "GlobalPayCalc ist eine umfassende Suite für digitale Nomaden und Entwickler. Unsere Plattform bietet einen <strong class='font-semibold text-slate-300'>HD-Social-Video-Downloader</strong>, der MP4/MP3-Medien aus TikTok, Instagram Reels und YouTube Shorts ohne Wasserzeichen sicher extrahiert. Für Remote-Mitarbeiter vergleicht unser <strong class='font-semibold text-slate-300'>globaler Gehaltsrechner</strong> das Nettoeinkommen, Steuerklassen und die Lebenshaltungskosten (KKP) in über 150 Ländern. Entwickler können unseren <strong class='font-semibold text-slate-300'>KI-Token-Kosten-Simulator</strong> nutzen, um API-Ausgaben für GPT-4o und Claude 3.5 abzuschätzen, während unser <strong class='font-semibold text-slate-300'>clientseitiges KI-Bildstudio</strong> Hintergründe lokal über WebAssembly entfernt, was keine Server-Uploads garantiert und vollständige Datenprivatsphäre gewährleistet."
   },
   "video": {
     "title": "Social Video & Audio Downloader",

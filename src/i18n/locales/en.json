@@ -11,7 +11,9 @@
   "hero": {
     "badge": "100% Free • Unlimited • Privacy First",
     "title": "Universal Media, AI & Global Salary Utility Engine",
-    "subtitle": "Calculate remote salaries, download HD videos without watermarks, and process images via client-side AI securely and privately."
+    "subtitle": "Calculate net remote salaries worldwide, download HD social videos without watermarks, and process images via client-side WebAssembly AI securely and privately.",
+    "seoTitle": "How It Works & Core Features",
+    "seoText": "GlobalPayCalc is a comprehensive suite built for digital nomads and developers. Our platform features an <strong class='font-semibold text-slate-300'>HD social video downloader</strong> that safely extracts MP4/MP3 media from TikTok, Instagram Reels, and YouTube Shorts without watermarks. For remote workers, our <strong class='font-semibold text-slate-300'>global salary calculator</strong> compares net income, tax brackets, and cost of living (PPP) across 150+ countries. Developers can leverage our <strong class='font-semibold text-slate-300'>AI token cost simulator</strong> to estimate API expenses for GPT-4o and Claude 3.5, while our <strong class='font-semibold text-slate-300'>client-side AI image studio</strong> removes backgrounds locally via WebAssembly, guaranteeing zero server uploads and complete data privacy."
   },
   "video": {
     "title": "Social Video & Audio Downloader",

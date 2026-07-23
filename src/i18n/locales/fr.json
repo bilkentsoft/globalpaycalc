@@ -11,7 +11,9 @@
   "hero": {
     "badge": "100% Gratuit • Illimité • Confidentialité Avant Tout",
     "title": "Moteur Universel de Médias, IA et Salaires Mondiaux",
-    "subtitle": "Calculez les salaires à distance, téléchargez des vidéos HD sans filigrane et traitez les images via une IA sécurisée."
+    "subtitle": "Calculez les salaires nets à distance dans le monde entier, téléchargez des vidéos sociales HD sans filigrane et traitez les images via une IA WebAssembly sécurisée.",
+    "seoTitle": "Comment ça marche & Fonctionnalités clés",
+    "seoText": "GlobalPayCalc est une suite complète conçue pour les nomades numériques et les développeurs. Notre plateforme propose un <strong class='font-semibold text-slate-300'>téléchargeur de vidéos sociales HD</strong> qui extrait en toute sécurité les médias MP4/MP3 de TikTok, Instagram Reels et YouTube Shorts sans filigrane. Pour les travailleurs à distance, notre <strong class='font-semibold text-slate-300'>calculateur de salaire mondial</strong> compare le revenu net, les tranches d'imposition et le coût de la vie (PPA) dans plus de 150 pays. Les développeurs peuvent tirer parti de notre <strong class='font-semibold text-slate-300'>simulateur de coût des jetons IA</strong> pour estimer les dépenses API pour GPT-4o et Claude 3.5, tandis que notre <strong class='font-semibold text-slate-300'>studio d'images IA côté client</strong> supprime les arrière-plans localement via WebAssembly, garantissant zéro téléchargement sur le serveur et une confidentialité totale des données."
   },
   "video": {
     "title": "Téléchargeur de Vidéos et Audio Sociaux",

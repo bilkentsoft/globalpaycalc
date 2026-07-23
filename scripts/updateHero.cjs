@@ -5,14 +5,14 @@ const files = fs.readdirSync(localesDir);
 const newSubtitle = 'Calculate remote salaries, download HD videos without watermarks, and process images via client-side AI securely and privately.';
 
 const translations = {
-  "en.json": "Calculate remote salaries, download HD videos without watermarks, and process images via client-side AI securely and privately.",
-  "tr.json": "Uzaktan çalışma maaşlarını hesaplayın, filigransız HD video indirin ve siber güvenli yapay zeka ile görsel arka planı silin.",
-  "es.json": "Calcule salarios remotos, descargue videos HD sin marcas de agua y procese imágenes mediante IA segura del lado del cliente.",
-  "de.json": "Berechnen Sie Remote-Gehälter, laden Sie HD-Videos ohne Wasserzeichen herunter und verarbeiten Sie Bilder mit sicherer KI.",
-  "pt.json": "Calcule salários remotos, baixe vídeos em HD sem marca d'água e processe imagens usando IA segura no cliente.",
-  "fr.json": "Calculez les salaires à distance, téléchargez des vidéos HD sans filigrane et traitez les images via une IA sécurisée.",
-  "id.json": "Hitung gaji jarak jauh, unduh video HD tanpa tanda air, dan proses gambar melalui AI sisi klien secara aman.",
-  "ja.json": "リモート給与を計算し、透かしなしでHD動画をダウンロードし、安全なクライアントサイドAIで画像を処理します。"
+  "en.json": "Calculate net remote salaries worldwide, download HD social videos without watermarks, and process images via client-side WebAssembly AI securely and privately.",
+  "tr.json": "Tüm dünyada uzaktan çalışma maaşlarını hesaplayın, filigransız HD sosyal videolar indirin ve siber güvenli yapay zeka ile görsel arka planı %100 yerel silin.",
+  "es.json": "Calcule salarios remotos netos en todo el mundo, descargue videos sociales en HD sin marcas de agua y procese imágenes mediante IA WebAssembly segura del cliente.",
+  "de.json": "Berechnen Sie weltweite Remote-Nettogehälter, laden Sie HD-Social-Videos ohne Wasserzeichen herunter und verarbeiten Sie Bilder sicher mit Client-seitiger KI.",
+  "pt.json": "Calcule salários remotos líquidos em todo o mundo, baixe vídeos sociais em HD sem marcas d'água e processe imagens usando IA WebAssembly no cliente com segurança.",
+  "fr.json": "Calculez les salaires nets à distance dans le monde entier, téléchargez des vidéos sociales HD sans filigrane et traitez les images via une IA WebAssembly sécurisée.",
+  "id.json": "Hitung gaji bersih jarak jauh di seluruh dunia, unduh video sosial HD tanpa tanda air, dan proses gambar melalui AI WebAssembly sisi klien secara aman dan privat.",
+  "ja.json": "世界中のネットリモート給与を計算し、透かしなしでHDソーシャルビデオをダウンロードし、安全でプライベートなクライアントサイドWebAssembly AIで画像を処理します。"
 };
 
 files.forEach(file => {

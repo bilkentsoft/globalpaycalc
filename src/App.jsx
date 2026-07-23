@@ -102,10 +102,8 @@ function ContentWrapper({ lang, t }) {
           </div>
 
           <div className="max-w-3xl mx-auto mt-8 p-5 rounded-2xl bg-slate-900/40 border border-slate-800/60 text-left backdrop-blur-sm">
-            <h2 className="text-sm font-bold text-white mb-2">How It Works & Core Features</h2>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              GlobalPayCalc is a comprehensive suite built for digital nomads and developers. Our platform features an <strong className="font-semibold text-slate-300">HD social video downloader</strong> that safely extracts MP4/MP3 media from TikTok, Instagram Reels, and YouTube Shorts without watermarks. For remote workers, our <strong className="font-semibold text-slate-300">global salary calculator</strong> compares net income, tax brackets, and cost of living (PPP) across 150+ countries. Developers can leverage our <strong className="font-semibold text-slate-300">AI token cost simulator</strong> to estimate API expenses for GPT-4o and Claude 3.5, while our <strong className="font-semibold text-slate-300">client-side AI image studio</strong> removes backgrounds locally via WebAssembly, guaranteeing zero server uploads and complete data privacy.
-            </p>
+            <h2 className="text-sm font-bold text-white mb-2">{t('hero.seoTitle')}</h2>
+            <p className="text-xs text-slate-400 leading-relaxed" dangerouslySetInnerHTML={{ __html: t('hero.seoText') }} />
           </div>
         </div>
       )}
@@ -230,7 +228,11 @@ export default function App() {
     <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans">
       <Header currentLang={lang} setLang={setLang} />
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 lg:px-8 py-8 space-y-12">
-        {!location.pathname.includes('/admin') && <AdSenseSlot slotId="header-leaderboard" format="horizontal" />}
+        {!location.pathname.includes('/admin') && (
+          <div className="min-h-[120px] w-full flex justify-center items-center">
+            <AdSenseSlot slotId="header-leaderboard" format="horizontal" />
+          </div>
+        )}
         <ContentWrapper lang={lang} t={t} />
       </main>
       <Footer lang={lang} />

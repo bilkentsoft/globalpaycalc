@@ -11,7 +11,9 @@
   "hero": {
     "badge": "100%無料 • 無制限 • プライバシー優先",
     "title": "ユニバーサルメディア・AI・グローバル給与エンジン",
-    "subtitle": "リモート給与を計算し、透かしなしでHD動画をダウンロードし、安全なクライアントサイドAIで画像を処理します。"
+    "subtitle": "世界中のネットリモート給与を計算し、透かしなしでHDソーシャルビデオをダウンロードし、安全でプライベートなクライアントサイドWebAssembly AIで画像を処理します。",
+    "seoTitle": "機能と仕組み",
+    "seoText": "GlobalPayCalcは、デジタルノマドと開発者向けに構築された包括的なスイートです。当社のプラットフォームは、TikTok、Instagramリール、YouTubeショートから透かしなしでMP4/MP3メディアを安全に抽出する<strong class='font-semibold text-slate-300'>HDソーシャルビデオダウンローダー</strong>を備えています。リモートワーカー向けに、<strong class='font-semibold text-slate-300'>グローバル給与計算機</strong>は150カ国以上の純所得、税制区分、および生活費（PPP）を比較します。開発者は<strong class='font-semibold text-slate-300'>AIトークンコストシミュレーター</strong>を活用して、GPT-4oおよびClaude 3.5のAPI経費を予測できます。一方、当社の<strong class='font-semibold text-slate-300'>クライアントサイドAI画像スタジオ</strong>はWebAssemblyを介してローカルで背景を削除し、サーバーへのアップロードゼロと完全なデータプライバシーを保証します。"
   },
   "video": {
     "title": "ソーシャル動画・音声ダウンローダー",

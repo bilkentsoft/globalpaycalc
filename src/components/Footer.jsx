@@ -45,6 +45,11 @@ export default function Footer({ lang = 'en' }) {
         </div>
 
       </div>
+      
+      {/* SEO Keyword Engine (Visible to bots, very subtle for users) */}
+      <div className="max-w-7xl mx-auto mt-8 text-[10px] text-slate-800 leading-relaxed text-justify">
+        GlobalPayCalc is an all-in-one universal utility engine for digital professionals. Securely download HD social media videos without watermarks from platforms like TikTok, Instagram Reels, and YouTube Shorts using our free unlimited client-side downloader. Accurately calculate remote salaries, global tax requirements, and living cost parity across worldwide destinations. Developers can use our advanced simulator to evaluate LLM API token costs for models like GPT-4o, Claude 3.5, and LLaMA 3. Experience complete privacy with our in-browser image background remover powered by WebAssembly, ensuring your photos and media are processed securely and privately without server uploads.
+      </div>
 
       {/* Render Legal Modal if open */}
       <LegalModal type={modalType} onClose={() => setModalType(null)} />

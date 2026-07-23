@@ -11,7 +11,9 @@
   "hero": {
     "badge": "100% Gratis • Tak Terbatas • Privasi Utama",
     "title": "Mesin Universal Media, AI & Gaji Global",
-    "subtitle": "Hitung gaji jarak jauh, unduh video HD tanpa tanda air, dan proses gambar melalui AI sisi klien secara aman."
+    "subtitle": "Hitung gaji bersih jarak jauh di seluruh dunia, unduh video sosial HD tanpa tanda air, dan proses gambar melalui AI WebAssembly sisi klien secara aman dan privat.",
+    "seoTitle": "Cara Kerja & Fitur Utama",
+    "seoText": "GlobalPayCalc adalah paket komprehensif yang dibangun untuk nomaden digital dan pengembang. Platform kami dilengkapi <strong class='font-semibold text-slate-300'>pengunduh video sosial HD</strong> yang dengan aman mengekstrak media MP4/MP3 dari TikTok, Instagram Reels, dan YouTube Shorts tanpa tanda air. Untuk pekerja jarak jauh, <strong class='font-semibold text-slate-300'>kalkulator gaji global</strong> kami membandingkan pendapatan bersih, golongan pajak, dan biaya hidup (PPP) di 150+ negara. Pengembang dapat memanfaatkan <strong class='font-semibold text-slate-300'>simulator biaya token AI</strong> kami untuk memperkirakan pengeluaran API untuk GPT-4o dan Claude 3.5, sementara <strong class='font-semibold text-slate-300'>studio gambar AI sisi klien</strong> kami menghapus latar belakang secara lokal melalui WebAssembly, menjamin tidak ada unggahan server dan privasi data lengkap."
   },
   "video": {
     "title": "Pengunduh Video & Audio Media Sosial",
