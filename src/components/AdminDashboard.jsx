@@ -92,11 +92,12 @@ function AnalyticsTab({ googleStats }) {
   const isDataReady = googleStats && googleStats.status === 'success';
   const data = isDataReady ? googleStats : { geoData: [], devices: [], chartData: [] };
 
-  // Generate fake calculator usage data if we don't track it yet via GA events
+  // Generate calculator usage data (mocked until GA events are fully wired)
   const calculators = [
-    { name: 'Maaş ve Vergi Hesaplayıcı', views: (data.ga4?.visitors || 5000) * 0.45, conversion: 68 },
-    { name: 'Yapay Zeka API Maliyeti', views: (data.ga4?.visitors || 5000) * 0.35, conversion: 82 },
-    { name: 'YouTube Kazanç Hesaplayıcı', views: (data.ga4?.visitors || 5000) * 0.20, conversion: 45 },
+    { name: 'Video İndirici (Downloader)', views: (data.ga4?.visitors || 5000) * 0.45, conversion: 68 },
+    { name: 'Maaş ve Vergi Paritesi Hesaplayıcı', views: (data.ga4?.visitors || 5000) * 0.35, conversion: 82 },
+    { name: 'Yapay Zeka (LLM) API Maliyet Hesaplayıcı', views: (data.ga4?.visitors || 5000) * 0.15, conversion: 45 },
+    { name: 'Yapay Zeka Arkaplan Silici (WASM)', views: (data.ga4?.visitors || 5000) * 0.05, conversion: 90 },
   ];
 
   return (
@@ -996,7 +997,7 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="flex bg-slate-950 min-h-screen text-slate-100 overflow-x-hidden w-full">
+    <div className="flex bg-slate-950 min-h-screen text-slate-100 overflow-x-hidden w-full md:border-x md:border-t md:border-slate-800 md:rounded-t-3xl md:shadow-2xl">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} onLogout={handleLogout} />
       
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 z-50 flex justify-around p-2">
