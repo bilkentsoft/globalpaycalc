@@ -4629,7 +4629,24 @@ function ContentWrapper({ lang, t }) {
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto mt-8 p-5 rounded-2xl bg-slate-900/40 border border-slate-800/60 text-left backdrop-blur-sm", children: [
         /* @__PURE__ */ jsx("h2", { className: "text-sm font-bold text-white mb-2", children: t("hero.seoTitle") }),
-        /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-400 leading-relaxed", dangerouslySetInnerHTML: { __html: t("hero.seoText") } })
+        /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-400 leading-relaxed", dangerouslySetInnerHTML: { __html: t("hero.seoText") } }),
+        /* @__PURE__ */ jsxs("div", { className: "mt-6 pt-6 border-t border-slate-800/60", children: [
+          /* @__PURE__ */ jsx("h3", { className: "text-sm font-bold text-white mb-3", children: "Frequently Asked Questions" }),
+          /* @__PURE__ */ jsxs("div", { className: "space-y-4 text-xs text-slate-400 leading-relaxed", children: [
+            /* @__PURE__ */ jsxs("div", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-slate-300", children: "How does the social video downloader work?" }),
+              /* @__PURE__ */ jsx("p", { className: "mt-1", children: "Our free universal video downloader lets you securely download HD videos from social media platforms like TikTok, Instagram Reels, and YouTube Shorts. It operates directly in your browser as a client-side utility, meaning we process everything without storing your media on our servers. You can easily download MP4 videos or extract MP3 audio files completely without watermarks, ensuring 100% privacy and unlimited usage for all your media needs." })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-slate-300", children: "Can I calculate my remote salary and tax parity accurately?" }),
+              /* @__PURE__ */ jsx("p", { className: "mt-1", children: "Yes! GlobalPayCalc provides a highly accurate global salary calculator designed specifically for digital nomads and remote workers. Our utility engine compares your net salary across over 150 countries, taking into account local tax brackets, living cost variations, and purchasing power parity (PPP). This ensures you can evaluate sponsor offers and securely calculate how much you will actually earn after taxes, regardless of your global location." })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-slate-300", children: "Is the AI token cost simulator free for developers?" }),
+              /* @__PURE__ */ jsx("p", { className: "mt-1", children: "Absolutely. Developers can use our advanced AI API token cost simulator to accurately predict the financial cost of running large language models (LLMs) such as GPT-4o, Claude 3.5, and LLaMA 3. Whether you are building an autonomous agent, processing large data extractions, or running a customer support pipeline, our simulator provides instant, free estimates to help you optimize your API expenses securely." })
+            ] })
+          ] })
+        ] })
       ] })
     ] }),
     /* @__PURE__ */ jsx("div", { className: "pt-4", children: /* @__PURE__ */ jsxs(Routes, { children: [
@@ -4725,7 +4742,7 @@ function App() {
   return /* @__PURE__ */ jsxs("div", { className: "min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans", children: [
     /* @__PURE__ */ jsx(Header, { currentLang: lang, setLang }),
     /* @__PURE__ */ jsxs("main", { className: "flex-1 max-w-7xl mx-auto w-full px-4 lg:px-8 py-8 space-y-12", children: [
-      !location.pathname.includes("/admin") && /* @__PURE__ */ jsx("div", { className: "min-h-[120px] w-full flex justify-center items-center", children: /* @__PURE__ */ jsx(AdSenseSlot, { slotId: "header-leaderboard", format: "horizontal" }) }),
+      !location.pathname.includes("/admin") && /* @__PURE__ */ jsx("div", { className: "min-h-[160px] w-full flex justify-center items-center", children: /* @__PURE__ */ jsx(AdSenseSlot, { slotId: "header-leaderboard", format: "horizontal" }) }),
       /* @__PURE__ */ jsx(ContentWrapper, { lang, t })
     ] }),
     /* @__PURE__ */ jsx(Footer, { lang }),
