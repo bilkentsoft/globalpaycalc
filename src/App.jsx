@@ -101,29 +101,6 @@ function ContentWrapper({ lang, t }) {
             </Link>
           </div>
 
-          <div className="max-w-3xl mx-auto mt-8 p-5 rounded-2xl bg-slate-900/40 border border-slate-800/60 text-left backdrop-blur-sm">
-            <h2 className="text-sm font-bold text-white mb-2">{t('hero.seoTitle')}</h2>
-            <p className="text-xs text-slate-400 leading-relaxed" dangerouslySetInnerHTML={{ __html: t('hero.seoText') }} />
-            
-            {/* Extended SEO FAQ Section to boost word count and keyword density */}
-            <div className="mt-6 pt-6 border-t border-slate-800/60">
-              <h3 className="text-sm font-bold text-white mb-3">Frequently Asked Questions</h3>
-              <div className="space-y-4 text-xs text-slate-400 leading-relaxed">
-                <div>
-                  <strong className="text-slate-300">How does the social video downloader work?</strong>
-                  <p className="mt-1">Our free universal video downloader lets you securely download HD videos from social media platforms like TikTok, Instagram Reels, and YouTube Shorts. It operates directly in your browser as a client-side utility, meaning we process everything without storing your media on our servers. You can easily download MP4 videos or extract MP3 audio files completely without watermarks, ensuring 100% privacy and unlimited usage for all your media needs.</p>
-                </div>
-                <div>
-                  <strong className="text-slate-300">Can I calculate my remote salary and tax parity accurately?</strong>
-                  <p className="mt-1">Yes! GlobalPayCalc provides a highly accurate global salary calculator designed specifically for digital nomads and remote workers. Our utility engine compares your net salary across over 150 countries, taking into account local tax brackets, living cost variations, and purchasing power parity (PPP). This ensures you can evaluate sponsor offers and securely calculate how much you will actually earn after taxes, regardless of your global location.</p>
-                </div>
-                <div>
-                  <strong className="text-slate-300">Is the AI token cost simulator free for developers?</strong>
-                  <p className="mt-1">Absolutely. Developers can use our advanced AI API token cost simulator to accurately predict the financial cost of running large language models (LLMs) such as GPT-4o, Claude 3.5, and LLaMA 3. Whether you are building an autonomous agent, processing large data extractions, or running a customer support pipeline, our simulator provides instant, free estimates to help you optimize your API expenses securely.</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       )}
 
@@ -213,7 +190,34 @@ function ContentWrapper({ lang, t }) {
         </Routes>
       </div>
 
-      {activeTab !== 'admin' && <AdSenseSlot slotId="mid-content-rectangle" format="auto" />}
+      {activeTab !== 'admin' && !location.pathname.includes('/calculator/') && !location.pathname.includes('/tools/') && (
+        <div className="max-w-4xl mx-auto mt-16 mb-8 p-6 md:p-8 rounded-3xl bg-slate-900/60 border border-slate-800/80 text-left shadow-2xl">
+          <h2 className="text-base font-black text-white mb-3">{t('hero.seoTitle')}</h2>
+          <p className="text-sm text-slate-400 leading-relaxed" dangerouslySetInnerHTML={{ __html: t('hero.seoText') }} />
+          
+          <div className="mt-8 pt-8 border-t border-slate-800/80">
+            <h3 className="text-base font-black text-white mb-4">{t('faq.title')}</h3>
+            <div className="space-y-6 text-sm text-slate-400 leading-relaxed">
+              <div>
+                <strong className="text-slate-300 block mb-1">{t('faq.q1')}</strong>
+                <p>{t('faq.a1')}</p>
+              </div>
+              <div>
+                <strong className="text-slate-300 block mb-1">{t('faq.q2')}</strong>
+                <p>{t('faq.a2')}</p>
+              </div>
+              <div>
+                <strong className="text-slate-300 block mb-1">{t('faq.q3')}</strong>
+                <p>{t('faq.a3')}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeTab !== 'admin' && (
+        <AdSenseSlot slotId="mid-content-rectangle" format="rectangle" />
+      )}
       {activeTab !== 'admin' && <ProgrammaticSeoGrid lang={lang} />}
     </>
   );
@@ -231,9 +235,8 @@ export default function App() {
     
     if (isSupported) {
       setLang(possibleLang);
-    } else if (typeof window !== 'undefined') {
-      const autoLang = detectUserLanguage();
-      setLang(autoLang);
+    } else {
+      setLang('en');
     }
   }, [location.pathname]);
 
@@ -248,9 +251,7 @@ export default function App() {
       <Header currentLang={lang} setLang={setLang} />
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 lg:px-8 py-8 space-y-12">
         {!location.pathname.includes('/admin') && (
-          <div className="min-h-[160px] w-full flex justify-center items-center">
-            <AdSenseSlot slotId="header-leaderboard" format="horizontal" />
-          </div>
+          <AdSenseSlot slotId="header-leaderboard" format="horizontal" />
         )}
         <ContentWrapper lang={lang} t={t} />
       </main>

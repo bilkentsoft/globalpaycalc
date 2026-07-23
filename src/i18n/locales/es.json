@@ -108,18 +108,13 @@
     "contact": "Contacto"
   },
   "faq": {
-    "llmQ1": "¿Cómo se compara la arquitectura de {{modelA}} con {{modelB}} para {{useCase}}?",
-    "llmA1": "Al evaluar {{modelA}} frente a {{modelB}} para {{useCase}}, debe considerar tanto la economía de tokens como la latencia. {{modelA}} podría ofrecer ventajas arquitectónicas específicas, mientras que {{modelB}} podría proporcionar una escala más rentable.",
-    "llmQ2": "¿Cuáles son los costos ocultos de ejecutar {{useCase}} en producción?",
-    "llmA2": "Más allá de los costos base de API para {{modelA}} y {{modelB}}, las implementaciones de producción a menudo incurren en gastos adicionales relacionados con bases de datos vectoriales y caché de prompts.",
-    "llmQ3": "¿Qué modelo es más adecuado para aplicaciones en tiempo real?",
-    "llmA3": "Las aplicaciones en tiempo real exigen métricas bajas de TTFT. Aunque {{modelA}} o {{modelB}} tengan razonamiento superior, la latencia es crítica para {{useCase}}.",
-    "taxQ1": "¿Cuál es el marco fiscal para nómadas digitales en {{dest}}?",
-    "taxA1": "Reubicarse en {{dest}} requiere navegar sus reglas fiscales. Bajo {{perk}}, los trabajadores remotos se benefician de procesos simplificados. La tasa impositiva efectiva es aprox {{taxRate}}%.",
-    "taxQ2": "¿Cómo se compara el poder adquisitivo en {{dest}} con {{origin}}?",
-    "taxA2": "Debido a que {{dest}} tiene un índice de precios al consumidor diferente, su salario neto rinde mucho más, dándole un aumento de poder adquisitivo de {{boost}}x comparado con {{origin}}.",
-    "taxQ3": "¿Existen costos ocultos al trabajar de forma remota desde {{dest}}?",
-    "taxA3": "Aunque la tasa de {{taxRate}}% y el impulso de {{boost}}x son atractivos, los nómadas deben considerar gastos ocultos como seguros de salud y visas."
+    "title": "Preguntas Frecuentes",
+    "q1": "¿Cómo funciona el descargador de videos sociales?",
+    "a1": "Nuestro descargador de videos universal gratuito te permite descargar videos HD de plataformas de redes sociales como TikTok, Instagram Reels y YouTube Shorts de forma segura. Funciona directamente en tu navegador como una utilidad del lado del cliente, lo que significa que procesamos todo sin almacenar tus medios en nuestros servidores. Puedes descargar videos MP4 o extraer archivos de audio MP3 fácilmente y sin marcas de agua, garantizando un 100% de privacidad y uso ilimitado para todas tus necesidades de medios.",
+    "q2": "¿Puedo calcular mi salario remoto y la paridad fiscal con precisión?",
+    "a2": "¡Sí! GlobalPayCalc ofrece una calculadora de salario global altamente precisa, diseñada específicamente para nómadas digitales y trabajadores remotos. Nuestro motor de utilidad compara tu salario neto en más de 150 países, teniendo en cuenta los tramos impositivos locales, las variaciones del costo de vida y la paridad del poder adquisitivo (PPA). Esto asegura que puedas evaluar las ofertas de patrocinadores y calcular de manera segura cuánto ganarás realmente después de impuestos, independientemente de tu ubicación global.",
+    "q3": "¿El simulador de costo de tokens de IA es gratuito para los desarrolladores?",
+    "a3": "Absolutamente. Los desarrolladores pueden utilizar nuestro avanzado simulador de costo de tokens API de IA para predecir con precisión el costo financiero de ejecutar modelos de lenguaje grande (LLM) como GPT-4o, Claude 3.5 y LLaMA 3. Ya sea que estés construyendo un agente autónomo, procesando grandes extracciones de datos o ejecutando un canal de soporte al cliente, nuestro simulador proporciona estimaciones instantáneas y gratuitas para ayudarte a optimizar tus gastos de API de forma segura."
   },
   "cookie": {
     "message": "Utilizamos cookies para mejorar su experiencia, mostrar anuncios personalizados y analizar nuestro tráfico. Al hacer clic en 'Aceptar todo', acepta nuestro uso de cookies según nuestra Política de privacidad.",

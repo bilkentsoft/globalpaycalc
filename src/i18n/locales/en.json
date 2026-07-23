@@ -108,18 +108,13 @@
     "contact": "Contact"
   },
   "faq": {
-    "llmQ1": "How does the architecture of {{modelA}} compare to {{modelB}} for {{useCase}}?",
-    "llmA1": "When evaluating {{modelA}} versus {{modelB}} for {{useCase}} workloads, you must consider both token economics and latency. {{modelA}} might offer specific architectural advantages for your use case, whereas {{modelB}} could provide a more cost-effective scale for high-throughput environments.",
-    "llmQ2": "What are the hidden costs of running {{useCase}} in production?",
-    "llmA2": "Beyond the base API token costs for {{modelA}} and {{modelB}}, production deployments often incur additional expenses related to vector database storage, prompt caching overhead, and retry logic during API rate limits.",
-    "llmQ3": "Which model is better suited for real-time applications?",
-    "llmA3": "Real-time applications demand low Time-To-First-Token (TTFT) metrics. While {{modelA}} or {{modelB}} may boast superior reasoning capabilities, the latency trade-off is a critical factor for {{useCase}}.",
-    "taxQ1": "What is the comprehensive digital nomad tax framework in {{dest}}?",
-    "taxA1": "Relocating to {{dest}} as a digital nomad involves navigating their specific tax residency rules. Under the {{perk}}, remote workers can often benefit from a streamlined tax process. The effective tax rate is approximately {{taxRate}}%.",
-    "taxQ2": "How does the purchasing power in {{dest}} compare to {{origin}}?",
-    "taxA2": "One of the primary drivers for moving from {{origin}} to {{dest}} is the difference in the cost of living. Because {{dest}} has a significantly different consumer price index, your net salary stretches much further, giving you a {{boost}}x purchasing power boost.",
-    "taxQ3": "Are there hidden costs when working remotely from {{dest}}?",
-    "taxA3": "While the headline tax rate of {{taxRate}}% and the purchasing power boost of {{boost}}x are attractive, prospective nomads should account for hidden expenses like mandatory health insurance and visa fees."
+    "title": "Frequently Asked Questions",
+    "q1": "How does the social video downloader work?",
+    "a1": "Our free universal video downloader lets you securely download HD videos from social media platforms like TikTok, Instagram Reels, and YouTube Shorts. It operates directly in your browser as a client-side utility, meaning we process everything without storing your media on our servers. You can easily download MP4 videos or extract MP3 audio files completely without watermarks, ensuring 100% privacy and unlimited usage for all your media needs.",
+    "q2": "Can I calculate my remote salary and tax parity accurately?",
+    "a2": "Yes! GlobalPayCalc provides a highly accurate global salary calculator designed specifically for digital nomads and remote workers. Our utility engine compares your net salary across over 150 countries, taking into account local tax brackets, living cost variations, and purchasing power parity (PPP). This ensures you can evaluate sponsor offers and securely calculate how much you will actually earn after taxes, regardless of your global location.",
+    "q3": "Is the AI token cost simulator free for developers?",
+    "a3": "Absolutely. Developers can use our advanced AI API token cost simulator to accurately predict the financial cost of running large language models (LLMs) such as GPT-4o, Claude 3.5, and LLaMA 3. Whether you are building an autonomous agent, processing large data extractions, or running a customer support pipeline, our simulator provides instant, free estimates to help you optimize your API expenses securely."
   },
   "cookie": {
     "message": "We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking 'Accept All', you consent to our use of cookies in accordance with our Privacy Policy.",

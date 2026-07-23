@@ -108,18 +108,13 @@
     "contact": "Kontak"
   },
   "faq": {
-    "llmQ1": "Bagaimana perbandingan arsitektur {{modelA}} dengan {{modelB}} untuk {{useCase}}?",
-    "llmA1": "Saat mengevaluasi {{modelA}} versus {{modelB}} untuk {{useCase}}, Anda harus mempertimbangkan ekonomi token dan latensi.",
-    "llmQ2": "Apa biaya tersembunyi menjalankan {{useCase}} dalam produksi?",
-    "llmA2": "Selain biaya API dasar untuk {{modelA}} dan {{modelB}}, sering kali ada pengeluaran tambahan terkait database vektor dan cache.",
-    "llmQ3": "Model mana yang lebih cocok untuk aplikasi real-time?",
-    "llmA3": "Aplikasi real-time menuntut latensi rendah (TTFT). Meskipun {{modelA}} atau {{modelB}} lebih cerdas, latensi sangat penting untuk {{useCase}}.",
-    "taxQ1": "Apa kerangka pajak nomaden digital di {{dest}}?",
-    "taxA1": "Pindah ke {{dest}} melibatkan aturan residensi pajak spesifik. Di bawah {{perk}}, tarif pajak efektif sekitar {{taxRate}}%.",
-    "taxQ2": "Bagaimana perbandingan daya beli di {{dest}} dengan {{origin}}?",
-    "taxA2": "Karena {{dest}} memiliki biaya hidup yang berbeda, gaji bersih Anda bisa digunakan lebih banyak, memberi Anda peningkatan daya beli {{boost}}x dibandingkan dengan {{origin}}.",
-    "taxQ3": "Apakah ada biaya tersembunyi saat bekerja dari jarak jauh dari {{dest}}?",
-    "taxA3": "Meskipun tarif pajak {{taxRate}}% dan peningkatan daya beli {{boost}}x menarik, nomaden harus memperhitungkan biaya asuransi kesehatan dan visa."
+    "title": "Pertanyaan yang Sering Diajukan",
+    "q1": "Bagaimana cara kerja pengunduh video sosial?",
+    "a1": "Pengunduh video universal gratis kami memungkinkan Anda mengunduh video HD dengan aman dari platform media sosial seperti TikTok, Instagram Reels, dan YouTube Shorts. Alat ini beroperasi langsung di browser Anda sebagai utilitas sisi klien, yang berarti kami memproses semuanya tanpa menyimpan media Anda di server kami. Anda dapat dengan mudah mengunduh video MP4 atau mengekstrak file audio MP3 sepenuhnya tanpa tanda air, memastikan privasi 100% dan penggunaan tak terbatas untuk semua kebutuhan media Anda.",
+    "q2": "Dapatkah saya menghitung gaji jarak jauh dan paritas pajak saya secara akurat?",
+    "a2": "Ya! GlobalPayCalc menyediakan kalkulator gaji global yang sangat akurat yang dirancang khusus untuk nomaden digital dan pekerja jarak jauh. Mesin utilitas kami membandingkan gaji bersih Anda di lebih dari 150 negara, dengan mempertimbangkan golongan pajak lokal, variasi biaya hidup, dan paritas daya beli (PPP). Ini memastikan bahwa Anda dapat mengevaluasi penawaran sponsor dan dengan aman menghitung berapa banyak yang benar-benar akan Anda peroleh setelah pajak, terlepas dari lokasi global Anda.",
+    "q3": "Apakah simulator biaya token AI gratis untuk pengembang?",
+    "a3": "Tentu saja. Pengembang dapat menggunakan simulator biaya token API AI kami yang canggih untuk memprediksi secara akurat biaya keuangan dari menjalankan model bahasa besar (LLM) seperti GPT-4o, Claude 3.5, dan LLaMA 3. Apakah Anda sedang membangun agen otonom, memproses ekstraksi data yang besar, atau menjalankan pipa dukungan pelanggan, simulator kami memberikan perkiraan instan dan gratis untuk membantu Anda mengoptimalkan biaya API Anda secara aman."
   },
   "cookie": {
     "message": "Kami menggunakan cookie untuk meningkatkan pengalaman Anda, menayangkan iklan yang dipersonalisasi, dan menganalisis lalu lintas kami. Dengan mengeklik 'Terima Semua', Anda menyetujui penggunaan cookie kami.",

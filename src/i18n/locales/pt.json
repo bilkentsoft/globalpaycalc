@@ -108,18 +108,13 @@
     "contact": "Contato"
   },
   "faq": {
-    "llmQ1": "Como a arquitetura de {{modelA}} se compara a {{modelB}} para {{useCase}}?",
-    "llmA1": "Ao avaliar {{modelA}} versus {{modelB}} para {{useCase}}, considere a economia de tokens e latência. {{modelA}} pode oferecer vantagens específicas.",
-    "llmQ2": "Quais são os custos ocultos de executar {{useCase}} em produção?",
-    "llmA2": "Além dos custos básicos da API para {{modelA}} e {{modelB}}, muitas vezes há despesas adicionais com banco de dados vetorial e cache.",
-    "llmQ3": "Qual modelo é mais adequado para aplicações em tempo real?",
-    "llmA3": "Aplicações em tempo real exigem baixa latência (TTFT). Embora {{modelA}} ou {{modelB}} tenham raciocínio superior, a latência é crítica para {{useCase}}.",
-    "taxQ1": "Qual é a estrutura tributária para nômades digitais em {{dest}}?",
-    "taxA1": "Mudar para {{dest}} envolve regras específicas de residência fiscal. Sob {{perk}}, a taxa de imposto efetiva é de cerca de {{taxRate}}%.",
-    "taxQ2": "Como o poder de compra em {{dest}} se compara a {{origin}}?",
-    "taxA2": "Como {{dest}} tem um custo de vida diferente, seu salário líquido rende muito mais, dando a você um aumento de poder de compra de {{boost}}x em relação a {{origin}}.",
-    "taxQ3": "Existem custos ocultos ao trabalhar remotamente de {{dest}}?",
-    "taxA3": "Embora a taxa de {{taxRate}}% e o aumento de {{boost}}x sejam atraentes, considere despesas ocultas como seguro saúde e vistos."
+    "title": "Perguntas Frequentes",
+    "q1": "Como funciona o baixador de vídeos sociais?",
+    "a1": "Nosso baixador de vídeo universal gratuito permite que você baixe com segurança vídeos HD de plataformas de mídia social como TikTok, Instagram Reels e YouTube Shorts. Ele opera diretamente no seu navegador como um utilitário do lado do cliente, ou seja, processamos tudo sem armazenar sua mídia em nossos servidores. Você pode facilmente baixar vídeos MP4 ou extrair arquivos de áudio MP3 totalmente sem marcas d'água, garantindo 100% de privacidade e uso ilimitado para todas as suas necessidades de mídia.",
+    "q2": "Posso calcular meu salário remoto e paridade fiscal com precisão?",
+    "a2": "Sim! A GlobalPayCalc fornece uma calculadora de salário global altamente precisa, projetada especificamente para nômades digitais e trabalhadores remotos. Nosso mecanismo utilitário compara seu salário líquido em mais de 150 países, levando em consideração as faixas de impostos locais, variações de custo de vida e paridade de poder de compra (PPC). Isso garante que você possa avaliar as ofertas dos patrocinadores e calcular com segurança quanto realmente ganhará após os impostos, independentemente da sua localização global.",
+    "q3": "O simulador de custo de token de IA é gratuito para desenvolvedores?",
+    "a3": "Absolutamente. Os desenvolvedores podem usar nosso avançado simulador de custo de token de API de IA para prever com precisão o custo financeiro de executar modelos de linguagem grande (LLMs), como GPT-4o, Claude 3.5 e LLaMA 3. Esteja você construindo um agente autônomo, processando grandes extrações de dados ou executando um pipeline de suporte ao cliente, nosso simulador fornece estimativas instantâneas e gratuitas para ajudá-lo a otimizar as despesas de sua API com segurança."
   },
   "cookie": {
     "message": "Usamos cookies para melhorar sua experiência, veicular anúncios personalizados e analisar nosso tráfego. Ao clicar em 'Aceitar tudo', você concorda com o uso de cookies.",

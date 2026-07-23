@@ -108,18 +108,13 @@
     "contact": "Kontakt"
   },
   "faq": {
-    "llmQ1": "Wie vergleicht sich die Architektur von {{modelA}} mit {{modelB}} für {{useCase}}?",
-    "llmA1": "Bei der Bewertung von {{modelA}} gegenüber {{modelB}} für {{useCase}} müssen Sie sowohl die Token-Ökonomie als auch die Latenz berücksichtigen. {{modelA}} bietet möglicherweise spezifische Vorteile.",
-    "llmQ2": "Was sind die versteckten Kosten beim Ausführen von {{useCase}} in Produktion?",
-    "llmA2": "Über die grundlegenden API-Kosten für {{modelA}} und {{modelB}} hinaus entstehen oft zusätzliche Kosten für Vektordatenbanken und Caching.",
-    "llmQ3": "Welches Modell ist besser für Echtzeitanwendungen geeignet?",
-    "llmA3": "Echtzeitanwendungen erfordern niedrige TTFT-Werte. Obwohl {{modelA}} oder {{modelB}} besser logisch denken, ist die Latenz für {{useCase}} entscheidend.",
-    "taxQ1": "Wie ist das steuerliche Rahmenwerk für digitale Nomaden in {{dest}}?",
-    "taxA1": "Ein Umzug nach {{dest}} erfordert die Beachtung spezifischer Steuerregeln. Unter {{perk}} profitieren Remote-Arbeiter oft. Der effektive Steuersatz beträgt ca. {{taxRate}}%.",
-    "taxQ2": "Wie vergleicht sich die Kaufkraft in {{dest}} mit {{origin}}?",
-    "taxA2": "Da {{dest}} einen anderen Verbraucherpreisindex hat, reicht Ihr Nettogehalt viel weiter, was Ihnen einen {{boost}}x Kaufkraftschub im Vergleich zu {{origin}} gibt.",
-    "taxQ3": "Gibt es versteckte Kosten bei der Fernarbeit aus {{dest}}?",
-    "taxA3": "Während die {{taxRate}}% Rate und der {{boost}}x Schub attraktiv sind, sollten Nomaden versteckte Kosten wie Krankenversicherung und Visa einkalkulieren."
+    "title": "Häufig gestellte Fragen",
+    "q1": "Wie funktioniert der Social-Video-Downloader?",
+    "a1": "Unser kostenloser universeller Video-Downloader ermöglicht es Ihnen, HD-Videos von Social-Media-Plattformen wie TikTok, Instagram Reels und YouTube Shorts sicher herunterzuladen. Er arbeitet direkt in Ihrem Browser als clientseitiges Dienstprogramm, d.h. wir verarbeiten alles, ohne Ihre Medien auf unseren Servern zu speichern. Sie können MP4-Videos herunterladen oder MP3-Audiodateien extrahieren, ganz ohne Wasserzeichen, und so 100% Privatsphäre und unbegrenzte Nutzung für all Ihre Medienanforderungen gewährleisten.",
+    "q2": "Kann ich mein Remote-Gehalt und die Steuerparität genau berechnen?",
+    "a2": "Ja! GlobalPayCalc bietet einen hochpräzisen globalen Gehaltsrechner, der speziell für digitale Nomaden und Remote-Mitarbeiter entwickelt wurde. Unsere Utility-Engine vergleicht Ihr Nettogehalt in über 150 Ländern unter Berücksichtigung lokaler Steuerklassen, Lebenshaltungskostenunterschiede und der Kaufkraftparität (KKP). Dies stellt sicher, dass Sie Sponsorenangebote bewerten und sicher berechnen können, wie viel Sie nach Steuern tatsächlich verdienen, unabhängig von Ihrem globalen Standort.",
+    "q3": "Ist der KI-Token-Kosten-Simulator für Entwickler kostenlos?",
+    "a3": "Absolut. Entwickler können unseren fortschrittlichen KI-API-Token-Kosten-Simulator verwenden, um die finanziellen Kosten für den Betrieb großer Sprachmodelle (LLMs) wie GPT-4o, Claude 3.5 und LLaMA 3 genau vorherzusagen. Egal, ob Sie einen autonomen Agenten erstellen, große Datenextraktionen verarbeiten oder eine Kundensupport-Pipeline betreiben, unser Simulator bietet sofortige, kostenlose Schätzungen, die Ihnen helfen, Ihre API-Ausgaben sicher zu optimieren."
   },
   "cookie": {
     "message": "Wir verwenden Cookies, um Ihre Erfahrung zu verbessern, personalisierte Anzeigen zu schalten und unseren Traffic zu analysieren. Durch Klicken auf 'Alle akzeptieren' stimmen Sie der Verwendung von Cookies zu.",

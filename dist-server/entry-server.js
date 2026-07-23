@@ -116,18 +116,13 @@ const footer$7 = {
   contact: "Contact"
 };
 const faq$7 = {
-  llmQ1: "How does the architecture of {{modelA}} compare to {{modelB}} for {{useCase}}?",
-  llmA1: "When evaluating {{modelA}} versus {{modelB}} for {{useCase}} workloads, you must consider both token economics and latency. {{modelA}} might offer specific architectural advantages for your use case, whereas {{modelB}} could provide a more cost-effective scale for high-throughput environments.",
-  llmQ2: "What are the hidden costs of running {{useCase}} in production?",
-  llmA2: "Beyond the base API token costs for {{modelA}} and {{modelB}}, production deployments often incur additional expenses related to vector database storage, prompt caching overhead, and retry logic during API rate limits.",
-  llmQ3: "Which model is better suited for real-time applications?",
-  llmA3: "Real-time applications demand low Time-To-First-Token (TTFT) metrics. While {{modelA}} or {{modelB}} may boast superior reasoning capabilities, the latency trade-off is a critical factor for {{useCase}}.",
-  taxQ1: "What is the comprehensive digital nomad tax framework in {{dest}}?",
-  taxA1: "Relocating to {{dest}} as a digital nomad involves navigating their specific tax residency rules. Under the {{perk}}, remote workers can often benefit from a streamlined tax process. The effective tax rate is approximately {{taxRate}}%.",
-  taxQ2: "How does the purchasing power in {{dest}} compare to {{origin}}?",
-  taxA2: "One of the primary drivers for moving from {{origin}} to {{dest}} is the difference in the cost of living. Because {{dest}} has a significantly different consumer price index, your net salary stretches much further, giving you a {{boost}}x purchasing power boost.",
-  taxQ3: "Are there hidden costs when working remotely from {{dest}}?",
-  taxA3: "While the headline tax rate of {{taxRate}}% and the purchasing power boost of {{boost}}x are attractive, prospective nomads should account for hidden expenses like mandatory health insurance and visa fees."
+  title: "Frequently Asked Questions",
+  q1: "How does the social video downloader work?",
+  a1: "Our free universal video downloader lets you securely download HD videos from social media platforms like TikTok, Instagram Reels, and YouTube Shorts. It operates directly in your browser as a client-side utility, meaning we process everything without storing your media on our servers. You can easily download MP4 videos or extract MP3 audio files completely without watermarks, ensuring 100% privacy and unlimited usage for all your media needs.",
+  q2: "Can I calculate my remote salary and tax parity accurately?",
+  a2: "Yes! GlobalPayCalc provides a highly accurate global salary calculator designed specifically for digital nomads and remote workers. Our utility engine compares your net salary across over 150 countries, taking into account local tax brackets, living cost variations, and purchasing power parity (PPP). This ensures you can evaluate sponsor offers and securely calculate how much you will actually earn after taxes, regardless of your global location.",
+  q3: "Is the AI token cost simulator free for developers?",
+  a3: "Absolutely. Developers can use our advanced AI API token cost simulator to accurately predict the financial cost of running large language models (LLMs) such as GPT-4o, Claude 3.5, and LLaMA 3. Whether you are building an autonomous agent, processing large data extractions, or running a customer support pipeline, our simulator provides instant, free estimates to help you optimize your API expenses securely."
 };
 const cookie$7 = {
   message: "We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking 'Accept All', you consent to our use of cookies in accordance with our Privacy Policy.",
@@ -315,18 +310,13 @@ const footer$6 = {
   contact: "İletişim"
 };
 const faq$6 = {
-  llmQ1: "{{modelA}} mimarisi {{useCase}} için {{modelB}} ile karşılaştırıldığında nasıldır?",
-  llmA1: "{{useCase}} iş yükleri için {{modelA}} ve {{modelB}} değerlendirilirken hem jeton (token) ekonomisi hem de gecikme (latency) göz önünde bulundurulmalıdır. {{modelA}} kullanım senaryonuza özgü mimari avantajlar sunabilirken, {{modelB}} yüksek işlem hacimli ortamlar için daha maliyet etkin olabilir.",
-  llmQ2: "Üretim ortamında {{useCase}} çalıştırmanın gizli maliyetleri nelerdir?",
-  llmA2: "{{modelA}} ve {{modelB}} için temel API jeton maliyetlerinin ötesinde, üretim ortamı dağıtımları genellikle vektör veritabanı depolaması, prompt önbellekleme ve API hız sınırları sırasındaki yeniden deneme mantığıyla ilgili ek masraflara neden olur.",
-  llmQ3: "Gerçek zamanlı uygulamalar için hangi model daha uygundur?",
-  llmA3: "Gerçek zamanlı uygulamalar düşük İlk-Jeton-Süresi (TTFT) metrikleri gerektirir. {{modelA}} veya {{modelB}} üstün mantıksal yürütme yeteneklerine sahip olsa da, gecikme süresi {{useCase}} için kritik bir faktördür.",
-  taxQ1: "{{dest}} ülkesindeki dijital göçebe vergi sistemi nasıldır?",
-  taxA1: "Bir dijital göçebe olarak {{dest}} ülkesine taşınmak, o ülkenin spesifik vergi mukimliği kurallarını bilmeyi gerektirir. {{perk}} kapsamında uzaktan çalışanlar kolaylaştırılmış bir vergi sürecinden faydalanabilir. Efektif vergi oranı yaklaşık %{{taxRate}} civarındadır.",
-  taxQ2: "{{dest}} ülkesindeki alım gücü {{origin}} ile karşılaştırıldığında nasıldır?",
-  taxA2: "{{origin}} ülkesinden {{dest}} ülkesine taşınmanın temel nedenlerinden biri yaşam maliyeti farkıdır. {{dest}} tüketici fiyat endeksi daha uygun olduğu için maaşınız çok daha değerli hale gelir ve size {{boost}}x alım gücü artışı sağlar.",
-  taxQ3: "{{dest}} ülkesinden uzaktan çalışmanın gizli maliyetleri var mıdır?",
-  taxA3: "%{{taxRate}} vergi oranı ve {{boost}}x alım gücü artışı cazip gelse de, zorunlu sağlık sigortası ve vize ücretleri gibi gizli masrafları da hesaba katmalısınız."
+  title: "Sıkça Sorulan Sorular",
+  q1: "Sosyal medya video indirici nasıl çalışır?",
+  a1: "Ücretsiz evrensel video indiricimiz, TikTok, Instagram Reels ve YouTube Shorts gibi platformlardan güvenli bir şekilde HD videolar indirmenizi sağlar. Doğrudan tarayıcınızda istemci tarafı bir araç olarak çalışır, yani medyanızı sunucularımızda saklamadan her şeyi işleriz. Filigran olmadan kolayca MP4 videoları indirebilir veya MP3 ses dosyalarını çıkarabilirsiniz; böylece tüm medya ihtiyaçlarınız için %100 gizlilik ve sınırsız kullanım sağlanır.",
+  q2: "Uzaktan çalışma maaşımı ve vergi durumumu doğru bir şekilde hesaplayabilir miyim?",
+  a2: "Evet! GlobalPayCalc, özellikle dijital göçebeler ve uzaktan çalışanlar için tasarlanmış son derece hassas bir küresel maaş hesaplayıcı sunar. Yardımcı motorumuz, yerel vergi dilimlerini, yaşam maliyeti değişikliklerini ve satın alma gücü paritesini (PPP) dikkate alarak 150'den fazla ülkede net maaşınızı karşılaştırır. Bu, küresel konumunuz ne olursa olsun sponsor tekliflerini değerlendirebilmenizi ve vergilerden sonra gerçekte ne kadar kazanacağınızı güvenli bir şekilde hesaplayabilmenizi sağlar.",
+  q3: "Yapay zeka token maliyet simülatörü geliştiriciler için ücretsiz mi?",
+  a3: "Kesinlikle. Geliştiriciler, GPT-4o, Claude 3.5 ve LLaMA 3 gibi büyük dil modellerini (LLM'ler) çalıştırmanın finansal maliyetini doğru bir şekilde tahmin etmek için gelişmiş AI API token maliyet simülatörümüzü kullanabilirler. İster otonom bir aracı (agent) inşa ediyor olun, ister büyük veri çıkarımları işliyor olun, isterse de bir müşteri destek hattı çalıştırıyor olun, simülatörümüz API giderlerinizi güvenli bir şekilde optimize etmenize yardımcı olmak için anında ve ücretsiz tahminler sunar."
 };
 const cookie$6 = {
   message: "Tarama deneyiminizi geliştirmek, kişiselleştirilmiş reklamlar veya içerik sunmak ve trafiğimizi analiz etmek için çerezleri (cookies) kullanıyoruz. 'Tümünü Kabul Et' seçeneğine tıklayarak, Gizlilik Politikamıza uygun olarak çerez kullanımımızı kabul etmiş olursunuz.",
@@ -514,18 +504,13 @@ const footer$5 = {
   contact: "Contacto"
 };
 const faq$5 = {
-  llmQ1: "¿Cómo se compara la arquitectura de {{modelA}} con {{modelB}} para {{useCase}}?",
-  llmA1: "Al evaluar {{modelA}} frente a {{modelB}} para {{useCase}}, debe considerar tanto la economía de tokens como la latencia. {{modelA}} podría ofrecer ventajas arquitectónicas específicas, mientras que {{modelB}} podría proporcionar una escala más rentable.",
-  llmQ2: "¿Cuáles son los costos ocultos de ejecutar {{useCase}} en producción?",
-  llmA2: "Más allá de los costos base de API para {{modelA}} y {{modelB}}, las implementaciones de producción a menudo incurren en gastos adicionales relacionados con bases de datos vectoriales y caché de prompts.",
-  llmQ3: "¿Qué modelo es más adecuado para aplicaciones en tiempo real?",
-  llmA3: "Las aplicaciones en tiempo real exigen métricas bajas de TTFT. Aunque {{modelA}} o {{modelB}} tengan razonamiento superior, la latencia es crítica para {{useCase}}.",
-  taxQ1: "¿Cuál es el marco fiscal para nómadas digitales en {{dest}}?",
-  taxA1: "Reubicarse en {{dest}} requiere navegar sus reglas fiscales. Bajo {{perk}}, los trabajadores remotos se benefician de procesos simplificados. La tasa impositiva efectiva es aprox {{taxRate}}%.",
-  taxQ2: "¿Cómo se compara el poder adquisitivo en {{dest}} con {{origin}}?",
-  taxA2: "Debido a que {{dest}} tiene un índice de precios al consumidor diferente, su salario neto rinde mucho más, dándole un aumento de poder adquisitivo de {{boost}}x comparado con {{origin}}.",
-  taxQ3: "¿Existen costos ocultos al trabajar de forma remota desde {{dest}}?",
-  taxA3: "Aunque la tasa de {{taxRate}}% y el impulso de {{boost}}x son atractivos, los nómadas deben considerar gastos ocultos como seguros de salud y visas."
+  title: "Preguntas Frecuentes",
+  q1: "¿Cómo funciona el descargador de videos sociales?",
+  a1: "Nuestro descargador de videos universal gratuito te permite descargar videos HD de plataformas de redes sociales como TikTok, Instagram Reels y YouTube Shorts de forma segura. Funciona directamente en tu navegador como una utilidad del lado del cliente, lo que significa que procesamos todo sin almacenar tus medios en nuestros servidores. Puedes descargar videos MP4 o extraer archivos de audio MP3 fácilmente y sin marcas de agua, garantizando un 100% de privacidad y uso ilimitado para todas tus necesidades de medios.",
+  q2: "¿Puedo calcular mi salario remoto y la paridad fiscal con precisión?",
+  a2: "¡Sí! GlobalPayCalc ofrece una calculadora de salario global altamente precisa, diseñada específicamente para nómadas digitales y trabajadores remotos. Nuestro motor de utilidad compara tu salario neto en más de 150 países, teniendo en cuenta los tramos impositivos locales, las variaciones del costo de vida y la paridad del poder adquisitivo (PPA). Esto asegura que puedas evaluar las ofertas de patrocinadores y calcular de manera segura cuánto ganarás realmente después de impuestos, independientemente de tu ubicación global.",
+  q3: "¿El simulador de costo de tokens de IA es gratuito para los desarrolladores?",
+  a3: "Absolutamente. Los desarrolladores pueden utilizar nuestro avanzado simulador de costo de tokens API de IA para predecir con precisión el costo financiero de ejecutar modelos de lenguaje grande (LLM) como GPT-4o, Claude 3.5 y LLaMA 3. Ya sea que estés construyendo un agente autónomo, procesando grandes extracciones de datos o ejecutando un canal de soporte al cliente, nuestro simulador proporciona estimaciones instantáneas y gratuitas para ayudarte a optimizar tus gastos de API de forma segura."
 };
 const cookie$5 = {
   message: "Utilizamos cookies para mejorar su experiencia, mostrar anuncios personalizados y analizar nuestro tráfico. Al hacer clic en 'Aceptar todo', acepta nuestro uso de cookies según nuestra Política de privacidad.",
@@ -713,18 +698,13 @@ const footer$4 = {
   contact: "Kontakt"
 };
 const faq$4 = {
-  llmQ1: "Wie vergleicht sich die Architektur von {{modelA}} mit {{modelB}} für {{useCase}}?",
-  llmA1: "Bei der Bewertung von {{modelA}} gegenüber {{modelB}} für {{useCase}} müssen Sie sowohl die Token-Ökonomie als auch die Latenz berücksichtigen. {{modelA}} bietet möglicherweise spezifische Vorteile.",
-  llmQ2: "Was sind die versteckten Kosten beim Ausführen von {{useCase}} in Produktion?",
-  llmA2: "Über die grundlegenden API-Kosten für {{modelA}} und {{modelB}} hinaus entstehen oft zusätzliche Kosten für Vektordatenbanken und Caching.",
-  llmQ3: "Welches Modell ist besser für Echtzeitanwendungen geeignet?",
-  llmA3: "Echtzeitanwendungen erfordern niedrige TTFT-Werte. Obwohl {{modelA}} oder {{modelB}} besser logisch denken, ist die Latenz für {{useCase}} entscheidend.",
-  taxQ1: "Wie ist das steuerliche Rahmenwerk für digitale Nomaden in {{dest}}?",
-  taxA1: "Ein Umzug nach {{dest}} erfordert die Beachtung spezifischer Steuerregeln. Unter {{perk}} profitieren Remote-Arbeiter oft. Der effektive Steuersatz beträgt ca. {{taxRate}}%.",
-  taxQ2: "Wie vergleicht sich die Kaufkraft in {{dest}} mit {{origin}}?",
-  taxA2: "Da {{dest}} einen anderen Verbraucherpreisindex hat, reicht Ihr Nettogehalt viel weiter, was Ihnen einen {{boost}}x Kaufkraftschub im Vergleich zu {{origin}} gibt.",
-  taxQ3: "Gibt es versteckte Kosten bei der Fernarbeit aus {{dest}}?",
-  taxA3: "Während die {{taxRate}}% Rate und der {{boost}}x Schub attraktiv sind, sollten Nomaden versteckte Kosten wie Krankenversicherung und Visa einkalkulieren."
+  title: "Häufig gestellte Fragen",
+  q1: "Wie funktioniert der Social-Video-Downloader?",
+  a1: "Unser kostenloser universeller Video-Downloader ermöglicht es Ihnen, HD-Videos von Social-Media-Plattformen wie TikTok, Instagram Reels und YouTube Shorts sicher herunterzuladen. Er arbeitet direkt in Ihrem Browser als clientseitiges Dienstprogramm, d.h. wir verarbeiten alles, ohne Ihre Medien auf unseren Servern zu speichern. Sie können MP4-Videos herunterladen oder MP3-Audiodateien extrahieren, ganz ohne Wasserzeichen, und so 100% Privatsphäre und unbegrenzte Nutzung für all Ihre Medienanforderungen gewährleisten.",
+  q2: "Kann ich mein Remote-Gehalt und die Steuerparität genau berechnen?",
+  a2: "Ja! GlobalPayCalc bietet einen hochpräzisen globalen Gehaltsrechner, der speziell für digitale Nomaden und Remote-Mitarbeiter entwickelt wurde. Unsere Utility-Engine vergleicht Ihr Nettogehalt in über 150 Ländern unter Berücksichtigung lokaler Steuerklassen, Lebenshaltungskostenunterschiede und der Kaufkraftparität (KKP). Dies stellt sicher, dass Sie Sponsorenangebote bewerten und sicher berechnen können, wie viel Sie nach Steuern tatsächlich verdienen, unabhängig von Ihrem globalen Standort.",
+  q3: "Ist der KI-Token-Kosten-Simulator für Entwickler kostenlos?",
+  a3: "Absolut. Entwickler können unseren fortschrittlichen KI-API-Token-Kosten-Simulator verwenden, um die finanziellen Kosten für den Betrieb großer Sprachmodelle (LLMs) wie GPT-4o, Claude 3.5 und LLaMA 3 genau vorherzusagen. Egal, ob Sie einen autonomen Agenten erstellen, große Datenextraktionen verarbeiten oder eine Kundensupport-Pipeline betreiben, unser Simulator bietet sofortige, kostenlose Schätzungen, die Ihnen helfen, Ihre API-Ausgaben sicher zu optimieren."
 };
 const cookie$4 = {
   message: "Wir verwenden Cookies, um Ihre Erfahrung zu verbessern, personalisierte Anzeigen zu schalten und unseren Traffic zu analysieren. Durch Klicken auf 'Alle akzeptieren' stimmen Sie der Verwendung von Cookies zu.",
@@ -912,18 +892,13 @@ const footer$3 = {
   contact: "Contato"
 };
 const faq$3 = {
-  llmQ1: "Como a arquitetura de {{modelA}} se compara a {{modelB}} para {{useCase}}?",
-  llmA1: "Ao avaliar {{modelA}} versus {{modelB}} para {{useCase}}, considere a economia de tokens e latência. {{modelA}} pode oferecer vantagens específicas.",
-  llmQ2: "Quais são os custos ocultos de executar {{useCase}} em produção?",
-  llmA2: "Além dos custos básicos da API para {{modelA}} e {{modelB}}, muitas vezes há despesas adicionais com banco de dados vetorial e cache.",
-  llmQ3: "Qual modelo é mais adequado para aplicações em tempo real?",
-  llmA3: "Aplicações em tempo real exigem baixa latência (TTFT). Embora {{modelA}} ou {{modelB}} tenham raciocínio superior, a latência é crítica para {{useCase}}.",
-  taxQ1: "Qual é a estrutura tributária para nômades digitais em {{dest}}?",
-  taxA1: "Mudar para {{dest}} envolve regras específicas de residência fiscal. Sob {{perk}}, a taxa de imposto efetiva é de cerca de {{taxRate}}%.",
-  taxQ2: "Como o poder de compra em {{dest}} se compara a {{origin}}?",
-  taxA2: "Como {{dest}} tem um custo de vida diferente, seu salário líquido rende muito mais, dando a você um aumento de poder de compra de {{boost}}x em relação a {{origin}}.",
-  taxQ3: "Existem custos ocultos ao trabalhar remotamente de {{dest}}?",
-  taxA3: "Embora a taxa de {{taxRate}}% e o aumento de {{boost}}x sejam atraentes, considere despesas ocultas como seguro saúde e vistos."
+  title: "Perguntas Frequentes",
+  q1: "Como funciona o baixador de vídeos sociais?",
+  a1: "Nosso baixador de vídeo universal gratuito permite que você baixe com segurança vídeos HD de plataformas de mídia social como TikTok, Instagram Reels e YouTube Shorts. Ele opera diretamente no seu navegador como um utilitário do lado do cliente, ou seja, processamos tudo sem armazenar sua mídia em nossos servidores. Você pode facilmente baixar vídeos MP4 ou extrair arquivos de áudio MP3 totalmente sem marcas d'água, garantindo 100% de privacidade e uso ilimitado para todas as suas necessidades de mídia.",
+  q2: "Posso calcular meu salário remoto e paridade fiscal com precisão?",
+  a2: "Sim! A GlobalPayCalc fornece uma calculadora de salário global altamente precisa, projetada especificamente para nômades digitais e trabalhadores remotos. Nosso mecanismo utilitário compara seu salário líquido em mais de 150 países, levando em consideração as faixas de impostos locais, variações de custo de vida e paridade de poder de compra (PPC). Isso garante que você possa avaliar as ofertas dos patrocinadores e calcular com segurança quanto realmente ganhará após os impostos, independentemente da sua localização global.",
+  q3: "O simulador de custo de token de IA é gratuito para desenvolvedores?",
+  a3: "Absolutamente. Os desenvolvedores podem usar nosso avançado simulador de custo de token de API de IA para prever com precisão o custo financeiro de executar modelos de linguagem grande (LLMs), como GPT-4o, Claude 3.5 e LLaMA 3. Esteja você construindo um agente autônomo, processando grandes extrações de dados ou executando um pipeline de suporte ao cliente, nosso simulador fornece estimativas instantâneas e gratuitas para ajudá-lo a otimizar as despesas de sua API com segurança."
 };
 const cookie$3 = {
   message: "Usamos cookies para melhorar sua experiência, veicular anúncios personalizados e analisar nosso tráfego. Ao clicar em 'Aceitar tudo', você concorda com o uso de cookies.",
@@ -1111,18 +1086,13 @@ const footer$2 = {
   contact: "Contact"
 };
 const faq$2 = {
-  llmQ1: "Comment l'architecture de {{modelA}} se compare-t-elle à {{modelB}} pour {{useCase}} ?",
-  llmA1: "Lors de l'évaluation de {{modelA}} contre {{modelB}} pour {{useCase}}, vous devez tenir compte des coûts des tokens et de la latence.",
-  llmQ2: "Quels sont les coûts cachés de l'exécution de {{useCase}} en production ?",
-  llmA2: "Au-delà des coûts de l'API de base pour {{modelA}} et {{modelB}}, il y a souvent des frais supplémentaires liés aux bases de données vectorielles et à la mise en cache.",
-  llmQ3: "Quel modèle est le plus adapté aux applications en temps réel ?",
-  llmA3: "Les applications en temps réel exigent une faible latence (TTFT). Bien que {{modelA}} ou {{modelB}} aient un raisonnement supérieur, la latence est essentielle pour {{useCase}}.",
-  taxQ1: "Quel est le cadre fiscal des nomades numériques à {{dest}} ?",
-  taxA1: "Déménager à {{dest}} implique des règles spécifiques de résidence fiscale. Sous {{perk}}, le taux d'imposition effectif est d'environ {{taxRate}} %.",
-  taxQ2: "Comment le pouvoir d'achat à {{dest}} se compare-t-il à {{origin}} ?",
-  taxA2: "Parce que {{dest}} a un coût de la vie différent, votre salaire net va beaucoup plus loin, vous donnant un gain de pouvoir d'achat de {{boost}}x par rapport à {{origin}}.",
-  taxQ3: "Y a-t-il des coûts cachés en travaillant à distance depuis {{dest}} ?",
-  taxA3: "Bien que le taux de {{taxRate}} % et le gain de {{boost}}x soient attrayants, tenez compte des frais cachés comme l'assurance maladie et les visas."
+  title: "Foire Aux Questions",
+  q1: "Comment fonctionne le téléchargeur de vidéos sociales ?",
+  a1: "Notre téléchargeur de vidéos universel gratuit vous permet de télécharger en toute sécurité des vidéos HD à partir de plateformes de médias sociaux telles que TikTok, Instagram Reels et YouTube Shorts. Il fonctionne directement dans votre navigateur en tant qu'utilitaire côté client, ce qui signifie que nous traitons tout sans stocker vos médias sur nos serveurs. Vous pouvez facilement télécharger des vidéos MP4 ou extraire des fichiers audio MP3 sans filigrane, garantissant ainsi une confidentialité à 100 % et une utilisation illimitée pour tous vos besoins en médias.",
+  q2: "Puis-je calculer mon salaire à distance et la parité fiscale avec précision ?",
+  a2: "Oui ! GlobalPayCalc fournit un calculateur de salaire mondial très précis, conçu spécifiquement pour les nomades numériques et les travailleurs à distance. Notre moteur utilitaire compare votre salaire net dans plus de 150 pays, en tenant compte des tranches d'imposition locales, des variations du coût de la vie et de la parité de pouvoir d'achat (PPA). Cela garantit que vous pouvez évaluer les offres des sponsors et calculer en toute sécurité ce que vous gagnerez réellement après impôts, quelle que soit votre situation géographique mondiale.",
+  q3: "Le simulateur de coût des jetons IA est-il gratuit pour les développeurs ?",
+  a3: "Absolument. Les développeurs peuvent utiliser notre simulateur de coût des jetons de l'API IA avancé pour prévoir avec précision le coût financier de l'exécution de grands modèles linguistiques (LLM) tels que GPT-4o, Claude 3.5 et LLaMA 3. Que vous construisiez un agent autonome, traitiez des extractions de données volumineuses ou gériez un pipeline de support client, notre simulateur fournit des estimations instantanées et gratuites pour vous aider à optimiser vos dépenses d'API en toute sécurité."
 };
 const cookie$2 = {
   message: "Nous utilisons des cookies pour améliorer votre expérience, diffuser des annonces personnalisées et analyser notre trafic. En cliquant sur 'Tout accepter', vous consentez à l'utilisation de cookies.",
@@ -1310,18 +1280,13 @@ const footer$1 = {
   contact: "Kontak"
 };
 const faq$1 = {
-  llmQ1: "Bagaimana perbandingan arsitektur {{modelA}} dengan {{modelB}} untuk {{useCase}}?",
-  llmA1: "Saat mengevaluasi {{modelA}} versus {{modelB}} untuk {{useCase}}, Anda harus mempertimbangkan ekonomi token dan latensi.",
-  llmQ2: "Apa biaya tersembunyi menjalankan {{useCase}} dalam produksi?",
-  llmA2: "Selain biaya API dasar untuk {{modelA}} dan {{modelB}}, sering kali ada pengeluaran tambahan terkait database vektor dan cache.",
-  llmQ3: "Model mana yang lebih cocok untuk aplikasi real-time?",
-  llmA3: "Aplikasi real-time menuntut latensi rendah (TTFT). Meskipun {{modelA}} atau {{modelB}} lebih cerdas, latensi sangat penting untuk {{useCase}}.",
-  taxQ1: "Apa kerangka pajak nomaden digital di {{dest}}?",
-  taxA1: "Pindah ke {{dest}} melibatkan aturan residensi pajak spesifik. Di bawah {{perk}}, tarif pajak efektif sekitar {{taxRate}}%.",
-  taxQ2: "Bagaimana perbandingan daya beli di {{dest}} dengan {{origin}}?",
-  taxA2: "Karena {{dest}} memiliki biaya hidup yang berbeda, gaji bersih Anda bisa digunakan lebih banyak, memberi Anda peningkatan daya beli {{boost}}x dibandingkan dengan {{origin}}.",
-  taxQ3: "Apakah ada biaya tersembunyi saat bekerja dari jarak jauh dari {{dest}}?",
-  taxA3: "Meskipun tarif pajak {{taxRate}}% dan peningkatan daya beli {{boost}}x menarik, nomaden harus memperhitungkan biaya asuransi kesehatan dan visa."
+  title: "Pertanyaan yang Sering Diajukan",
+  q1: "Bagaimana cara kerja pengunduh video sosial?",
+  a1: "Pengunduh video universal gratis kami memungkinkan Anda mengunduh video HD dengan aman dari platform media sosial seperti TikTok, Instagram Reels, dan YouTube Shorts. Alat ini beroperasi langsung di browser Anda sebagai utilitas sisi klien, yang berarti kami memproses semuanya tanpa menyimpan media Anda di server kami. Anda dapat dengan mudah mengunduh video MP4 atau mengekstrak file audio MP3 sepenuhnya tanpa tanda air, memastikan privasi 100% dan penggunaan tak terbatas untuk semua kebutuhan media Anda.",
+  q2: "Dapatkah saya menghitung gaji jarak jauh dan paritas pajak saya secara akurat?",
+  a2: "Ya! GlobalPayCalc menyediakan kalkulator gaji global yang sangat akurat yang dirancang khusus untuk nomaden digital dan pekerja jarak jauh. Mesin utilitas kami membandingkan gaji bersih Anda di lebih dari 150 negara, dengan mempertimbangkan golongan pajak lokal, variasi biaya hidup, dan paritas daya beli (PPP). Ini memastikan bahwa Anda dapat mengevaluasi penawaran sponsor dan dengan aman menghitung berapa banyak yang benar-benar akan Anda peroleh setelah pajak, terlepas dari lokasi global Anda.",
+  q3: "Apakah simulator biaya token AI gratis untuk pengembang?",
+  a3: "Tentu saja. Pengembang dapat menggunakan simulator biaya token API AI kami yang canggih untuk memprediksi secara akurat biaya keuangan dari menjalankan model bahasa besar (LLM) seperti GPT-4o, Claude 3.5, dan LLaMA 3. Apakah Anda sedang membangun agen otonom, memproses ekstraksi data yang besar, atau menjalankan pipa dukungan pelanggan, simulator kami memberikan perkiraan instan dan gratis untuk membantu Anda mengoptimalkan biaya API Anda secara aman."
 };
 const cookie$1 = {
   message: "Kami menggunakan cookie untuk meningkatkan pengalaman Anda, menayangkan iklan yang dipersonalisasi, dan menganalisis lalu lintas kami. Dengan mengeklik 'Terima Semua', Anda menyetujui penggunaan cookie kami.",
@@ -1509,18 +1474,13 @@ const footer = {
   contact: "お問い合わせ"
 };
 const faq = {
-  llmQ1: "{{useCase}} における {{modelA}} と {{modelB}} のアーキテクチャの比較は？",
-  llmA1: "{{useCase}} のために {{modelA}} と {{modelB}} を評価する際は、トークンの経済性とレイテンシの両方を考慮する必要があります。",
-  llmQ2: "本番環境で {{useCase}} を実行する際の隠れたコストは？",
-  llmA2: "{{modelA}} および {{modelB}} の基本APIコストに加えて、ベクトルデータベースやキャッシュに関連する追加費用が発生することがよくあります。",
-  llmQ3: "リアルタイムアプリケーションに適しているモデルはどちらですか？",
-  llmA3: "リアルタイムアプリケーションには低いTTFTが求められます。{{modelA}} や {{modelB}} の推論能力が高くても、{{useCase}} においてはレイテンシが重要です。",
-  taxQ1: "{{dest}} でのデジタルノマド向けの税制はどうなっていますか？",
-  taxA1: "{{dest}} への移住には特定の税務居住ルールの確認が必要です。{{perk}} の下では、実効税率は約 {{taxRate}}% です。",
-  taxQ2: "{{dest}} での購買力は {{origin}} と比較してどうですか？",
-  taxA2: "{{dest}} は生活費が異なるため、手取り給与の価値が高まり、{{origin}} と比較して約 {{boost}} 倍の購買力が得られます。",
-  taxQ3: "{{dest}} からリモートワークする際の隠れたコストはありますか？",
-  taxA3: "{{taxRate}}% の税率と {{boost}} 倍の購買力は魅力的ですが、健康保険やビザ費用などの隠れた支出も考慮する必要があります。"
+  title: "よくある質問",
+  q1: "ソーシャルビデオダウンローダーはどのように機能しますか？",
+  a1: "当社の無料のユニバーサルビデオダウンローダーを使用すると、TikTok、Instagram Reels、YouTube ShortsなどのソーシャルメディアプラットフォームからHDビデオを安全にダウンロードできます。これはクライアントサイドのユーティリティとしてブラウザで直接動作します。つまり、サーバーにメディアを保存することなくすべてを処理します。透かしなしでMP4ビデオを簡単にダウンロードしたり、MP3オーディオファイルを抽出したりできるため、100%のプライバシーとすべてのメディアニーズに対する無制限の使用が保証されます。",
+  q2: "リモート給与と税のパリティを正確に計算できますか？",
+  a2: "はい！GlobalPayCalcは、デジタルノマドとリモートワーカー向けに特別に設計された、高精度のグローバル給与計算機を提供しています。当社のユーティリティエンジンは、現地の税制区分、生活費の変動、および購買力平価（PPP）を考慮して、150か国以上の純給与を比較します。これにより、スポンサーのオファーを評価し、世界中のどこにいても税引き後に実際にいくら稼ぐかを安全に計算できます。",
+  q3: "開発者向けのAIトークンコストシミュレーターは無料ですか？",
+  a3: "もちろんです。開発者は、当社の高度なAI APIトークンコストシミュレーターを使用して、GPT-4o、Claude 3.5、LLaMA 3などの大規模言語モデル（LLM）を実行する財務コストを正確に予測できます。自律型エージェントの構築、大規模なデータ抽出の処理、カスタマーサポートパイプラインの実行など、シミュレーターはAPIの経費を安全に最適化するのに役立つ無料の即時見積もりを提供します。"
 };
 const cookie = {
   message: "当社はCookieを使用して、ブラウジング体験を向上させ、パーソナライズされた広告を提供し、トラフィックを分析します。「すべて受け入れる」をクリックすると、Cookieの使用に同意したことになります。",
@@ -4541,17 +4501,6 @@ const CookieConsent = ({ lang = "en" }) => {
     ] })
   ] }) });
 };
-const detectUserLanguage = () => {
-  if (typeof window === "undefined" || !navigator) return "en";
-  const browserLang = (navigator.language || navigator.userLanguage || "en").toLowerCase();
-  const primaryCode = browserLang.split("-")[0];
-  const supportedCodes = ["en", "tr", "es", "de", "pt", "fr", "id", "ja"];
-  if (supportedCodes.includes(primaryCode)) {
-    console.log(`[Auto Language Detection] User browser language detected: ${browserLang} -> Auto-switched to '${primaryCode}'`);
-    return primaryCode;
-  }
-  return "en";
-};
 const trackPageView = async (pagePath) => {
   try {
     const { error } = await supabase.from("page_views").insert([
@@ -4626,27 +4575,6 @@ function ContentWrapper({ lang, t }) {
           /* @__PURE__ */ jsx(Sparkles, { className: "w-3.5 h-3.5 text-amber-400" }),
           /* @__PURE__ */ jsx("span", { children: t("nav.aiCost") })
         ] })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto mt-8 p-5 rounded-2xl bg-slate-900/40 border border-slate-800/60 text-left backdrop-blur-sm", children: [
-        /* @__PURE__ */ jsx("h2", { className: "text-sm font-bold text-white mb-2", children: t("hero.seoTitle") }),
-        /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-400 leading-relaxed", dangerouslySetInnerHTML: { __html: t("hero.seoText") } }),
-        /* @__PURE__ */ jsxs("div", { className: "mt-6 pt-6 border-t border-slate-800/60", children: [
-          /* @__PURE__ */ jsx("h3", { className: "text-sm font-bold text-white mb-3", children: "Frequently Asked Questions" }),
-          /* @__PURE__ */ jsxs("div", { className: "space-y-4 text-xs text-slate-400 leading-relaxed", children: [
-            /* @__PURE__ */ jsxs("div", { children: [
-              /* @__PURE__ */ jsx("strong", { className: "text-slate-300", children: "How does the social video downloader work?" }),
-              /* @__PURE__ */ jsx("p", { className: "mt-1", children: "Our free universal video downloader lets you securely download HD videos from social media platforms like TikTok, Instagram Reels, and YouTube Shorts. It operates directly in your browser as a client-side utility, meaning we process everything without storing your media on our servers. You can easily download MP4 videos or extract MP3 audio files completely without watermarks, ensuring 100% privacy and unlimited usage for all your media needs." })
-            ] }),
-            /* @__PURE__ */ jsxs("div", { children: [
-              /* @__PURE__ */ jsx("strong", { className: "text-slate-300", children: "Can I calculate my remote salary and tax parity accurately?" }),
-              /* @__PURE__ */ jsx("p", { className: "mt-1", children: "Yes! GlobalPayCalc provides a highly accurate global salary calculator designed specifically for digital nomads and remote workers. Our utility engine compares your net salary across over 150 countries, taking into account local tax brackets, living cost variations, and purchasing power parity (PPP). This ensures you can evaluate sponsor offers and securely calculate how much you will actually earn after taxes, regardless of your global location." })
-            ] }),
-            /* @__PURE__ */ jsxs("div", { children: [
-              /* @__PURE__ */ jsx("strong", { className: "text-slate-300", children: "Is the AI token cost simulator free for developers?" }),
-              /* @__PURE__ */ jsx("p", { className: "mt-1", children: "Absolutely. Developers can use our advanced AI API token cost simulator to accurately predict the financial cost of running large language models (LLMs) such as GPT-4o, Claude 3.5, and LLaMA 3. Whether you are building an autonomous agent, processing large data extractions, or running a customer support pipeline, our simulator provides instant, free estimates to help you optimize your API expenses securely." })
-            ] })
-          ] })
-        ] })
       ] })
     ] }),
     /* @__PURE__ */ jsx("div", { className: "pt-4", children: /* @__PURE__ */ jsxs(Routes, { children: [
@@ -4717,7 +4645,28 @@ function ContentWrapper({ lang, t }) {
       ] }, route.slug)),
       /* @__PURE__ */ jsx(Route, { path: "*", element: /* @__PURE__ */ jsx(NotFoundPage, { lang }) })
     ] }) }),
-    activeTab !== "admin" && /* @__PURE__ */ jsx(AdSenseSlot, { slotId: "mid-content-rectangle", format: "auto" }),
+    activeTab !== "admin" && !location.pathname.includes("/calculator/") && !location.pathname.includes("/tools/") && /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto mt-16 mb-8 p-6 md:p-8 rounded-3xl bg-slate-900/60 border border-slate-800/80 text-left shadow-2xl", children: [
+      /* @__PURE__ */ jsx("h2", { className: "text-base font-black text-white mb-3", children: t("hero.seoTitle") }),
+      /* @__PURE__ */ jsx("p", { className: "text-sm text-slate-400 leading-relaxed", dangerouslySetInnerHTML: { __html: t("hero.seoText") } }),
+      /* @__PURE__ */ jsxs("div", { className: "mt-8 pt-8 border-t border-slate-800/80", children: [
+        /* @__PURE__ */ jsx("h3", { className: "text-base font-black text-white mb-4", children: t("faq.title") }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-6 text-sm text-slate-400 leading-relaxed", children: [
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("strong", { className: "text-slate-300 block mb-1", children: t("faq.q1") }),
+            /* @__PURE__ */ jsx("p", { children: t("faq.a1") })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("strong", { className: "text-slate-300 block mb-1", children: t("faq.q2") }),
+            /* @__PURE__ */ jsx("p", { children: t("faq.a2") })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("strong", { className: "text-slate-300 block mb-1", children: t("faq.q3") }),
+            /* @__PURE__ */ jsx("p", { children: t("faq.a3") })
+          ] })
+        ] })
+      ] })
+    ] }),
+    activeTab !== "admin" && /* @__PURE__ */ jsx(AdSenseSlot, { slotId: "mid-content-rectangle", format: "rectangle" }),
     activeTab !== "admin" && /* @__PURE__ */ jsx(ProgrammaticSeoGrid, { lang })
   ] });
 }
@@ -4730,9 +4679,8 @@ function App() {
     const isSupported = supportedLanguages.some((l) => l.code === possibleLang);
     if (isSupported) {
       setLang(possibleLang);
-    } else if (typeof window !== "undefined") {
-      const autoLang = detectUserLanguage();
-      setLang(autoLang);
+    } else {
+      setLang("en");
     }
   }, [location.pathname]);
   useEffect(() => {
@@ -4742,7 +4690,7 @@ function App() {
   return /* @__PURE__ */ jsxs("div", { className: "min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans", children: [
     /* @__PURE__ */ jsx(Header, { currentLang: lang, setLang }),
     /* @__PURE__ */ jsxs("main", { className: "flex-1 max-w-7xl mx-auto w-full px-4 lg:px-8 py-8 space-y-12", children: [
-      !location.pathname.includes("/admin") && /* @__PURE__ */ jsx("div", { className: "min-h-[160px] w-full flex justify-center items-center", children: /* @__PURE__ */ jsx(AdSenseSlot, { slotId: "header-leaderboard", format: "horizontal" }) }),
+      !location.pathname.includes("/admin") && /* @__PURE__ */ jsx(AdSenseSlot, { slotId: "header-leaderboard", format: "horizontal" }),
       /* @__PURE__ */ jsx(ContentWrapper, { lang, t })
     ] }),
     /* @__PURE__ */ jsx(Footer, { lang }),
