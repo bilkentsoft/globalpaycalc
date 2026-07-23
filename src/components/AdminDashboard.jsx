@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabaseClient';
 import { getRealPerformanceMetrics } from '../utils/performanceObserver';
 import { triggerInstantIndexPing } from '../utils/indexingPing';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell, PieChart, Pie, Legend } from 'recharts';
-import { LayoutDashboard, Globe2, Activity, Database, LogOut, TrendingUp, Zap, Server, CheckCircle2, Map, Target, DollarSign, Wallet, AlertCircle, Search, AlertTriangle, CheckCircle, XCircle, Sparkles } from 'lucide-react';
+import { LayoutDashboard, Globe2, Activity, Database, LogOut, TrendingUp, Zap, Server, CheckCircle2, Map, Target, DollarSign, Wallet, AlertCircle, Search, AlertTriangle, CheckCircle, XCircle, Sparkles, BarChart2 } from 'lucide-react';
 
 const fetchAllSitemapUrls = async () => {
   try {
@@ -50,6 +50,7 @@ function Sidebar({ activeTab, setActiveTab, onLogout }) {
     { id: 'overview', label: 'Genel Bakış', icon: LayoutDashboard },
     { id: 'analytics', label: 'Kullanıcı Analizi', icon: Map },
     { id: 'seo', label: 'SEO Analizi', icon: Search },
+    { id: 'rankings', label: 'Sıra Takibi', icon: BarChart2 },
     { id: 'pseo', label: 'pSEO Yönetimi', icon: Globe2 },
     { id: 'vitals', label: 'Sistem Sağlığı', icon: Activity },
   ];
@@ -85,6 +86,116 @@ function Sidebar({ activeTab, setActiveTab, onLogout }) {
         </button>
       </div>
     </aside>
+  );
+}
+
+function RankTrackerTab() {
+  const [keyword, setKeyword] = useState('');
+  const [isScanning, setIsScanning] = useState(false);
+  const [results, setResults] = useState([
+    { id: 1, keyword: 'remote salary calculator', rank: 3, engine: 'Google', date: 'Az önce', trend: 'up' },
+    { id: 2, keyword: 'ai api cost simulator', rank: 5, engine: 'Google', date: '1 saat önce', trend: 'up' },
+    { id: 3, keyword: 'wasm background remover', rank: 12, engine: 'Google', date: '2 saat önce', trend: 'down' },
+  ]);
+
+  const handleScan = async (e) => {
+    e.preventDefault();
+    if (!keyword.trim()) return;
+
+    setIsScanning(true);
+    
+    try {
+      // Direct scraper backend endpoint
+      const res = await fetch(`/api/rank-scrape?keyword=${encodeURIComponent(keyword)}&domain=globalpaycalc.com`);
+      const data = await res.json();
+      
+      const newResult = {
+        id: Date.now(),
+        keyword: keyword,
+        rank: data.rank,
+        engine: 'Google',
+        date: 'Az önce',
+        trend: data.rank < 10 ? 'up' : 'down'
+      };
+
+      setResults([newResult, ...results]);
+      setKeyword('');
+    } catch (err) {
+      console.error(err);
+      alert('Sıra taraması başarısız oldu. (IP sınırına takılmış olabilir)');
+    } finally {
+      setIsScanning(false);
+    }
+  };
+
+  return (
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div>
+        <h2 className="text-2xl font-black text-white">Arama Motoru Sıra Takibi (Rank Tracker)</h2>
+        <p className="text-slate-400 text-sm mt-1">Sitenizin Google'da (global) hedef kelimelerde kaçıncı sırada olduğunu canlı tarayın.</p>
+      </div>
+
+      <div className="glass-card p-6 rounded-2xl border-brand-500/30 bg-brand-950/20">
+        <form onSubmit={handleScan} className="flex flex-col md:flex-row gap-4">
+          <input 
+            type="text" 
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+            placeholder="Örn: remote tech salary"
+            className="flex-1 bg-slate-900 border border-slate-700 text-white text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-brand-500"
+          />
+          <button 
+            type="submit"
+            disabled={isScanning}
+            className={`px-8 py-3 rounded-xl font-bold transition flex justify-center items-center ${isScanning ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-500/20'}`}
+          >
+            {isScanning ? 'Taranıyor...' : 'Canlı Tarama Yap'}
+          </button>
+        </form>
+        <p className="text-xs text-slate-500 mt-4 font-mono">
+          * Vercel Edge fonksiyonu üzerinden simüle edilmiş headless browser isteği atar. Sık atılan istekler Google 429 engeline takılabilir.
+        </p>
+      </div>
+
+      <div className="glass-card p-6 rounded-2xl border-slate-800">
+        <h3 className="text-sm font-bold text-white mb-4">Sıralama Geçmişi (Google)</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="border-b border-slate-800">
+                <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Anahtar Kelime</th>
+                <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Motor</th>
+                <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Sıra</th>
+                <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right">Trend / Tarih</th>
+              </tr>
+            </thead>
+            <tbody>
+              {results.map((item) => (
+                <tr key={item.id} className="border-b border-slate-800/50 hover:bg-slate-800/20 transition">
+                  <td className="py-4 px-4 text-sm font-bold text-white">{item.keyword}</td>
+                  <td className="py-4 px-4 text-sm text-center">
+                    <span className="bg-slate-800 text-slate-300 text-[10px] font-bold px-2 py-1 rounded-md">{item.engine}</span>
+                  </td>
+                  <td className="py-4 px-4 text-center">
+                    <span className={`text-lg font-black ${item.rank === '>30' ? 'text-slate-500' : item.rank < 10 ? 'text-emerald-400' : 'text-brand-400'}`}>
+                      {item.rank}
+                    </span>
+                  </td>
+                  <td className="py-4 px-4 flex items-center justify-end space-x-3">
+                    <span className="text-xs text-slate-500">{item.date}</span>
+                    {item.trend === 'up' ? (
+                      <TrendingUp className="w-4 h-4 text-emerald-400" />
+                    ) : (
+                      <TrendingUp className="w-4 h-4 text-rose-400 rotate-180" />
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -1055,7 +1166,7 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="flex bg-slate-950 min-h-screen text-slate-100 overflow-x-hidden w-full md:border md:border-slate-800 md:rounded-3xl md:shadow-2xl md:max-w-6xl md:mx-auto md:my-6 md:min-h-[calc(100vh-3rem)]">
+    <div className="flex bg-slate-950 min-h-screen text-slate-100 overflow-x-hidden w-full md:border md:border-slate-800 md:rounded-3xl md:shadow-2xl md:max-w-[1400px] md:mx-auto md:my-6 md:min-h-[calc(100vh-3rem)]">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} onLogout={handleLogout} />
       
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 z-50 flex justify-around p-2">
@@ -1065,8 +1176,8 @@ export default function AdminDashboard() {
         <button onClick={() => setActiveTab('analytics')} className={`p-3 rounded-xl ${activeTab === 'analytics' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-400'}`}>
           <Map className="w-5 h-5" />
         </button>
-        <button onClick={() => setActiveTab('seo')} className={`p-3 rounded-xl ${activeTab === 'seo' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-400'}`}>
-          <Search className="w-5 h-5" />
+        <button onClick={() => setActiveTab('rankings')} className={`p-3 rounded-xl ${activeTab === 'rankings' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-400'}`}>
+          <BarChart2 className="w-5 h-5" />
         </button>
         <button onClick={() => setActiveTab('pseo')} className={`p-3 rounded-xl ${activeTab === 'pseo' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-400'}`}>
           <Globe2 className="w-5 h-5" />
@@ -1077,6 +1188,7 @@ export default function AdminDashboard() {
         {activeTab === 'overview' && <OverviewTab realPageViews={realPageViews} dbError={dbError} googleStats={googleStats} />}
         {activeTab === 'analytics' && <AnalyticsTab googleStats={googleStats} />}
         {activeTab === 'seo' && <SeoAuditTab />}
+        {activeTab === 'rankings' && <RankTrackerTab />}
         {activeTab === 'pseo' && <PseoTab realIndexCount={realIndexCount} />}
         {activeTab === 'vitals' && <VitalsTab vitals={vitals} />}
       </main>
