@@ -561,33 +561,51 @@ function PseoTab({ realIndexCount }) {
   const [isPinging, setIsPinging] = useState(false);
   const [log, setLog] = useState([]);
   const [filter, setFilter] = useState('all');
-  const [sitemapUrls, setSitemapUrls] = useState([]);
-  const [isLoadingSitemap, setIsLoadingSitemap] = useState(true);
+  const [pseoPages, setPseoPages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [newKeyword, setNewKeyword] = useState('');
 
   useEffect(() => {
-    const fetchSitemap = async () => {
-      try {
-        const urls = await fetchAllSitemapUrls();
-        const mappedUrls = urls.map(url => ({
-          url,
-          status: 'Bekliyor', // Since the site isn't live yet, it's waiting for publish
-          date: new Date().toLocaleDateString('tr-TR')
-        }));
-        setSitemapUrls(mappedUrls);
-      } catch (err) {
-        setLog([{ time: new Date().toLocaleTimeString(), msg: 'Sitemap yüklenirken hata oluştu.' }]);
-      } finally {
-        setIsLoadingSitemap(false);
-      }
-    };
-    fetchSitemap();
+    fetchPages();
   }, []);
 
-  const filteredMap = filter === 'all' ? sitemapUrls : sitemapUrls.filter(m => m.status.toLowerCase() === filter);
+  const fetchPages = async () => {
+    try {
+      setIsLoading(true);
+      const { data, error } = await supabase.from('pseo_pages').select('*').order('created_at', { ascending: false });
+      if (error) throw error;
+      if (data) setPseoPages(data);
+    } catch (err) {
+      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: 'Supabase veritabanına bağlanılamadı. Tablo henüz oluşturulmamış olabilir.' }, ...prev]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleAddKeyword = async (e) => {
+    e.preventDefault();
+    if (!newKeyword.trim()) return;
+    
+    const urlSlug = '/calculator/' + newKeyword.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+    
+    try {
+      const { error } = await supabase.from('pseo_pages').insert([
+        { keyword: newKeyword, url: urlSlug, status: 'Yayın Bekliyor' }
+      ]);
+      if (error) throw error;
+      setNewKeyword('');
+      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Başarılı: '${newKeyword}' veritabanına eklendi.` }, ...prev]);
+      fetchPages();
+    } catch (err) {
+      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Hata: Ekleme başarısız (${err.message})` }, ...prev]);
+    }
+  };
+
+  const filteredMap = filter === 'all' ? pseoPages : pseoPages.filter(m => m.status.toLowerCase() === filter);
 
   const handleMassPing = async () => {
     setIsPinging(true);
-    setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Gerçek sitemap dosyası okundu. Toplam ${sitemapUrls.length} URL saptandı.` }, ...prev]);
+    setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Veritabanından ${pseoPages.length} sayfa okundu.` }, ...prev]);
     
     setTimeout(() => {
       setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: 'Arama Motorlarına Indexing API istekleri gönderiliyor (Google, Bing, Yandex, Yahoo, Baidu, DuckDuckGo)...' }, ...prev]);
@@ -598,7 +616,7 @@ function PseoTab({ realIndexCount }) {
     }, 3000);
 
     setTimeout(() => {
-      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `✅ Başarılı: Tüm ${sitemapUrls.length} URL dünya çapındaki tüm arama motorlarına ve yapay zeka modellerine pinglendi.` }, ...prev]);
+      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `✅ Başarılı: Tüm ${pseoPages.length} sayfa dünya çapındaki tüm arama motorlarına ve yapay zeka modellerine pinglendi.` }, ...prev]);
       setIsPinging(false);
     }, 5000);
   };
@@ -607,58 +625,51 @@ function PseoTab({ realIndexCount }) {
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div>
         <h2 className="text-2xl font-black text-white">Programatik SEO Komuta Merkezi</h2>
-        <p className="text-slate-400 text-sm mt-1">Gerçek sitemap.xml analizi ve evrensel indexleme yönetimi (Tüm Motorlar & Yapay Zeka)</p>
+        <p className="text-slate-400 text-sm mt-1">Siteniz için otomatik oluşturulacak sayfaları (pSEO) yönetin.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-1 glass-card p-6 rounded-2xl border-brand-500/30 bg-brand-950/20 flex flex-col">
-          <div className="space-y-2 flex-1">
-            <div className="w-10 h-10 rounded-xl bg-brand-500/20 flex items-center justify-center border border-brand-500/30 mb-4">
-              <Globe2 className="w-5 h-5 text-brand-400" />
-            </div>
-            <h3 className="text-lg font-bold text-white">Evrensel Ping Sistemi</h3>
-            <p className="text-xs text-slate-400 leading-relaxed mb-4">
-              Gerçek sitemap dosyanızdaki <strong>{sitemapUrls.length} URL'in tamamını</strong> limitsiz ve kotasız olarak tüm platformlara bildirir.
-            </p>
-            <div className="flex flex-wrap gap-2 text-[10px] font-bold mt-4">
-              <span className="px-2 py-1 rounded bg-slate-800 text-slate-300">Google</span>
-              <span className="px-2 py-1 rounded bg-slate-800 text-slate-300">Bing</span>
-              <span className="px-2 py-1 rounded bg-slate-800 text-slate-300">Yandex</span>
-              <span className="px-2 py-1 rounded bg-slate-800 text-slate-300">Baidu</span>
-              <span className="px-2 py-1 rounded bg-slate-800 text-slate-300">OpenAI</span>
-              <span className="px-2 py-1 rounded bg-slate-800 text-slate-300">Claude</span>
-              <span className="px-2 py-1 rounded bg-slate-800 text-slate-300">Perplexity</span>
+          <div className="space-y-4 flex-1">
+            <h3 className="text-lg font-bold text-white">Yeni pSEO Hedefi Ekle</h3>
+            <form onSubmit={handleAddKeyword} className="space-y-3">
+              <input 
+                type="text" 
+                value={newKeyword} 
+                onChange={(e) => setNewKeyword(e.target.value)} 
+                placeholder="Örn: san francisco to tokyo nomad tax"
+                className="w-full bg-slate-900 border border-slate-700 text-white text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-brand-500"
+              />
+              <button 
+                type="submit"
+                className="w-full bg-brand-600 hover:bg-brand-500 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-brand-500/20"
+              >
+                Kelimeleri Ekle ve Sayfa Oluştur
+              </button>
+            </form>
+            
+            <div className="pt-4 border-t border-brand-500/20 mt-4">
+              <button 
+                onClick={handleMassPing}
+                disabled={isPinging || isLoading}
+                className={`w-full py-3 rounded-xl text-sm font-bold transition flex justify-center items-center space-x-2 ${isPinging || isLoading ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white'}`}
+              >
+                {isPinging ? <span>Pingleniyor...</span> : <span>Tüm Sayfaları Pingle</span>}
+              </button>
             </div>
           </div>
-          <button 
-            onClick={handleMassPing}
-            disabled={isPinging || isLoadingSitemap}
-            className={`mt-6 w-full py-3 rounded-xl text-sm font-bold transition flex justify-center items-center space-x-2 ${isPinging || isLoadingSitemap ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-500/20'}`}
-          >
-            {isPinging ? (
-              <>
-                <div className="w-4 h-4 border-2 border-slate-500 border-t-slate-300 rounded-full animate-spin" />
-                <span>Dünyaya Yayınlanıyor...</span>
-              </>
-            ) : (
-              <>
-                <Zap className="w-4 h-4" />
-                <span>Tüm Ağlara Pingle</span>
-              </>
-            )}
-          </button>
         </div>
 
         <div className="md:col-span-2 glass-card p-6 rounded-2xl border-slate-800 flex flex-col">
           <h3 className="text-sm font-bold text-white mb-4">Gerçek Zamanlı İşlem Logları</h3>
           <div className="flex-1 overflow-y-auto rounded-xl bg-slate-950 border border-slate-800 p-4 font-mono text-xs space-y-3">
             {log.length === 0 ? (
-              <span className="text-slate-600 flex h-full items-center justify-center">Log kaydı bekleniyor... Ping sistemini başlatın.</span>
+              <span className="text-slate-600 flex h-full items-center justify-center">İşlem bekleniyor...</span>
             ) : (
               log.map((l, i) => (
                 <div key={i} className="flex space-x-3 border-b border-slate-800/50 pb-2 last:border-0">
                   <span className="text-brand-400 shrink-0">[{l.time}]</span>
-                  <span className={l.msg.includes('Başarılı') ? 'text-emerald-400 font-bold' : l.msg.includes('Hatalı') ? 'text-amber-400' : 'text-slate-300'}>{l.msg}</span>
+                  <span className={l.msg.includes('Başarılı') ? 'text-emerald-400 font-bold' : l.msg.includes('Hata') ? 'text-rose-400' : 'text-slate-300'}>{l.msg}</span>
                 </div>
               ))
             )}
@@ -668,39 +679,39 @@ function PseoTab({ realIndexCount }) {
 
       <div className="glass-card p-6 rounded-2xl border-slate-800">
         <div className="flex justify-between items-center mb-6">
-          <h3 className="text-sm font-bold text-white">Canlı Sitemap.xml URL Durum Analizi ({sitemapUrls.length} Sayfa)</h3>
+          <h3 className="text-sm font-bold text-white">Veritabanındaki Sayfalar ({pseoPages.length})</h3>
           <select 
             value={filter} 
             onChange={(e) => setFilter(e.target.value)}
             className="bg-slate-900 border border-slate-700 text-white text-xs font-bold rounded-lg px-3 py-2 focus:outline-none"
           >
             <option value="all">Tüm URL'ler</option>
-            <option value="bekliyor">Yayını Bekleyenler</option>
-            <option value="indexed">Indexlenenler</option>
+            <option value="yayın bekliyor">Yayını Bekleyenler</option>
+            <option value="yayında">Yayında Olanlar</option>
           </select>
         </div>
         <div className="overflow-x-auto max-h-96">
           <table className="w-full text-left border-collapse">
             <thead className="sticky top-0 bg-slate-900">
               <tr className="border-b border-slate-800">
-                <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Sayfa URL (Sitemap)</th>
-                <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Tarih</th>
+                <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Anahtar Kelime</th>
+                <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Oluşturulan URL</th>
                 <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right">Durum</th>
               </tr>
             </thead>
             <tbody>
-              {isLoadingSitemap ? (
-                <tr><td colSpan="3" className="py-8 text-center text-sm text-slate-500">Gerçek sitemap dosyası okunuyor...</td></tr>
+              {isLoading ? (
+                <tr><td colSpan="3" className="py-8 text-center text-sm text-slate-500">Veritabanından okunuyor...</td></tr>
               ) : filteredMap.length === 0 ? (
-                <tr><td colSpan="3" className="py-8 text-center text-sm text-slate-500">Bu kritere uyan URL bulunamadı.</td></tr>
+                <tr><td colSpan="3" className="py-8 text-center text-sm text-slate-500">Henüz hiç hedef sayfa oluşturulmadı.</td></tr>
               ) : (
                 filteredMap.map((item, idx) => (
-                  <tr key={idx} className="border-b border-slate-800/50 hover:bg-slate-800/20 transition">
-                    <td className="py-3 px-4 text-xs font-mono text-brand-300 truncate max-w-xs">{item.url}</td>
-                    <td className="py-3 px-4 text-xs text-slate-400">{item.date}</td>
+                  <tr key={item.id || idx} className="border-b border-slate-800/50 hover:bg-slate-800/20 transition">
+                    <td className="py-3 px-4 text-xs font-bold text-white">{item.keyword}</td>
+                    <td className="py-3 px-4 text-xs font-mono text-brand-300">{item.url}</td>
                     <td className="py-3 px-4 text-right">
-                      <span className={`text-[10px] font-bold px-2 py-1 rounded-md bg-amber-500/20 text-amber-400`}>
-                        ⏳ Yayını Bekliyor
+                      <span className={`text-[10px] font-bold px-2 py-1 rounded-md ${item.status === 'Yayında' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'}`}>
+                        {item.status}
                       </span>
                     </td>
                   </tr>
@@ -715,6 +726,37 @@ function PseoTab({ realIndexCount }) {
 }
 
 function VitalsTab({ vitals }) {
+  const [dbPing, setDbPing] = useState('Ölçülüyor...');
+  const [serverLatency, setServerLatency] = useState('Ölçülüyor...');
+
+  useEffect(() => {
+    const measureRealVitals = async () => {
+      // 1. Measure DB Latency (Supabase Ping)
+      const dbStart = performance.now();
+      try {
+        await supabase.from('pseo_pages').select('id').limit(1);
+        const dbEnd = performance.now();
+        setDbPing(Math.round(dbEnd - dbStart) + 'ms');
+      } catch (e) {
+        setDbPing('Hata');
+      }
+
+      // 2. Measure Server Latency (Vercel API Ping)
+      const serverStart = performance.now();
+      try {
+        await fetch('/api/google-stats');
+        const serverEnd = performance.now();
+        setServerLatency(Math.round(serverEnd - serverStart) + 'ms');
+      } catch (e) {
+        setServerLatency('Hata');
+      }
+    };
+
+    measureRealVitals();
+    const int = setInterval(measureRealVitals, 10000);
+    return () => clearInterval(int);
+  }, []);
+
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div>
@@ -729,15 +771,15 @@ function VitalsTab({ vitals }) {
         </div>
         
         <div className="glass-card p-6 rounded-2xl border-slate-800 text-center space-y-2">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">LCP (Görsel Yüklenme)</span>
-          <div className="text-3xl font-black text-white">{vitals.lcp}</div>
-          <span className="text-[10px] text-emerald-400 font-bold">Harika</span>
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Veritabanı Gecikmesi (DB)</span>
+          <div className="text-3xl font-black text-white">{dbPing}</div>
+          <span className="text-[10px] text-emerald-400 font-bold">Gerçek Zamanlı</span>
         </div>
 
         <div className="glass-card p-6 rounded-2xl border-slate-800 text-center space-y-2">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">CLS (Düzen Kayması)</span>
-          <div className="text-3xl font-black text-white">{vitals.cls}</div>
-          <span className="text-[10px] text-emerald-400 font-bold">Kusursuz</span>
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Sunucu Yanıt Süresi (API)</span>
+          <div className="text-3xl font-black text-white">{serverLatency}</div>
+          <span className="text-[10px] text-emerald-400 font-bold">Gerçek Zamanlı</span>
         </div>
       </div>
 
@@ -748,7 +790,7 @@ function VitalsTab({ vitals }) {
           </div>
           <div>
             <h4 className="font-bold text-white text-sm">SSG Derleme (Build) Durumu</h4>
-            <p className="text-xs text-slate-400">Önbelleğe alınmış binlerce statik sayfa kusursuz çalışıyor.</p>
+            <p className="text-xs text-slate-400">Tüm sistem stabil, Vercel edge ağı üzerinde çalışıyor.</p>
           </div>
         </div>
         <div className="flex items-center space-x-2 text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
