@@ -224,12 +224,12 @@ function AnalyticsTab({ googleStats }) {
   const isDataReady = googleStats && googleStats.status === 'success';
   const data = isDataReady ? googleStats : { geoData: [], devices: [], chartData: [] };
 
-  // Generate calculator usage data (mocked until GA events are fully wired)
+  // Gerçek veri (Şimdilik GA4 custom event veya Supabase takip kodu eklenmediği için 0)
   const calculators = [
-    { name: 'Video İndirici (Downloader)', views: (data.ga4?.visitors || 5000) * 0.45, conversion: 68 },
-    { name: 'Maaş ve Vergi Paritesi Hesaplayıcı', views: (data.ga4?.visitors || 5000) * 0.35, conversion: 82 },
-    { name: 'Yapay Zeka (LLM) API Maliyet Hesaplayıcı', views: (data.ga4?.visitors || 5000) * 0.15, conversion: 45 },
-    { name: 'Yapay Zeka Arkaplan Silici (WASM)', views: (data.ga4?.visitors || 5000) * 0.05, conversion: 90 },
+    { name: 'Video İndirici (Downloader)', views: 0, conversion: 0 },
+    { name: 'Maaş ve Vergi Paritesi Hesaplayıcı', views: 0, conversion: 0 },
+    { name: 'Yapay Zeka (LLM) API Maliyet Hesaplayıcı', views: 0, conversion: 0 },
+    { name: 'Yapay Zeka Arkaplan Silici (WASM)', views: 0, conversion: 0 },
   ];
 
   return (
@@ -327,7 +327,7 @@ function AnalyticsTab({ googleStats }) {
             </p>
           </div>
           <div className="bg-purple-500/10 border border-purple-500/20 text-purple-400 text-[10px] font-bold px-3 py-1.5 rounded-full shrink-0">
-            Örnek API Verisi
+            API Bekleniyor
           </div>
         </div>
         <div className="overflow-x-auto">
@@ -341,35 +341,10 @@ function AnalyticsTab({ googleStats }) {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-purple-500/10 hover:bg-purple-900/10 transition">
-                <td className="py-4 px-4 text-sm font-bold text-white">online tool to remove background free</td>
-                <td className="py-4 px-4 text-sm font-bold text-slate-300 text-center">245</td>
-                <td className="py-4 px-4 text-sm font-bold text-slate-400 text-center">1,240</td>
-                <td className="py-4 px-4 text-lg font-black text-emerald-400 text-right">4.2</td>
-              </tr>
-              <tr className="border-b border-purple-500/10 hover:bg-purple-900/10 transition">
-                <td className="py-4 px-4 text-sm font-bold text-white">remote software engineer tax calculator</td>
-                <td className="py-4 px-4 text-sm font-bold text-slate-300 text-center">182</td>
-                <td className="py-4 px-4 text-sm font-bold text-slate-400 text-center">890</td>
-                <td className="py-4 px-4 text-lg font-black text-emerald-400 text-right">2.8</td>
-              </tr>
-              <tr className="border-b border-purple-500/10 hover:bg-purple-900/10 transition">
-                <td className="py-4 px-4 text-sm font-bold text-white">how much does openai api cost for 1m tokens</td>
-                <td className="py-4 px-4 text-sm font-bold text-slate-300 text-center">94</td>
-                <td className="py-4 px-4 text-sm font-bold text-slate-400 text-center">310</td>
-                <td className="py-4 px-4 text-lg font-black text-emerald-400 text-right">6.5</td>
-              </tr>
-              <tr className="border-b border-purple-500/10 hover:bg-purple-900/10 transition">
-                <td className="py-4 px-4 text-sm font-bold text-white">net salary after taxes in dubai</td>
-                <td className="py-4 px-4 text-sm font-bold text-slate-300 text-center">45</td>
-                <td className="py-4 px-4 text-sm font-bold text-slate-400 text-center">2,400</td>
-                <td className="py-4 px-4 text-lg font-black text-amber-400 text-right">14.1</td>
-              </tr>
-              <tr className="border-b border-purple-500/10 hover:bg-purple-900/10 transition">
-                <td className="py-4 px-4 text-sm font-bold text-white">best youtube earnings simulator</td>
-                <td className="py-4 px-4 text-sm font-bold text-slate-300 text-center">12</td>
-                <td className="py-4 px-4 text-sm font-bold text-slate-400 text-center">150</td>
-                <td className="py-4 px-4 text-lg font-black text-amber-400 text-right">22.4</td>
+              <tr>
+                <td colSpan="4" className="py-8 text-center text-sm font-bold text-purple-300">
+                  Google Search Console API bağlandığında gerçek organik kelimeleriniz burada listelenecektir.
+                </td>
               </tr>
             </tbody>
           </table>
