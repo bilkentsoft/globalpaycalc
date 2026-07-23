@@ -83,22 +83,29 @@ function ContentWrapper({ lang, t }) {
           </p>
 
           <div className="flex flex-wrap justify-center gap-2 pt-2">
-            <Link to={`${basePath}/video`} className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'video' ? 'bg-rose-500 text-white border-rose-400 shadow-lg shadow-rose-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+            <Link to={`${basePath}/video`} title="Download HD social videos without watermark" className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'video' ? 'bg-rose-500 text-white border-rose-400 shadow-lg shadow-rose-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Video className="w-3.5 h-3.5" />
               <span>{t('nav.downloader')}</span>
             </Link>
-            <Link to={`${basePath}/wasm`} className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'wasm' ? 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+            <Link to={`${basePath}/wasm`} title="Client-side AI image background remover" className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'wasm' ? 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Image className="w-3.5 h-3.5" />
               <span>{t('nav.bgRemover')}</span>
             </Link>
-            <Link to={`${basePath}/salary`} className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'salary' ? 'bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+            <Link to={`${basePath}/salary`} title="Calculate remote net salary and tax parity" className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'salary' ? 'bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Globe className="w-3.5 h-3.5" />
               <span>{t('nav.salary')}</span>
             </Link>
-            <Link to={`${basePath}/ai`} className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'ai' ? 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+            <Link to={`${basePath}/ai`} title="LLM API token cost simulator" className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'ai' ? 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               <span>{t('nav.aiCost')}</span>
             </Link>
+          </div>
+
+          <div className="max-w-3xl mx-auto mt-8 p-5 rounded-2xl bg-slate-900/40 border border-slate-800/60 text-left backdrop-blur-sm">
+            <h2 className="text-sm font-bold text-white mb-2">How It Works & Core Features</h2>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              GlobalPayCalc is a comprehensive suite built for digital nomads and developers. Our platform features an <strong className="font-semibold text-slate-300">HD social video downloader</strong> that safely extracts MP4/MP3 media from TikTok, Instagram Reels, and YouTube Shorts without watermarks. For remote workers, our <strong className="font-semibold text-slate-300">global salary calculator</strong> compares net income, tax brackets, and cost of living (PPP) across 150+ countries. Developers can leverage our <strong className="font-semibold text-slate-300">AI token cost simulator</strong> to estimate API expenses for GPT-4o and Claude 3.5, while our <strong className="font-semibold text-slate-300">client-side AI image studio</strong> removes backgrounds locally via WebAssembly, guaranteeing zero server uploads and complete data privacy.
+            </p>
           </div>
         </div>
       )}

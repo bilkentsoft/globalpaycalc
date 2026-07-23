@@ -43,7 +43,7 @@ export default function AdSenseSlot({ slotId = 'default-slot', format = 'auto', 
   return (
     <div
       ref={containerRef}
-      style={{ contentVisibility: 'auto', containIntrinsicSize: format === 'rectangle' ? '300px 250px' : '728px 90px' }}
+      style={{ minHeight: format === 'rectangle' ? '280px' : '120px' }}
       className={`my-8 mx-auto flex flex-col items-center justify-center transition-all ${widthClasses} ${className}`}
     >
       <div className="w-full flex items-center justify-between text-[9px] text-slate-500 font-mono uppercase tracking-wider mb-1.5 px-1">
