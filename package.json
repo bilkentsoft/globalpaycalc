@@ -5,11 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:client": "vite build --outDir dist/client",
-    "build:server": "vite build --ssr src/entry-server.jsx --outDir dist/server",
+    "build:client": "vite build --outDir dist",
+    "build:server": "vite build --ssr src/entry-server.jsx --outDir dist-server",
     "build": "node scripts/generateSitemap.js && npm run build:client && npm run build:server && node scripts/prerender.js",
     "lint": "eslint .",
-    "preview": "vite preview --outDir dist/client"
+    "preview": "vite preview --outDir dist"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.8",

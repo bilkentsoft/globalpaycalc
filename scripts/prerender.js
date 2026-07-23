@@ -5,8 +5,8 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const toAbsolute = (p) => path.resolve(__dirname, '..', p);
 
-const template = fs.readFileSync(toAbsolute('dist/client/index.html'), 'utf-8');
-const { render, getRoutes } = await import('file://' + toAbsolute('dist/server/entry-server.js').replace(/\\/g, '/'));
+const template = fs.readFileSync(toAbsolute('dist/index.html'), 'utf-8');
+const { render, getRoutes } = await import('file://' + toAbsolute('dist-server/entry-server.js').replace(/\\/g, '/'));
 
 const routesToPrerender = getRoutes();
 
@@ -33,7 +33,7 @@ console.log(`Starting prerender for ${routesToPrerender.length} routes...`);
       result = result.replace(`<div id="root"></div>`, `<div id="root">${html}</div>`);
 
       // Construct file path
-      const filePath = `dist/client${url === '/' ? '/index' : url}`;
+      const filePath = `dist${url === '/' ? '/index' : url}`;
       const absoluteFilePath = toAbsolute(`${filePath}/index.html`.replace('//', '/'));
       
       fs.mkdirSync(path.dirname(absoluteFilePath), { recursive: true });
@@ -45,7 +45,7 @@ console.log(`Starting prerender for ${routesToPrerender.length} routes...`);
   }
   
   // Create a base index.html too, just in case (same as /)
-  fs.copyFileSync(toAbsolute('dist/client/index/index.html'), toAbsolute('dist/client/index.html'));
+  fs.copyFileSync(toAbsolute('dist/index/index.html'), toAbsolute('dist/index.html'));
   
   console.log(`✅ Prerender complete!`);
 })();
