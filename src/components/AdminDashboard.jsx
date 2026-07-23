@@ -96,11 +96,11 @@ function RankTrackerTab() {
 
   useEffect(() => {
     const fetchKeywords = async () => {
-      const { data, error } = await supabase.from('pseo_pages').select('id, target_keyword').order('created_at', { ascending: false });
+      const { data, error } = await supabase.from('pseo_pages').select('id, keyword').order('created_at', { ascending: false });
       if (!error && data) {
         setResults(data.map(item => ({
           id: item.id,
-          keyword: item.target_keyword,
+          keyword: item.keyword,
           rank: '-',
           engine: 'Google',
           date: 'Henüz taranmadı',
