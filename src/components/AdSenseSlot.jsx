@@ -7,7 +7,7 @@ export default function AdSenseSlot({ slotId = 'default-slot', format = 'auto', 
   const [refreshKey, setRefreshKey] = useState(0);
 
   // Enforce aspect-ratio / fixed dimension sizing based on format to eliminate CLS
-  let heightClasses = 'h-[90px]'; // Leaderboard default
+  let heightClasses = 'h-[250px] md:h-[90px]'; // Leaderboard default (Mobile: rectangle, Desktop: leaderboard)
   let widthClasses = 'w-full max-w-[728px]';
 
   if (format === 'rectangle') {
@@ -43,8 +43,13 @@ export default function AdSenseSlot({ slotId = 'default-slot', format = 'auto', 
   return (
     <div
       ref={containerRef}
-      style={{ minHeight: format === 'rectangle' ? '280px' : '120px' }}
-      className={`my-8 mx-auto flex flex-col items-center justify-center transition-all ${widthClasses} ${className}`}
+      className={`my-8 mx-auto flex flex-col items-center justify-center transition-all ${
+        format === 'rectangle'
+          ? 'min-h-[280px]'
+          : format === 'mobile-banner'
+            ? 'min-h-[50px]'
+            : 'min-h-[280px] md:min-h-[120px]' // Horizontal fallback: reserve 280px on mobile for rectangle, 120px on desktop
+      } ${widthClasses} ${className}`}
     >
       <div className="w-full flex items-center justify-between text-[9px] text-slate-500 font-mono uppercase tracking-wider mb-1.5 px-1">
         <span>Sponsor</span>

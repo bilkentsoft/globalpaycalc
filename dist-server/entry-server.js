@@ -1823,7 +1823,7 @@ function useLazyAd() {
 function AdSenseSlot({ slotId = "default-slot", format = "auto", className = "" }) {
   const { containerRef, shouldRender, adBlocked } = useLazyAd();
   const [refreshKey, setRefreshKey] = useState(0);
-  let heightClasses = "h-[90px]";
+  let heightClasses = "h-[250px] md:h-[90px]";
   let widthClasses = "w-full max-w-[728px]";
   if (format === "rectangle") {
     heightClasses = "h-[250px]";
@@ -1853,8 +1853,7 @@ function AdSenseSlot({ slotId = "default-slot", format = "auto", className = "" 
     "div",
     {
       ref: containerRef,
-      style: { minHeight: format === "rectangle" ? "280px" : "120px" },
-      className: `my-8 mx-auto flex flex-col items-center justify-center transition-all ${widthClasses} ${className}`,
+      className: `my-8 mx-auto flex flex-col items-center justify-center transition-all ${format === "rectangle" ? "min-h-[280px]" : format === "mobile-banner" ? "min-h-[50px]" : "min-h-[280px] md:min-h-[120px]"} ${widthClasses} ${className}`,
       children: [
         /* @__PURE__ */ jsxs("div", { className: "w-full flex items-center justify-between text-[9px] text-slate-500 font-mono uppercase tracking-wider mb-1.5 px-1", children: [
           /* @__PURE__ */ jsx("span", { children: "Sponsor" }),
@@ -4524,7 +4523,7 @@ function ContentWrapper({ lang, t }) {
   const hasLangPrefix = supportedLanguages.some((l) => l.code === pathSegments[0]);
   const activeTab = hasLangPrefix ? pathSegments[1] || "video" : pathSegments[0] || "video";
   const basePath = hasLangPrefix ? `/${pathSegments[0]}` : "";
-  let pageTitle = `${t("hero.title")} | GlobalPayCalc`;
+  let pageTitle = "GlobalPayCalc: Universal Media, AI & Salary Engine";
   let pageDesc = t("hero.subtitle");
   if (activeTab === "salary") {
     pageTitle = "Remote Salary Calculator & Global Tax Parity Estimator | GlobalPayCalc";

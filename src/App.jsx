@@ -31,7 +31,7 @@ function ContentWrapper({ lang, t }) {
   const basePath = hasLangPrefix ? `/${pathSegments[0]}` : '';
 
   // Get active route data for dynamic meta
-  let pageTitle = `${t('hero.title')} | GlobalPayCalc`;
+  let pageTitle = 'GlobalPayCalc: Universal Media, AI & Salary Engine';
   let pageDesc = t('hero.subtitle');
 
   if (activeTab === 'salary') {
