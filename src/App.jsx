@@ -51,7 +51,7 @@ function ContentWrapper({ lang, t }) {
         <title>{pageTitle}</title>
         <meta name="description" content={pageDesc} />
         {/* Dynamic Canonical */}
-        <link rel="canonical" href={`https://globalpaycalc.com${location.pathname}`} />
+        <link rel="canonical" href={`https://globalpaycalc.com${location.pathname.replace(/\/+$/, '') || '/'}`} />
         
         {/* Open Graph / Facebook / LinkedIn */}
         <meta property="og:type" content="website" />

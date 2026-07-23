@@ -4539,7 +4539,7 @@ function ContentWrapper({ lang, t }) {
     /* @__PURE__ */ jsxs(Helmet, { children: [
       /* @__PURE__ */ jsx("title", { children: pageTitle }),
       /* @__PURE__ */ jsx("meta", { name: "description", content: pageDesc }),
-      /* @__PURE__ */ jsx("link", { rel: "canonical", href: `https://globalpaycalc.com${location.pathname}` }),
+      /* @__PURE__ */ jsx("link", { rel: "canonical", href: `https://globalpaycalc.com${location.pathname.replace(/\/+$/, "") || "/"}` }),
       /* @__PURE__ */ jsx("meta", { property: "og:type", content: "website" }),
       /* @__PURE__ */ jsx("meta", { property: "og:url", content: `https://globalpaycalc.com${location.pathname}` }),
       /* @__PURE__ */ jsx("meta", { property: "og:title", content: pageTitle }),
