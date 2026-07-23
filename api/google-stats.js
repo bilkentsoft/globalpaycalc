@@ -164,6 +164,40 @@ export default async function handler(req, res) {
             views: parseInt(row.metricValues[0].value)
           }));
         }
+
+        // Devices
+        const ga4DevicesRes = await analyticsData.properties.runReport({
+          property: `properties/${GA4_PROPERTY_ID}`,
+          requestBody: {
+            dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
+            dimensions: [{ name: 'deviceCategory' }],
+            metrics: [{ name: 'activeUsers' }]
+          }
+        });
+        if (ga4DevicesRes.data.rows) {
+          liveData.devices = ga4DevicesRes.data.rows.map(row => ({
+            name: row.dimensionValues[0].value,
+            value: parseInt(row.metricValues[0].value)
+          }));
+        }
+
+        // Geo Data (Countries)
+        const ga4GeoRes = await analyticsData.properties.runReport({
+          property: `properties/${GA4_PROPERTY_ID}`,
+          requestBody: {
+            dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
+            dimensions: [{ name: 'country' }],
+            metrics: [{ name: 'activeUsers' }],
+            limit: 10,
+            orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }]
+          }
+        });
+        if (ga4GeoRes.data.rows) {
+          liveData.geoData = ga4GeoRes.data.rows.map(row => ({
+            name: row.dimensionValues[0].value,
+            value: parseInt(row.metricValues[0].value)
+          }));
+        }
         
         // Chart Data (Timeline for last 7 days)
         const ga4ChartRes = await analyticsData.properties.runReport({
