@@ -90,41 +90,56 @@ function Sidebar({ activeTab, setActiveTab, onLogout }) {
 }
 
 function RankTrackerTab() {
-  const [keyword, setKeyword] = useState('');
-  const [isScanning, setIsScanning] = useState(false);
-  const [results, setResults] = useState([
-    { id: 1, keyword: 'remote salary calculator', rank: 3, engine: 'Google', date: 'Az önce', trend: 'up' },
-    { id: 2, keyword: 'ai api cost simulator', rank: 5, engine: 'Google', date: '1 saat önce', trend: 'up' },
-    { id: 3, keyword: 'wasm background remover', rank: 12, engine: 'Google', date: '2 saat önce', trend: 'down' },
-  ]);
+  const [results, setResults] = useState([]);
+  const [isScanningId, setIsScanningId] = useState(null);
+  const [loadingInitial, setLoadingInitial] = useState(true);
 
-  const handleScan = async (e) => {
-    e.preventDefault();
-    if (!keyword.trim()) return;
+  useEffect(() => {
+    const fetchKeywords = async () => {
+      const { data, error } = await supabase.from('pseo_pages').select('id, target_keyword').order('created_at', { ascending: false });
+      if (!error && data) {
+        setResults(data.map(item => ({
+          id: item.id,
+          keyword: item.target_keyword,
+          rank: '-',
+          engine: 'Google',
+          date: 'Henüz taranmadı',
+          trend: 'none'
+        })));
+      }
+      setLoadingInitial(false);
+    };
+    fetchKeywords();
+  }, []);
 
-    setIsScanning(true);
+  const handleRowScan = async (item) => {
+    if (isScanningId) return;
+    setIsScanningId(item.id);
     
     try {
-      // Direct scraper backend endpoint
-      const res = await fetch(`/api/rank-scrape?keyword=${encodeURIComponent(keyword)}&domain=globalpaycalc.com`);
+      const res = await fetch(`/api/rank-scrape?keyword=${encodeURIComponent(item.keyword)}&domain=globalpaycalc.com`);
+      if (res.status === 429) {
+        alert('Google Rate Limit! Biraz bekleyip tekrar deneyin.');
+        return;
+      }
       const data = await res.json();
       
-      const newResult = {
-        id: Date.now(),
-        keyword: keyword,
-        rank: data.rank,
-        engine: 'Google',
-        date: 'Az önce',
-        trend: data.rank < 10 ? 'up' : 'down'
-      };
-
-      setResults([newResult, ...results]);
-      setKeyword('');
+      setResults(prev => prev.map(row => {
+        if (row.id === item.id) {
+          return {
+            ...row,
+            rank: data.rank,
+            date: 'Az önce',
+            trend: data.rank === '>30' ? 'none' : data.rank < 10 ? 'up' : 'down'
+          };
+        }
+        return row;
+      }));
     } catch (err) {
       console.error(err);
-      alert('Sıra taraması başarısız oldu. (IP sınırına takılmış olabilir)');
+      alert('Sıra taraması başarısız oldu.');
     } finally {
-      setIsScanning(false);
+      setIsScanningId(null);
     }
   };
 
@@ -132,29 +147,7 @@ function RankTrackerTab() {
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div>
         <h2 className="text-2xl font-black text-white">Arama Motoru Sıra Takibi (Rank Tracker)</h2>
-        <p className="text-slate-400 text-sm mt-1">Sitenizin Google'da (global) hedef kelimelerde kaçıncı sırada olduğunu canlı tarayın.</p>
-      </div>
-
-      <div className="glass-card p-6 rounded-2xl border-brand-500/30 bg-brand-950/20">
-        <form onSubmit={handleScan} className="flex flex-col md:flex-row gap-4">
-          <input 
-            type="text" 
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            placeholder="Örn: remote tech salary"
-            className="flex-1 bg-slate-900 border border-slate-700 text-white text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-brand-500"
-          />
-          <button 
-            type="submit"
-            disabled={isScanning}
-            className={`px-8 py-3 rounded-xl font-bold transition flex justify-center items-center ${isScanning ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-500/20'}`}
-          >
-            {isScanning ? 'Taranıyor...' : 'Canlı Tarama Yap'}
-          </button>
-        </form>
-        <p className="text-xs text-slate-500 mt-4 font-mono">
-          * Vercel Edge fonksiyonu üzerinden simüle edilmiş headless browser isteği atar. Sık atılan istekler Google 429 engeline takılabilir.
-        </p>
+        <p className="text-slate-400 text-sm mt-1">pSEO veritabanınızdaki kelimeleri manuel olarak tarayabilirsiniz (Google IP engeline takılmamak için aralıklarla analiz ediniz).</p>
       </div>
 
       <div className="glass-card p-6 rounded-2xl border-slate-800">
@@ -167,6 +160,7 @@ function RankTrackerTab() {
                 <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Motor</th>
                 <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Sıra</th>
                 <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right">Trend / Tarih</th>
+                <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right">İşlem</th>
               </tr>
             </thead>
             <tbody>
@@ -183,14 +177,41 @@ function RankTrackerTab() {
                   </td>
                   <td className="py-4 px-4 flex items-center justify-end space-x-3">
                     <span className="text-xs text-slate-500">{item.date}</span>
-                    {item.trend === 'up' ? (
-                      <TrendingUp className="w-4 h-4 text-emerald-400" />
-                    ) : (
-                      <TrendingUp className="w-4 h-4 text-rose-400 rotate-180" />
-                    )}
+                    {item.trend === 'up' && <TrendingUp className="w-4 h-4 text-emerald-400" />}
+                    {item.trend === 'down' && <TrendingUp className="w-4 h-4 text-rose-400 rotate-180" />}
+                    {item.trend === 'none' && <TrendingUp className="w-4 h-4 text-slate-600" />}
+                  </td>
+                  <td className="py-4 px-4 text-right">
+                    <button
+                      onClick={() => handleRowScan(item)}
+                      disabled={isScanningId !== null}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                        isScanningId === item.id 
+                          ? 'bg-brand-500 text-white animate-pulse' 
+                          : isScanningId 
+                            ? 'bg-slate-800 text-slate-500 cursor-not-allowed' 
+                            : 'bg-slate-800 hover:bg-slate-700 text-white'
+                      }`}
+                    >
+                      {isScanningId === item.id ? 'Taranıyor...' : 'Analiz Et'}
+                    </button>
                   </td>
                 </tr>
               ))}
+              {results.length === 0 && !loadingInitial && (
+                <tr>
+                  <td colSpan="5" className="py-8 text-center text-slate-500 text-sm">
+                    Veritabanında henüz pSEO kelimesi bulunmuyor.
+                  </td>
+                </tr>
+              )}
+              {loadingInitial && (
+                <tr>
+                  <td colSpan="5" className="py-8 text-center text-slate-500 text-sm animate-pulse">
+                    Kelimeler yükleniyor...
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
