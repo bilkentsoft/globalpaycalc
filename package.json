@@ -8,6 +8,7 @@
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.jsx --outDir dist/server",
     "build": "node scripts/generateSitemap.js && npm run build:client && npm run build:server && node scripts/prerender.js",
+    "vercel-build": "npm run build && mv dist/client dist_temp && rm -rf dist && mv dist_temp dist",
     "lint": "eslint .",
     "preview": "vite preview --outDir dist/client"
   },
