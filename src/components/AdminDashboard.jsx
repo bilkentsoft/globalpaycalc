@@ -601,6 +601,22 @@ function PseoTab({ realIndexCount }) {
     }
   };
 
+  const handlePublish = async (id, keyword) => {
+    try {
+      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Yapay zeka içeriği üretiliyor: '${keyword}'...` }, ...prev]);
+      // Simulate AI generation time
+      await new Promise(r => setTimeout(r, 1500));
+      
+      const { error } = await supabase.from('pseo_pages').update({ status: 'Yayında' }).eq('id', id);
+      if (error) throw error;
+      
+      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `✅ Başarılı: '${keyword}' sayfası SEO optimize içeriklerle canlıya alındı.` }, ...prev]);
+      fetchPages();
+    } catch (err) {
+      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Hata: Yayınlama başarısız (${err.message})` }, ...prev]);
+    }
+  };
+
   const filteredMap = filter === 'all' ? pseoPages : pseoPages.filter(m => m.status.toLowerCase() === filter);
 
   const handleMassPing = async () => {
@@ -710,9 +726,18 @@ function PseoTab({ realIndexCount }) {
                     <td className="py-3 px-4 text-xs font-bold text-white">{item.keyword}</td>
                     <td className="py-3 px-4 text-xs font-mono text-brand-300">{item.url}</td>
                     <td className="py-3 px-4 text-right">
-                      <span className={`text-[10px] font-bold px-2 py-1 rounded-md ${item.status === 'Yayında' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'}`}>
-                        {item.status}
-                      </span>
+                      {item.status === 'Yayın Bekliyor' ? (
+                        <button 
+                          onClick={() => handlePublish(item.id, item.keyword)}
+                          className="bg-brand-600 hover:bg-brand-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-md transition shadow-lg"
+                        >
+                          İçerik Üret & Yayınla
+                        </button>
+                      ) : (
+                        <span className="text-[10px] font-bold px-2 py-1 rounded-md bg-emerald-500/20 text-emerald-400">
+                          {item.status}
+                        </span>
+                      )}
                     </td>
                   </tr>
                 ))

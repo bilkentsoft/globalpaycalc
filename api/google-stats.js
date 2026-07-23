@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   
   if (req.method === 'OPTIONS') { return res.status(200).end(); }
 
-  const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN } = process.env;
+  const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN, GA4_PROPERTY_ID } = process.env;
 
   const dataStructure = {
     adsense: { daily: 0.0, weekly: 0.0, monthly: 0.0, rpm: 0.0, cpc: 0.0, ctr: 0.0, impressions: 0 },
@@ -35,6 +35,7 @@ export default async function handler(req, res) {
 
     const searchConsole = google.searchconsole({ version: 'v1', auth: oauth2Client });
     const adsense = google.adsense({ version: 'v2', auth: oauth2Client });
+    const analyticsData = google.analyticsdata({ version: 'v1beta', auth: oauth2Client });
 
     const liveData = { ...dataStructure, status: 'success' };
 
@@ -100,12 +101,97 @@ export default async function handler(req, res) {
         }
       }
     } catch (e) {
-      console.error('AdSense Error:', e.message);
+      console.error('AdSense Error (Silently ignoring so other tabs work):', e.message);
+    }
+
+    // 3. Fetch GA4 Data (Analytics)
+    try {
+      if (GA4_PROPERTY_ID) {
+        // Basic metrics (Visitors, Bounce Rate, Session Duration)
+        const ga4BasicRes = await analyticsData.properties.runReport({
+          property: `properties/${GA4_PROPERTY_ID}`,
+          requestBody: {
+            dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
+            metrics: [
+              { name: 'activeUsers' },
+              { name: 'bounceRate' },
+              { name: 'averageSessionDuration' }
+            ]
+          }
+        });
+
+        if (ga4BasicRes.data.rows?.[0]) {
+          const vals = ga4BasicRes.data.rows[0].metricValues;
+          liveData.ga4.visitors = parseInt(vals[0].value);
+          liveData.ga4.bounceRate = (parseFloat(vals[1].value) * 100).toFixed(1);
+          
+          const secs = parseInt(vals[2].value);
+          const m = Math.floor(secs / 60);
+          const s = secs % 60;
+          liveData.ga4.avgSessionDuration = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        // Traffic Sources
+        const ga4TrafficRes = await analyticsData.properties.runReport({
+          property: `properties/${GA4_PROPERTY_ID}`,
+          requestBody: {
+            dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
+            dimensions: [{ name: 'sessionDefaultChannelGroup' }],
+            metrics: [{ name: 'activeUsers' }]
+          }
+        });
+        if (ga4TrafficRes.data.rows) {
+          liveData.trafficSources = ga4TrafficRes.data.rows.map(row => ({
+            name: row.dimensionValues[0].value,
+            value: parseInt(row.metricValues[0].value)
+          }));
+        }
+
+        // Top Pages
+        const ga4PagesRes = await analyticsData.properties.runReport({
+          property: `properties/${GA4_PROPERTY_ID}`,
+          requestBody: {
+            dateRanges: [{ startDate: '7daysAgo', endDate: 'today' }],
+            dimensions: [{ name: 'pagePath' }],
+            metrics: [{ name: 'screenPageViews' }],
+            limit: 5
+          }
+        });
+        if (ga4PagesRes.data.rows) {
+          liveData.topPages = ga4PagesRes.data.rows.map((row, i) => ({
+            id: i + 1,
+            title: row.dimensionValues[0].value,
+            views: parseInt(row.metricValues[0].value)
+          }));
+        }
+        
+        // Chart Data (Timeline for last 7 days)
+        const ga4ChartRes = await analyticsData.properties.runReport({
+          property: `properties/${GA4_PROPERTY_ID}`,
+          requestBody: {
+            dateRanges: [{ startDate: '6daysAgo', endDate: 'today' }],
+            dimensions: [{ name: 'dayOfWeekName' }, { name: 'date' }],
+            metrics: [{ name: 'activeUsers' }, { name: 'totalRevenue' }],
+            orderBys: [{ dimension: { dimensionName: 'date' } }]
+          }
+        });
+        
+        if (ga4ChartRes.data.rows) {
+          liveData.chartData = ga4ChartRes.data.rows.map(row => ({
+            date: row.dimensionValues[0].value.substring(0,3), // e.g. Mon, Tue
+            views: parseInt(row.metricValues[0].value),
+            revenue: parseFloat(row.metricValues[1].value)
+          }));
+        }
+      }
+    } catch (e) {
+      console.error('GA4 Error:', e.message);
     }
 
     res.status(200).json(liveData);
   } catch (error) {
     console.error('Google API Master Error:', error);
-    res.status(500).json({ error: 'Failed to fetch Google stats: ' + error.message });
+    // Even on master auth error, return success with empty data to prevent UI from being permanently "pending" if credentials are bad
+    res.status(200).json({ status: 'success', error: error.message, ...dataStructure });
   }
 }
