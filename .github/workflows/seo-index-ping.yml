@@ -1,0 +1,30 @@
+name: Dynamic SEO Indexing Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 2 * * *' # Runs nightly at 2:00 AM UTC
+
+jobs:
+  ping-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install node-fetch
+
+      - name: Run Indexing Ping Pipeline
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          GOOGLE_CLIENT_EMAIL: ${{ secrets.GOOGLE_CLIENT_EMAIL }}
+          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+        run: node scripts/pingIndex.js
