@@ -226,11 +226,9 @@ function ContentWrapper({ lang, t }) {
 export default function App() {
   const location = useLocation();
   const [lang, setLang] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const pathSegments = window.location.pathname.split('/').filter(Boolean);
-      const possibleLang = pathSegments[0];
-      if (supportedLanguages.some(l => l.code === possibleLang)) return possibleLang;
-    }
+    const pathSegments = location.pathname.split('/').filter(Boolean);
+    const possibleLang = pathSegments[0];
+    if (supportedLanguages.some(l => l.code === possibleLang)) return possibleLang;
     return 'en';
   });
 
