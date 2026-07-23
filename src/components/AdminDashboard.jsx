@@ -314,6 +314,67 @@ function AnalyticsTab({ googleStats }) {
           </table>
         </div>
       </div>
+
+      <div className="glass-card p-4 sm:p-6 rounded-2xl border-purple-500/20">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 space-y-4 sm:space-y-0">
+          <div>
+            <h3 className="text-sm font-bold text-white flex items-center space-x-2">
+              <Search className="w-4 h-4 text-purple-400" />
+              <span>Organik Arama Terimleri Keşfi (Google Search Console)</span>
+            </h3>
+            <p className="text-xs text-slate-400 mt-1">
+              Kullanıcıların Google'da hangi tamamen rastgele ve <span className="text-purple-300 font-bold">sizin bilmediğiniz</span> kelimeleri aratarak sitenize ulaştığını (ve bu kelimelerdeki ortalama sıranızı) otomatik tespit eder.
+            </p>
+          </div>
+          <div className="bg-purple-500/10 border border-purple-500/20 text-purple-400 text-[10px] font-bold px-3 py-1.5 rounded-full shrink-0">
+            Örnek API Verisi
+          </div>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="border-b border-purple-500/20">
+                <th className="py-3 px-4 text-xs font-bold text-purple-400 uppercase tracking-wider">Keşfedilen Sürpriz Kelime (Sorgu)</th>
+                <th className="py-3 px-4 text-xs font-bold text-purple-400 uppercase tracking-wider text-center">Tıklama</th>
+                <th className="py-3 px-4 text-xs font-bold text-purple-400 uppercase tracking-wider text-center">Gösterim</th>
+                <th className="py-3 px-4 text-xs font-bold text-purple-400 uppercase tracking-wider text-right">Ort. Sıra (Google)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-purple-500/10 hover:bg-purple-900/10 transition">
+                <td className="py-4 px-4 text-sm font-bold text-white">online tool to remove background free</td>
+                <td className="py-4 px-4 text-sm font-bold text-slate-300 text-center">245</td>
+                <td className="py-4 px-4 text-sm font-bold text-slate-400 text-center">1,240</td>
+                <td className="py-4 px-4 text-lg font-black text-emerald-400 text-right">4.2</td>
+              </tr>
+              <tr className="border-b border-purple-500/10 hover:bg-purple-900/10 transition">
+                <td className="py-4 px-4 text-sm font-bold text-white">remote software engineer tax calculator</td>
+                <td className="py-4 px-4 text-sm font-bold text-slate-300 text-center">182</td>
+                <td className="py-4 px-4 text-sm font-bold text-slate-400 text-center">890</td>
+                <td className="py-4 px-4 text-lg font-black text-emerald-400 text-right">2.8</td>
+              </tr>
+              <tr className="border-b border-purple-500/10 hover:bg-purple-900/10 transition">
+                <td className="py-4 px-4 text-sm font-bold text-white">how much does openai api cost for 1m tokens</td>
+                <td className="py-4 px-4 text-sm font-bold text-slate-300 text-center">94</td>
+                <td className="py-4 px-4 text-sm font-bold text-slate-400 text-center">310</td>
+                <td className="py-4 px-4 text-lg font-black text-emerald-400 text-right">6.5</td>
+              </tr>
+              <tr className="border-b border-purple-500/10 hover:bg-purple-900/10 transition">
+                <td className="py-4 px-4 text-sm font-bold text-white">net salary after taxes in dubai</td>
+                <td className="py-4 px-4 text-sm font-bold text-slate-300 text-center">45</td>
+                <td className="py-4 px-4 text-sm font-bold text-slate-400 text-center">2,400</td>
+                <td className="py-4 px-4 text-lg font-black text-amber-400 text-right">14.1</td>
+              </tr>
+              <tr className="border-b border-purple-500/10 hover:bg-purple-900/10 transition">
+                <td className="py-4 px-4 text-sm font-bold text-white">best youtube earnings simulator</td>
+                <td className="py-4 px-4 text-sm font-bold text-slate-300 text-center">12</td>
+                <td className="py-4 px-4 text-sm font-bold text-slate-400 text-center">150</td>
+                <td className="py-4 px-4 text-lg font-black text-amber-400 text-right">22.4</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
