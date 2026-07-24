@@ -97,20 +97,7 @@ export const generateUnifiedSchema = ({ url, name, description, faqs = [], bread
     }
   ];
 
-  if (faqs && faqs.length > 0) {
-    graph.push({
-      "@type": "FAQPage",
-      "@id": `${url}/#faq`,
-      "mainEntity": faqs.map(faq => ({
-        "@type": "Question",
-        "name": faq.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": faq.answer
-        }
-      }))
-    });
-  }
+
 
   if (breadcrumbs && breadcrumbs.length > 0) {
     graph.push({

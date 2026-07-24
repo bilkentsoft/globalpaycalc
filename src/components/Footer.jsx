@@ -20,16 +20,16 @@ export default function Footer({ lang = 'en' }) {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-semibold text-slate-400">
-            <Link to={lang === 'en' ? '/about' : `/${lang}/about`} className="hover:text-white transition decoration-slate-600 hover:underline">
+            <Link to={lang === 'en' ? '/about' : `/${lang}/about`} title={t('footer.aboutUs') || 'About Us'} className="hover:text-white transition decoration-slate-600 hover:underline">
               {t('footer.aboutUs') || 'About Us'}
             </Link>
-            <Link to={lang === 'en' ? '/contact' : `/${lang}/contact`} className="hover:text-white transition decoration-slate-600 hover:underline">
+            <Link to={lang === 'en' ? '/contact' : `/${lang}/contact`} title={t('footer.contact') || 'Contact'} className="hover:text-white transition decoration-slate-600 hover:underline">
               {t('footer.contact') || 'Contact'}
             </Link>
-            <Link to={lang === 'en' ? '/privacy' : `/${lang}/privacy`} className="hover:text-white transition decoration-slate-600 hover:underline">
+            <Link to={lang === 'en' ? '/privacy' : `/${lang}/privacy`} title={t('footer.privacy')} className="hover:text-white transition decoration-slate-600 hover:underline">
               {t('footer.privacy')}
             </Link>
-            <Link to={lang === 'en' ? '/terms' : `/${lang}/terms`} className="hover:text-white transition decoration-slate-600 hover:underline">
+            <Link to={lang === 'en' ? '/terms' : `/${lang}/terms`} title={t('footer.terms')} className="hover:text-white transition decoration-slate-600 hover:underline">
               {t('footer.terms')}
             </Link>
           </div>

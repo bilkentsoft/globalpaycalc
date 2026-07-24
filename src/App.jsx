@@ -4,34 +4,41 @@ import { Helmet } from 'react-helmet-async';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AdSenseSlot from './components/AdSenseSlot';
-import NomadTaxCalculator from './components/NomadTaxCalculator';
-import DevTokenCalculator from './components/DevTokenCalculator';
-import QuickWasmCompressor from './components/QuickWasmCompressor';
-import GlobalTakeHomeCalculator from './components/GlobalTakeHomeCalculator';
-import ContractorVsPermCalculator from './components/ContractorVsPermCalculator';
-import HiddenFxFeeCalculator from './components/HiddenFxFeeCalculator';
-import GlobalInvoiceVatCalculator from './components/GlobalInvoiceVatCalculator';
-import FreelancerRateCalculator from './components/FreelancerRateCalculator';
-import InflationCalculator from './components/InflationCalculator';
-import TimezoneOverlapCalculator from './components/TimezoneOverlapCalculator';
-import BeckhamLawCalculator from './components/BeckhamLawCalculator';
-import CryptoTaxCalculator from './components/CryptoTaxCalculator';
-import EorCostCalculator from './components/EorCostCalculator';
-import NomadVisaCalculator from './components/NomadVisaCalculator';
-import ProgrammaticSeoGrid from './components/ProgrammaticSeoGrid';
 import NotFoundPage from './pages/NotFoundPage';
 import ProtectedRoute from './components/ProtectedRoute';
 
+const NomadTaxCalculator = React.lazy(() => import('./components/NomadTaxCalculator'));
+const DevTokenCalculator = React.lazy(() => import('./components/DevTokenCalculator'));
+const QuickWasmCompressor = React.lazy(() => import('./components/QuickWasmCompressor'));
+const GlobalTakeHomeCalculator = React.lazy(() => import('./components/GlobalTakeHomeCalculator'));
+const ContractorVsPermCalculator = React.lazy(() => import('./components/ContractorVsPermCalculator'));
+const HiddenFxFeeCalculator = React.lazy(() => import('./components/HiddenFxFeeCalculator'));
+const GlobalInvoiceVatCalculator = React.lazy(() => import('./components/GlobalInvoiceVatCalculator'));
+const FreelancerRateCalculator = React.lazy(() => import('./components/FreelancerRateCalculator'));
+const InflationCalculator = React.lazy(() => import('./components/InflationCalculator'));
+const TimezoneOverlapCalculator = React.lazy(() => import('./components/TimezoneOverlapCalculator'));
+const BeckhamLawCalculator = React.lazy(() => import('./components/BeckhamLawCalculator'));
+const CryptoTaxCalculator = React.lazy(() => import('./components/CryptoTaxCalculator'));
+const EorCostCalculator = React.lazy(() => import('./components/EorCostCalculator'));
+const NomadVisaCalculator = React.lazy(() => import('./components/NomadVisaCalculator'));
+
+const ProgrammaticSeoGrid = React.lazy(() => import('./components/ProgrammaticSeoGrid'));
 const AdminDashboard = React.lazy(() => import('./components/AdminDashboard'));
-import DynamicToolPage from './pages/DynamicToolPage';
-import { PrivacyPolicy, TermsOfService, AboutUs, Contact } from './pages/Legal';
+const DynamicToolPage = React.lazy(() => import('./pages/DynamicToolPage'));
+const ToolSeoArticle = React.lazy(() => import('./components/ToolSeoArticle'));
+
+// Legal pages split loading
+const PrivacyPolicy = React.lazy(() => import('./pages/Legal').then(m => ({ default: m.PrivacyPolicy })));
+const TermsOfService = React.lazy(() => import('./pages/Legal').then(m => ({ default: m.TermsOfService })));
+const AboutUs = React.lazy(() => import('./pages/Legal').then(m => ({ default: m.AboutUs })));
+const Contact = React.lazy(() => import('./pages/Legal').then(m => ({ default: m.Contact })));
+
 import { CookieConsent } from './components/CookieConsent';
 import { getTranslation, supportedLanguages } from './i18n';
 import { detectUserLanguage } from './utils/langDetector';
 import { trackPageView } from './utils/analyticsTracker';
 import { Sparkles, Globe, Image, DollarSign, Briefcase, ArrowRightLeft, FileText, Clock, TrendingDown, UserCheck, Award, Cpu, Building2 } from 'lucide-react';
 import { generatePseoTaxMatrix, generatePseoLlmMatrix } from './pseo/matrixEngine';
-import ToolSeoArticle from './components/ToolSeoArticle';
 
 function ContentWrapper({ lang, t }) {
   const location = useLocation();
@@ -180,6 +187,7 @@ function ContentWrapper({ lang, t }) {
                 <Link 
                   key={tool.path}
                   to={`${basePath}${tool.path}`} 
+                  title={tool.desc}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${isActive ? activeClass : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}
                 >
                   <Icon className={`w-3.5 h-3.5 ${tool.color}`} />
@@ -233,6 +241,7 @@ function ContentWrapper({ lang, t }) {
                 <Link 
                   key={tool.path}
                   to={`${basePath}${tool.path}`}
+                  title={tool.desc}
                   className={`flex flex-col text-left p-4 rounded-2xl border transition-all duration-150 active:scale-[0.96] cursor-pointer ${isActive ? 'bg-slate-900 border-brand-500 shadow-lg shadow-brand-500/10' : 'bg-slate-900/50 hover:bg-slate-900 border-slate-800'}`}
                 >
                   <div className={`w-9 h-9 rounded-xl ${tool.bg} flex items-center justify-center mb-3 border ${borderClass}`}>
@@ -249,88 +258,96 @@ function ContentWrapper({ lang, t }) {
       )}
 
       <div className="pt-4">
-        <Routes>
-          <Route path="/" element={<GlobalTakeHomeCalculator lang={lang} />} />
-          <Route path="/take-home" element={<GlobalTakeHomeCalculator lang={lang} />} />
-          <Route path="/contractor" element={<ContractorVsPermCalculator lang={lang} />} />
-          <Route path="/hourly-rate" element={<FreelancerRateCalculator lang={lang} />} />
-          <Route path="/beckham-law" element={<BeckhamLawCalculator lang={lang} />} />
-          <Route path="/crypto-tax" element={<CryptoTaxCalculator lang={lang} />} />
-          <Route path="/eor-cost" element={<EorCostCalculator lang={lang} />} />
-          <Route path="/nomad-visa" element={<NomadVisaCalculator lang={lang} />} />
-          <Route path="/inflation" element={<InflationCalculator lang={lang} />} />
-          <Route path="/fx-fees" element={<HiddenFxFeeCalculator lang={lang} />} />
-          <Route path="/vat" element={<GlobalInvoiceVatCalculator lang={lang} />} />
-          <Route path="/timezone" element={<TimezoneOverlapCalculator lang={lang} />} />
-          <Route path="/salary" element={<NomadTaxCalculator lang={lang} />} />
-          <Route path="/ai" element={<DevTokenCalculator lang={lang} />} />
-          <Route path="/wasm" element={<QuickWasmCompressor lang={lang} />} />
-          <Route path="/video" element={<GlobalTakeHomeCalculator lang={lang} />} />
-          <Route path="/admin" element={
-            <ProtectedRoute>
-              <React.Suspense fallback={<div className="min-h-screen flex items-center justify-center text-slate-400">Loading Dashboard...</div>}>
+        <React.Suspense fallback={
+          <div className="min-h-[450px] flex flex-col items-center justify-center bg-slate-900/40 rounded-3xl border border-slate-800/80 p-8 text-center animate-pulse">
+            <div className="w-10 h-10 rounded-full border-2 border-brand-500 border-t-transparent animate-spin mb-4" />
+            <div className="text-slate-400 text-sm font-medium">Yükleniyor... / Loading...</div>
+          </div>
+        }>
+          <Routes>
+            <Route path="/" element={<GlobalTakeHomeCalculator lang={lang} />} />
+            <Route path="/take-home" element={<GlobalTakeHomeCalculator lang={lang} />} />
+            <Route path="/contractor" element={<ContractorVsPermCalculator lang={lang} />} />
+            <Route path="/hourly-rate" element={<FreelancerRateCalculator lang={lang} />} />
+            <Route path="/beckham-law" element={<BeckhamLawCalculator lang={lang} />} />
+            <Route path="/crypto-tax" element={<CryptoTaxCalculator lang={lang} />} />
+            <Route path="/eor-cost" element={<EorCostCalculator lang={lang} />} />
+            <Route path="/nomad-visa" element={<NomadVisaCalculator lang={lang} />} />
+            <Route path="/inflation" element={<InflationCalculator lang={lang} />} />
+            <Route path="/fx-fees" element={<HiddenFxFeeCalculator lang={lang} />} />
+            <Route path="/vat" element={<GlobalInvoiceVatCalculator lang={lang} />} />
+            <Route path="/timezone" element={<TimezoneOverlapCalculator lang={lang} />} />
+            <Route path="/salary" element={<NomadTaxCalculator lang={lang} />} />
+            <Route path="/ai" element={<DevTokenCalculator lang={lang} />} />
+            <Route path="/wasm" element={<QuickWasmCompressor lang={lang} />} />
+            <Route path="/video" element={<GlobalTakeHomeCalculator lang={lang} />} />
+            <Route path="/admin" element={
+              <ProtectedRoute>
                 <AdminDashboard />
-              </React.Suspense>
-            </ProtectedRoute>
-          } />
-          
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<TermsOfService />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/contact" element={<Contact />} />
-          
-          {/* Lang Routes */}
-          {supportedLanguages.map(l => (
-            <React.Fragment key={l.code}>
-              <Route path={`/${l.code}`} element={<GlobalTakeHomeCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/take-home`} element={<GlobalTakeHomeCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/contractor`} element={<ContractorVsPermCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/hourly-rate`} element={<FreelancerRateCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/beckham-law`} element={<BeckhamLawCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/crypto-tax`} element={<CryptoTaxCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/eor-cost`} element={<EorCostCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/nomad-visa`} element={<NomadVisaCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/inflation`} element={<InflationCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/fx-fees`} element={<HiddenFxFeeCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/vat`} element={<GlobalInvoiceVatCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/timezone`} element={<TimezoneOverlapCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/salary`} element={<NomadTaxCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/ai`} element={<DevTokenCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/wasm`} element={<QuickWasmCompressor lang={l.code} />} />
-              <Route path={`/${l.code}/video`} element={<GlobalTakeHomeCalculator lang={l.code} />} />
-              
-              <Route path={`/${l.code}/privacy`} element={<PrivacyPolicy lang={l.code} />} />
-              <Route path={`/${l.code}/terms`} element={<TermsOfService lang={l.code} />} />
-              <Route path={`/${l.code}/about`} element={<AboutUs lang={l.code} />} />
-              <Route path={`/${l.code}/contact`} element={<Contact lang={l.code} />} />
-            </React.Fragment>
-          ))}
+              </ProtectedRoute>
+            } />
+            
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/contact" element={<Contact />} />
+            
+            {/* Lang Routes */}
+            {supportedLanguages.map(l => (
+              <React.Fragment key={l.code}>
+                <Route path={`/${l.code}`} element={<GlobalTakeHomeCalculator lang={l.code} />} />
+                <Route path={`/${l.code}/take-home`} element={<GlobalTakeHomeCalculator lang={l.code} />} />
+                <Route path={`/${l.code}/contractor`} element={<ContractorVsPermCalculator lang={l.code} />} />
+                <Route path={`/${l.code}/hourly-rate`} element={<FreelancerRateCalculator lang={l.code} />} />
+                <Route path={`/${l.code}/beckham-law`} element={<BeckhamLawCalculator lang={l.code} />} />
+                <Route path={`/${l.code}/crypto-tax`} element={<CryptoTaxCalculator lang={l.code} />} />
+                <Route path={`/${l.code}/eor-cost`} element={<EorCostCalculator lang={l.code} />} />
+                <Route path={`/${l.code}/nomad-visa`} element={<NomadVisaCalculator lang={l.code} />} />
+                <Route path={`/${l.code}/inflation`} element={<InflationCalculator lang={l.code} />} />
+                <Route path={`/${l.code}/fx-fees`} element={<HiddenFxFeeCalculator lang={l.code} />} />
+                <Route path={`/${l.code}/vat`} element={<GlobalInvoiceVatCalculator lang={l.code} />} />
+                <Route path={`/${l.code}/timezone`} element={<TimezoneOverlapCalculator lang={l.code} />} />
+                <Route path={`/${l.code}/salary`} element={<NomadTaxCalculator lang={l.code} />} />
+                <Route path={`/${l.code}/ai`} element={<DevTokenCalculator lang={l.code} />} />
+                <Route path={`/${l.code}/wasm`} element={<QuickWasmCompressor lang={l.code} />} />
+                <Route path={`/${l.code}/video`} element={<GlobalTakeHomeCalculator lang={l.code} />} />
+                
+                <Route path={`/${l.code}/privacy`} element={<PrivacyPolicy lang={l.code} />} />
+                <Route path={`/${l.code}/terms`} element={<TermsOfService lang={l.code} />} />
+                <Route path={`/${l.code}/about`} element={<AboutUs lang={l.code} />} />
+                <Route path={`/${l.code}/contact`} element={<Contact lang={l.code} />} />
+              </React.Fragment>
+            ))}
 
-          {/* Programmatic SEO Routes */}
-          <Route path="/calculator/:slug" element={<DynamicToolPage type="tax" lang={lang} />} />
-          <Route path="/tools/:slug" element={<DynamicToolPage type="llm" lang={lang} />} />
-          
-          {supportedLanguages.map(l => (
-            <React.Fragment key={l.code}>
-              <Route path={`/${l.code}/calculator/:slug`} element={<DynamicToolPage type="tax" lang={l.code} />} />
-              <Route path={`/${l.code}/tools/:slug`} element={<DynamicToolPage type="llm" lang={l.code} />} />
-            </React.Fragment>
-          ))}
+            {/* Programmatic SEO Routes */}
+            <Route path="/calculator/:slug" element={<DynamicToolPage type="tax" lang={lang} />} />
+            <Route path="/tools/:slug" element={<DynamicToolPage type="llm" lang={lang} />} />
+            
+            {supportedLanguages.map(l => (
+              <React.Fragment key={l.code}>
+                <Route path={`/${l.code}/calculator/:slug`} element={<DynamicToolPage type="tax" lang={l.code} />} />
+                <Route path={`/${l.code}/tools/:slug`} element={<DynamicToolPage type="llm" lang={l.code} />} />
+              </React.Fragment>
+            ))}
 
-
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </React.Suspense>
       </div>
 
       {activeTab !== 'admin' && !location.pathname.includes('/calculator/') && !location.pathname.includes('/tools/') && (
-        <ToolSeoArticle activeTool={activeTab} lang={lang} />
+        <React.Suspense fallback={null}>
+          <ToolSeoArticle activeTool={activeTab} lang={lang} />
+        </React.Suspense>
       )}
 
       {activeTab !== 'admin' && (
-        <div className="space-y-8 mt-12">
-          <AdSenseSlot slotId="content-bottom" />
-          <ProgrammaticSeoGrid lang={lang} />
-        </div>
+        <React.Suspense fallback={null}>
+          <div className="space-y-8 mt-12">
+            <AdSenseSlot slotId="content-bottom" />
+            <ProgrammaticSeoGrid lang={lang} />
+          </div>
+        </React.Suspense>
       )}
     </>
   );

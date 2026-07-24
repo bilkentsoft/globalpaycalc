@@ -28,12 +28,6 @@ export default function ToolSeoArticle({ activeTool = 'take-home', lang = 'en' }
     description: article.subtitle,
   });
 
-  const faqSchema = generateSeoSchema({
-    type: 'FAQPage',
-    url: `https://globalpaycalc.com/${lang !== 'en' ? lang + '/' : ''}${activeTool}`,
-    faqs: (article.faqs || []).map((f) => ({ question: f.q, answer: f.a })),
-  });
-
   return (
     <article className="glass-card p-6 sm:p-10 rounded-2xl border-slate-800 space-y-8 mt-12">
       <header className="space-y-2 border-b border-slate-800 pb-6">
@@ -77,7 +71,6 @@ export default function ToolSeoArticle({ activeTool = 'take-home', lang = 'en' }
 
       {/* Structured JSON-LD Schema */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
     </article>
   );
 }

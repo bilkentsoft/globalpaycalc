@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calculator } from 'lucide-react';
 import { supportedLanguages, getTranslation } from '../i18n';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +7,16 @@ export default function Header({ currentLang, setLang, onLanguageChange }) {
   const t = (path) => getTranslation(currentLang, path);
   const navigate = useNavigate();
   const changeLang = setLang || onLanguageChange;
+
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 glass-card border-b border-slate-800/80 px-4 lg:px-8 py-3.5">
@@ -58,11 +68,11 @@ export default function Header({ currentLang, setLang, onLanguageChange }) {
 
               navigate(newPath);
             }}
-            className="bg-slate-900 border border-slate-700 text-slate-200 text-xs font-medium rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-500 focus:outline-none cursor-pointer"
+            className="bg-slate-900 border border-slate-700 text-slate-200 text-xs font-medium rounded-lg px-2 py-1.5 md:px-3 md:py-2 focus:ring-2 focus:ring-brand-500 focus:outline-none cursor-pointer"
           >
             {supportedLanguages.map(lang => (
               <option key={lang.code} value={lang.code}>
-                {lang.label}
+                {isMobile ? lang.label.split(' ').pop() : lang.label}
               </option>
             ))}
           </select>
