@@ -27,14 +27,14 @@ function ContentWrapper({ lang, t }) {
   
   // Ignore language prefix for routing tab highlighting
   const hasLangPrefix = supportedLanguages.some(l => l.code === pathSegments[0]);
-  const activeTab = hasLangPrefix ? (pathSegments[1] || 'video') : (pathSegments[0] || 'video');
+  const activeTab = hasLangPrefix ? (pathSegments[1] || 'salary') : (pathSegments[0] || 'salary');
   const basePath = hasLangPrefix ? `/${pathSegments[0]}` : '';
 
   // Get active route data for dynamic meta
-  let pageTitle = 'GlobalPayCalc: Universal Media, AI & Salary Engine';
+  let pageTitle = 'GlobalPayCalc: Global Remote Salary, Tax & AI Cost Simulator';
   let pageDesc = t('hero.subtitle');
 
-  if (activeTab === 'salary') {
+  if (activeTab === 'salary' || activeTab === 'video') {
     pageTitle = "Remote Salary Calculator & Global Tax Parity Estimator | GlobalPayCalc";
     pageDesc = "Calculate net remote salaries across 150+ countries. Compare purchasing power, cost of living, and nomad tax laws instantly.";
   } else if (activeTab === 'wasm') {
@@ -83,21 +83,17 @@ function ContentWrapper({ lang, t }) {
           </p>
 
           <div className="flex flex-wrap justify-center gap-2 pt-2">
-            <Link to={`${basePath}/video`} title="Download HD social videos without watermark" className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'video' ? 'bg-rose-500 text-white border-rose-400 shadow-lg shadow-rose-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <Video className="w-3.5 h-3.5" />
-              <span>{t('nav.downloader')}</span>
-            </Link>
-            <Link to={`${basePath}/wasm`} title="Client-side AI image background remover" className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'wasm' ? 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <Image className="w-3.5 h-3.5" />
-              <span>{t('nav.bgRemover')}</span>
-            </Link>
-            <Link to={`${basePath}/salary`} title="Calculate remote net salary and tax parity" className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'salary' ? 'bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+            <Link to={`${basePath}/salary`} title="Calculate remote net salary and tax parity" className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'salary' || activeTab === 'video' ? 'bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Globe className="w-3.5 h-3.5" />
               <span>{t('nav.salary')}</span>
             </Link>
             <Link to={`${basePath}/ai`} title="LLM API token cost simulator" className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'ai' ? 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               <span>{t('nav.aiCost')}</span>
+            </Link>
+            <Link to={`${basePath}/wasm`} title="Client-side AI image background remover" className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'wasm' ? 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <Image className="w-3.5 h-3.5" />
+              <span>{t('nav.bgRemover')}</span>
             </Link>
           </div>
 
@@ -106,8 +102,8 @@ function ContentWrapper({ lang, t }) {
 
       <div className="pt-4">
         <Routes>
-          <Route path="/" element={<SocialVideoDownloader lang={lang} />} />
-          <Route path="/video" element={<SocialVideoDownloader lang={lang} />} />
+          <Route path="/" element={<NomadTaxCalculator lang={lang} />} />
+          <Route path="/video" element={<NomadTaxCalculator lang={lang} />} />
           <Route path="/wasm" element={<QuickWasmCompressor lang={lang} />} />
           <Route path="/salary" element={<NomadTaxCalculator lang={lang} />} />
           <Route path="/ai" element={<DevTokenCalculator lang={lang} />} />
@@ -121,8 +117,8 @@ function ContentWrapper({ lang, t }) {
           {/* Lang Routes */}
           {supportedLanguages.map(l => (
             <React.Fragment key={l.code}>
-              <Route path={`/${l.code}`} element={<SocialVideoDownloader lang={l.code} />} />
-              <Route path={`/${l.code}/video`} element={<SocialVideoDownloader lang={l.code} />} />
+              <Route path={`/${l.code}`} element={<NomadTaxCalculator lang={l.code} />} />
+              <Route path={`/${l.code}/video`} element={<NomadTaxCalculator lang={l.code} />} />
               <Route path={`/${l.code}/wasm`} element={<QuickWasmCompressor lang={l.code} />} />
               <Route path={`/${l.code}/salary`} element={<NomadTaxCalculator lang={l.code} />} />
               <Route path={`/${l.code}/ai`} element={<DevTokenCalculator lang={l.code} />} />

@@ -10,7 +10,7 @@ const supportedLanguages = ['en', 'tr', 'es', 'de', 'pt', 'fr', 'id', 'ja'];
 console.log('[Sitemap Engine] Generating dynamic sitemap index and sub-sitemaps...');
 
 const baseDomain = 'https://globalpaycalc.com';
-const staticRoutes = ['', '/video', '/wasm', '/salary', '/ai', '/privacy', '/terms', '/about', '/contact'];
+const staticRoutes = ['', '/wasm', '/salary', '/ai', '/privacy', '/terms', '/about', '/contact'];
 const taxRoutes = generatePseoTaxMatrix();
 const llmRoutes = generatePseoLlmMatrix();
 

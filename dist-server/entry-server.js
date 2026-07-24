@@ -4,7 +4,7 @@ import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server.mjs";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useNavigate, Link, useLocation, Routes, Route } from "react-router-dom";
-import { Calculator, X, Lock, FileText, Heart, Globe, DollarSign, Download, Code, Sparkles, Zap, UploadCloud, ShieldCheck, RefreshCw, Video, AlertTriangle, CheckCircle2, Play, Music, HelpCircle, ChevronUp, ChevronDown, Star, LayoutDashboard, Map, BarChart2, Globe2, Search, Activity, LogOut, AlertCircle, Wallet, TrendingUp, Target, Database, CheckCircle, XCircle, Server, Compass, Home, Loader, ArrowLeftRight, ShieldAlert, Info, Link as Link$1, Shield, Mail, Cookie, Image as Image$1 } from "lucide-react";
+import { Calculator, X, Lock, FileText, Heart, Globe, DollarSign, Download, Code, Sparkles, Zap, UploadCloud, ShieldCheck, RefreshCw, HelpCircle, ChevronUp, ChevronDown, Star, LayoutDashboard, Map, BarChart2, Globe2, Search, Activity, LogOut, AlertCircle, Wallet, TrendingUp, Target, CheckCircle2, Database, CheckCircle, XCircle, AlertTriangle, Server, Compass, Home, Loader, ArrowLeftRight, ShieldAlert, Info, Link as Link$1, Shield, Mail, Cookie, Image as Image$1 } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
 import { ResponsiveContainer, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area, PieChart, Pie, Cell, Legend } from "recharts";
 const nav$7 = {
@@ -1657,7 +1657,7 @@ function LegalModal({ type, lang = "en", onClose }) {
             " adresinde ziyaretçilerimizin gizliliği bizim için en büyük önceliktir. Bu Gizlilik Politikası belgesi, platformumuz tarafından toplanan ve kaydedilen bilgi türlerini ve bunları nasıl kullandığımızı açıklamaktadır."
           ] }),
           /* @__PURE__ */ jsx("h4", { className: "font-bold text-white text-sm", children: "1. %100 Yerel İstemci Taraflı İşleme (Client-Side Privacy)" }),
-          /* @__PURE__ */ jsx("p", { children: "Sitemizdeki tüm video indirme analizleri, dosya dönüştürmeler, arka plan silme işlemleri ve finansal hesaplamalar tamamen tarayıcınızın belleğinde (local olarak) gerçekleşir. Dönüştürdüğünüz veya yüklediğiniz hiçbir dosya veya veri sunucularımıza yüklenmez, kaydedilmez ve saklanmaz." }),
+          /* @__PURE__ */ jsx("p", { children: "Sitemizdeki tüm dosya dönüştürmeler, arka plan silme işlemleri ve finansal hesaplamalar tamamen tarayıcınızın belleğinde (local olarak) gerçekleşir. Dönüştürdüğünüz veya yüklediğiniz hiçbir dosya veya veri sunucularımıza yüklenmez, kaydedilmez ve saklanmaz." }),
           /* @__PURE__ */ jsx("h4", { className: "font-bold text-white text-sm", children: "2. Log Dosyaları" }),
           /* @__PURE__ */ jsx("p", { children: "GlobalPayCalc.com standart bir log dosyası barındırma prosedürü izler. Bu dosyalar ziyaretçilerin web sitelerini ziyaret ettiklerinde tuttukları kayıtları içerir. Barındırma (hosting) şirketleri bunu analitik amaçlarla yapar. Log dosyaları IP adresleri, tarayıcı türü, İnternet Servis Sağlayıcısı (ISP), tarih/saat damgası ve tıklama sayısını içerebilir. Bunlar kişisel olarak tanımlanabilir herhangi bir bilgiyle bağlantılı değildir." }),
           /* @__PURE__ */ jsx("h4", { className: "font-bold text-white text-sm", children: "3. Google AdSense & Çerezler" }),
@@ -1760,7 +1760,7 @@ function Footer({ lang = "en" }) {
         /* @__PURE__ */ jsx("div", { className: "font-mono text-[10px] text-slate-600", children: t("footer.tagline") })
       ] })
     ] }),
-    /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto mt-8 text-[10px] text-slate-800 leading-relaxed text-justify", children: "GlobalPayCalc is an all-in-one universal utility engine for digital professionals. Securely download HD social media videos without watermarks from platforms like TikTok, Instagram Reels, and YouTube Shorts using our free unlimited client-side downloader. Accurately calculate remote salaries, global tax requirements, and living cost parity across worldwide destinations. Developers can use our advanced simulator to evaluate LLM API token costs for models like GPT-4o, Claude 3.5, and LLaMA 3. Experience complete privacy with our in-browser image background remover powered by WebAssembly, ensuring your photos and media are processed securely and privately without server uploads." }),
+    /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto mt-8 text-[10px] text-slate-800 leading-relaxed text-justify", children: "GlobalPayCalc is an all-in-one universal utility engine for digital professionals. Accurately calculate remote salaries, global tax requirements, and living cost parity across worldwide destinations. Developers can use our advanced simulator to evaluate LLM API token costs for models like GPT-4o, Claude 3.5, and LLaMA 3. Experience complete privacy with our in-browser image background remover powered by WebAssembly, ensuring your photos and media are processed securely and privately without server uploads." }),
     /* @__PURE__ */ jsx(LegalModal, { type: modalType, onClose: () => setModalType(null) })
   ] });
 }
@@ -2810,142 +2810,6 @@ function QuickWasmCompressor({ lang = "en" }) {
           }
         )
       ] })
-    ] })
-  ] });
-}
-function SocialVideoDownloader({ lang = "en" }) {
-  const t = (path) => getTranslation(lang, path);
-  const [url, setUrl] = useState("");
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-  const [metadata, setMetadata] = useState(null);
-  const handleDownload = async (e) => {
-    e.preventDefault();
-    if (!url) return;
-    setIsProcessing(true);
-    setErrorMsg("");
-    setMetadata(null);
-    const targetUrl = url.trim();
-    try {
-      const response = await fetch(`/api/download?url=${encodeURIComponent(targetUrl)}`);
-      if (response.ok) {
-        const data = await response.json();
-        if (data && data.success) {
-          setMetadata(data);
-          setIsProcessing(false);
-          return;
-        }
-      }
-      throw new Error("Video stream extraction failed.");
-    } catch (err) {
-      console.error("[Download error]:", err);
-      setErrorMsg(t("video.errorText"));
-    } finally {
-      setIsProcessing(false);
-    }
-  };
-  return /* @__PURE__ */ jsxs("div", { className: "space-y-8 max-w-4xl mx-auto my-8", children: [
-    /* @__PURE__ */ jsxs("div", { className: "text-center space-y-3", children: [
-      /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-semibold", children: [
-        /* @__PURE__ */ jsx(Video, { className: "w-3.5 h-3.5" }),
-        /* @__PURE__ */ jsx("span", { children: "No Watermark • Universal Media Downloader" })
-      ] }),
-      /* @__PURE__ */ jsx("h2", { className: "text-3xl sm:text-4xl font-extrabold text-white tracking-tight", children: t("video.title") }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm leading-relaxed", children: t("video.subtitle") })
-    ] }),
-    errorMsg && /* @__PURE__ */ jsxs("div", { className: "glass-card p-4 rounded-xl border-rose-500/30 bg-rose-500/10 flex items-start space-x-3 text-xs text-rose-400 animate-float", children: [
-      /* @__PURE__ */ jsx(AlertTriangle, { className: "w-5 h-5 flex-shrink-0 mt-0.5" }),
-      /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
-        /* @__PURE__ */ jsx("strong", { className: "font-bold text-white", children: t("video.errorTitle") }),
-        /* @__PURE__ */ jsx("p", { children: errorMsg })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("form", { onSubmit: handleDownload, className: "glass-card p-4 sm:p-6 rounded-2xl border-rose-500/20 space-y-4", children: [
-      /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row gap-3", children: [
-        /* @__PURE__ */ jsx(
-          "input",
-          {
-            type: "url",
-            placeholder: t("video.placeholder"),
-            value: url,
-            onChange: (e) => setUrl(e.target.value),
-            className: "flex-1 bg-slate-900 border border-slate-700 text-slate-200 text-sm rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-rose-500 focus:outline-none font-medium placeholder-slate-500",
-            required: true
-          }
-        ),
-        /* @__PURE__ */ jsx(
-          "button",
-          {
-            type: "submit",
-            disabled: isProcessing,
-            className: "px-6 py-3.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-600 to-purple-600 text-white font-bold text-xs hover:opacity-90 transition shadow-lg shadow-rose-500/20 flex items-center justify-center space-x-2 whitespace-nowrap cursor-pointer",
-            children: isProcessing ? /* @__PURE__ */ jsxs(Fragment, { children: [
-              /* @__PURE__ */ jsx(RefreshCw, { className: "w-4 h-4 animate-spin" }),
-              /* @__PURE__ */ jsx("span", { children: t("video.processing") })
-            ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
-              /* @__PURE__ */ jsx(Download, { className: "w-4 h-4" }),
-              /* @__PURE__ */ jsx("span", { children: t("video.btn") })
-            ] })
-          }
-        )
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap items-center justify-between text-[11px] text-slate-400 pt-2 border-t border-slate-800 gap-2", children: [
-        /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-2 text-emerald-400 font-medium", children: [
-          /* @__PURE__ */ jsx(ShieldCheck, { className: "w-4 h-4" }),
-          /* @__PURE__ */ jsx("span", { children: "100% Free • Unlimited • AdBlock Safe" })
-        ] }),
-        /* @__PURE__ */ jsx("div", { className: "font-mono text-slate-500", children: "TikTok, Instagram Reels, YouTube Shorts" })
-      ] })
-    ] }),
-    metadata && /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 rounded-2xl border-emerald-500/30 space-y-6 animate-float", children: [
-      /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-2 text-emerald-400 font-bold text-sm", children: [
-        /* @__PURE__ */ jsx(CheckCircle2, { className: "w-5 h-5" }),
-        /* @__PURE__ */ jsx("span", { children: t("video.success") })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-4", children: [
-        /* @__PURE__ */ jsxs(
-          "a",
-          {
-            href: metadata.videoUrl,
-            download: true,
-            className: "p-5 rounded-xl bg-slate-900 border border-slate-850 hover:border-emerald-500/50 transition flex items-center justify-between group cursor-pointer text-left w-full",
-            children: [
-              /* @__PURE__ */ jsxs("div", { children: [
-                /* @__PURE__ */ jsxs("div", { className: "text-xs font-bold text-white group-hover:text-emerald-400 flex items-center space-x-2", children: [
-                  /* @__PURE__ */ jsx(Play, { className: "w-4.5 h-4.5 text-emerald-400" }),
-                  /* @__PURE__ */ jsx("span", { children: t("video.downloadVideo") })
-                ] }),
-                /* @__PURE__ */ jsx("p", { className: "text-[10px] text-slate-500 mt-2 leading-relaxed", children: t("video.videoDesc") })
-              ] }),
-              /* @__PURE__ */ jsx(Download, { className: "w-5 h-5 text-emerald-400 flex-shrink-0 ml-4" })
-            ]
-          }
-        ),
-        metadata.audioUrl && /* @__PURE__ */ jsxs(
-          "a",
-          {
-            href: metadata.audioUrl,
-            download: true,
-            className: "p-5 rounded-xl bg-slate-900 border border-slate-850 hover:border-purple-500/50 transition flex items-center justify-between group cursor-pointer text-left w-full",
-            children: [
-              /* @__PURE__ */ jsxs("div", { children: [
-                /* @__PURE__ */ jsxs("div", { className: "text-xs font-bold text-white group-hover:text-purple-400 flex items-center space-x-2", children: [
-                  /* @__PURE__ */ jsx(Music, { className: "w-4.5 h-4.5 text-purple-400" }),
-                  /* @__PURE__ */ jsx("span", { children: t("video.downloadAudio") })
-                ] }),
-                /* @__PURE__ */ jsx("p", { className: "text-[10px] text-slate-500 mt-2 leading-relaxed", children: t("video.audioDesc") })
-              ] }),
-              /* @__PURE__ */ jsx(Sparkles, { className: "w-5 h-5 text-purple-400 flex-shrink-0 ml-4" })
-            ]
-          }
-        )
-      ] }),
-      /* @__PURE__ */ jsx("div", { className: "p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-[10px] text-slate-400 leading-relaxed", children: /* @__PURE__ */ jsxs("span", { children: [
-        "💡 ",
-        /* @__PURE__ */ jsx("strong", { children: t("video.noteTitle") }),
-        " ",
-        t("video.noteText")
-      ] }) })
     ] })
   ] });
 }
@@ -4811,11 +4675,11 @@ function ContentWrapper({ lang, t }) {
   const location = useLocation();
   const pathSegments = location.pathname.split("/").filter(Boolean);
   const hasLangPrefix = supportedLanguages.some((l) => l.code === pathSegments[0]);
-  const activeTab = hasLangPrefix ? pathSegments[1] || "video" : pathSegments[0] || "video";
+  const activeTab = hasLangPrefix ? pathSegments[1] || "salary" : pathSegments[0] || "salary";
   const basePath = hasLangPrefix ? `/${pathSegments[0]}` : "";
-  let pageTitle = "GlobalPayCalc: Universal Media, AI & Salary Engine";
+  let pageTitle = "GlobalPayCalc: Global Remote Salary, Tax & AI Cost Simulator";
   let pageDesc = t("hero.subtitle");
-  if (activeTab === "salary") {
+  if (activeTab === "salary" || activeTab === "video") {
     pageTitle = "Remote Salary Calculator & Global Tax Parity Estimator | GlobalPayCalc";
     pageDesc = "Calculate net remote salaries across 150+ countries. Compare purchasing power, cost of living, and nomad tax laws instantly.";
   } else if (activeTab === "wasm") {
@@ -4848,27 +4712,23 @@ function ContentWrapper({ lang, t }) {
       /* @__PURE__ */ jsx("h1", { className: "text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-2xl", children: /* @__PURE__ */ jsx("span", { className: "gradient-text", children: t("hero.title") }) }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-base sm:text-xl max-w-2xl mx-auto leading-relaxed font-medium", children: t("hero.subtitle") }),
       /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap justify-center gap-2 pt-2", children: [
-        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/video`, title: "Download HD social videos without watermark", className: `px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "video" ? "bg-rose-500 text-white border-rose-400 shadow-lg shadow-rose-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
-          /* @__PURE__ */ jsx(Video, { className: "w-3.5 h-3.5" }),
-          /* @__PURE__ */ jsx("span", { children: t("nav.downloader") })
-        ] }),
-        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/wasm`, title: "Client-side AI image background remover", className: `px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "wasm" ? "bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
-          /* @__PURE__ */ jsx(Image$1, { className: "w-3.5 h-3.5" }),
-          /* @__PURE__ */ jsx("span", { children: t("nav.bgRemover") })
-        ] }),
-        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/salary`, title: "Calculate remote net salary and tax parity", className: `px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "salary" ? "bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/salary`, title: "Calculate remote net salary and tax parity", className: `px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "salary" || activeTab === "video" ? "bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(Globe, { className: "w-3.5 h-3.5" }),
           /* @__PURE__ */ jsx("span", { children: t("nav.salary") })
         ] }),
         /* @__PURE__ */ jsxs(Link, { to: `${basePath}/ai`, title: "LLM API token cost simulator", className: `px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "ai" ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(Sparkles, { className: "w-3.5 h-3.5 text-amber-400" }),
           /* @__PURE__ */ jsx("span", { children: t("nav.aiCost") })
+        ] }),
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/wasm`, title: "Client-side AI image background remover", className: `px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "wasm" ? "bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(Image$1, { className: "w-3.5 h-3.5" }),
+          /* @__PURE__ */ jsx("span", { children: t("nav.bgRemover") })
         ] })
       ] })
     ] }),
     /* @__PURE__ */ jsx("div", { className: "pt-4", children: /* @__PURE__ */ jsxs(Routes, { children: [
-      /* @__PURE__ */ jsx(Route, { path: "/", element: /* @__PURE__ */ jsx(SocialVideoDownloader, { lang }) }),
-      /* @__PURE__ */ jsx(Route, { path: "/video", element: /* @__PURE__ */ jsx(SocialVideoDownloader, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/", element: /* @__PURE__ */ jsx(NomadTaxCalculator, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/video", element: /* @__PURE__ */ jsx(NomadTaxCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/wasm", element: /* @__PURE__ */ jsx(QuickWasmCompressor, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/salary", element: /* @__PURE__ */ jsx(NomadTaxCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/ai", element: /* @__PURE__ */ jsx(DevTokenCalculator, { lang }) }),
@@ -4878,8 +4738,8 @@ function ContentWrapper({ lang, t }) {
       /* @__PURE__ */ jsx(Route, { path: "/about", element: /* @__PURE__ */ jsx(AboutUs, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/contact", element: /* @__PURE__ */ jsx(Contact, {}) }),
       supportedLanguages.map((l) => /* @__PURE__ */ jsxs(React.Fragment, { children: [
-        /* @__PURE__ */ jsx(Route, { path: `/${l.code}`, element: /* @__PURE__ */ jsx(SocialVideoDownloader, { lang: l.code }) }),
-        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/video`, element: /* @__PURE__ */ jsx(SocialVideoDownloader, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}`, element: /* @__PURE__ */ jsx(NomadTaxCalculator, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/video`, element: /* @__PURE__ */ jsx(NomadTaxCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/wasm`, element: /* @__PURE__ */ jsx(QuickWasmCompressor, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/salary`, element: /* @__PURE__ */ jsx(NomadTaxCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/ai`, element: /* @__PURE__ */ jsx(DevTokenCalculator, { lang: l.code }) }),

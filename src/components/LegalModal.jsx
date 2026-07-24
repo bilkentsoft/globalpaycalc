@@ -17,7 +17,7 @@ export default function LegalModal({ type, lang = 'en', onClose }) {
             </div>
             <p><strong>GlobalPayCalc.com</strong> adresinde ziyaretçilerimizin gizliliği bizim için en büyük önceliktir. Bu Gizlilik Politikası belgesi, platformumuz tarafından toplanan ve kaydedilen bilgi türlerini ve bunları nasıl kullandığımızı açıklamaktadır.</p>
             <h4 className="font-bold text-white text-sm">1. %100 Yerel İstemci Taraflı İşleme (Client-Side Privacy)</h4>
-            <p>Sitemizdeki tüm video indirme analizleri, dosya dönüştürmeler, arka plan silme işlemleri ve finansal hesaplamalar tamamen tarayıcınızın belleğinde (local olarak) gerçekleşir. Dönüştürdüğünüz veya yüklediğiniz hiçbir dosya veya veri sunucularımıza yüklenmez, kaydedilmez ve saklanmaz.</p>
+            <p>Sitemizdeki tüm dosya dönüştürmeler, arka plan silme işlemleri ve finansal hesaplamalar tamamen tarayıcınızın belleğinde (local olarak) gerçekleşir. Dönüştürdüğünüz veya yüklediğiniz hiçbir dosya veya veri sunucularımıza yüklenmez, kaydedilmez ve saklanmaz.</p>
             <h4 className="font-bold text-white text-sm">2. Log Dosyaları</h4>
             <p>GlobalPayCalc.com standart bir log dosyası barındırma prosedürü izler. Bu dosyalar ziyaretçilerin web sitelerini ziyaret ettiklerinde tuttukları kayıtları içerir. Barındırma (hosting) şirketleri bunu analitik amaçlarla yapar. Log dosyaları IP adresleri, tarayıcı türü, İnternet Servis Sağlayıcısı (ISP), tarih/saat damgası ve tıklama sayısını içerebilir. Bunlar kişisel olarak tanımlanabilir herhangi bir bilgiyle bağlantılı değildir.</p>
             <h4 className="font-bold text-white text-sm">3. Google AdSense & Çerezler</h4>
