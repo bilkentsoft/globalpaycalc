@@ -141,12 +141,17 @@ export default function ProgrammaticSeoGrid({ lang = 'en' }) {
   };
 
   useEffect(() => {
-    // Generate and inject dynamic JSON-LD schemas to head
     const appSchema = generateSeoSchema({
       type: 'WebApplication',
       url: 'https://globalpaycalc.com',
-      name: getTranslation(lang, 'hero.title') || 'GlobalPayCalc',
-      description: getTranslation(lang, 'hero.subtitle') || 'Universal media, AI & global salary utility engine.'
+      name: getTranslation(lang, 'hero.title') || 'Global Net Salary, Tax, FX & AI Cost Simulator',
+      description: getTranslation(lang, 'hero.subtitle') || 'Calculate net take-home salary, contractor equivalency, hidden bank FX fees and B2B VAT.'
+    });
+
+    const orgSchema = generateSeoSchema({
+      type: 'Organization',
+      url: 'https://globalpaycalc.com',
+      name: 'GlobalPayCalc'
     });
 
     const faqSchema = generateSeoSchema({
@@ -156,6 +161,7 @@ export default function ProgrammaticSeoGrid({ lang = 'en' }) {
     });
 
     injectJsonLdSchema('json-ld-app', appSchema);
+    injectJsonLdSchema('json-ld-org', orgSchema);
     injectJsonLdSchema('json-ld-faq', faqSchema);
   }, [lang, activeFaqs]);
 

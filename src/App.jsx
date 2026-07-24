@@ -19,9 +19,10 @@ import CryptoTaxCalculator from './components/CryptoTaxCalculator';
 import EorCostCalculator from './components/EorCostCalculator';
 import NomadVisaCalculator from './components/NomadVisaCalculator';
 import ProgrammaticSeoGrid from './components/ProgrammaticSeoGrid';
-import AdminDashboard from './components/AdminDashboard';
 import NotFoundPage from './pages/NotFoundPage';
 import ProtectedRoute from './components/ProtectedRoute';
+
+const AdminDashboard = React.lazy(() => import('./components/AdminDashboard'));
 import DynamicToolPage from './pages/DynamicToolPage';
 import { PrivacyPolicy, TermsOfService, AboutUs, Contact } from './pages/Legal';
 import { CookieConsent } from './components/CookieConsent';
@@ -213,7 +214,13 @@ function ContentWrapper({ lang, t }) {
           <Route path="/ai" element={<DevTokenCalculator lang={lang} />} />
           <Route path="/wasm" element={<QuickWasmCompressor lang={lang} />} />
           <Route path="/video" element={<GlobalTakeHomeCalculator lang={lang} />} />
-          <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+          <Route path="/admin" element={
+            <ProtectedRoute>
+              <React.Suspense fallback={<div className="min-h-screen flex items-center justify-center text-slate-400">Loading Dashboard...</div>}>
+                <AdminDashboard />
+              </React.Suspense>
+            </ProtectedRoute>
+          } />
           
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />

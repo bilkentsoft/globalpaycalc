@@ -24,7 +24,7 @@ import { generatePseoTaxMatrix, generatePseoLlmMatrix } from './pseo/matrixEngin
 import { supportedLanguages } from './i18n';
 
 export function getRoutes() {
-  const routes = ['', '/take-home', '/contractor', '/hourly-rate', '/beckham-law', '/crypto-tax', '/eor-cost', '/nomad-visa', '/salary', '/inflation', '/fx-fees', '/vat', '/timezone', '/wasm', '/ai', '/admin', '/privacy', '/terms', '/about', '/contact'];
+  const routes = ['', '/take-home', '/contractor', '/hourly-rate', '/beckham-law', '/crypto-tax', '/eor-cost', '/nomad-visa', '/salary', '/inflation', '/fx-fees', '/vat', '/timezone', '/wasm', '/ai', '/privacy', '/terms', '/about', '/contact'];
   
   for (const lang of supportedLanguages) {
     routes.push(`/${lang.code}`);

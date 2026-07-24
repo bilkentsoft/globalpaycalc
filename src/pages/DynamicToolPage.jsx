@@ -366,6 +366,12 @@ export default function DynamicToolPage({ pageData, routeData, type, lang = 'en'
     description: dynamicDesc
   });
 
+  const orgSchema = generateSeoSchema({
+    type: 'Organization',
+    url: `https://globalpaycalc.com/${isLlmTool ? 'tools' : 'calculator'}/${slug}`,
+    name: 'GlobalPayCalc'
+  });
+
   const faqSchema = generateSeoSchema({
     type: 'FAQPage',
     url: `https://globalpaycalc.com/${isLlmTool ? 'tools' : 'calculator'}/${slug}`,
@@ -551,6 +557,7 @@ export default function DynamicToolPage({ pageData, routeData, type, lang = 'en'
         <meta name="description" content={dynamicDesc} />
       </Helmet>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
     </div>

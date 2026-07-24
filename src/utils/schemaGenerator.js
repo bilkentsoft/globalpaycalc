@@ -50,6 +50,17 @@ export const generateSeoSchema = ({ type, url, name, description, faqs = [], bre
     };
   }
 
+  if (type === 'Organization') {
+    return {
+      ...baseSchema,
+      "@type": "Organization",
+      "name": name || "GlobalPayCalc",
+      "alternateName": "GlobalPayCalc",
+      "url": url || "https://globalpaycalc.com",
+      "logo": "https://globalpaycalc.com/favicon.svg"
+    };
+  }
+
   return baseSchema;
 };
 
