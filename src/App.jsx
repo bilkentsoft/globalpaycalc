@@ -144,23 +144,23 @@ function ContentWrapper({ lang, t }) {
             </Link>
             <Link to={`${basePath}/hourly-rate`} title="Freelancer Minimum Hourly Rate Calculator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'hourly-rate' ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <UserCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Saatlik Ücret</span>
+              <span>{t('nav.hourlyRate')}</span>
             </Link>
             <Link to={`${basePath}/beckham-law`} title="Expat & Beckham Law Tax Savings Calculator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'beckham-law' ? 'bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Award className="w-3.5 h-3.5 text-rose-400" />
-              <span>Beckham Law</span>
+              <span>{t('nav.beckhamLaw')}</span>
             </Link>
             <Link to={`${basePath}/crypto-tax`} title="Crypto & USDT Remote Salary Tax Estimator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'crypto-tax' ? 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Cpu className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Kripto Maaş</span>
+              <span>{t('nav.cryptoTax')}</span>
             </Link>
             <Link to={`${basePath}/nomad-visa`} title="Digital Nomad Visa Financial Income Eligibility Checker" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'nomad-visa' ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Globe className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Göçebe Vize Testi</span>
+              <span>{t('nav.nomadVisa')}</span>
             </Link>
             <Link to={`${basePath}/eor-cost`} title="Employer of Record (EOR) vs Entity Setup Cost Estimator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'eor-cost' ? 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Building2 className="w-3.5 h-3.5 text-purple-400" />
-              <span>EOR Maliyeti</span>
+              <span>{t('nav.eorCost')}</span>
             </Link>
             <Link to={`${basePath}/salary`} title="Calculate remote net salary and tax parity" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'salary' ? 'bg-slate-800 text-white border-slate-700' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Globe className="w-3.5 h-3.5 text-amber-400" />
@@ -168,7 +168,7 @@ function ContentWrapper({ lang, t }) {
             </Link>
             <Link to={`${basePath}/inflation`} title="Inflation & Salary Purchasing Power Loss Calculator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'inflation' ? 'bg-amber-600 text-white border-amber-500 shadow-lg shadow-amber-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <TrendingDown className="w-3.5 h-3.5 text-amber-400" />
-              <span>Enflasyon Kaybı</span>
+              <span>{t('nav.inflation')}</span>
             </Link>
             <Link to={`${basePath}/fx-fees`} title="Real FX Rate & Hidden Bank Fee Estimator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'fx-fees' ? 'bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <ArrowRightLeft className="w-3.5 h-3.5 text-rose-400" />
@@ -180,7 +180,7 @@ function ContentWrapper({ lang, t }) {
             </Link>
             <Link to={`${basePath}/timezone`} title="Timezone Overlap Calculator for Remote Teams" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'timezone' ? 'bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Clock className="w-3.5 h-3.5 text-indigo-400" />
-              <span>Timezone</span>
+              <span>{t('nav.timezone')}</span>
             </Link>
             <Link to={`${basePath}/wasm`} title="Client-side AI image background remover" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'wasm' ? 'bg-slate-800 text-white border-slate-700' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Image className="w-3.5 h-3.5 text-cyan-400" />

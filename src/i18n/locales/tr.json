@@ -9,7 +9,14 @@
     "salary": "Şehir Paritesi",
     "aiCost": "AI API Maliyeti",
     "bgRemover": "WASM Stüdyo",
-    "admin": "Yönetim Paneli"
+    "admin": "Yönetim Paneli",
+    "hourlyRate": "Saatlik Ücret",
+    "beckhamLaw": "Beckham Yasası",
+    "cryptoTax": "Kripto Maaş",
+    "nomadVisa": "Göçebe Vize Testi",
+    "eorCost": "EOR Maliyeti",
+    "inflation": "Enflasyon Kaybı",
+    "timezone": "Zaman Dilimi"
   },
   "hero": {
     "badge": "%100 Ücretsiz • Sınırsız • Client-Side Fintek Motoru",

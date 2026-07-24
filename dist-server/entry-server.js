@@ -17,7 +17,14 @@ const nav$7 = {
   salary: "City Parity",
   aiCost: "AI Token Cost",
   bgRemover: "WASM Studio",
-  admin: "Admin Panel"
+  admin: "Admin Panel",
+  hourlyRate: "Hourly Rate",
+  beckhamLaw: "Beckham Law",
+  cryptoTax: "Crypto Salary",
+  nomadVisa: "Nomad Visa Test",
+  eorCost: "EOR Cost",
+  inflation: "Inflation Loss",
+  timezone: "Timezone Overlap"
 };
 const hero$7 = {
   badge: "100% Free • Unlimited • Client-Side Fintech Engine",
@@ -195,7 +202,14 @@ const nav$6 = {
   salary: "Şehir Paritesi",
   aiCost: "AI API Maliyeti",
   bgRemover: "WASM Stüdyo",
-  admin: "Yönetim Paneli"
+  admin: "Yönetim Paneli",
+  hourlyRate: "Saatlik Ücret",
+  beckhamLaw: "Beckham Yasası",
+  cryptoTax: "Kripto Maaş",
+  nomadVisa: "Göçebe Vize Testi",
+  eorCost: "EOR Maliyeti",
+  inflation: "Enflasyon Kaybı",
+  timezone: "Zaman Dilimi"
 };
 const hero$6 = {
   badge: "%100 Ücretsiz • Sınırsız • Client-Side Fintek Motoru",
@@ -373,7 +387,14 @@ const nav$5 = {
   salary: "Paridad de Ciudades",
   aiCost: "Costo Tokens IA",
   bgRemover: "WASM Studio",
-  admin: "Panel de Control"
+  admin: "Panel de Control",
+  hourlyRate: "Tarifa Horaria",
+  beckhamLaw: "Ley Beckham",
+  cryptoTax: "Salario Cripto",
+  nomadVisa: "Test Visa Nómada",
+  eorCost: "Costo EOR",
+  inflation: "Pérdida Inflación",
+  timezone: "Zona Horaria"
 };
 const hero$5 = {
   badge: "100% Gratis • Ilimitado • Motor Fintech del Cliente",
@@ -551,7 +572,14 @@ const nav$4 = {
   salary: "Städte-Parität",
   aiCost: "KI-Token-Kosten",
   bgRemover: "WASM Studio",
-  admin: "Admin-Panel"
+  admin: "Admin-Panel",
+  hourlyRate: "Stundensatz",
+  beckhamLaw: "Beckham-Gesetz",
+  cryptoTax: "Krypto-Gehalt",
+  nomadVisa: "Nomaden-Visum Test",
+  eorCost: "EOR-Kosten",
+  inflation: "Inflationsverlust",
+  timezone: "Zeitzone"
 };
 const hero$4 = {
   badge: "100% Kostenlos • Unbegrenzt • Client-Side Fintech Engine",
@@ -729,7 +757,14 @@ const nav$3 = {
   salary: "Paridade de Cidades",
   aiCost: "Custo de Tokens IA",
   bgRemover: "Estúdio WASM",
-  admin: "Painel Admin"
+  admin: "Painel Admin",
+  hourlyRate: "Taxa Horária",
+  beckhamLaw: "Lei Beckham",
+  cryptoTax: "Salário Cripto",
+  nomadVisa: "Teste Visto Nômada",
+  eorCost: "Custo EOR",
+  inflation: "Perda Inflação",
+  timezone: "Fuso Horário"
 };
 const hero$3 = {
   badge: "100% Grátis • Ilimitado • Motor Fintech no Cliente",
@@ -907,7 +942,14 @@ const nav$2 = {
   salary: "Parité des Villes",
   aiCost: "Coût Jetons IA",
   bgRemover: "WASM Studio",
-  admin: "Panneau d'Administration"
+  admin: "Panneau d'Administration",
+  hourlyRate: "Taux Horaire",
+  beckhamLaw: "Loi Beckham",
+  cryptoTax: "Salaire Crypto",
+  nomadVisa: "Test Visa Nomade",
+  eorCost: "Coût EOR",
+  inflation: "Perte d'Inflation",
+  timezone: "Fuseau Horaire"
 };
 const hero$2 = {
   badge: "100% Gratuit • Illimité • Moteur Fintech Côté Client",
@@ -1085,7 +1127,14 @@ const nav$1 = {
   salary: "Paritas Kota",
   aiCost: "Biaya Token AI",
   bgRemover: "Studio WASM",
-  admin: "Panel Admin"
+  admin: "Panel Admin",
+  hourlyRate: "Tarif Per Jam",
+  beckhamLaw: "Hukum Beckham",
+  cryptoTax: "Gaji Kripto",
+  nomadVisa: "Tes Visa Nomad",
+  eorCost: "Biaya EOR",
+  inflation: "Kerugian Inflasi",
+  timezone: "Zona Waktu"
 };
 const hero$1 = {
   badge: "100% Gratis • Tanpa Batas • Mesin Fintech Sisi Klien",
@@ -1263,7 +1312,14 @@ const nav = {
   salary: "都市間購買力",
   aiCost: "AIトークンコスト",
   bgRemover: "WASMスタジオ",
-  admin: "管理パネル"
+  admin: "管理パネル",
+  hourlyRate: "時給計算",
+  beckhamLaw: "ベッカム法",
+  cryptoTax: "仮想通貨給与",
+  nomadVisa: "ノマドビザ判定",
+  eorCost: "EORコスト",
+  inflation: "インフレ損失",
+  timezone: "タイムゾーン"
 };
 const hero = {
   badge: "100%無料 • 無制限 • クライアントサイドFintechエンジン",
@@ -8308,23 +8364,23 @@ function ContentWrapper({ lang, t }) {
         ] }),
         /* @__PURE__ */ jsxs(Link, { to: `${basePath}/hourly-rate`, title: "Freelancer Minimum Hourly Rate Calculator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "hourly-rate" ? "bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(UserCheck, { className: "w-3.5 h-3.5 text-emerald-400" }),
-          /* @__PURE__ */ jsx("span", { children: "Saatlik Ücret" })
+          /* @__PURE__ */ jsx("span", { children: t("nav.hourlyRate") })
         ] }),
         /* @__PURE__ */ jsxs(Link, { to: `${basePath}/beckham-law`, title: "Expat & Beckham Law Tax Savings Calculator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "beckham-law" ? "bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(Award, { className: "w-3.5 h-3.5 text-rose-400" }),
-          /* @__PURE__ */ jsx("span", { children: "Beckham Law" })
+          /* @__PURE__ */ jsx("span", { children: t("nav.beckhamLaw") })
         ] }),
         /* @__PURE__ */ jsxs(Link, { to: `${basePath}/crypto-tax`, title: "Crypto & USDT Remote Salary Tax Estimator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "crypto-tax" ? "bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(Cpu, { className: "w-3.5 h-3.5 text-cyan-400" }),
-          /* @__PURE__ */ jsx("span", { children: "Kripto Maaş" })
+          /* @__PURE__ */ jsx("span", { children: t("nav.cryptoTax") })
         ] }),
         /* @__PURE__ */ jsxs(Link, { to: `${basePath}/nomad-visa`, title: "Digital Nomad Visa Financial Income Eligibility Checker", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "nomad-visa" ? "bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(Globe, { className: "w-3.5 h-3.5 text-emerald-400" }),
-          /* @__PURE__ */ jsx("span", { children: "Göçebe Vize Testi" })
+          /* @__PURE__ */ jsx("span", { children: t("nav.nomadVisa") })
         ] }),
         /* @__PURE__ */ jsxs(Link, { to: `${basePath}/eor-cost`, title: "Employer of Record (EOR) vs Entity Setup Cost Estimator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "eor-cost" ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(Building2, { className: "w-3.5 h-3.5 text-purple-400" }),
-          /* @__PURE__ */ jsx("span", { children: "EOR Maliyeti" })
+          /* @__PURE__ */ jsx("span", { children: t("nav.eorCost") })
         ] }),
         /* @__PURE__ */ jsxs(Link, { to: `${basePath}/salary`, title: "Calculate remote net salary and tax parity", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "salary" ? "bg-slate-800 text-white border-slate-700" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(Globe, { className: "w-3.5 h-3.5 text-amber-400" }),
@@ -8332,7 +8388,7 @@ function ContentWrapper({ lang, t }) {
         ] }),
         /* @__PURE__ */ jsxs(Link, { to: `${basePath}/inflation`, title: "Inflation & Salary Purchasing Power Loss Calculator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "inflation" ? "bg-amber-600 text-white border-amber-500 shadow-lg shadow-amber-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(TrendingDown, { className: "w-3.5 h-3.5 text-amber-400" }),
-          /* @__PURE__ */ jsx("span", { children: "Enflasyon Kaybı" })
+          /* @__PURE__ */ jsx("span", { children: t("nav.inflation") })
         ] }),
         /* @__PURE__ */ jsxs(Link, { to: `${basePath}/fx-fees`, title: "Real FX Rate & Hidden Bank Fee Estimator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "fx-fees" ? "bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(ArrowRightLeft, { className: "w-3.5 h-3.5 text-rose-400" }),
@@ -8344,7 +8400,7 @@ function ContentWrapper({ lang, t }) {
         ] }),
         /* @__PURE__ */ jsxs(Link, { to: `${basePath}/timezone`, title: "Timezone Overlap Calculator for Remote Teams", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "timezone" ? "bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(Clock, { className: "w-3.5 h-3.5 text-indigo-400" }),
-          /* @__PURE__ */ jsx("span", { children: "Timezone" })
+          /* @__PURE__ */ jsx("span", { children: t("nav.timezone") })
         ] }),
         /* @__PURE__ */ jsxs(Link, { to: `${basePath}/wasm`, title: "Client-side AI image background remover", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "wasm" ? "bg-slate-800 text-white border-slate-700" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(Image$1, { className: "w-3.5 h-3.5 text-cyan-400" }),

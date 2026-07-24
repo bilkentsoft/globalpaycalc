@@ -9,7 +9,14 @@
     "salary": "Paridad de Ciudades",
     "aiCost": "Costo Tokens IA",
     "bgRemover": "WASM Studio",
-    "admin": "Panel de Control"
+    "admin": "Panel de Control",
+    "hourlyRate": "Tarifa Horaria",
+    "beckhamLaw": "Ley Beckham",
+    "cryptoTax": "Salario Cripto",
+    "nomadVisa": "Test Visa Nómada",
+    "eorCost": "Costo EOR",
+    "inflation": "Pérdida Inflación",
+    "timezone": "Zona Horaria"
   },
   "hero": {
     "badge": "100% Gratis • Ilimitado • Motor Fintech del Cliente",

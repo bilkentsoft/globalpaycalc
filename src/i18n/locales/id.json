@@ -9,7 +9,14 @@
     "salary": "Paritas Kota",
     "aiCost": "Biaya Token AI",
     "bgRemover": "Studio WASM",
-    "admin": "Panel Admin"
+    "admin": "Panel Admin",
+    "hourlyRate": "Tarif Per Jam",
+    "beckhamLaw": "Hukum Beckham",
+    "cryptoTax": "Gaji Kripto",
+    "nomadVisa": "Tes Visa Nomad",
+    "eorCost": "Biaya EOR",
+    "inflation": "Kerugian Inflasi",
+    "timezone": "Zona Waktu"
   },
   "hero": {
     "badge": "100% Gratis • Tanpa Batas • Mesin Fintech Sisi Klien",

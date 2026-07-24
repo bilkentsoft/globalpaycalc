@@ -9,7 +9,14 @@
     "salary": "都市間購買力",
     "aiCost": "AIトークンコスト",
     "bgRemover": "WASMスタジオ",
-    "admin": "管理パネル"
+    "admin": "管理パネル",
+    "hourlyRate": "時給計算",
+    "beckhamLaw": "ベッカム法",
+    "cryptoTax": "仮想通貨給与",
+    "nomadVisa": "ノマドビザ判定",
+    "eorCost": "EORコスト",
+    "inflation": "インフレ損失",
+    "timezone": "タイムゾーン"
   },
   "hero": {
     "badge": "100%無料 • 無制限 • クライアントサイドFintechエンジン",

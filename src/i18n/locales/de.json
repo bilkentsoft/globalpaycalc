@@ -9,7 +9,14 @@
     "salary": "Städte-Parität",
     "aiCost": "KI-Token-Kosten",
     "bgRemover": "WASM Studio",
-    "admin": "Admin-Panel"
+    "admin": "Admin-Panel",
+    "hourlyRate": "Stundensatz",
+    "beckhamLaw": "Beckham-Gesetz",
+    "cryptoTax": "Krypto-Gehalt",
+    "nomadVisa": "Nomaden-Visum Test",
+    "eorCost": "EOR-Kosten",
+    "inflation": "Inflationsverlust",
+    "timezone": "Zeitzone"
   },
   "hero": {
     "badge": "100% Kostenlos • Unbegrenzt • Client-Side Fintech Engine",
