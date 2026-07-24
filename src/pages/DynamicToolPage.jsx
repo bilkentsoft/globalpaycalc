@@ -279,7 +279,7 @@ export default function DynamicToolPage({ pageData, routeData, type, lang = 'en'
   if (!data) return null;
 
   const isLlmTool = !!data.modelA;
-  const { title, description, origin, dest, status, modelA, modelB, useCase, slug } = data;
+  const { title, description, origin, dest, status, modelA, modelB, useCase } = data;
 
   const activePageText = pageTranslations[lang] || pageTranslations.en;
 
