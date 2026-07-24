@@ -1,5 +1,5 @@
 import React from 'react';
-import { generateSeoSchema } from '../utils/schemaGenerator';
+import { generateUnifiedSchema } from '../utils/schemaGenerator';
 import { ArrowLeftRight, ShieldAlert, TrendingUp, Info, Link as LinkIcon } from 'lucide-react';
 import { getTranslation } from '../i18n';
 import { Link, useParams } from 'react-router-dom';
@@ -359,22 +359,10 @@ export default function DynamicToolPage({ pageData, routeData, type, lang = 'en'
     }));
   }
 
-  const webAppSchema = generateSeoSchema({
-    type: 'WebApplication',
+  const unifiedSchema = generateUnifiedSchema({
     url: `https://globalpaycalc.com/${isLlmTool ? 'tools' : 'calculator'}/${slug}`,
     name: dynamicTitle,
-    description: dynamicDesc
-  });
-
-  const orgSchema = generateSeoSchema({
-    type: 'Organization',
-    url: `https://globalpaycalc.com/${isLlmTool ? 'tools' : 'calculator'}/${slug}`,
-    name: 'GlobalPayCalc'
-  });
-
-  const faqSchema = generateSeoSchema({
-    type: 'FAQPage',
-    url: `https://globalpaycalc.com/${isLlmTool ? 'tools' : 'calculator'}/${slug}`,
+    description: dynamicDesc,
     faqs
   });
 
@@ -556,9 +544,7 @@ export default function DynamicToolPage({ pageData, routeData, type, lang = 'en'
         <title>{dynamicTitle} | GlobalPayCalc</title>
         <meta name="description" content={dynamicDesc} />
       </Helmet>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(unifiedSchema) }} />
 
     </div>
   );

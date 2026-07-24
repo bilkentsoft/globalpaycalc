@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { generateSeoSchema, injectJsonLdSchema } from '../utils/schemaGenerator';
+import { generateUnifiedSchema, injectJsonLdSchema } from '../utils/schemaGenerator';
 import { HelpCircle, ChevronDown, ChevronUp, Lock, RefreshCw, Star } from 'lucide-react';
 import { getTranslation } from '../i18n';
 
@@ -141,28 +141,14 @@ export default function ProgrammaticSeoGrid({ lang = 'en' }) {
   };
 
   useEffect(() => {
-    const appSchema = generateSeoSchema({
-      type: 'WebApplication',
+    const unifiedSchema = generateUnifiedSchema({
       url: 'https://globalpaycalc.com',
       name: getTranslation(lang, 'hero.title') || 'Global Net Salary, Tax, FX & AI Cost Simulator',
-      description: getTranslation(lang, 'hero.subtitle') || 'Calculate net take-home salary, contractor equivalency, hidden bank FX fees and B2B VAT.'
-    });
-
-    const orgSchema = generateSeoSchema({
-      type: 'Organization',
-      url: 'https://globalpaycalc.com',
-      name: 'GlobalPayCalc'
-    });
-
-    const faqSchema = generateSeoSchema({
-      type: 'FAQPage',
-      url: 'https://globalpaycalc.com',
+      description: getTranslation(lang, 'hero.subtitle') || 'Calculate net take-home salary, contractor equivalency, hidden bank FX fees and B2B VAT.',
       faqs: activeFaqs
     });
 
-    injectJsonLdSchema('json-ld-app', appSchema);
-    injectJsonLdSchema('json-ld-org', orgSchema);
-    injectJsonLdSchema('json-ld-faq', faqSchema);
+    injectJsonLdSchema('json-ld-unified', unifiedSchema);
   }, [lang, activeFaqs]);
 
   return (

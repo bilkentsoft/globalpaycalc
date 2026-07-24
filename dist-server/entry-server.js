@@ -5207,6 +5207,67 @@ const generateSeoSchema = ({ type, url, name, description, faqs = [], breadcrumb
   }
   return baseSchema;
 };
+const generateUnifiedSchema = ({ url, name, description, faqs = [], breadcrumbs = [] }) => {
+  const orgId = "https://globalpaycalc.com/#organization";
+  const webAppId = `${url}/#webapp`;
+  const graph = [
+    {
+      "@type": "Organization",
+      "@id": orgId,
+      "name": "GlobalPayCalc",
+      "url": "https://globalpaycalc.com",
+      "logo": "https://globalpaycalc.com/favicon.svg"
+    },
+    {
+      "@type": "WebApplication",
+      "@id": webAppId,
+      "name": name,
+      "url": url,
+      "description": description,
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@id": orgId
+      }
+    }
+  ];
+  if (faqs && faqs.length > 0) {
+    graph.push({
+      "@type": "FAQPage",
+      "@id": `${url}/#faq`,
+      "mainEntity": faqs.map((faq2) => ({
+        "@type": "Question",
+        "name": faq2.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq2.answer
+        }
+      }))
+    });
+  }
+  if (breadcrumbs && breadcrumbs.length > 0) {
+    graph.push({
+      "@type": "BreadcrumbList",
+      "@id": `${url}/#breadcrumb`,
+      "itemListElement": breadcrumbs.map((crumb, idx) => ({
+        "@type": "ListItem",
+        "position": idx + 1,
+        "name": crumb.name,
+        "item": crumb.url
+      }))
+    });
+  }
+  return {
+    "@context": "https://schema.org",
+    "@graph": graph
+  };
+};
 const injectJsonLdSchema = (id2, schemaObj) => {
   if (typeof document === "undefined") return;
   const existingElement = document.getElementById(id2);
@@ -5351,25 +5412,13 @@ function ProgrammaticSeoGrid({ lang = "en" }) {
     setOpenIndex(openIndex === index ? null : index);
   };
   useEffect(() => {
-    const appSchema = generateSeoSchema({
-      type: "WebApplication",
+    const unifiedSchema = generateUnifiedSchema({
       url: "https://globalpaycalc.com",
       name: getTranslation(lang, "hero.title") || "Global Net Salary, Tax, FX & AI Cost Simulator",
-      description: getTranslation(lang, "hero.subtitle") || "Calculate net take-home salary, contractor equivalency, hidden bank FX fees and B2B VAT."
-    });
-    const orgSchema = generateSeoSchema({
-      type: "Organization",
-      url: "https://globalpaycalc.com",
-      name: "GlobalPayCalc"
-    });
-    const faqSchema = generateSeoSchema({
-      type: "FAQPage",
-      url: "https://globalpaycalc.com",
+      description: getTranslation(lang, "hero.subtitle") || "Calculate net take-home salary, contractor equivalency, hidden bank FX fees and B2B VAT.",
       faqs: activeFaqs
     });
-    injectJsonLdSchema("json-ld-app", appSchema);
-    injectJsonLdSchema("json-ld-org", orgSchema);
-    injectJsonLdSchema("json-ld-faq", faqSchema);
+    injectJsonLdSchema("json-ld-unified", unifiedSchema);
   }, [lang, activeFaqs]);
   return /* @__PURE__ */ jsx("div", { className: "space-y-8 max-w-4xl mx-auto my-12", children: /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 sm:p-8 rounded-3xl border-slate-800 space-y-6", children: [
     /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-3 border-b border-slate-800/80 pb-4", children: [
@@ -6236,20 +6285,10 @@ function DynamicToolPage({ pageData, routeData, type, lang = "en" }) {
       answer: replacer(f.a)
     }));
   }
-  const webAppSchema = generateSeoSchema({
-    type: "WebApplication",
+  const unifiedSchema = generateUnifiedSchema({
     url: `https://globalpaycalc.com/${isLlmTool ? "tools" : "calculator"}/${slug}`,
     name: dynamicTitle,
-    description: dynamicDesc
-  });
-  const orgSchema = generateSeoSchema({
-    type: "Organization",
-    url: `https://globalpaycalc.com/${isLlmTool ? "tools" : "calculator"}/${slug}`,
-    name: "GlobalPayCalc"
-  });
-  const faqSchema = generateSeoSchema({
-    type: "FAQPage",
-    url: `https://globalpaycalc.com/${isLlmTool ? "tools" : "calculator"}/${slug}`,
+    description: dynamicDesc,
     faqs
   });
   const allRoutes = isLlmTool ? generatePseoLlmMatrix() : generatePseoTaxMatrix();
@@ -6424,9 +6463,7 @@ function DynamicToolPage({ pageData, routeData, type, lang = "en" }) {
       ] }),
       /* @__PURE__ */ jsx("meta", { name: "description", content: dynamicDesc })
     ] }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(webAppSchema) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(orgSchema) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(faqSchema) } })
+    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(unifiedSchema) } })
   ] });
 }
 const PrivacyPolicy = ({ lang = "en" }) => {
