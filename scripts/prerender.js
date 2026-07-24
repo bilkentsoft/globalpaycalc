@@ -23,41 +23,35 @@ console.log(`Starting prerender for ${routesToPrerender.length} routes...`);
 
         let result = template;
 
-      // Inject helmet meta tags
-      if (helmet) {
-        const headInjection = `
-          ${helmet.title.toString()}
-          ${helmet.meta.toString()}
-          ${helmet.link.toString()}
-        `;
-        result = result.replace(`<!--app-head-->`, headInjection);
-      }
+        // Inject helmet meta tags
+        if (helmet) {
+          const headInjection = `
+            ${helmet.title.toString()}
+            ${helmet.meta.toString()}
+            ${helmet.link.toString()}
+          `;
+          result = result.replace(`<!--app-head-->`, headInjection);
+        }
 
-      // Inject HTML
-      result = result.replace(`<div id="root"></div>`, `<div id="root">${html}</div>`);
+        // Inject HTML
+        result = result.replace(`<div id="root"></div>`, `<div id="root">${html}</div>`);
 
-      // Construct file path
-      const filePath = `dist${url === '/' ? '/index' : url}`;
-      const absoluteFilePath = toAbsolute(`${filePath}/index.html`.replace('//', '/'));
-      const altFilePath = toAbsolute(`${filePath}.html`.replace('//', '/'));
-      
-      fs.mkdirSync(path.dirname(absoluteFilePath), { recursive: true });
-      fs.writeFileSync(absoluteFilePath, result);
-      if (url !== '/') {
-        fs.writeFileSync(altFilePath, result);
-      }
-      console.log(`[prerender] ✓ ${url}`);
+        // Construct clean file path
+        const absoluteFilePath = url === '/' 
+          ? toAbsolute('dist/index.html')
+          : toAbsolute(`dist${url}/index.html`);
+        
+        fs.mkdirSync(path.dirname(absoluteFilePath), { recursive: true });
+        fs.writeFileSync(absoluteFilePath, result);
+        console.log(`[prerender] ✓ ${url}`);
       } catch (err) {
         console.error(`[prerender] Error on ${url}:`, err.message);
       }
     }
     
-    // Her chunk bittiğinde Node.js Event Loop'a nefes aldırıp çöp toplayıcıya (GC) şans veriyoruz
+    // Allow event loop breathing room for GC
     await new Promise(resolve => setTimeout(resolve, 50));
   }
-  
-  // Create a base index.html too, just in case (same as /)
-  fs.copyFileSync(toAbsolute('dist/index/index.html'), toAbsolute('dist/index.html'));
   
   console.log(`✅ Prerender complete!`);
 })();
