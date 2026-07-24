@@ -30,6 +30,7 @@ import { detectUserLanguage } from './utils/langDetector';
 import { trackPageView } from './utils/analyticsTracker';
 import { Sparkles, Globe, Image, DollarSign, Briefcase, ArrowRightLeft, FileText, Clock, TrendingDown, UserCheck, Award, Cpu, Building2 } from 'lucide-react';
 import { generatePseoTaxMatrix, generatePseoLlmMatrix } from './pseo/matrixEngine';
+import ToolSeoArticle from './components/ToolSeoArticle';
 
 function ContentWrapper({ lang, t }) {
   const location = useLocation();
@@ -95,6 +96,13 @@ function ContentWrapper({ lang, t }) {
         <meta name="description" content={pageDesc} />
         {/* Dynamic Canonical */}
         <link rel="canonical" href={`https://globalpaycalc.com${location.pathname.replace(/\/+$/, '') || '/'}`} />
+
+        {/* hreflang Alternates for all supported languages */}
+        <link rel="alternate" hreflang="en" href={`https://globalpaycalc.com/${activeTab === 'take-home' ? '' : activeTab}`} />
+        {['tr','es','de','pt','fr','id','ja'].map(lc => (
+          <link key={lc} rel="alternate" hreflang={lc} href={`https://globalpaycalc.com/${lc}/${activeTab === 'take-home' ? '' : activeTab}`} />
+        ))}
+        <link rel="alternate" hreflang="x-default" href={`https://globalpaycalc.com/${activeTab === 'take-home' ? '' : activeTab}`} />
         
         {/* Open Graph / Facebook / LinkedIn */}
         <meta property="og:type" content="website" />
@@ -318,9 +326,14 @@ export default function App() {
     const urlLang = supportedLanguages.find(l => l.code === pathSegments[0]);
 
     if (urlLang) {
+      // URL has explicit lang prefix — always trust it and persist
       setLang(urlLang.code);
+      try { localStorage.setItem('gpc_lang', urlLang.code); } catch (_) {}
     } else {
-      const detected = detectUserLanguage();
+      // No URL prefix — prefer explicit user selection, then browser detection
+      let preferred = null;
+      try { preferred = localStorage.getItem('gpc_lang'); } catch (_) {}
+      const detected = preferred || detectUserLanguage();
       setLang(detected);
     }
 

@@ -32,6 +32,8 @@ export default function Header({ currentLang, setLang, onLanguageChange }) {
             value={currentLang}
             onChange={(e) => {
               const newLang = e.target.value;
+              // Persist explicit user choice immediately
+              try { localStorage.setItem('gpc_lang', newLang); } catch (_) {}
               if (changeLang) changeLang(newLang);
               
               // Handle Navigation
@@ -39,19 +41,19 @@ export default function Header({ currentLang, setLang, onLanguageChange }) {
               const isSupported = supportedLanguages.some(l => l.code === pathSegments[0]);
               
               let newPath = '';
-              if (isSupported) {
+              if (newLang === 'en') {
+                // English: strip lang prefix, use clean root paths
+                newPath = isSupported
+                  ? '/' + pathSegments.slice(1).join('/')
+                  : window.location.pathname;
+                if (!newPath || newPath === '') newPath = '/';
+              } else if (isSupported) {
                 // Replace existing lang prefix
                 pathSegments[0] = newLang;
                 newPath = '/' + pathSegments.join('/');
               } else {
                 // Add new lang prefix
                 newPath = `/${newLang}${window.location.pathname}`;
-              }
-              
-              // If newLang is English and we want to keep root URL clean
-              if (newLang === 'en') {
-                 newPath = isSupported ? '/' + pathSegments.slice(1).join('/') : window.location.pathname;
-                 if (newPath === '') newPath = '/';
               }
 
               navigate(newPath);
