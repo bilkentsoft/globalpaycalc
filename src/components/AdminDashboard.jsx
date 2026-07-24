@@ -340,9 +340,15 @@ function AnalyticsTab({ googleStats }) {
               Kullanıcıların Google'da hangi tamamen rastgele ve <span className="text-purple-300 font-bold">sizin bilmediğiniz</span> kelimeleri aratarak sitenize ulaştığını (ve bu kelimelerdeki ortalama sıranızı) otomatik tespit eder.
             </p>
           </div>
-          <div className="bg-purple-500/10 border border-purple-500/20 text-purple-400 text-[10px] font-bold px-3 py-1.5 rounded-full shrink-0">
-            API Bekleniyor
-          </div>
+          {isDataReady ? (
+            <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold px-3 py-1.5 rounded-full shrink-0">
+              API Bağlı
+            </div>
+          ) : (
+            <div className="bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[10px] font-bold px-3 py-1.5 rounded-full shrink-0">
+              API Bekleniyor (.env)
+            </div>
+          )}
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">

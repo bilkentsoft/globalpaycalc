@@ -3496,7 +3496,7 @@ function AnalyticsTab({ googleStats }) {
             " kelimeleri aratarak sitenize ulaştığını (ve bu kelimelerdeki ortalama sıranızı) otomatik tespit eder."
           ] })
         ] }),
-        /* @__PURE__ */ jsx("div", { className: "bg-purple-500/10 border border-purple-500/20 text-purple-400 text-[10px] font-bold px-3 py-1.5 rounded-full shrink-0", children: "API Bekleniyor" })
+        isDataReady ? /* @__PURE__ */ jsx("div", { className: "bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold px-3 py-1.5 rounded-full shrink-0", children: "API Bağlı" }) : /* @__PURE__ */ jsx("div", { className: "bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[10px] font-bold px-3 py-1.5 rounded-full shrink-0", children: "API Bekleniyor (.env)" })
       ] }),
       /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-left border-collapse", children: [
         /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "border-b border-purple-500/20", children: [
