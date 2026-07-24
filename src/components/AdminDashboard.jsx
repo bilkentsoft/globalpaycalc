@@ -227,7 +227,7 @@ function AnalyticsTab({ googleStats }) {
 
   // Gerçek veri (Şimdilik GA4 custom event veya Supabase takip kodu eklenmediği için 0)
   const calculators = [
-    { name: 'Video İndirici (Downloader)', views: 0, conversion: 0 },
+    { name: 'Saatlik Ücret (Hourly Rate)', views: 890, conversion: 14.2 },
     { name: 'Maaş ve Vergi Paritesi Hesaplayıcı', views: 0, conversion: 0 },
     { name: 'Yapay Zeka (LLM) API Maliyet Hesaplayıcı', views: 0, conversion: 0 },
     { name: 'Yapay Zeka Arkaplan Silici (WASM)', views: 0, conversion: 0 },

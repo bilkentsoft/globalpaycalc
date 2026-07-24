@@ -16,6 +16,21 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://globalpaycalc.com/hourly-rate</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://globalpaycalc.com/salary</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://globalpaycalc.com/inflation</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
     <loc>https://globalpaycalc.com/fx-fees</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -26,12 +41,12 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://globalpaycalc.com/wasm</loc>
+    <loc>https://globalpaycalc.com/timezone</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://globalpaycalc.com/salary</loc>
+    <loc>https://globalpaycalc.com/wasm</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>

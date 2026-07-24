@@ -1,37 +1,22 @@
 {
   "nav": {
     "brand": "GlobalPayCalc.com",
-    "tagline": "Mesin Media & Keuangan Universal",
-    "downloader": "Pengunduh Video",
-    "bgRemover": "Studio Foto AI",
-    "salary": "Gaji Global",
+    "tagline": "Mesin Fintech & Gaji Global",
+    "takeHome": "Gaji Bersih & Pajak",
+    "contractor": "Karyawan vs Contractor",
+    "fxFees": "Biaya FX Tersembunyi",
+    "vat": "Faktur & PPN",
+    "salary": "Paritas Kota",
     "aiCost": "Biaya Token AI",
+    "bgRemover": "Studio WASM",
     "admin": "Panel Admin"
   },
   "hero": {
-    "badge": "100% Gratis • Tak Terbatas • Privasi Utama",
-    "title": "Mesin Universal Media, AI & Gaji Global",
-    "subtitle": "Hitung gaji bersih jarak jauh di seluruh dunia, unduh video sosial HD tanpa tanda air, dan proses gambar melalui AI WebAssembly sisi klien secara aman dan privat.",
+    "badge": "100% Gratis • Tanpa Batas • Mesin Fintech Sisi Klien",
+    "title": "Simulasi Gaji Bersih, Pajak & Biaya AI Global",
+    "subtitle": "Hitung gaji bersih global, kesetaraan W-2 vs 1099, biaya tersembunyi bank, dan nilai PPN ekspor B2B.",
     "seoTitle": "Cara Kerja & Fitur Utama",
-    "seoText": "GlobalPayCalc adalah paket komprehensif yang dibangun untuk nomaden digital dan pengembang. Platform kami dilengkapi <strong class='font-semibold text-slate-300'>pengunduh video sosial HD</strong> yang dengan aman mengekstrak media MP4/MP3 dari TikTok, Instagram Reels, dan YouTube Shorts tanpa tanda air. Untuk pekerja jarak jauh, <strong class='font-semibold text-slate-300'>kalkulator gaji global</strong> kami membandingkan pendapatan bersih, golongan pajak, dan biaya hidup (PPP) di 150+ negara. Pengembang dapat memanfaatkan <strong class='font-semibold text-slate-300'>simulator biaya token AI</strong> kami untuk memperkirakan pengeluaran API untuk GPT-4o dan Claude 3.5, sementara <strong class='font-semibold text-slate-300'>studio gambar AI sisi klien</strong> kami menghapus latar belakang secara lokal melalui WebAssembly, menjamin tidak ada unggahan server dan privasi data lengkap."
-  },
-  "video": {
-    "title": "Pengunduh Video & Audio Media Sosial",
-    "subtitle": "Unduh video HD dan audio MP3 dari TikTok, Instagram Reels, dan YouTube Shorts secara instan.",
-    "placeholder": "Tempel tautan video di sini (TikTok, Instagram, Shorts)...",
-    "btn": "Unduh Media HD",
-    "processing": "Mengekstrak Media...",
-    "success": "Media Siap Diunduh!",
-    "mp4": "Unduh MP4 (Tanpa Watermark)",
-    "mp3": "Unduh Audio (MP3 320kbps)",
-    "downloadVideo": "Unduh Video (HD MP4)",
-    "videoDesc": "File video HD asli tanpa watermark. Tidak ada pengalihan ke situs eksternal.",
-    "downloadAudio": "Unduh Audio (MP3)",
-    "audioDesc": "File audio berkualitas tinggi dari video asli.",
-    "noteTitle": "Catatan:",
-    "noteText": "Unduhan dilakukan 100% di dalam situs web kami tanpa pengalihan eksternal. Jika browser mulai memutar stream secara langsung, klik kanan dan pilih \"Simpan Video Sebagai...\".",
-    "errorTitle": "Ekstraksi Gagal",
-    "errorText": "Tidak dapat mengekstrak media. Pastikan tautannya benar dan bersifat publik."
+    "seoText": "GlobalPayCalc adalah platform fintech komprehensif yang dirancang untuk pekerja jarak jauh, nomaden digital, dan pengembang AI. Suite kami mencakup kalkulator gaji bersih dinamis, mesin kesetaraan kontraktor vs karyawan, estimasi biaya bank nyata, dan kalkulator PPN."
   },
   "bg": {
     "title": "Penghapus Latar Belakang & Konverter Gambar AI",
@@ -109,8 +94,8 @@
   },
   "faq": {
     "title": "Pertanyaan yang Sering Diajukan",
-    "q1": "Bagaimana cara kerja pengunduh video sosial?",
-    "a1": "Pengunduh video universal gratis kami memungkinkan Anda mengunduh video HD dengan aman dari platform media sosial seperti TikTok, Instagram Reels, dan YouTube Shorts. Alat ini beroperasi langsung di browser Anda sebagai utilitas sisi klien, yang berarti kami memproses semuanya tanpa menyimpan media Anda di server kami. Anda dapat dengan mudah mengunduh video MP4 atau mengekstrak file audio MP3 sepenuhnya tanpa tanda air, memastikan privasi 100% dan penggunaan tak terbatas untuk semua kebutuhan media Anda.",
+    "q1": "Bagaimana cara kerja mesin gaji bersih dan pajak?",
+    "a1": "GlobalPayCalc adalah suite fintech global 100% gratis yang dibangun untuk pekerja jarak jauh, nomaden digital, dan pengembang. Ini mencakup kalkulator gaji bersih (AS, Inggris, DE, TR), kesetaraan kontraktor W-2 vs 1099, estimasi tarif per jam, dan pembanding biaya bank FX.",
     "q2": "Dapatkah saya menghitung gaji jarak jauh dan paritas pajak saya secara akurat?",
     "a2": "Ya! GlobalPayCalc menyediakan kalkulator gaji global yang sangat akurat yang dirancang khusus untuk nomaden digital dan pekerja jarak jauh. Mesin utilitas kami membandingkan gaji bersih Anda di lebih dari 150 negara, dengan mempertimbangkan golongan pajak lokal, variasi biaya hidup, dan paritas daya beli (PPP). Ini memastikan bahwa Anda dapat mengevaluasi penawaran sponsor dan dengan aman menghitung berapa banyak yang benar-benar akan Anda peroleh setelah pajak, terlepas dari lokasi global Anda.",
     "q3": "Apakah simulator biaya token AI gratis untuk pengembang?",

@@ -1,37 +1,22 @@
 {
   "nav": {
     "brand": "GlobalPayCalc.com",
-    "tagline": "Universelle Medien- und Finanz-Engine",
-    "downloader": "Video Downloader",
-    "bgRemover": "KI Fotostudio",
-    "salary": "Globales Gehalt",
-    "aiCost": "KI-Token Kosten",
-    "admin": "Administration"
+    "tagline": "Globales Fintech- & Gehalts-Tool",
+    "takeHome": "Netto-Gehalt & Steuer",
+    "contractor": "Angestellter vs Contractor",
+    "fxFees": "Versteckte FX-Gebühren",
+    "vat": "Rechnung & MwSt",
+    "salary": "Städte-Parität",
+    "aiCost": "KI-Token-Kosten",
+    "bgRemover": "WASM Studio",
+    "admin": "Admin-Panel"
   },
   "hero": {
-    "badge": "100% Kostenlos • Unbegrenzt • Datenschutz Zuerst",
-    "title": "Universelles Medien-, KI- und Gehaltsberechnungs-System",
-    "subtitle": "Berechnen Sie weltweite Remote-Nettogehälter, laden Sie HD-Social-Videos ohne Wasserzeichen herunter und verarbeiten Sie Bilder sicher mit Client-seitiger KI.",
-    "seoTitle": "Wie es funktioniert & Kernfunktionen",
-    "seoText": "GlobalPayCalc ist eine umfassende Suite für digitale Nomaden und Entwickler. Unsere Plattform bietet einen <strong class='font-semibold text-slate-300'>HD-Social-Video-Downloader</strong>, der MP4/MP3-Medien aus TikTok, Instagram Reels und YouTube Shorts ohne Wasserzeichen sicher extrahiert. Für Remote-Mitarbeiter vergleicht unser <strong class='font-semibold text-slate-300'>globaler Gehaltsrechner</strong> das Nettoeinkommen, Steuerklassen und die Lebenshaltungskosten (KKP) in über 150 Ländern. Entwickler können unseren <strong class='font-semibold text-slate-300'>KI-Token-Kosten-Simulator</strong> nutzen, um API-Ausgaben für GPT-4o und Claude 3.5 abzuschätzen, während unser <strong class='font-semibold text-slate-300'>clientseitiges KI-Bildstudio</strong> Hintergründe lokal über WebAssembly entfernt, was keine Server-Uploads garantiert und vollständige Datenprivatsphäre gewährleistet."
-  },
-  "video": {
-    "title": "Social Video & Audio Downloader",
-    "subtitle": "Laden Sie HD-Videos und MP3-Audio von TikTok, Instagram Reels und YouTube Shorts sofort herunter.",
-    "placeholder": "Fügen Sie den Videolink hier ein (TikTok, Instagram, Shorts)...",
-    "btn": "HD-Medien Herunterladen",
-    "processing": "Medien Extrahieren...",
-    "success": "Medien bereit zum Download!",
-    "mp4": "MP4 Herunterladen (Ohne Wasserzeichen)",
-    "mp3": "Audio Herunterladen (MP3 320kbps)",
-    "downloadVideo": "Video herunterladen (HD MP4)",
-    "videoDesc": "Originale HD-Videodatei ohne Wasserzeichen. Keine Weiterleitung zu externen Seiten.",
-    "downloadAudio": "Audio herunterladen (MP3)",
-    "audioDesc": "Hochwertige Audiodatei des Originalvideos.",
-    "noteTitle": "Hinweis:",
-    "noteText": "Der Download wird vollständig auf unserer Website abgewickelt. Wenn der Browser den Stream direkt abspielt, rechtsklicken Sie und wählen Sie \"Speichern unter...\".",
-    "errorTitle": "Extraktion fehlgeschlagen",
-    "errorText": "Medien konnten nicht extrahiert werden. Bitte stellen Sie sicher, dass der Link korrekt und öffentlich zugänglich ist."
+    "badge": "100% Kostenlos • Unbegrenzt • Client-Side Fintech Engine",
+    "title": "Globales Netto-Gehalts-, Steuer-, FX- & KI-Kosten-Tool",
+    "subtitle": "Berechnen Sie globale Nettogehälter, W-2 vs. 1099 Äquivalenz, versteckte Bankgebühren und grenzüberschreitende MwSt-Beträge.",
+    "seoTitle": "Funktionsweise und Hauptmerkmale",
+    "seoText": "GlobalPayCalc ist eine umfassende Fintech-Plattform für Remote-Mitarbeiter, digitale Nomaden und Entwickler. Unsere Plattform bietet einen dynamischen Netto-Gehaltsrechner für über 40 Länder, einen Vergleich von Angestellten- und Freiberufler-Gehältern, einen Gebühren-Rechner für internationale Überweisungen und ein Tool für grenzüberschreitende Rechnungen mit MwSt-Befreiung."
   },
   "bg": {
     "title": "KI-Bildhintergrundentferner & Konverter",
@@ -109,8 +94,8 @@
   },
   "faq": {
     "title": "Häufig gestellte Fragen",
-    "q1": "Wie funktioniert der Social-Video-Downloader?",
-    "a1": "Unser kostenloser universeller Video-Downloader ermöglicht es Ihnen, HD-Videos von Social-Media-Plattformen wie TikTok, Instagram Reels und YouTube Shorts sicher herunterzuladen. Er arbeitet direkt in Ihrem Browser als clientseitiges Dienstprogramm, d.h. wir verarbeiten alles, ohne Ihre Medien auf unseren Servern zu speichern. Sie können MP4-Videos herunterladen oder MP3-Audiodateien extrahieren, ganz ohne Wasserzeichen, und so 100% Privatsphäre und unbegrenzte Nutzung für all Ihre Medienanforderungen gewährleisten.",
+    "q1": "Wie funktioniert der globale Netto-Gehalts- & Steuerrechner?",
+    "a1": "GlobalPayCalc ist eine 100 % kostenlose globale Fintech-Plattform für Remote-Mitarbeiter, digitale Nomaden und Entwickler. Es bietet Netto-Gehaltsrechner (USA, UK, DE, TR), Angestellten- vs. Freiberufler-Vergleiche, Stundensatz-Rechner, Bankgebühren-Schätzer und MwSt-Rechner.",
     "q2": "Kann ich mein Remote-Gehalt und die Steuerparität genau berechnen?",
     "a2": "Ja! GlobalPayCalc bietet einen hochpräzisen globalen Gehaltsrechner, der speziell für digitale Nomaden und Remote-Mitarbeiter entwickelt wurde. Unsere Utility-Engine vergleicht Ihr Nettogehalt in über 150 Ländern unter Berücksichtigung lokaler Steuerklassen, Lebenshaltungskostenunterschiede und der Kaufkraftparität (KKP). Dies stellt sicher, dass Sie Sponsorenangebote bewerten und sicher berechnen können, wie viel Sie nach Steuern tatsächlich verdienen, unabhängig von Ihrem globalen Standort.",
     "q3": "Ist der KI-Token-Kosten-Simulator für Entwickler kostenlos?",

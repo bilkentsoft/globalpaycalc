@@ -54,7 +54,7 @@ export default function LegalModal({ type, lang = 'en', onClose }) {
           </div>
           <p>At <strong>GlobalPayCalc.com</strong>, accessible from https://globalpaycalc.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by our platform and how we use it.</p>
           <h4 className="font-bold text-white text-sm">1. 100% Client-Side Local Processing</h4>
-          <p>All social media downloader extractions, file conversions, AI photo background removal, and financial calculators run entirely inside your browser's local RAM. No file or user data is ever uploaded to our servers, stored, or logged.</p>
+          <p>All financial calculators, net salary tax parity tools, AI photo background removal, and WASM utilities run entirely inside your browser's local RAM. No file or user data is ever uploaded to our servers, stored, or logged.</p>
           <h4 className="font-bold text-white text-sm">2. Log Files</h4>
           <p>GlobalPayCalc.com follows a standard procedure of using log files. These files log visitors when they visit websites. Barring standard server details like IP address, browser type, Internet Service Provider (ISP), date and time stamp, and referring/exit pages, no personally identifiable information is stored.</p>
           <h4 className="font-bold text-white text-sm">3. Google Cookies & Ads</h4>

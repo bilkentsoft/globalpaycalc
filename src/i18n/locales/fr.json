@@ -1,37 +1,22 @@
 {
   "nav": {
     "brand": "GlobalPayCalc.com",
-    "tagline": "Moteur Universel de Médias et Finances",
-    "downloader": "Téléchargeur Vidéo",
-    "bgRemover": "Studio Photo IA",
-    "salary": "Salaire Mondial",
-    "aiCost": "Coût Tokens IA",
-    "admin": "Panneau Admin"
+    "tagline": "Moteur Fintech et Salaires Mondiaux",
+    "takeHome": "Salaire Net et Impôts",
+    "contractor": "Employé vs Contractor",
+    "fxFees": "Frais FX Cachés",
+    "vat": "Facture et TVA",
+    "salary": "Parité des Villes",
+    "aiCost": "Coût Jetons IA",
+    "bgRemover": "WASM Studio",
+    "admin": "Panneau d'Administration"
   },
   "hero": {
-    "badge": "100% Gratuit • Illimité • Confidentialité Avant Tout",
-    "title": "Moteur Universel de Médias, IA et Salaires Mondiaux",
-    "subtitle": "Calculez les salaires nets à distance dans le monde entier, téléchargez des vidéos sociales HD sans filigrane et traitez les images via une IA WebAssembly sécurisée.",
-    "seoTitle": "Comment ça marche & Fonctionnalités clés",
-    "seoText": "GlobalPayCalc est une suite complète conçue pour les nomades numériques et les développeurs. Notre plateforme propose un <strong class='font-semibold text-slate-300'>téléchargeur de vidéos sociales HD</strong> qui extrait en toute sécurité les médias MP4/MP3 de TikTok, Instagram Reels et YouTube Shorts sans filigrane. Pour les travailleurs à distance, notre <strong class='font-semibold text-slate-300'>calculateur de salaire mondial</strong> compare le revenu net, les tranches d'imposition et le coût de la vie (PPA) dans plus de 150 pays. Les développeurs peuvent tirer parti de notre <strong class='font-semibold text-slate-300'>simulateur de coût des jetons IA</strong> pour estimer les dépenses API pour GPT-4o et Claude 3.5, tandis que notre <strong class='font-semibold text-slate-300'>studio d'images IA côté client</strong> supprime les arrière-plans localement via WebAssembly, garantissant zéro téléchargement sur le serveur et une confidentialité totale des données."
-  },
-  "video": {
-    "title": "Téléchargeur de Vidéos et Audio Sociaux",
-    "subtitle": "Téléchargez des vidéos HD et de l'audio MP3 depuis TikTok, Instagram Reels et YouTube Shorts instantanément.",
-    "placeholder": "Collez le lien vidéo ici (TikTok, Instagram, Shorts)...",
-    "btn": "Télécharger Médias HD",
-    "processing": "Extraction des Médias...",
-    "success": "Médias prêts à télécharger !",
-    "mp4": "Télécharger MP4 (Sans Filigrane)",
-    "mp3": "Télécharger Audio (MP3 320kbps)",
-    "downloadVideo": "Télécharger la Vidéo (HD MP4)",
-    "videoDesc": "Fichier vidéo HD original sans filigrane. Aucune redirection vers des sites externes.",
-    "downloadAudio": "Télécharger l'Audio (MP3)",
-    "audioDesc": "Fichier audio haute qualité de la vidéo originale.",
-    "noteTitle": "Remarque :",
-    "noteText": "Le téléchargement s'effectue 100% sur notre site sans redirection externe. Si le navigateur lit le stream directement, faites un clic droit et sélectionnez \"Enregistrer la vidéo sous...\".",
-    "errorTitle": "Échec de l'extraction",
-    "errorText": "Impossible d'extraire le média. Vérifiez que le lien est correct et public."
+    "badge": "100% Gratuit • Illimité • Moteur Fintech Côté Client",
+    "title": "Simulateur Mondial de Salaires Nets, Impôts et Coûts IA",
+    "subtitle": "Calculez les salaires nets mondiaux, l'équivalence W-2 vs 1099, les frais bancaires cachés et la TVA d'exportation B2B.",
+    "seoTitle": "Comment Ça Marche et Fonctionnalités Principales",
+    "seoText": "GlobalPayCalc est une plateforme fintech complète conçue pour les travailleurs à distance, les nomades numériques et les développeurs IA. Notre suite comprend un calculateur dynamique de salaire net, un moteur d'équivalence entre contractuels et salariés, un estimateur de frais bancaires réels et un calculateur de TVA."
   },
   "bg": {
     "title": "Suppresseur de Fond et Convertisseur d'Images IA",
@@ -109,8 +94,8 @@
   },
   "faq": {
     "title": "Foire Aux Questions",
-    "q1": "Comment fonctionne le téléchargeur de vidéos sociales ?",
-    "a1": "Notre téléchargeur de vidéos universel gratuit vous permet de télécharger en toute sécurité des vidéos HD à partir de plateformes de médias sociaux telles que TikTok, Instagram Reels et YouTube Shorts. Il fonctionne directement dans votre navigateur en tant qu'utilitaire côté client, ce qui signifie que nous traitons tout sans stocker vos médias sur nos serveurs. Vous pouvez facilement télécharger des vidéos MP4 ou extraire des fichiers audio MP3 sans filigrane, garantissant ainsi une confidentialité à 100 % et une utilisation illimitée pour tous vos besoins en médias.",
+    "q1": "Comment fonctionne le moteur de salaire net et d'impôts ?",
+    "a1": "GlobalPayCalc est une suite fintech mondiale 100% gratuite conçue pour les travailleurs à distance, les nomades numériques et les développeurs. Elle comprend des calculateurs de salaire net (USA, UK, DE, TR), l'équivalence contractuel W-2 vs 1099, des estimateurs de taux horaire et des comparateurs de frais bancaires.",
     "q2": "Puis-je calculer mon salaire à distance et la parité fiscale avec précision ?",
     "a2": "Oui ! GlobalPayCalc fournit un calculateur de salaire mondial très précis, conçu spécifiquement pour les nomades numériques et les travailleurs à distance. Notre moteur utilitaire compare votre salaire net dans plus de 150 pays, en tenant compte des tranches d'imposition locales, des variations du coût de la vie et de la parité de pouvoir d'achat (PPA). Cela garantit que vous pouvez évaluer les offres des sponsors et calculer en toute sécurité ce que vous gagnerez réellement après impôts, quelle que soit votre situation géographique mondiale.",
     "q3": "Le simulateur de coût des jetons IA est-il gratuit pour les développeurs ?",

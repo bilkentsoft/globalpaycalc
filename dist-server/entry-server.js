@@ -4,7 +4,7 @@ import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server.mjs";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useNavigate, Link, useLocation, Routes, Route } from "react-router-dom";
-import { Calculator, X, Lock, FileText, Heart, Globe, DollarSign, Download, Code, Sparkles, Zap, UploadCloud, ShieldCheck, RefreshCw, PieChart, Briefcase, Info, ArrowRightLeft, Copy, HelpCircle, ChevronUp, ChevronDown, Star, LayoutDashboard, Map, BarChart2, Globe2, Search, Activity, LogOut, AlertCircle, Wallet, TrendingUp, Target, CheckCircle2, Database, CheckCircle, XCircle, AlertTriangle, Server, Compass, Home, Loader, ArrowLeftRight, ShieldAlert, Link as Link$1, Shield, Mail, Cookie, Image as Image$1 } from "lucide-react";
+import { Calculator, X, Lock, FileText, Heart, Globe, DollarSign, Download, Code, Sparkles, Zap, UploadCloud, ShieldCheck, RefreshCw, PieChart, Briefcase, Info, ArrowRightLeft, Copy, Clock, TrendingDown, HelpCircle, ChevronUp, ChevronDown, Star, LayoutDashboard, Map, BarChart2, Globe2, Search, Activity, LogOut, AlertCircle, Wallet, TrendingUp, Target, CheckCircle2, Database, CheckCircle, XCircle, AlertTriangle, Server, Compass, Home, Loader, ArrowLeftRight, ShieldAlert, Link as Link$1, Shield, Mail, Cookie, UserCheck, Image as Image$1 } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
 import { ResponsiveContainer, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area, PieChart as PieChart$1, Pie, Cell, Legend } from "recharts";
 const nav$7 = {
@@ -102,8 +102,8 @@ const footer$7 = {
 };
 const faq$7 = {
   title: "Frequently Asked Questions",
-  q1: "How does the social video downloader work?",
-  a1: "Our free universal video downloader lets you securely download HD videos from social media platforms like TikTok, Instagram Reels, and YouTube Shorts. It operates directly in your browser as a client-side utility, meaning we process everything without storing your media on our servers. You can easily download MP4 videos or extract MP3 audio files completely without watermarks, ensuring 100% privacy and unlimited usage for all your media needs.",
+  q1: "How does the Global Net Take-Home Salary & Tax Engine work?",
+  a1: "GlobalPayCalc is a 100% free global fintech and utility suite built for remote workers, digital nomads, and developers. It includes dynamic take-home net salary calculators (US, UK, DE, TR), W-2 vs 1099 contractor equivalence, hourly rate estimators, hidden bank FX fee comparators, and global VAT/GST export calculators.",
   q2: "Can I calculate my remote salary and tax parity accurately?",
   a2: "Yes! GlobalPayCalc provides a highly accurate global salary calculator designed specifically for digital nomads and remote workers. Our utility engine compares your net salary across over 150 countries, taking into account local tax brackets, living cost variations, and purchasing power parity (PPP). This ensures you can evaluate sponsor offers and securely calculate how much you will actually earn after taxes, regardless of your global location.",
   q3: "Is the AI token cost simulator free for developers?",
@@ -280,8 +280,8 @@ const footer$6 = {
 };
 const faq$6 = {
   title: "Sıkça Sorulan Sorular",
-  q1: "Sosyal medya video indirici nasıl çalışır?",
-  a1: "Ücretsiz evrensel video indiricimiz, TikTok, Instagram Reels ve YouTube Shorts gibi platformlardan güvenli bir şekilde HD videolar indirmenizi sağlar. Doğrudan tarayıcınızda istemci tarafı bir araç olarak çalışır, yani medyanızı sunucularımızda saklamadan her şeyi işleriz. Filigran olmadan kolayca MP4 videoları indirebilir veya MP3 ses dosyalarını çıkarabilirsiniz; böylece tüm medya ihtiyaçlarınız için %100 gizlilik ve sınırsız kullanım sağlanır.",
+  q1: "Küresel Net Maaş ve Vergi Motoru nasıl çalışır?",
+  a1: "GlobalPayCalc, uzaktan çalışanlar, dijital göçebeler ve yazılımcılar için geliştirilmiş %100 ücretsiz küresel bir finans ve hesaplama platformudur. ABD, İngiltere, Almanya, Türkiye ve 40+ ülkenin net maaş ve vergi hesaplayıcısı, tam zamanlı vs. serbest çalışan kıyası, saatlik ücret motoru, gizli banka FX komisyon aracı ve KDV hesaplama araçlarını sunar.",
   q2: "Uzaktan çalışma maaşımı ve vergi durumumu doğru bir şekilde hesaplayabilir miyim?",
   a2: "Evet! GlobalPayCalc, özellikle dijital göçebeler ve uzaktan çalışanlar için tasarlanmış son derece hassas bir küresel maaş hesaplayıcı sunar. Yardımcı motorumuz, yerel vergi dilimlerini, yaşam maliyeti değişikliklerini ve satın alma gücü paritesini (PPP) dikkate alarak 150'den fazla ülkede net maaşınızı karşılaştırır. Bu, küresel konumunuz ne olursa olsun sponsor tekliflerini değerlendirebilmenizi ve vergilerden sonra gerçekte ne kadar kazanacağınızı güvenli bir şekilde hesaplayabilmenizi sağlar.",
   q3: "Yapay zeka token maliyet simülatörü geliştiriciler için ücretsiz mi?",
@@ -365,37 +365,22 @@ const tr = {
 };
 const nav$5 = {
   brand: "GlobalPayCalc.com",
-  tagline: "Motor Universal de Medios y Finanzas",
-  downloader: "Descargador de Video",
-  bgRemover: "Estudio Foto AI",
-  salary: "Salario Global",
-  aiCost: "Costo de Tokens AI",
+  tagline: "Motor Fintech y de Salarios Globale",
+  takeHome: "Salario Neto y Taxes",
+  contractor: "Empleado vs Contractor",
+  fxFees: "Tarifas FX Ocultas",
+  vat: "Factura e IVA",
+  salary: "Paridad de Ciudades",
+  aiCost: "Costo Tokens IA",
+  bgRemover: "WASM Studio",
   admin: "Panel de Control"
 };
 const hero$5 = {
-  badge: "100% Gratis • Ilimitado • Privacidad Primero",
-  title: "Motor Universal de Medios, IA y Calculadora de Salarios",
-  subtitle: "Calcule salarios remotos netos en todo el mundo, descargue videos sociales en HD sin marcas de agua y procese imágenes mediante IA WebAssembly segura del cliente.",
+  badge: "100% Gratis • Ilimitado • Motor Fintech del Cliente",
+  title: "Simulador Global de Salarios Netos, Impuestos y Costos IA",
+  subtitle: "Calcula salarios netos globales, equivalencia W-2 vs 1099, tarifas ocultas bancarias y montos de IVA de exportación B2B.",
   seoTitle: "Cómo Funciona y Características Principales",
-  seoText: "GlobalPayCalc es un conjunto completo creado para nómadas digitales y desarrolladores. Nuestra plataforma cuenta con un <strong class='font-semibold text-slate-300'>descargador de videos sociales HD</strong> que extrae de forma segura medios MP4/MP3 de TikTok, Instagram Reels y YouTube Shorts sin marcas de agua. Para los trabajadores remotos, nuestra <strong class='font-semibold text-slate-300'>calculadora de salario global</strong> compara ingresos netos, tramos impositivos y el costo de vida (PPA) en más de 150 países. Los desarrolladores pueden aprovechar nuestro <strong class='font-semibold text-slate-300'>simulador de costos de tokens de IA</strong> para estimar los gastos de API para GPT-4o y Claude 3.5, mientras que nuestro <strong class='font-semibold text-slate-300'>estudio de imágenes de IA del lado del cliente</strong> elimina fondos localmente a través de WebAssembly, garantizando cero cargas al servidor y privacidad total de los datos."
-};
-const video$5 = {
-  title: "Descargador de Video y Audio de Redes Sociales",
-  subtitle: "Descarga videos HD y audio MP3 de TikTok, Instagram Reels y YouTube Shorts al instante.",
-  placeholder: "Pega el enlace del video aquí (TikTok, Instagram, Shorts)...",
-  btn: "Descargar Medios HD",
-  processing: "Extrayendo Medios...",
-  success: "¡Medios Listos para Descargar!",
-  mp4: "Descargar MP4 (Sin Marca de Agua)",
-  mp3: "Descargar Audio (MP3 320kbps)",
-  downloadVideo: "Descargar Video (HD MP4)",
-  videoDesc: "Archivo de video HD original sin marca de agua. Sin redirección a sitios externos.",
-  downloadAudio: "Descargar Audio (MP3)",
-  audioDesc: "Archivo de audio de alta calidad del video original.",
-  noteTitle: "Nota:",
-  noteText: 'La descarga se realiza 100% dentro de nuestro sitio web sin redirecciones externas. Si el navegador reproduce el stream directamente, haz clic derecho y selecciona "Guardar video como...".',
-  errorTitle: "Extracción fallida",
-  errorText: "No se pudo extraer el medio. Verifica que el enlace sea correcto y público."
+  seoText: "GlobalPayCalc es una plataforma fintech integral creada para trabajadores remotos, nómadas digitales y desarrolladores de IA. Nuestra suite cuenta con una calculadora dinámica de salario neto, un motor de equivalencia entre contratistas y empleados, un estimador de tarifas bancarias reales y una calculadora de IVA."
 };
 const bg$5 = {
   title: "Eliminador de Fondo y Conversor de Imágenes IA",
@@ -473,8 +458,8 @@ const footer$5 = {
 };
 const faq$5 = {
   title: "Preguntas Frecuentes",
-  q1: "¿Cómo funciona el descargador de videos sociales?",
-  a1: "Nuestro descargador de videos universal gratuito te permite descargar videos HD de plataformas de redes sociales como TikTok, Instagram Reels y YouTube Shorts de forma segura. Funciona directamente en tu navegador como una utilidad del lado del cliente, lo que significa que procesamos todo sin almacenar tus medios en nuestros servidores. Puedes descargar videos MP4 o extraer archivos de audio MP3 fácilmente y sin marcas de agua, garantizando un 100% de privacidad y uso ilimitado para todas tus necesidades de medios.",
+  q1: "¿Cómo funciona el motor de salario neto e impuestos?",
+  a1: "GlobalPayCalc es una suite fintech global 100% gratuita creada para trabajadores remotos, nómadas digitales y desarrolladores. Incluye calculadoras de salario neto (EE. UU., Reino Unido, DE, TR), equivalencia de contratistas W-2 vs 1099, estimadores de tarifas por hora, comparadores de tarifas bancarias FX y calculadoras de IVA de exportación.",
   q2: "¿Puedo calcular mi salario remoto y la paridad fiscal con precisión?",
   a2: "¡Sí! GlobalPayCalc ofrece una calculadora de salario global altamente precisa, diseñada específicamente para nómadas digitales y trabajadores remotos. Nuestro motor de utilidad compara tu salario neto en más de 150 países, teniendo en cuenta los tramos impositivos locales, las variaciones del costo de vida y la paridad del poder adquisitivo (PPA). Esto asegura que puedas evaluar las ofertas de patrocinadores y calcular de manera segura cuánto ganarás realmente después de impuestos, independientemente de tu ubicación global.",
   q3: "¿El simulador de costo de tokens de IA es gratuito para los desarrolladores?",
@@ -547,7 +532,6 @@ const dynamic$5 = {
 const es = {
   nav: nav$5,
   hero: hero$5,
-  video: video$5,
   bg: bg$5,
   salary: salary$5,
   ai: ai$5,
@@ -559,37 +543,22 @@ const es = {
 };
 const nav$4 = {
   brand: "GlobalPayCalc.com",
-  tagline: "Universelle Medien- und Finanz-Engine",
-  downloader: "Video Downloader",
-  bgRemover: "KI Fotostudio",
-  salary: "Globales Gehalt",
-  aiCost: "KI-Token Kosten",
-  admin: "Administration"
+  tagline: "Globales Fintech- & Gehalts-Tool",
+  takeHome: "Netto-Gehalt & Steuer",
+  contractor: "Angestellter vs Contractor",
+  fxFees: "Versteckte FX-Gebühren",
+  vat: "Rechnung & MwSt",
+  salary: "Städte-Parität",
+  aiCost: "KI-Token-Kosten",
+  bgRemover: "WASM Studio",
+  admin: "Admin-Panel"
 };
 const hero$4 = {
-  badge: "100% Kostenlos • Unbegrenzt • Datenschutz Zuerst",
-  title: "Universelles Medien-, KI- und Gehaltsberechnungs-System",
-  subtitle: "Berechnen Sie weltweite Remote-Nettogehälter, laden Sie HD-Social-Videos ohne Wasserzeichen herunter und verarbeiten Sie Bilder sicher mit Client-seitiger KI.",
-  seoTitle: "Wie es funktioniert & Kernfunktionen",
-  seoText: "GlobalPayCalc ist eine umfassende Suite für digitale Nomaden und Entwickler. Unsere Plattform bietet einen <strong class='font-semibold text-slate-300'>HD-Social-Video-Downloader</strong>, der MP4/MP3-Medien aus TikTok, Instagram Reels und YouTube Shorts ohne Wasserzeichen sicher extrahiert. Für Remote-Mitarbeiter vergleicht unser <strong class='font-semibold text-slate-300'>globaler Gehaltsrechner</strong> das Nettoeinkommen, Steuerklassen und die Lebenshaltungskosten (KKP) in über 150 Ländern. Entwickler können unseren <strong class='font-semibold text-slate-300'>KI-Token-Kosten-Simulator</strong> nutzen, um API-Ausgaben für GPT-4o und Claude 3.5 abzuschätzen, während unser <strong class='font-semibold text-slate-300'>clientseitiges KI-Bildstudio</strong> Hintergründe lokal über WebAssembly entfernt, was keine Server-Uploads garantiert und vollständige Datenprivatsphäre gewährleistet."
-};
-const video$4 = {
-  title: "Social Video & Audio Downloader",
-  subtitle: "Laden Sie HD-Videos und MP3-Audio von TikTok, Instagram Reels und YouTube Shorts sofort herunter.",
-  placeholder: "Fügen Sie den Videolink hier ein (TikTok, Instagram, Shorts)...",
-  btn: "HD-Medien Herunterladen",
-  processing: "Medien Extrahieren...",
-  success: "Medien bereit zum Download!",
-  mp4: "MP4 Herunterladen (Ohne Wasserzeichen)",
-  mp3: "Audio Herunterladen (MP3 320kbps)",
-  downloadVideo: "Video herunterladen (HD MP4)",
-  videoDesc: "Originale HD-Videodatei ohne Wasserzeichen. Keine Weiterleitung zu externen Seiten.",
-  downloadAudio: "Audio herunterladen (MP3)",
-  audioDesc: "Hochwertige Audiodatei des Originalvideos.",
-  noteTitle: "Hinweis:",
-  noteText: 'Der Download wird vollständig auf unserer Website abgewickelt. Wenn der Browser den Stream direkt abspielt, rechtsklicken Sie und wählen Sie "Speichern unter...".',
-  errorTitle: "Extraktion fehlgeschlagen",
-  errorText: "Medien konnten nicht extrahiert werden. Bitte stellen Sie sicher, dass der Link korrekt und öffentlich zugänglich ist."
+  badge: "100% Kostenlos • Unbegrenzt • Client-Side Fintech Engine",
+  title: "Globales Netto-Gehalts-, Steuer-, FX- & KI-Kosten-Tool",
+  subtitle: "Berechnen Sie globale Nettogehälter, W-2 vs. 1099 Äquivalenz, versteckte Bankgebühren und grenzüberschreitende MwSt-Beträge.",
+  seoTitle: "Funktionsweise und Hauptmerkmale",
+  seoText: "GlobalPayCalc ist eine umfassende Fintech-Plattform für Remote-Mitarbeiter, digitale Nomaden und Entwickler. Unsere Plattform bietet einen dynamischen Netto-Gehaltsrechner für über 40 Länder, einen Vergleich von Angestellten- und Freiberufler-Gehältern, einen Gebühren-Rechner für internationale Überweisungen und ein Tool für grenzüberschreitende Rechnungen mit MwSt-Befreiung."
 };
 const bg$4 = {
   title: "KI-Bildhintergrundentferner & Konverter",
@@ -667,8 +636,8 @@ const footer$4 = {
 };
 const faq$4 = {
   title: "Häufig gestellte Fragen",
-  q1: "Wie funktioniert der Social-Video-Downloader?",
-  a1: "Unser kostenloser universeller Video-Downloader ermöglicht es Ihnen, HD-Videos von Social-Media-Plattformen wie TikTok, Instagram Reels und YouTube Shorts sicher herunterzuladen. Er arbeitet direkt in Ihrem Browser als clientseitiges Dienstprogramm, d.h. wir verarbeiten alles, ohne Ihre Medien auf unseren Servern zu speichern. Sie können MP4-Videos herunterladen oder MP3-Audiodateien extrahieren, ganz ohne Wasserzeichen, und so 100% Privatsphäre und unbegrenzte Nutzung für all Ihre Medienanforderungen gewährleisten.",
+  q1: "Wie funktioniert der globale Netto-Gehalts- & Steuerrechner?",
+  a1: "GlobalPayCalc ist eine 100 % kostenlose globale Fintech-Plattform für Remote-Mitarbeiter, digitale Nomaden und Entwickler. Es bietet Netto-Gehaltsrechner (USA, UK, DE, TR), Angestellten- vs. Freiberufler-Vergleiche, Stundensatz-Rechner, Bankgebühren-Schätzer und MwSt-Rechner.",
   q2: "Kann ich mein Remote-Gehalt und die Steuerparität genau berechnen?",
   a2: "Ja! GlobalPayCalc bietet einen hochpräzisen globalen Gehaltsrechner, der speziell für digitale Nomaden und Remote-Mitarbeiter entwickelt wurde. Unsere Utility-Engine vergleicht Ihr Nettogehalt in über 150 Ländern unter Berücksichtigung lokaler Steuerklassen, Lebenshaltungskostenunterschiede und der Kaufkraftparität (KKP). Dies stellt sicher, dass Sie Sponsorenangebote bewerten und sicher berechnen können, wie viel Sie nach Steuern tatsächlich verdienen, unabhängig von Ihrem globalen Standort.",
   q3: "Ist der KI-Token-Kosten-Simulator für Entwickler kostenlos?",
@@ -741,7 +710,6 @@ const dynamic$4 = {
 const de = {
   nav: nav$4,
   hero: hero$4,
-  video: video$4,
   bg: bg$4,
   salary: salary$4,
   ai: ai$4,
@@ -753,37 +721,22 @@ const de = {
 };
 const nav$3 = {
   brand: "GlobalPayCalc.com",
-  tagline: "Motor Universal de Mídia e Finanças",
-  downloader: "Baixador de Vídeo",
-  bgRemover: "Estúdio Foto IA",
-  salary: "Salário Global",
+  tagline: "Motor Fintech e Salários Globais",
+  takeHome: "Salário Líquido e Impostos",
+  contractor: "Funcionário vs Contractor",
+  fxFees: "Taxas FX Ocultas",
+  vat: "Fatura e IVA",
+  salary: "Paridade de Cidades",
   aiCost: "Custo de Tokens IA",
+  bgRemover: "Estúdio WASM",
   admin: "Painel Admin"
 };
 const hero$3 = {
-  badge: "100% Grátis • Ilimitado • Privacidade em Primeiro",
-  title: "Motor Universal de Mídia, IA e Salários Globais",
-  subtitle: "Calcule salários remotos líquidos em todo o mundo, baixe vídeos sociais em HD sem marcas d'água e processe imagens usando IA WebAssembly no cliente com segurança.",
+  badge: "100% Grátis • Ilimitado • Motor Fintech no Cliente",
+  title: "Simulador Global de Salários Líquidos, Impostos e Custos IA",
+  subtitle: "Calcule salários líquidos globais, equivalência W-2 vs 1099, taxas bancárias ocultas e valores de IVA de exportação B2B.",
   seoTitle: "Como Funciona e Principais Recursos",
-  seoText: "GlobalPayCalc é um conjunto abrangente criado para nômades digitais e desenvolvedores. Nossa plataforma possui um <strong class='font-semibold text-slate-300'>baixador de vídeos sociais em HD</strong> que extrai com segurança mídia MP4/MP3 do TikTok, Instagram Reels e YouTube Shorts sem marcas d'água. Para trabalhadores remotos, nossa <strong class='font-semibold text-slate-300'>calculadora de salário global</strong> compara a renda líquida, as faixas de impostos e o custo de vida (PPC) em mais de 150 países. Os desenvolvedores podem aproveitar nosso <strong class='font-semibold text-slate-300'>simulador de custo de token de IA</strong> para estimar as despesas de API para GPT-4o e Claude 3.5, enquanto nosso <strong class='font-semibold text-slate-300'>estúdio de imagem de IA no cliente</strong> remove fundos localmente via WebAssembly, garantindo zero uploads de servidor e total privacidade de dados."
-};
-const video$3 = {
-  title: "Baixador de Vídeos e Áudios de Redes Sociais",
-  subtitle: "Baixe vídeos HD e áudio MP3 do TikTok, Instagram Reels e YouTube Shorts instantaneamente.",
-  placeholder: "Cole o link do vídeo aqui (TikTok, Instagram, Shorts)...",
-  btn: "Baixar Mídia HD",
-  processing: "Extraindo Mídia...",
-  success: "Mídia Pronta para Download!",
-  mp4: "Baixar MP4 (Sem Marca d'Água)",
-  mp3: "Baixar Áudio (MP3 320kbps)",
-  downloadVideo: "Baixar Vídeo (HD MP4)",
-  videoDesc: "Arquivo de vídeo HD original sem marca d'água. Sem redirecionamento para sites externos.",
-  downloadAudio: "Baixar Áudio (MP3)",
-  audioDesc: "Arquivo de áudio de alta qualidade do vídeo original.",
-  noteTitle: "Nota:",
-  noteText: 'O download é realizado 100% dentro do nosso site sem redirecionamentos externos. Se o navegador começar a reproduzir o stream diretamente, clique com o botão direito e selecione "Salvar vídeo como...".',
-  errorTitle: "Falha na Extração",
-  errorText: "Não foi possível extrair a mídia. Verifique se o link está correto e é público."
+  seoText: "GlobalPayCalc é uma plataforma fintech abrangente criada para trabalhadores remotos, nômades digitais e desenvolvedores de IA. Nossa suíte inclui uma calculadora dinâmica de salário líquido, motor de equivalência contratado vs funcionário, estimador de taxas bancárias e calculadora de IVA."
 };
 const bg$3 = {
   title: "Removedor de Fundo e Conversor de Imagens IA",
@@ -861,8 +814,8 @@ const footer$3 = {
 };
 const faq$3 = {
   title: "Perguntas Frequentes",
-  q1: "Como funciona o baixador de vídeos sociais?",
-  a1: "Nosso baixador de vídeo universal gratuito permite que você baixe com segurança vídeos HD de plataformas de mídia social como TikTok, Instagram Reels e YouTube Shorts. Ele opera diretamente no seu navegador como um utilitário do lado do cliente, ou seja, processamos tudo sem armazenar sua mídia em nossos servidores. Você pode facilmente baixar vídeos MP4 ou extrair arquivos de áudio MP3 totalmente sem marcas d'água, garantindo 100% de privacidade e uso ilimitado para todas as suas necessidades de mídia.",
+  q1: "Como funciona o motor de salário líquido e impostos?",
+  a1: "GlobalPayCalc é uma suíte fintech global 100% gratuita criada para trabalhadores remotos, nômades digitais e desenvolvedores. Inclui calculadoras de salário líquido (EUA, Reino Unido, DE, TR), equivalência de contratados W-2 vs 1099, estimadores de taxa horária e comparadores de taxas bancárias FX.",
   q2: "Posso calcular meu salário remoto e paridade fiscal com precisão?",
   a2: "Sim! A GlobalPayCalc fornece uma calculadora de salário global altamente precisa, projetada especificamente para nômades digitais e trabalhadores remotos. Nosso mecanismo utilitário compara seu salário líquido em mais de 150 países, levando em consideração as faixas de impostos locais, variações de custo de vida e paridade de poder de compra (PPC). Isso garante que você possa avaliar as ofertas dos patrocinadores e calcular com segurança quanto realmente ganhará após os impostos, independentemente da sua localização global.",
   q3: "O simulador de custo de token de IA é gratuito para desenvolvedores?",
@@ -935,7 +888,6 @@ const dynamic$3 = {
 const pt = {
   nav: nav$3,
   hero: hero$3,
-  video: video$3,
   bg: bg$3,
   salary: salary$3,
   ai: ai$3,
@@ -947,37 +899,22 @@ const pt = {
 };
 const nav$2 = {
   brand: "GlobalPayCalc.com",
-  tagline: "Moteur Universel de Médias et Finances",
-  downloader: "Téléchargeur Vidéo",
-  bgRemover: "Studio Photo IA",
-  salary: "Salaire Mondial",
-  aiCost: "Coût Tokens IA",
-  admin: "Panneau Admin"
+  tagline: "Moteur Fintech et Salaires Mondiaux",
+  takeHome: "Salaire Net et Impôts",
+  contractor: "Employé vs Contractor",
+  fxFees: "Frais FX Cachés",
+  vat: "Facture et TVA",
+  salary: "Parité des Villes",
+  aiCost: "Coût Jetons IA",
+  bgRemover: "WASM Studio",
+  admin: "Panneau d'Administration"
 };
 const hero$2 = {
-  badge: "100% Gratuit • Illimité • Confidentialité Avant Tout",
-  title: "Moteur Universel de Médias, IA et Salaires Mondiaux",
-  subtitle: "Calculez les salaires nets à distance dans le monde entier, téléchargez des vidéos sociales HD sans filigrane et traitez les images via une IA WebAssembly sécurisée.",
-  seoTitle: "Comment ça marche & Fonctionnalités clés",
-  seoText: "GlobalPayCalc est une suite complète conçue pour les nomades numériques et les développeurs. Notre plateforme propose un <strong class='font-semibold text-slate-300'>téléchargeur de vidéos sociales HD</strong> qui extrait en toute sécurité les médias MP4/MP3 de TikTok, Instagram Reels et YouTube Shorts sans filigrane. Pour les travailleurs à distance, notre <strong class='font-semibold text-slate-300'>calculateur de salaire mondial</strong> compare le revenu net, les tranches d'imposition et le coût de la vie (PPA) dans plus de 150 pays. Les développeurs peuvent tirer parti de notre <strong class='font-semibold text-slate-300'>simulateur de coût des jetons IA</strong> pour estimer les dépenses API pour GPT-4o et Claude 3.5, tandis que notre <strong class='font-semibold text-slate-300'>studio d'images IA côté client</strong> supprime les arrière-plans localement via WebAssembly, garantissant zéro téléchargement sur le serveur et une confidentialité totale des données."
-};
-const video$2 = {
-  title: "Téléchargeur de Vidéos et Audio Sociaux",
-  subtitle: "Téléchargez des vidéos HD et de l'audio MP3 depuis TikTok, Instagram Reels et YouTube Shorts instantanément.",
-  placeholder: "Collez le lien vidéo ici (TikTok, Instagram, Shorts)...",
-  btn: "Télécharger Médias HD",
-  processing: "Extraction des Médias...",
-  success: "Médias prêts à télécharger !",
-  mp4: "Télécharger MP4 (Sans Filigrane)",
-  mp3: "Télécharger Audio (MP3 320kbps)",
-  downloadVideo: "Télécharger la Vidéo (HD MP4)",
-  videoDesc: "Fichier vidéo HD original sans filigrane. Aucune redirection vers des sites externes.",
-  downloadAudio: "Télécharger l'Audio (MP3)",
-  audioDesc: "Fichier audio haute qualité de la vidéo originale.",
-  noteTitle: "Remarque :",
-  noteText: `Le téléchargement s'effectue 100% sur notre site sans redirection externe. Si le navigateur lit le stream directement, faites un clic droit et sélectionnez "Enregistrer la vidéo sous...".`,
-  errorTitle: "Échec de l'extraction",
-  errorText: "Impossible d'extraire le média. Vérifiez que le lien est correct et public."
+  badge: "100% Gratuit • Illimité • Moteur Fintech Côté Client",
+  title: "Simulateur Mondial de Salaires Nets, Impôts et Coûts IA",
+  subtitle: "Calculez les salaires nets mondiaux, l'équivalence W-2 vs 1099, les frais bancaires cachés et la TVA d'exportation B2B.",
+  seoTitle: "Comment Ça Marche et Fonctionnalités Principales",
+  seoText: "GlobalPayCalc est une plateforme fintech complète conçue pour les travailleurs à distance, les nomades numériques et les développeurs IA. Notre suite comprend un calculateur dynamique de salaire net, un moteur d'équivalence entre contractuels et salariés, un estimateur de frais bancaires réels et un calculateur de TVA."
 };
 const bg$2 = {
   title: "Suppresseur de Fond et Convertisseur d'Images IA",
@@ -1055,8 +992,8 @@ const footer$2 = {
 };
 const faq$2 = {
   title: "Foire Aux Questions",
-  q1: "Comment fonctionne le téléchargeur de vidéos sociales ?",
-  a1: "Notre téléchargeur de vidéos universel gratuit vous permet de télécharger en toute sécurité des vidéos HD à partir de plateformes de médias sociaux telles que TikTok, Instagram Reels et YouTube Shorts. Il fonctionne directement dans votre navigateur en tant qu'utilitaire côté client, ce qui signifie que nous traitons tout sans stocker vos médias sur nos serveurs. Vous pouvez facilement télécharger des vidéos MP4 ou extraire des fichiers audio MP3 sans filigrane, garantissant ainsi une confidentialité à 100 % et une utilisation illimitée pour tous vos besoins en médias.",
+  q1: "Comment fonctionne le moteur de salaire net et d'impôts ?",
+  a1: "GlobalPayCalc est une suite fintech mondiale 100% gratuite conçue pour les travailleurs à distance, les nomades numériques et les développeurs. Elle comprend des calculateurs de salaire net (USA, UK, DE, TR), l'équivalence contractuel W-2 vs 1099, des estimateurs de taux horaire et des comparateurs de frais bancaires.",
   q2: "Puis-je calculer mon salaire à distance et la parité fiscale avec précision ?",
   a2: "Oui ! GlobalPayCalc fournit un calculateur de salaire mondial très précis, conçu spécifiquement pour les nomades numériques et les travailleurs à distance. Notre moteur utilitaire compare votre salaire net dans plus de 150 pays, en tenant compte des tranches d'imposition locales, des variations du coût de la vie et de la parité de pouvoir d'achat (PPA). Cela garantit que vous pouvez évaluer les offres des sponsors et calculer en toute sécurité ce que vous gagnerez réellement après impôts, quelle que soit votre situation géographique mondiale.",
   q3: "Le simulateur de coût des jetons IA est-il gratuit pour les développeurs ?",
@@ -1129,7 +1066,6 @@ const dynamic$2 = {
 const fr = {
   nav: nav$2,
   hero: hero$2,
-  video: video$2,
   bg: bg$2,
   salary: salary$2,
   ai: ai$2,
@@ -1141,37 +1077,22 @@ const fr = {
 };
 const nav$1 = {
   brand: "GlobalPayCalc.com",
-  tagline: "Mesin Media & Keuangan Universal",
-  downloader: "Pengunduh Video",
-  bgRemover: "Studio Foto AI",
-  salary: "Gaji Global",
+  tagline: "Mesin Fintech & Gaji Global",
+  takeHome: "Gaji Bersih & Pajak",
+  contractor: "Karyawan vs Contractor",
+  fxFees: "Biaya FX Tersembunyi",
+  vat: "Faktur & PPN",
+  salary: "Paritas Kota",
   aiCost: "Biaya Token AI",
+  bgRemover: "Studio WASM",
   admin: "Panel Admin"
 };
 const hero$1 = {
-  badge: "100% Gratis • Tak Terbatas • Privasi Utama",
-  title: "Mesin Universal Media, AI & Gaji Global",
-  subtitle: "Hitung gaji bersih jarak jauh di seluruh dunia, unduh video sosial HD tanpa tanda air, dan proses gambar melalui AI WebAssembly sisi klien secara aman dan privat.",
+  badge: "100% Gratis • Tanpa Batas • Mesin Fintech Sisi Klien",
+  title: "Simulasi Gaji Bersih, Pajak & Biaya AI Global",
+  subtitle: "Hitung gaji bersih global, kesetaraan W-2 vs 1099, biaya tersembunyi bank, dan nilai PPN ekspor B2B.",
   seoTitle: "Cara Kerja & Fitur Utama",
-  seoText: "GlobalPayCalc adalah paket komprehensif yang dibangun untuk nomaden digital dan pengembang. Platform kami dilengkapi <strong class='font-semibold text-slate-300'>pengunduh video sosial HD</strong> yang dengan aman mengekstrak media MP4/MP3 dari TikTok, Instagram Reels, dan YouTube Shorts tanpa tanda air. Untuk pekerja jarak jauh, <strong class='font-semibold text-slate-300'>kalkulator gaji global</strong> kami membandingkan pendapatan bersih, golongan pajak, dan biaya hidup (PPP) di 150+ negara. Pengembang dapat memanfaatkan <strong class='font-semibold text-slate-300'>simulator biaya token AI</strong> kami untuk memperkirakan pengeluaran API untuk GPT-4o dan Claude 3.5, sementara <strong class='font-semibold text-slate-300'>studio gambar AI sisi klien</strong> kami menghapus latar belakang secara lokal melalui WebAssembly, menjamin tidak ada unggahan server dan privasi data lengkap."
-};
-const video$1 = {
-  title: "Pengunduh Video & Audio Media Sosial",
-  subtitle: "Unduh video HD dan audio MP3 dari TikTok, Instagram Reels, dan YouTube Shorts secara instan.",
-  placeholder: "Tempel tautan video di sini (TikTok, Instagram, Shorts)...",
-  btn: "Unduh Media HD",
-  processing: "Mengekstrak Media...",
-  success: "Media Siap Diunduh!",
-  mp4: "Unduh MP4 (Tanpa Watermark)",
-  mp3: "Unduh Audio (MP3 320kbps)",
-  downloadVideo: "Unduh Video (HD MP4)",
-  videoDesc: "File video HD asli tanpa watermark. Tidak ada pengalihan ke situs eksternal.",
-  downloadAudio: "Unduh Audio (MP3)",
-  audioDesc: "File audio berkualitas tinggi dari video asli.",
-  noteTitle: "Catatan:",
-  noteText: 'Unduhan dilakukan 100% di dalam situs web kami tanpa pengalihan eksternal. Jika browser mulai memutar stream secara langsung, klik kanan dan pilih "Simpan Video Sebagai...".',
-  errorTitle: "Ekstraksi Gagal",
-  errorText: "Tidak dapat mengekstrak media. Pastikan tautannya benar dan bersifat publik."
+  seoText: "GlobalPayCalc adalah platform fintech komprehensif yang dirancang untuk pekerja jarak jauh, nomaden digital, dan pengembang AI. Suite kami mencakup kalkulator gaji bersih dinamis, mesin kesetaraan kontraktor vs karyawan, estimasi biaya bank nyata, dan kalkulator PPN."
 };
 const bg$1 = {
   title: "Penghapus Latar Belakang & Konverter Gambar AI",
@@ -1249,8 +1170,8 @@ const footer$1 = {
 };
 const faq$1 = {
   title: "Pertanyaan yang Sering Diajukan",
-  q1: "Bagaimana cara kerja pengunduh video sosial?",
-  a1: "Pengunduh video universal gratis kami memungkinkan Anda mengunduh video HD dengan aman dari platform media sosial seperti TikTok, Instagram Reels, dan YouTube Shorts. Alat ini beroperasi langsung di browser Anda sebagai utilitas sisi klien, yang berarti kami memproses semuanya tanpa menyimpan media Anda di server kami. Anda dapat dengan mudah mengunduh video MP4 atau mengekstrak file audio MP3 sepenuhnya tanpa tanda air, memastikan privasi 100% dan penggunaan tak terbatas untuk semua kebutuhan media Anda.",
+  q1: "Bagaimana cara kerja mesin gaji bersih dan pajak?",
+  a1: "GlobalPayCalc adalah suite fintech global 100% gratis yang dibangun untuk pekerja jarak jauh, nomaden digital, dan pengembang. Ini mencakup kalkulator gaji bersih (AS, Inggris, DE, TR), kesetaraan kontraktor W-2 vs 1099, estimasi tarif per jam, dan pembanding biaya bank FX.",
   q2: "Dapatkah saya menghitung gaji jarak jauh dan paritas pajak saya secara akurat?",
   a2: "Ya! GlobalPayCalc menyediakan kalkulator gaji global yang sangat akurat yang dirancang khusus untuk nomaden digital dan pekerja jarak jauh. Mesin utilitas kami membandingkan gaji bersih Anda di lebih dari 150 negara, dengan mempertimbangkan golongan pajak lokal, variasi biaya hidup, dan paritas daya beli (PPP). Ini memastikan bahwa Anda dapat mengevaluasi penawaran sponsor dan dengan aman menghitung berapa banyak yang benar-benar akan Anda peroleh setelah pajak, terlepas dari lokasi global Anda.",
   q3: "Apakah simulator biaya token AI gratis untuk pengembang?",
@@ -1323,7 +1244,6 @@ const dynamic$1 = {
 const id = {
   nav: nav$1,
   hero: hero$1,
-  video: video$1,
   bg: bg$1,
   salary: salary$1,
   ai: ai$1,
@@ -1335,37 +1255,22 @@ const id = {
 };
 const nav = {
   brand: "GlobalPayCalc.com",
-  tagline: "ユニバーサルメディア・金融エンジン",
-  downloader: "動画ダウンローダー",
-  bgRemover: "AIフォトスタジオ",
-  salary: "グローバル給与",
+  tagline: "グローバルFintech＆給与計算エンジン",
+  takeHome: "手取り給与＆税金",
+  contractor: "正社員 vs 業務委託",
+  fxFees: "隠れた為替手数料",
+  vat: "請求書＆消費税",
+  salary: "都市間購買力",
   aiCost: "AIトークンコスト",
+  bgRemover: "WASMスタジオ",
   admin: "管理パネル"
 };
 const hero = {
-  badge: "100%無料 • 無制限 • プライバシー優先",
-  title: "ユニバーサルメディア・AI・グローバル給与エンジン",
-  subtitle: "世界中のネットリモート給与を計算し、透かしなしでHDソーシャルビデオをダウンロードし、安全でプライベートなクライアントサイドWebAssembly AIで画像を処理します。",
-  seoTitle: "機能と仕組み",
-  seoText: "GlobalPayCalcは、デジタルノマドと開発者向けに構築された包括的なスイートです。当社のプラットフォームは、TikTok、Instagramリール、YouTubeショートから透かしなしでMP4/MP3メディアを安全に抽出する<strong class='font-semibold text-slate-300'>HDソーシャルビデオダウンローダー</strong>を備えています。リモートワーカー向けに、<strong class='font-semibold text-slate-300'>グローバル給与計算機</strong>は150カ国以上の純所得、税制区分、および生活費（PPP）を比較します。開発者は<strong class='font-semibold text-slate-300'>AIトークンコストシミュレーター</strong>を活用して、GPT-4oおよびClaude 3.5のAPI経費を予測できます。一方、当社の<strong class='font-semibold text-slate-300'>クライアントサイドAI画像スタジオ</strong>はWebAssemblyを介してローカルで背景を削除し、サーバーへのアップロードゼロと完全なデータプライバシーを保証します。"
-};
-const video = {
-  title: "ソーシャル動画・音声ダウンローダー",
-  subtitle: "TikTok、Instagram Reels、YouTube ShortsのHD動画とMP3音声を即座にダウンロード。",
-  placeholder: "ここにビデオリンクを貼り付けてください（TikTok、Instagram、Shorts）...",
-  btn: "HDメディアをダウンロード",
-  processing: "メディア抽出中...",
-  success: "ダウンロード準備完了！",
-  mp4: "MP4をダウンロード（透かしなし）",
-  mp3: "音声をダウンロード（MP3 320kbps）",
-  downloadVideo: "動画をダウンロード（HD MP4）",
-  videoDesc: "透かしなしのオリジナルHD動画ファイル。外部サイトへのリダイレクトなし。",
-  downloadAudio: "音声をダウンロード（MP3）",
-  audioDesc: "元の動画の高品質音声ファイル。",
-  noteTitle: "注意：",
-  noteText: "ダウンロードは外部サイトへのリダイレクトなく、当サイト内で100%完結します。ブラウザがストリームを直接再生し始めた場合は、右クリックして「名前を付けてビデオを保存...」を選択してください。",
-  errorTitle: "抽出失敗",
-  errorText: "メディアを抽出できませんでした。リンクが正しく公開されていることを確認してください。"
+  badge: "100%無料 • 無制限 • クライアントサイドFintechエンジン",
+  title: "グローバル手取り給与、税金、FX＆AIコストシミュレーター",
+  subtitle: "世界各国の手取り給与、正社員vsフリーランス換算、銀行の隠れた為替手数料、B2B輸出消費税額を正確に計算。",
+  seoTitle: "仕組みと主な機能",
+  seoText: "GlobalPayCalcは、リモートワーカー、デジタルノマド、AI開発者のために構築された包括的なFintechプラットフォームです。動的な手取り給与計算機、契約形態比較エンジン、実際の銀行手数料見積もり、および消費税計算ツールを備えています。"
 };
 const bg = {
   title: "AI写真背景削除・コンバーター",
@@ -1443,8 +1348,8 @@ const footer = {
 };
 const faq = {
   title: "よくある質問",
-  q1: "ソーシャルビデオダウンローダーはどのように機能しますか？",
-  a1: "当社の無料のユニバーサルビデオダウンローダーを使用すると、TikTok、Instagram Reels、YouTube ShortsなどのソーシャルメディアプラットフォームからHDビデオを安全にダウンロードできます。これはクライアントサイドのユーティリティとしてブラウザで直接動作します。つまり、サーバーにメディアを保存することなくすべてを処理します。透かしなしでMP4ビデオを簡単にダウンロードしたり、MP3オーディオファイルを抽出したりできるため、100%のプライバシーとすべてのメディアニーズに対する無制限の使用が保証されます。",
+  q1: "グローバル手取り給与＆税金エンジンの仕組みは？",
+  a1: "GlobalPayCalcは、リモートワーカー、デジタルノマド、開発者向けに構築された100%無料のグローバルFintech＆ユーティリティスイートです。各国の手取り給与計算機（米国、英国、ドイツ、トルコ）、W-2 vs 1099契約形態換算、時給試算、銀行の為替手数料比較、消費税計算ツールが含まれます。",
   q2: "リモート給与と税のパリティを正確に計算できますか？",
   a2: "はい！GlobalPayCalcは、デジタルノマドとリモートワーカー向けに特別に設計された、高精度のグローバル給与計算機を提供しています。当社のユーティリティエンジンは、現地の税制区分、生活費の変動、および購買力平価（PPP）を考慮して、150か国以上の純給与を比較します。これにより、スポンサーのオファーを評価し、世界中のどこにいても税引き後に実際にいくら稼ぐかを安全に計算できます。",
   q3: "開発者向けのAIトークンコストシミュレーターは無料ですか？",
@@ -1517,7 +1422,6 @@ const dynamic = {
 const ja = {
   nav,
   hero,
-  video,
   bg,
   salary,
   ai,
@@ -1663,7 +1567,7 @@ function LegalModal({ type, lang = "en", onClose }) {
           ", accessible from https://globalpaycalc.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by our platform and how we use it."
         ] }),
         /* @__PURE__ */ jsx("h4", { className: "font-bold text-white text-sm", children: "1. 100% Client-Side Local Processing" }),
-        /* @__PURE__ */ jsx("p", { children: "All social media downloader extractions, file conversions, AI photo background removal, and financial calculators run entirely inside your browser's local RAM. No file or user data is ever uploaded to our servers, stored, or logged." }),
+        /* @__PURE__ */ jsx("p", { children: "All financial calculators, net salary tax parity tools, AI photo background removal, and WASM utilities run entirely inside your browser's local RAM. No file or user data is ever uploaded to our servers, stored, or logged." }),
         /* @__PURE__ */ jsx("h4", { className: "font-bold text-white text-sm", children: "2. Log Files" }),
         /* @__PURE__ */ jsx("p", { children: "GlobalPayCalc.com follows a standard procedure of using log files. These files log visitors when they visit websites. Barring standard server details like IP address, browser type, Internet Service Provider (ISP), date and time stamp, and referring/exit pages, no personally identifiable information is stored." }),
         /* @__PURE__ */ jsx("h4", { className: "font-bold text-white text-sm", children: "3. Google Cookies & Ads" }),
@@ -3816,6 +3720,472 @@ Generated by GlobalPayCalc.com (Universal Utility Engine)
     ] })
   ] });
 }
+function calculateFreelancerRate({
+  targetNetAnnual = 6e4,
+  taxRatePercent = 25,
+  monthlyExpenses = 500,
+  // Software, equipment, CPA, insurance
+  vacationWeeksPerYear = 4,
+  billableHoursPerWeek = 25,
+  // Reality of billable hours vs 40h workweek
+  currency = "$"
+}) {
+  const annualExpenses = monthlyExpenses * 12;
+  const taxFraction = Math.min(0.9, taxRatePercent / 100);
+  const requiredGrossBeforeTax = (targetNetAnnual + annualExpenses) / (1 - taxFraction);
+  const billableWeeks = Math.max(1, 52 - vacationWeeksPerYear);
+  const totalAnnualBillableHours = billableWeeks * billableHoursPerWeek;
+  const minHourlyRate = requiredGrossBeforeTax / totalAnnualBillableHours;
+  const minDayRate = minHourlyRate * 8;
+  const minMonthlyGross = requiredGrossBeforeTax / 12;
+  const annualTaxAmount = requiredGrossBeforeTax - targetNetAnnual - annualExpenses;
+  return {
+    targetNetAnnual,
+    annualExpenses,
+    taxRatePercent,
+    requiredGrossBeforeTax: Math.round(requiredGrossBeforeTax),
+    annualTaxAmount: Math.round(annualTaxAmount),
+    totalAnnualBillableHours: Math.round(totalAnnualBillableHours),
+    minHourlyRate: parseFloat(minHourlyRate.toFixed(2)),
+    minDayRate: Math.round(minDayRate),
+    minMonthlyGross: Math.round(minMonthlyGross),
+    currency
+  };
+}
+function FreelancerRateCalculator({ lang = "en" }) {
+  const [targetNetAnnual, setTargetNetAnnual] = useState(72e3);
+  const [taxRatePercent, setTaxRatePercent] = useState(25);
+  const [monthlyExpenses, setMonthlyExpenses] = useState(600);
+  const [vacationWeeksPerYear, setVacationWeeksPerYear] = useState(4);
+  const [billableHoursPerWeek, setBillableHoursPerWeek] = useState(25);
+  const result = calculateFreelancerRate({
+    targetNetAnnual,
+    taxRatePercent,
+    monthlyExpenses,
+    vacationWeeksPerYear,
+    billableHoursPerWeek
+  });
+  return /* @__PURE__ */ jsxs("div", { className: "space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500", children: [
+    /* @__PURE__ */ jsxs("div", { className: "text-center max-w-3xl mx-auto space-y-3", children: [
+      /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold", children: [
+        /* @__PURE__ */ jsx(Clock, { className: "w-3.5 h-3.5" }),
+        /* @__PURE__ */ jsx("span", { children: "Freelancer Saatlik Ücret Motoru" })
+      ] }),
+      /* @__PURE__ */ jsx("h2", { className: "text-3xl sm:text-4xl font-extrabold text-white tracking-tight", children: "Freelancer Minimum Saatlik Ücret Hesaplayıcı" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm leading-relaxed", children: "Hedef net kazancınız, sabit ofis/yazılım giderleriniz, vergi yükünüz ve haftalık faturalandırılabilir çalışma saatinize göre vermeniz gereken minimum saatlik/günlük teklif tutarını hesaplayın." })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 sm:p-8 rounded-3xl border-slate-800 space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsxs("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-1", children: [
+            /* @__PURE__ */ jsx(DollarSign, { className: "w-3.5 h-3.5 text-emerald-400" }),
+            /* @__PURE__ */ jsx("span", { children: "Hedef Yıllık Net Kazanç ($ / €)" })
+          ] }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: targetNetAnnual,
+              onChange: (e) => setTargetNetAnnual(Number(e.target.value)),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-lg focus:border-emerald-500 outline-none"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Tahmini Vergi Oranı (%)" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: taxRatePercent,
+              onChange: (e) => setTaxRatePercent(Number(e.target.value)),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-lg focus:border-emerald-500 outline-none"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Aylık Sabit Giderler ($ / €)" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: monthlyExpenses,
+              onChange: (e) => setMonthlyExpenses(Number(e.target.value)),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-lg focus:border-emerald-500 outline-none"
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-900/60 p-6 rounded-2xl border border-slate-800", children: [
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Yıllık Tatil / İzin Süresi (Hafta)" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: vacationWeeksPerYear,
+              onChange: (e) => setVacationWeeksPerYear(Number(e.target.value)),
+              className: "w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-bold outline-none focus:border-emerald-500"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Haftalık Faturalandırılabilir Çalışma Saati" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: billableHoursPerWeek,
+              onChange: (e) => setBillableHoursPerWeek(Number(e.target.value)),
+              className: "w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-bold outline-none focus:border-emerald-500"
+            }
+          ),
+          /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400", children: "Genellikle 40 saatin sadece 20-30 saati doğrudan faturalandırılabilir müşteri işidir." })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "bg-gradient-to-br from-emerald-950/40 to-slate-900 p-6 rounded-2xl border border-emerald-500/30", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-emerald-400 uppercase tracking-wider", children: "Minimum Saatlik Teklif Ücretiniz" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-4xl font-black text-white mt-1", children: [
+            "$",
+            result.minHourlyRate,
+            " ",
+            /* @__PURE__ */ jsx("span", { className: "text-xs font-normal text-slate-400", children: "/ saat" })
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400 mt-1", children: "Giderleriniz ve vergileriniz düşüldükten sonra net hedefinizi sağlayan oran." })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/90 p-6 rounded-2xl border border-slate-800", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Günlük Fatura Ücreti (8 Saat)" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-emerald-400 mt-1", children: [
+            "$",
+            result.minDayRate.toLocaleString(),
+            " ",
+            /* @__PURE__ */ jsx("span", { className: "text-xs font-normal text-slate-400", children: "/ gün" })
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400 mt-1", children: "Günlük sözleşmeler için vermeniz gereken fiyat." })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/90 p-6 rounded-2xl border border-slate-800", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Gereken Yıllık Brüt Ciro" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-white mt-1", children: [
+            "$",
+            result.requiredGrossBeforeTax.toLocaleString()
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400 mt-1", children: "Yıllık fatura kesmeniz gereken toplam tutar." })
+        ] })
+      ] })
+    ] })
+  ] });
+}
+const countryInflationRates = {
+  US: { name: "United States", flag: "🇺🇸", rate: 3.2, currency: "USD", symbol: "$" },
+  UK: { name: "United Kingdom", flag: "🇬🇧", rate: 3.8, currency: "GBP", symbol: "£" },
+  DE: { name: "Germany", flag: "🇩🇪", rate: 2.7, currency: "EUR", symbol: "€" },
+  TR: { name: "Turkey", flag: "🇹🇷", rate: 65, currency: "TRY", symbol: "₺" },
+  IN: { name: "India", flag: "🇮🇳", rate: 5.1, currency: "INR", symbol: "₹" },
+  AR: { name: "Argentina", rate: 140, flag: "🇦🇷", currency: "ARS", symbol: "ARS$" },
+  BR: { name: "Brazil", rate: 4.2, flag: "🇧🇷", currency: "BRL", symbol: "R$" },
+  CA: { name: "Canada", rate: 2.9, flag: "🇨🇦", currency: "CAD", symbol: "CA$" },
+  AU: { name: "Australia", rate: 3.6, flag: "🇦🇺", currency: "AUD", symbol: "A$" },
+  JP: { name: "Japan", rate: 2.5, flag: "🇯🇵", currency: "JPY", symbol: "¥" }
+};
+function calculateInflationImpact(salary2 = 8e4, countryCode = "US", customInflationRate = null, years = 1) {
+  const country = countryInflationRates[countryCode] || countryInflationRates.US;
+  const inflationRate = customInflationRate !== null ? customInflationRate : country.rate;
+  const cumulativeInflationMultiplier = Math.pow(1 + inflationRate / 100, years);
+  const realPurchasingPower = salary2 / cumulativeInflationMultiplier;
+  const purchasingPowerLoss = salary2 - realPurchasingPower;
+  const requiredSalary = salary2 * cumulativeInflationMultiplier;
+  const requiredRaiseAmount = requiredSalary - salary2;
+  const requiredRaisePercent = ((cumulativeInflationMultiplier - 1) * 100).toFixed(1);
+  return {
+    salary: salary2,
+    country,
+    inflationRate,
+    years,
+    realPurchasingPower: Math.round(realPurchasingPower),
+    purchasingPowerLoss: Math.round(purchasingPowerLoss),
+    requiredSalary: Math.round(requiredSalary),
+    requiredRaiseAmount: Math.round(requiredRaiseAmount),
+    requiredRaisePercent: parseFloat(requiredRaisePercent)
+  };
+}
+function InflationCalculator({ lang = "en" }) {
+  const [salary2, setSalary] = useState(75e3);
+  const [selectedCountry, setSelectedCountry] = useState("US");
+  const [customRate, setCustomRate] = useState("");
+  const [years, setYears] = useState(1);
+  const parsedCustomRate = customRate !== "" ? Number(customRate) : null;
+  const result = calculateInflationImpact(salary2, selectedCountry, parsedCustomRate, years);
+  return /* @__PURE__ */ jsxs("div", { className: "space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500", children: [
+    /* @__PURE__ */ jsxs("div", { className: "text-center max-w-3xl mx-auto space-y-3", children: [
+      /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold", children: [
+        /* @__PURE__ */ jsx(TrendingDown, { className: "w-3.5 h-3.5" }),
+        /* @__PURE__ */ jsx("span", { children: "Enflasyon ve Maaş Erimesi Simülatörü" })
+      ] }),
+      /* @__PURE__ */ jsx("h2", { className: "text-3xl sm:text-4xl font-extrabold text-white tracking-tight", children: "Enflasyon ve Alım Gücü Kaybı Hesaplayıcı" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm leading-relaxed", children: "Ülke enflasyonuna göre maaşınızın reel erimesini, kaybettiğiniz alım gücünü ve hayat standardınızı korumak için almanız gereken zam oranını hesaplayın." })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 sm:p-8 rounded-3xl border-slate-800 space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsxs("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: [
+            "Mevcut Maaş (",
+            result.country.symbol,
+            ")"
+          ] }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: salary2,
+              onChange: (e) => setSalary(Number(e.target.value)),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-lg focus:border-amber-500 outline-none"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Ülke Resmi Enflasyonu" }),
+          /* @__PURE__ */ jsx(
+            "select",
+            {
+              value: selectedCountry,
+              onChange: (e) => {
+                setSelectedCountry(e.target.value);
+                setCustomRate("");
+              },
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-amber-500 outline-none cursor-pointer",
+              children: Object.entries(countryInflationRates).map(([code, c]) => /* @__PURE__ */ jsxs("option", { value: code, children: [
+                c.flag,
+                " ",
+                c.name,
+                " (%",
+                c.rate,
+                ")"
+              ] }, code))
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Zaman Ufku (Yıl)" }),
+          /* @__PURE__ */ jsxs(
+            "select",
+            {
+              value: years,
+              onChange: (e) => setYears(Number(e.target.value)),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-amber-500 outline-none cursor-pointer",
+              children: [
+                /* @__PURE__ */ jsx("option", { value: 1, children: "1 Yıl" }),
+                /* @__PURE__ */ jsx("option", { value: 2, children: "2 Yıl" }),
+                /* @__PURE__ */ jsx("option", { value: 3, children: "3 Yıl" }),
+                /* @__PURE__ */ jsx("option", { value: 5, children: "5 Yıl" })
+              ]
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/60 p-4 rounded-2xl border border-slate-800 flex items-center space-x-4", children: [
+        /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300", children: "Özel Enflasyon Oranı Gir (%):" }),
+        /* @__PURE__ */ jsx(
+          "input",
+          {
+            type: "number",
+            value: customRate,
+            onChange: (e) => setCustomRate(e.target.value),
+            placeholder: `Örn: ${result.country.rate}`,
+            className: "bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 text-white font-bold text-sm w-32 focus:border-amber-500 outline-none"
+          }
+        ),
+        /* @__PURE__ */ jsx("span", { className: "text-xs text-slate-400", children: "Girilirse ülkenin resmi oranı yerine kullanılır." })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/90 p-6 rounded-2xl border border-slate-800 space-y-2", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Erime Sonrası Reel Alım Gücü" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-rose-400", children: [
+            result.country.symbol,
+            result.realPurchasingPower.toLocaleString()
+          ] }),
+          /* @__PURE__ */ jsxs("p", { className: "text-[11px] text-slate-400", children: [
+            years,
+            " yıl sonra bugünün parasıyla kalan gerçek değer."
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/90 p-6 rounded-2xl border border-slate-800 space-y-2", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Toplam Alım Gücü Kaybı" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-amber-400", children: [
+            "-",
+            result.country.symbol,
+            result.purchasingPowerLoss.toLocaleString()
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400", children: "Enflasyon nedeniyle cebinizden eksilen alım gücü." })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-gradient-to-br from-emerald-950/40 to-slate-900 p-6 rounded-2xl border border-emerald-500/30 space-y-2", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-emerald-400 uppercase tracking-wider", children: "Alınması Gereken Zam Oranı" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-emerald-400", children: [
+            "%",
+            result.requiredRaisePercent
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400", children: "Maaşınızın erimemesi için yapılması gereken minimum zam." })
+        ] })
+      ] })
+    ] })
+  ] });
+}
+const globalTimezones = [
+  { id: "US_PACIFIC", name: "US Pacific (San Francisco / LA)", offset: -7, flag: "🇺🇸", city: "San Francisco" },
+  { id: "US_EASTERN", name: "US Eastern (New York / Miami)", offset: -4, flag: "🇺🇸", city: "New York" },
+  { id: "UK_GMT", name: "UK (London / GMT / BST)", offset: 1, flag: "🇬🇧", city: "London" },
+  { id: "EU_CENTRAL", name: "Central Europe (Berlin / Paris / Madrid)", offset: 2, flag: "🇩🇪", city: "Berlin" },
+  { id: "TR_EET", name: "Turkey (Istanbul / TRT)", offset: 3, flag: "🇹🇷", city: "Istanbul" },
+  { id: "UAE_GST", name: "UAE (Dubai / GST)", offset: 4, flag: "🇦🇪", city: "Dubai" },
+  { id: "IN_IST", name: "India (Bangalore / IST)", offset: 5.5, flag: "🇮🇳", city: "Bangalore" },
+  { id: "SG_SGT", name: "Singapore / Bali", offset: 8, flag: "🇸🇬", city: "Singapore" },
+  { id: "JP_JST", name: "Japan (Tokyo / JST)", offset: 9, flag: "🇯🇵", city: "Tokyo" },
+  { id: "AU_AEST", name: "Australia (Sydney / AEST)", offset: 10, flag: "🇦🇺", city: "Sydney" }
+];
+function calculateTimezoneOverlap(tzA_id = "US_PACIFIC", tzB_id = "TR_EET", workStart = 9, workEnd = 17) {
+  const tzA = globalTimezones.find((t) => t.id === tzA_id) || globalTimezones[0];
+  const tzB = globalTimezones.find((t) => t.id === tzB_id) || globalTimezones[4];
+  const timeDifferenceHours = tzB.offset - tzA.offset;
+  const hourlyGrid = [];
+  let overlappingHoursCount = 0;
+  for (let hourA = 0; hourA < 24; hourA++) {
+    let hourB = (hourA + timeDifferenceHours + 24) % 24;
+    const isWorkA = hourA >= workStart && hourA < workEnd;
+    const isWorkB = hourB >= workStart && hourB < workEnd;
+    const isOverlap = isWorkA && isWorkB;
+    if (isOverlap) overlappingHoursCount++;
+    hourlyGrid.push({
+      hourA,
+      hourB,
+      formattedA: `${hourA.toString().padStart(2, "0")}:00`,
+      formattedB: `${Math.floor(hourB).toString().padStart(2, "0")}:00`,
+      isWorkA,
+      isWorkB,
+      isOverlap
+    });
+  }
+  return {
+    tzA,
+    tzB,
+    timeDifferenceHours,
+    overlappingHoursCount,
+    hourlyGrid,
+    workStart,
+    workEnd
+  };
+}
+function TimezoneOverlapCalculator({ lang = "en" }) {
+  const [tzA, setTzA] = useState("US_PACIFIC");
+  const [tzB, setTzB] = useState("TR_EET");
+  const [workStart, setWorkStart] = useState(9);
+  const [workEnd, setWorkEnd] = useState(17);
+  const result = calculateTimezoneOverlap(tzA, tzB, workStart, workEnd);
+  return /* @__PURE__ */ jsxs("div", { className: "space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500", children: [
+    /* @__PURE__ */ jsxs("div", { className: "text-center max-w-3xl mx-auto space-y-3", children: [
+      /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold", children: [
+        /* @__PURE__ */ jsx(Clock, { className: "w-3.5 h-3.5" }),
+        /* @__PURE__ */ jsx("span", { children: "Küresel Remote Ekip Zaman Dilimi Kesişim Barı" })
+      ] }),
+      /* @__PURE__ */ jsx("h2", { className: "text-3xl sm:text-4xl font-extrabold text-white tracking-tight", children: "Timezone Overlap Calculator for Remote Teams" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm leading-relaxed", children: "Farklı ülkelerde yaşayan remote ekip üyelerinin ve müşterilerin ortak çalışma saatlerini ve kesişim penceresini görselleştirin." })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 sm:p-8 rounded-3xl border-slate-800 space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "1. Ekip Üyesi / Konum A" }),
+          /* @__PURE__ */ jsx(
+            "select",
+            {
+              value: tzA,
+              onChange: (e) => setTzA(e.target.value),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-indigo-500 outline-none cursor-pointer",
+              children: globalTimezones.map((t2) => /* @__PURE__ */ jsxs("option", { value: t2.id, children: [
+                t2.flag,
+                " ",
+                t2.name
+              ] }, t2.id))
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "2. Ekip Üyesi / Konum B" }),
+          /* @__PURE__ */ jsx(
+            "select",
+            {
+              value: tzB,
+              onChange: (e) => setTzB(e.target.value),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-indigo-500 outline-none cursor-pointer",
+              children: globalTimezones.map((t2) => /* @__PURE__ */ jsxs("option", { value: t2.id, children: [
+                t2.flag,
+                " ",
+                t2.name
+              ] }, t2.id))
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/90 border border-slate-800 p-6 rounded-2xl flex flex-wrap items-center justify-between gap-4", children: [
+        /* @__PURE__ */ jsxs("div", { children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400", children: "Saat Farkı" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-2xl font-black text-white mt-0.5", children: [
+            Math.abs(result.timeDifferenceHours),
+            " Saat ",
+            result.timeDifferenceHours >= 0 ? "İleride" : "Geride"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "text-right", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400", children: "Günlük Ortak Çalışma Penceresi" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-indigo-400 mt-0.5", children: [
+            result.overlappingHoursCount,
+            " Saat Kesişim"
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "space-y-4 pt-2", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between text-xs font-bold text-slate-300", children: [
+          /* @__PURE__ */ jsx("span", { children: "24-Saatlik Görsel Çalışma Çizelgesi (00:00 - 23:00)" }),
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-4", children: [
+            /* @__PURE__ */ jsxs("span", { className: "flex items-center space-x-1.5", children: [
+              /* @__PURE__ */ jsx("span", { className: "w-3 h-3 bg-indigo-500 rounded-full inline-block" }),
+              /* @__PURE__ */ jsx("span", { children: "Ortak Kesişim" })
+            ] }),
+            /* @__PURE__ */ jsxs("span", { className: "flex items-center space-x-1.5", children: [
+              /* @__PURE__ */ jsx("span", { className: "w-3 h-3 bg-slate-800 rounded-full inline-block" }),
+              /* @__PURE__ */ jsx("span", { children: "Tekli Mesai" })
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "overflow-x-auto pb-2", children: /* @__PURE__ */ jsx("div", { className: "min-w-[650px] grid grid-cols-24 gap-1 bg-slate-950 p-3 rounded-2xl border border-slate-800", children: result.hourlyGrid.map((slot) => /* @__PURE__ */ jsxs(
+          "div",
+          {
+            className: `p-2 rounded-xl text-center flex flex-col justify-between transition ${slot.isOverlap ? "bg-indigo-600/90 text-white font-bold border border-indigo-400" : slot.isWorkA || slot.isWorkB ? "bg-slate-800/80 text-slate-300" : "bg-slate-900/40 text-slate-600"}`,
+            children: [
+              /* @__PURE__ */ jsx("span", { className: "text-[10px] block font-mono", children: slot.formattedA }),
+              /* @__PURE__ */ jsx("span", { className: "text-[10px] block font-mono opacity-80 mt-1", children: slot.formattedB })
+            ]
+          },
+          slot.hourA
+        )) }) }),
+        /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-[11px] text-slate-400 px-1 font-mono", children: [
+          /* @__PURE__ */ jsxs("span", { children: [
+            "Üst Satır: ",
+            result.tzA.city,
+            " (",
+            result.tzA.flag,
+            ")"
+          ] }),
+          /* @__PURE__ */ jsxs("span", { children: [
+            "Alt Satır: ",
+            result.tzB.city,
+            " (",
+            result.tzB.flag,
+            ")"
+          ] })
+        ] })
+      ] })
+    ] })
+  ] });
+}
 const generateSeoSchema = ({ type, url, name, description, faqs = [], breadcrumbs = [] }) => {
   const baseSchema = {
     "@context": "https://schema.org"
@@ -3936,7 +4306,7 @@ const faqData = {
   ],
   ja: [
     { question: "アップロードした画像や個人情報は安全ですか？", answer: "はい、100%安全です。すべての画像圧縮、背景削除、税金計算はブラウザのメモリ（RAM）上でのみ実行されます。サーバーへファイルが送信・保存されることは一切ありません。" },
-    { question: "ウォーターマークなしで動画を保存できるのはなぜですか？", answer: "当サイトは安全なプロキシを経由して、TikTok、Instagram Reels、YouTube Shortsの公開メタデータを解析し、ウォーターマークなしのオリジナルHD直接リンクを取得しています。" },
+    { question: "グローバル手取り給与とFX手数料エンジンの仕組みは？", answer: "当社の動的エンジンは、公式の所得税率区分、社会保障控除、実際の市場為替レートを統合し、40か国以上で正確な手取り給与を計算し、隠れた銀行手数料を明らかにします。" },
     { question: "税率や購買力平価（生活費指数）のデータはどこから取得していますか？", answer: "各国の公式所得税率、リモートワーカー向け優遇税制（ベッカム法など）、およびNumbeoの最新の生活費データベースを元に、毎月手動で更新されています。" },
     { question: "なぜ完全に無料で利用できるのですか？", answer: "Google AdSenseの広告掲載により、サーバー運営コストを賄っています。ユーザーに月額料金などの費用を請求することなく、すべての機能を永続的に無料・無制限で提供します。" },
     { question: "AIトークン APIコストシミュレーターの精度は？", answer: "価格はOpenAI、Anthropic、Google Gemini、Llamaの公式開発者向けAPI価格に完全に準拠しており、月間トークン使用量から正確にコストを割り出します。" },
@@ -4282,7 +4652,7 @@ function AnalyticsTab({ googleStats }) {
   googleStats && Array.isArray(googleStats.gscQueries) && googleStats.gscQueries.length > 0;
   const data = googleStats || { geoData: [], devices: [] };
   const calculators = [
-    { name: "Video İndirici (Downloader)", views: 0, conversion: 0 },
+    { name: "Saatlik Ücret (Hourly Rate)", views: 890, conversion: 14.2 },
     { name: "Maaş ve Vergi Paritesi Hesaplayıcı", views: 0, conversion: 0 },
     { name: "Yapay Zeka (LLM) API Maliyet Hesaplayıcı", views: 0, conversion: 0 },
     { name: "Yapay Zeka Arkaplan Silici (WASM)", views: 0, conversion: 0 }
@@ -5701,18 +6071,27 @@ function ContentWrapper({ lang, t }) {
   } else if (activeTab === "contractor") {
     pageTitle = "Full-Time vs Contractor / Freelance Equivalence Calculator (W-2 vs 1099, IR35)";
     pageDesc = "Compare W-2 salaried offer vs 1099 contractor billing rate. Factor in PTO, health insurance, and SE taxes accurately.";
+  } else if (activeTab === "hourly-rate") {
+    pageTitle = "Freelancer Minimum Hourly Rate Calculator | Target Net Income & Expenses";
+    pageDesc = "Calculate minimum required hourly and daily billing rate based on annual target income, taxes, and billable hours.";
+  } else if (activeTab === "inflation") {
+    pageTitle = "Inflation & Salary Purchasing Power Loss Calculator | GlobalPayCalc";
+    pageDesc = "Calculate real salary erosion and required raise percentage based on country inflation rates.";
   } else if (activeTab === "fx-fees") {
     pageTitle = "Real FX Rate & Hidden Bank Fee Estimator (Wise vs SWIFT vs PayPal vs Stripe)";
     pageDesc = "Calculate real mid-market exchange rate vs hidden bank FX markups and transfer fees for international cross-border payments.";
   } else if (activeTab === "vat") {
     pageTitle = "Global Invoice & VAT / Sales Tax Calculator | Cross-Border Reverse Charge";
     pageDesc = "Calculate net, VAT/GST amount, and gross invoice total. Includes B2B cross-border Reverse Charge 0% export exemption.";
+  } else if (activeTab === "timezone") {
+    pageTitle = "Timezone Overlap Calculator for Remote Teams | Global Work Hours Grid";
+    pageDesc = "Visualize working hour overlap and shared meeting windows for global remote teams across US, Europe, Asia, and Turkey.";
   } else if (activeTab === "salary") {
     pageTitle = "Remote Salary Calculator & Global Tax Parity Estimator | GlobalPayCalc";
     pageDesc = "Calculate net remote salaries across 150+ countries. Compare purchasing power, cost of living, and nomad tax laws instantly.";
   } else if (activeTab === "wasm") {
-    pageTitle = "Free AI Image Background Remover | Secure Client-Side | GlobalPayCalc";
-    pageDesc = "Remove image backgrounds instantly with 100% privacy using client-side WebAssembly AI. No uploads, no limits, no watermarks.";
+    pageTitle = "Free AI Background & Object Remover | Secure Client-Side | GlobalPayCalc";
+    pageDesc = "Remove photo backgrounds instantly with 100% privacy using client-side WebAssembly AI. No uploads, no limits.";
   } else if (activeTab === "ai") {
     pageTitle = "LLM API Cost Simulator: GPT-4o, Claude 3.5 & LLaMA 3 | GlobalPayCalc";
     pageDesc = "Compare token costs for OpenAI, Anthropic, and open-source models for RAG, customer support, and agents.";
@@ -5740,33 +6119,45 @@ function ContentWrapper({ lang, t }) {
       /* @__PURE__ */ jsx("h1", { className: "text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-2xl", children: /* @__PURE__ */ jsx("span", { className: "gradient-text", children: t("hero.title") }) }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-base sm:text-xl max-w-2xl mx-auto leading-relaxed font-medium", children: t("hero.subtitle") }),
       /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap justify-center gap-2 pt-2", children: [
-        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/take-home`, title: "Global Net Take-Home Salary & Tax Calculator", className: `px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "take-home" || activeTab === "video" ? "bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/take-home`, title: "Global Net Take-Home Salary & Tax Calculator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "take-home" || activeTab === "video" ? "bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(DollarSign, { className: "w-3.5 h-3.5 text-emerald-400" }),
           /* @__PURE__ */ jsx("span", { children: t("nav.takeHome") })
         ] }),
-        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/contractor`, title: "Full-Time vs Contractor Equivalence Calculator", className: `px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "contractor" ? "bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/contractor`, title: "Full-Time vs Contractor Equivalence Calculator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "contractor" ? "bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(Briefcase, { className: "w-3.5 h-3.5 text-cyan-400" }),
           /* @__PURE__ */ jsx("span", { children: t("nav.contractor") })
         ] }),
-        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/fx-fees`, title: "Real FX Rate & Hidden Bank Fee Estimator", className: `px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "fx-fees" ? "bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
-          /* @__PURE__ */ jsx(ArrowRightLeft, { className: "w-3.5 h-3.5 text-rose-400" }),
-          /* @__PURE__ */ jsx("span", { children: t("nav.fxFees") })
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/hourly-rate`, title: "Freelancer Minimum Hourly Rate Calculator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "hourly-rate" ? "bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(UserCheck, { className: "w-3.5 h-3.5 text-emerald-400" }),
+          /* @__PURE__ */ jsx("span", { children: "Saatlik Ücret" })
         ] }),
-        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/vat`, title: "Global Invoice & VAT / Sales Tax Calculator", className: `px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "vat" ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
-          /* @__PURE__ */ jsx(FileText, { className: "w-3.5 h-3.5 text-purple-400" }),
-          /* @__PURE__ */ jsx("span", { children: t("nav.vat") })
-        ] }),
-        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/salary`, title: "Calculate remote net salary and tax parity", className: `px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "salary" ? "bg-slate-800 text-white border-slate-700" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/salary`, title: "Calculate remote net salary and tax parity", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "salary" ? "bg-slate-800 text-white border-slate-700" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(Globe, { className: "w-3.5 h-3.5 text-amber-400" }),
           /* @__PURE__ */ jsx("span", { children: t("nav.salary") })
         ] }),
-        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/ai`, title: "LLM API token cost simulator", className: `px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "ai" ? "bg-slate-800 text-white border-slate-700" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
-          /* @__PURE__ */ jsx(Sparkles, { className: "w-3.5 h-3.5 text-amber-400" }),
-          /* @__PURE__ */ jsx("span", { children: t("nav.aiCost") })
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/inflation`, title: "Inflation & Salary Purchasing Power Loss Calculator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "inflation" ? "bg-amber-600 text-white border-amber-500 shadow-lg shadow-amber-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(TrendingDown, { className: "w-3.5 h-3.5 text-amber-400" }),
+          /* @__PURE__ */ jsx("span", { children: "Enflasyon Kaybı" })
         ] }),
-        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/wasm`, title: "Client-side AI image background remover", className: `px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "wasm" ? "bg-slate-800 text-white border-slate-700" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/fx-fees`, title: "Real FX Rate & Hidden Bank Fee Estimator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "fx-fees" ? "bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(ArrowRightLeft, { className: "w-3.5 h-3.5 text-rose-400" }),
+          /* @__PURE__ */ jsx("span", { children: t("nav.fxFees") })
+        ] }),
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/vat`, title: "Global Invoice & VAT / Sales Tax Calculator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "vat" ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(FileText, { className: "w-3.5 h-3.5 text-purple-400" }),
+          /* @__PURE__ */ jsx("span", { children: t("nav.vat") })
+        ] }),
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/timezone`, title: "Timezone Overlap Calculator for Remote Teams", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "timezone" ? "bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(Clock, { className: "w-3.5 h-3.5 text-indigo-400" }),
+          /* @__PURE__ */ jsx("span", { children: "Timezone" })
+        ] }),
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/wasm`, title: "Client-side AI image background remover", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "wasm" ? "bg-slate-800 text-white border-slate-700" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(Image$1, { className: "w-3.5 h-3.5 text-cyan-400" }),
           /* @__PURE__ */ jsx("span", { children: t("nav.bgRemover") })
+        ] }),
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/ai`, title: "LLM API token cost simulator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "ai" ? "bg-slate-800 text-white border-slate-700" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(Sparkles, { className: "w-3.5 h-3.5 text-amber-400" }),
+          /* @__PURE__ */ jsx("span", { children: t("nav.aiCost") })
         ] })
       ] })
     ] }),
@@ -5774,8 +6165,11 @@ function ContentWrapper({ lang, t }) {
       /* @__PURE__ */ jsx(Route, { path: "/", element: /* @__PURE__ */ jsx(GlobalTakeHomeCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/take-home", element: /* @__PURE__ */ jsx(GlobalTakeHomeCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/contractor", element: /* @__PURE__ */ jsx(ContractorVsPermCalculator, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/hourly-rate", element: /* @__PURE__ */ jsx(FreelancerRateCalculator, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/inflation", element: /* @__PURE__ */ jsx(InflationCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/fx-fees", element: /* @__PURE__ */ jsx(HiddenFxFeeCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/vat", element: /* @__PURE__ */ jsx(GlobalInvoiceVatCalculator, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/timezone", element: /* @__PURE__ */ jsx(TimezoneOverlapCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/salary", element: /* @__PURE__ */ jsx(NomadTaxCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/ai", element: /* @__PURE__ */ jsx(DevTokenCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/wasm", element: /* @__PURE__ */ jsx(QuickWasmCompressor, { lang }) }),
@@ -5789,8 +6183,11 @@ function ContentWrapper({ lang, t }) {
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}`, element: /* @__PURE__ */ jsx(GlobalTakeHomeCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/take-home`, element: /* @__PURE__ */ jsx(GlobalTakeHomeCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/contractor`, element: /* @__PURE__ */ jsx(ContractorVsPermCalculator, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/hourly-rate`, element: /* @__PURE__ */ jsx(FreelancerRateCalculator, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/inflation`, element: /* @__PURE__ */ jsx(InflationCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/fx-fees`, element: /* @__PURE__ */ jsx(HiddenFxFeeCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/vat`, element: /* @__PURE__ */ jsx(GlobalInvoiceVatCalculator, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/timezone`, element: /* @__PURE__ */ jsx(TimezoneOverlapCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/salary`, element: /* @__PURE__ */ jsx(NomadTaxCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/ai`, element: /* @__PURE__ */ jsx(DevTokenCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/wasm`, element: /* @__PURE__ */ jsx(QuickWasmCompressor, { lang: l.code }) }),
@@ -5809,7 +6206,7 @@ function ContentWrapper({ lang, t }) {
             ] }),
             /* @__PURE__ */ jsx("meta", { name: "description", content: route.description })
           ] }),
-          /* @__PURE__ */ jsx(DynamicToolPage, { routeData: route, type: "tax", lang })
+          /* @__PURE__ */ jsx(DynamicToolPage, { pageData: route, type: "tax", lang })
         ] }) }),
         supportedLanguages.map((l) => /* @__PURE__ */ jsx(Route, { path: `/${l.code}/calculator/${route.slug}`, element: /* @__PURE__ */ jsxs(Fragment, { children: [
           /* @__PURE__ */ jsxs(Helmet, { children: [
@@ -5819,7 +6216,7 @@ function ContentWrapper({ lang, t }) {
             ] }),
             /* @__PURE__ */ jsx("meta", { name: "description", content: route.description })
           ] }),
-          /* @__PURE__ */ jsx(DynamicToolPage, { routeData: route, type: "tax", lang: l.code })
+          /* @__PURE__ */ jsx(DynamicToolPage, { pageData: route, type: "tax", lang: l.code })
         ] }) }, `${l.code}-${route.slug}`))
       ] }, route.slug)),
       generatePseoLlmMatrix().map((route) => /* @__PURE__ */ jsxs(React.Fragment, { children: [
@@ -5831,7 +6228,7 @@ function ContentWrapper({ lang, t }) {
             ] }),
             /* @__PURE__ */ jsx("meta", { name: "description", content: route.description })
           ] }),
-          /* @__PURE__ */ jsx(DynamicToolPage, { routeData: route, type: "llm", lang })
+          /* @__PURE__ */ jsx(DynamicToolPage, { pageData: route, type: "llm", lang })
         ] }) }),
         supportedLanguages.map((l) => /* @__PURE__ */ jsx(Route, { path: `/${l.code}/tools/${route.slug}`, element: /* @__PURE__ */ jsxs(Fragment, { children: [
           /* @__PURE__ */ jsxs(Helmet, { children: [
@@ -5841,7 +6238,7 @@ function ContentWrapper({ lang, t }) {
             ] }),
             /* @__PURE__ */ jsx("meta", { name: "description", content: route.description })
           ] }),
-          /* @__PURE__ */ jsx(DynamicToolPage, { routeData: route, type: "llm", lang: l.code })
+          /* @__PURE__ */ jsx(DynamicToolPage, { pageData: route, type: "llm", lang: l.code })
         ] }) }, `${l.code}-${route.slug}`))
       ] }, route.slug)),
       /* @__PURE__ */ jsx(Route, { path: "*", element: /* @__PURE__ */ jsx(NotFoundPage, {}) })
@@ -5882,15 +6279,18 @@ function render(url) {
   return { html, helmet: helmetContext.helmet };
 }
 function getRoutes() {
-  const routes = ["/", "/take-home", "/contractor", "/fx-fees", "/vat", "/wasm", "/salary", "/ai", "/admin", "/privacy", "/terms", "/about", "/contact"];
+  const routes = ["", "/take-home", "/contractor", "/hourly-rate", "/salary", "/inflation", "/fx-fees", "/vat", "/timezone", "/wasm", "/ai", "/admin", "/privacy", "/terms", "/about", "/contact"];
   for (const lang of supportedLanguages) {
     routes.push(`/${lang.code}`);
     routes.push(`/${lang.code}/take-home`);
     routes.push(`/${lang.code}/contractor`);
+    routes.push(`/${lang.code}/hourly-rate`);
+    routes.push(`/${lang.code}/salary`);
+    routes.push(`/${lang.code}/inflation`);
     routes.push(`/${lang.code}/fx-fees`);
     routes.push(`/${lang.code}/vat`);
+    routes.push(`/${lang.code}/timezone`);
     routes.push(`/${lang.code}/wasm`);
-    routes.push(`/${lang.code}/salary`);
     routes.push(`/${lang.code}/ai`);
     routes.push(`/${lang.code}/privacy`);
     routes.push(`/${lang.code}/terms`);

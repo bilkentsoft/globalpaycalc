@@ -1,37 +1,22 @@
 {
   "nav": {
     "brand": "GlobalPayCalc.com",
-    "tagline": "Motor Universal de Mídia e Finanças",
-    "downloader": "Baixador de Vídeo",
-    "bgRemover": "Estúdio Foto IA",
-    "salary": "Salário Global",
+    "tagline": "Motor Fintech e Salários Globais",
+    "takeHome": "Salário Líquido e Impostos",
+    "contractor": "Funcionário vs Contractor",
+    "fxFees": "Taxas FX Ocultas",
+    "vat": "Fatura e IVA",
+    "salary": "Paridade de Cidades",
     "aiCost": "Custo de Tokens IA",
+    "bgRemover": "Estúdio WASM",
     "admin": "Painel Admin"
   },
   "hero": {
-    "badge": "100% Grátis • Ilimitado • Privacidade em Primeiro",
-    "title": "Motor Universal de Mídia, IA e Salários Globais",
-    "subtitle": "Calcule salários remotos líquidos em todo o mundo, baixe vídeos sociais em HD sem marcas d'água e processe imagens usando IA WebAssembly no cliente com segurança.",
+    "badge": "100% Grátis • Ilimitado • Motor Fintech no Cliente",
+    "title": "Simulador Global de Salários Líquidos, Impostos e Custos IA",
+    "subtitle": "Calcule salários líquidos globais, equivalência W-2 vs 1099, taxas bancárias ocultas e valores de IVA de exportação B2B.",
     "seoTitle": "Como Funciona e Principais Recursos",
-    "seoText": "GlobalPayCalc é um conjunto abrangente criado para nômades digitais e desenvolvedores. Nossa plataforma possui um <strong class='font-semibold text-slate-300'>baixador de vídeos sociais em HD</strong> que extrai com segurança mídia MP4/MP3 do TikTok, Instagram Reels e YouTube Shorts sem marcas d'água. Para trabalhadores remotos, nossa <strong class='font-semibold text-slate-300'>calculadora de salário global</strong> compara a renda líquida, as faixas de impostos e o custo de vida (PPC) em mais de 150 países. Os desenvolvedores podem aproveitar nosso <strong class='font-semibold text-slate-300'>simulador de custo de token de IA</strong> para estimar as despesas de API para GPT-4o e Claude 3.5, enquanto nosso <strong class='font-semibold text-slate-300'>estúdio de imagem de IA no cliente</strong> remove fundos localmente via WebAssembly, garantindo zero uploads de servidor e total privacidade de dados."
-  },
-  "video": {
-    "title": "Baixador de Vídeos e Áudios de Redes Sociais",
-    "subtitle": "Baixe vídeos HD e áudio MP3 do TikTok, Instagram Reels e YouTube Shorts instantaneamente.",
-    "placeholder": "Cole o link do vídeo aqui (TikTok, Instagram, Shorts)...",
-    "btn": "Baixar Mídia HD",
-    "processing": "Extraindo Mídia...",
-    "success": "Mídia Pronta para Download!",
-    "mp4": "Baixar MP4 (Sem Marca d'Água)",
-    "mp3": "Baixar Áudio (MP3 320kbps)",
-    "downloadVideo": "Baixar Vídeo (HD MP4)",
-    "videoDesc": "Arquivo de vídeo HD original sem marca d'água. Sem redirecionamento para sites externos.",
-    "downloadAudio": "Baixar Áudio (MP3)",
-    "audioDesc": "Arquivo de áudio de alta qualidade do vídeo original.",
-    "noteTitle": "Nota:",
-    "noteText": "O download é realizado 100% dentro do nosso site sem redirecionamentos externos. Se o navegador começar a reproduzir o stream diretamente, clique com o botão direito e selecione \"Salvar vídeo como...\".",
-    "errorTitle": "Falha na Extração",
-    "errorText": "Não foi possível extrair a mídia. Verifique se o link está correto e é público."
+    "seoText": "GlobalPayCalc é uma plataforma fintech abrangente criada para trabalhadores remotos, nômades digitais e desenvolvedores de IA. Nossa suíte inclui uma calculadora dinâmica de salário líquido, motor de equivalência contratado vs funcionário, estimador de taxas bancárias e calculadora de IVA."
   },
   "bg": {
     "title": "Removedor de Fundo e Conversor de Imagens IA",
@@ -109,8 +94,8 @@
   },
   "faq": {
     "title": "Perguntas Frequentes",
-    "q1": "Como funciona o baixador de vídeos sociais?",
-    "a1": "Nosso baixador de vídeo universal gratuito permite que você baixe com segurança vídeos HD de plataformas de mídia social como TikTok, Instagram Reels e YouTube Shorts. Ele opera diretamente no seu navegador como um utilitário do lado do cliente, ou seja, processamos tudo sem armazenar sua mídia em nossos servidores. Você pode facilmente baixar vídeos MP4 ou extrair arquivos de áudio MP3 totalmente sem marcas d'água, garantindo 100% de privacidade e uso ilimitado para todas as suas necessidades de mídia.",
+    "q1": "Como funciona o motor de salário líquido e impostos?",
+    "a1": "GlobalPayCalc é uma suíte fintech global 100% gratuita criada para trabalhadores remotos, nômades digitais e desenvolvedores. Inclui calculadoras de salário líquido (EUA, Reino Unido, DE, TR), equivalência de contratados W-2 vs 1099, estimadores de taxa horária e comparadores de taxas bancárias FX.",
     "q2": "Posso calcular meu salário remoto e paridade fiscal com precisão?",
     "a2": "Sim! A GlobalPayCalc fornece uma calculadora de salário global altamente precisa, projetada especificamente para nômades digitais e trabalhadores remotos. Nosso mecanismo utilitário compara seu salário líquido em mais de 150 países, levando em consideração as faixas de impostos locais, variações de custo de vida e paridade de poder de compra (PPC). Isso garante que você possa avaliar as ofertas dos patrocinadores e calcular com segurança quanto realmente ganhará após os impostos, independentemente da sua localização global.",
     "q3": "O simulador de custo de token de IA é gratuito para desenvolvedores?",

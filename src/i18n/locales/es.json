@@ -1,37 +1,22 @@
 {
   "nav": {
     "brand": "GlobalPayCalc.com",
-    "tagline": "Motor Universal de Medios y Finanzas",
-    "downloader": "Descargador de Video",
-    "bgRemover": "Estudio Foto AI",
-    "salary": "Salario Global",
-    "aiCost": "Costo de Tokens AI",
+    "tagline": "Motor Fintech y de Salarios Globale",
+    "takeHome": "Salario Neto y Taxes",
+    "contractor": "Empleado vs Contractor",
+    "fxFees": "Tarifas FX Ocultas",
+    "vat": "Factura e IVA",
+    "salary": "Paridad de Ciudades",
+    "aiCost": "Costo Tokens IA",
+    "bgRemover": "WASM Studio",
     "admin": "Panel de Control"
   },
   "hero": {
-    "badge": "100% Gratis • Ilimitado • Privacidad Primero",
-    "title": "Motor Universal de Medios, IA y Calculadora de Salarios",
-    "subtitle": "Calcule salarios remotos netos en todo el mundo, descargue videos sociales en HD sin marcas de agua y procese imágenes mediante IA WebAssembly segura del cliente.",
+    "badge": "100% Gratis • Ilimitado • Motor Fintech del Cliente",
+    "title": "Simulador Global de Salarios Netos, Impuestos y Costos IA",
+    "subtitle": "Calcula salarios netos globales, equivalencia W-2 vs 1099, tarifas ocultas bancarias y montos de IVA de exportación B2B.",
     "seoTitle": "Cómo Funciona y Características Principales",
-    "seoText": "GlobalPayCalc es un conjunto completo creado para nómadas digitales y desarrolladores. Nuestra plataforma cuenta con un <strong class='font-semibold text-slate-300'>descargador de videos sociales HD</strong> que extrae de forma segura medios MP4/MP3 de TikTok, Instagram Reels y YouTube Shorts sin marcas de agua. Para los trabajadores remotos, nuestra <strong class='font-semibold text-slate-300'>calculadora de salario global</strong> compara ingresos netos, tramos impositivos y el costo de vida (PPA) en más de 150 países. Los desarrolladores pueden aprovechar nuestro <strong class='font-semibold text-slate-300'>simulador de costos de tokens de IA</strong> para estimar los gastos de API para GPT-4o y Claude 3.5, mientras que nuestro <strong class='font-semibold text-slate-300'>estudio de imágenes de IA del lado del cliente</strong> elimina fondos localmente a través de WebAssembly, garantizando cero cargas al servidor y privacidad total de los datos."
-  },
-  "video": {
-    "title": "Descargador de Video y Audio de Redes Sociales",
-    "subtitle": "Descarga videos HD y audio MP3 de TikTok, Instagram Reels y YouTube Shorts al instante.",
-    "placeholder": "Pega el enlace del video aquí (TikTok, Instagram, Shorts)...",
-    "btn": "Descargar Medios HD",
-    "processing": "Extrayendo Medios...",
-    "success": "¡Medios Listos para Descargar!",
-    "mp4": "Descargar MP4 (Sin Marca de Agua)",
-    "mp3": "Descargar Audio (MP3 320kbps)",
-    "downloadVideo": "Descargar Video (HD MP4)",
-    "videoDesc": "Archivo de video HD original sin marca de agua. Sin redirección a sitios externos.",
-    "downloadAudio": "Descargar Audio (MP3)",
-    "audioDesc": "Archivo de audio de alta calidad del video original.",
-    "noteTitle": "Nota:",
-    "noteText": "La descarga se realiza 100% dentro de nuestro sitio web sin redirecciones externas. Si el navegador reproduce el stream directamente, haz clic derecho y selecciona \"Guardar video como...\".",
-    "errorTitle": "Extracción fallida",
-    "errorText": "No se pudo extraer el medio. Verifica que el enlace sea correcto y público."
+    "seoText": "GlobalPayCalc es una plataforma fintech integral creada para trabajadores remotos, nómadas digitales y desarrolladores de IA. Nuestra suite cuenta con una calculadora dinámica de salario neto, un motor de equivalencia entre contratistas y empleados, un estimador de tarifas bancarias reales y una calculadora de IVA."
   },
   "bg": {
     "title": "Eliminador de Fondo y Conversor de Imágenes IA",
@@ -109,8 +94,8 @@
   },
   "faq": {
     "title": "Preguntas Frecuentes",
-    "q1": "¿Cómo funciona el descargador de videos sociales?",
-    "a1": "Nuestro descargador de videos universal gratuito te permite descargar videos HD de plataformas de redes sociales como TikTok, Instagram Reels y YouTube Shorts de forma segura. Funciona directamente en tu navegador como una utilidad del lado del cliente, lo que significa que procesamos todo sin almacenar tus medios en nuestros servidores. Puedes descargar videos MP4 o extraer archivos de audio MP3 fácilmente y sin marcas de agua, garantizando un 100% de privacidad y uso ilimitado para todas tus necesidades de medios.",
+    "q1": "¿Cómo funciona el motor de salario neto e impuestos?",
+    "a1": "GlobalPayCalc es una suite fintech global 100% gratuita creada para trabajadores remotos, nómadas digitales y desarrolladores. Incluye calculadoras de salario neto (EE. UU., Reino Unido, DE, TR), equivalencia de contratistas W-2 vs 1099, estimadores de tarifas por hora, comparadores de tarifas bancarias FX y calculadoras de IVA de exportación.",
     "q2": "¿Puedo calcular mi salario remoto y la paridad fiscal con precisión?",
     "a2": "¡Sí! GlobalPayCalc ofrece una calculadora de salario global altamente precisa, diseñada específicamente para nómadas digitales y trabajadores remotos. Nuestro motor de utilidad compara tu salario neto en más de 150 países, teniendo en cuenta los tramos impositivos locales, las variaciones del costo de vida y la paridad del poder adquisitivo (PPA). Esto asegura que puedas evaluar las ofertas de patrocinadores y calcular de manera segura cuánto ganarás realmente después de impuestos, independientemente de tu ubicación global.",
     "q3": "¿El simulador de costo de tokens de IA es gratuito para los desarrolladores?",

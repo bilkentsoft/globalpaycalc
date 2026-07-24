@@ -11,6 +11,9 @@ import GlobalTakeHomeCalculator from './components/GlobalTakeHomeCalculator';
 import ContractorVsPermCalculator from './components/ContractorVsPermCalculator';
 import HiddenFxFeeCalculator from './components/HiddenFxFeeCalculator';
 import GlobalInvoiceVatCalculator from './components/GlobalInvoiceVatCalculator';
+import FreelancerRateCalculator from './components/FreelancerRateCalculator';
+import InflationCalculator from './components/InflationCalculator';
+import TimezoneOverlapCalculator from './components/TimezoneOverlapCalculator';
 import ProgrammaticSeoGrid from './components/ProgrammaticSeoGrid';
 import AdminDashboard from './components/AdminDashboard';
 import NotFoundPage from './pages/NotFoundPage';
@@ -21,7 +24,7 @@ import { CookieConsent } from './components/CookieConsent';
 import { getTranslation, supportedLanguages } from './i18n';
 import { detectUserLanguage } from './utils/langDetector';
 import { trackPageView } from './utils/analyticsTracker';
-import { Sparkles, Globe, Image, DollarSign, Briefcase, ArrowRightLeft, FileText } from 'lucide-react';
+import { Sparkles, Globe, Image, DollarSign, Briefcase, ArrowRightLeft, FileText, Clock, TrendingDown, UserCheck } from 'lucide-react';
 import { generatePseoTaxMatrix, generatePseoLlmMatrix } from './pseo/matrixEngine';
 
 function ContentWrapper({ lang, t }) {
@@ -43,18 +46,27 @@ function ContentWrapper({ lang, t }) {
   } else if (activeTab === 'contractor') {
     pageTitle = "Full-Time vs Contractor / Freelance Equivalence Calculator (W-2 vs 1099, IR35)";
     pageDesc = "Compare W-2 salaried offer vs 1099 contractor billing rate. Factor in PTO, health insurance, and SE taxes accurately.";
+  } else if (activeTab === 'hourly-rate') {
+    pageTitle = "Freelancer Minimum Hourly Rate Calculator | Target Net Income & Expenses";
+    pageDesc = "Calculate minimum required hourly and daily billing rate based on annual target income, taxes, and billable hours.";
+  } else if (activeTab === 'inflation') {
+    pageTitle = "Inflation & Salary Purchasing Power Loss Calculator | GlobalPayCalc";
+    pageDesc = "Calculate real salary erosion and required raise percentage based on country inflation rates.";
   } else if (activeTab === 'fx-fees') {
     pageTitle = "Real FX Rate & Hidden Bank Fee Estimator (Wise vs SWIFT vs PayPal vs Stripe)";
     pageDesc = "Calculate real mid-market exchange rate vs hidden bank FX markups and transfer fees for international cross-border payments.";
   } else if (activeTab === 'vat') {
     pageTitle = "Global Invoice & VAT / Sales Tax Calculator | Cross-Border Reverse Charge";
     pageDesc = "Calculate net, VAT/GST amount, and gross invoice total. Includes B2B cross-border Reverse Charge 0% export exemption.";
+  } else if (activeTab === 'timezone') {
+    pageTitle = "Timezone Overlap Calculator for Remote Teams | Global Work Hours Grid";
+    pageDesc = "Visualize working hour overlap and shared meeting windows for global remote teams across US, Europe, Asia, and Turkey.";
   } else if (activeTab === 'salary') {
     pageTitle = "Remote Salary Calculator & Global Tax Parity Estimator | GlobalPayCalc";
     pageDesc = "Calculate net remote salaries across 150+ countries. Compare purchasing power, cost of living, and nomad tax laws instantly.";
   } else if (activeTab === 'wasm') {
-    pageTitle = "Free AI Image Background Remover | Secure Client-Side | GlobalPayCalc";
-    pageDesc = "Remove image backgrounds instantly with 100% privacy using client-side WebAssembly AI. No uploads, no limits, no watermarks.";
+    pageTitle = "Free AI Background & Object Remover | Secure Client-Side | GlobalPayCalc";
+    pageDesc = "Remove photo backgrounds instantly with 100% privacy using client-side WebAssembly AI. No uploads, no limits.";
   } else if (activeTab === 'ai') {
     pageTitle = "LLM API Cost Simulator: GPT-4o, Claude 3.5 & LLaMA 3 | GlobalPayCalc";
     pageDesc = "Compare token costs for OpenAI, Anthropic, and open-source models for RAG, customer support, and agents.";
@@ -98,33 +110,45 @@ function ContentWrapper({ lang, t }) {
           </p>
 
           <div className="flex flex-wrap justify-center gap-2 pt-2">
-            <Link to={`${basePath}/take-home`} title="Global Net Take-Home Salary & Tax Calculator" className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'take-home' || activeTab === 'video' ? 'bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+            <Link to={`${basePath}/take-home`} title="Global Net Take-Home Salary & Tax Calculator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'take-home' || activeTab === 'video' ? 'bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
               <span>{t('nav.takeHome')}</span>
             </Link>
-            <Link to={`${basePath}/contractor`} title="Full-Time vs Contractor Equivalence Calculator" className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'contractor' ? 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+            <Link to={`${basePath}/contractor`} title="Full-Time vs Contractor Equivalence Calculator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'contractor' ? 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Briefcase className="w-3.5 h-3.5 text-cyan-400" />
               <span>{t('nav.contractor')}</span>
             </Link>
-            <Link to={`${basePath}/fx-fees`} title="Real FX Rate & Hidden Bank Fee Estimator" className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'fx-fees' ? 'bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <ArrowRightLeft className="w-3.5 h-3.5 text-rose-400" />
-              <span>{t('nav.fxFees')}</span>
+            <Link to={`${basePath}/hourly-rate`} title="Freelancer Minimum Hourly Rate Calculator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'hourly-rate' ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <UserCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Saatlik Ücret</span>
             </Link>
-            <Link to={`${basePath}/vat`} title="Global Invoice & VAT / Sales Tax Calculator" className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'vat' ? 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <FileText className="w-3.5 h-3.5 text-purple-400" />
-              <span>{t('nav.vat')}</span>
-            </Link>
-            <Link to={`${basePath}/salary`} title="Calculate remote net salary and tax parity" className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'salary' ? 'bg-slate-800 text-white border-slate-700' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+            <Link to={`${basePath}/salary`} title="Calculate remote net salary and tax parity" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'salary' ? 'bg-slate-800 text-white border-slate-700' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Globe className="w-3.5 h-3.5 text-amber-400" />
               <span>{t('nav.salary')}</span>
             </Link>
-            <Link to={`${basePath}/ai`} title="LLM API token cost simulator" className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'ai' ? 'bg-slate-800 text-white border-slate-700' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>{t('nav.aiCost')}</span>
+            <Link to={`${basePath}/inflation`} title="Inflation & Salary Purchasing Power Loss Calculator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'inflation' ? 'bg-amber-600 text-white border-amber-500 shadow-lg shadow-amber-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <TrendingDown className="w-3.5 h-3.5 text-amber-400" />
+              <span>Enflasyon Kaybı</span>
             </Link>
-            <Link to={`${basePath}/wasm`} title="Client-side AI image background remover" className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'wasm' ? 'bg-slate-800 text-white border-slate-700' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+            <Link to={`${basePath}/fx-fees`} title="Real FX Rate & Hidden Bank Fee Estimator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'fx-fees' ? 'bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <ArrowRightLeft className="w-3.5 h-3.5 text-rose-400" />
+              <span>{t('nav.fxFees')}</span>
+            </Link>
+            <Link to={`${basePath}/vat`} title="Global Invoice & VAT / Sales Tax Calculator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'vat' ? 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <FileText className="w-3.5 h-3.5 text-purple-400" />
+              <span>{t('nav.vat')}</span>
+            </Link>
+            <Link to={`${basePath}/timezone`} title="Timezone Overlap Calculator for Remote Teams" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'timezone' ? 'bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <Clock className="w-3.5 h-3.5 text-indigo-400" />
+              <span>Timezone</span>
+            </Link>
+            <Link to={`${basePath}/wasm`} title="Client-side AI image background remover" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'wasm' ? 'bg-slate-800 text-white border-slate-700' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Image className="w-3.5 h-3.5 text-cyan-400" />
               <span>{t('nav.bgRemover')}</span>
+            </Link>
+            <Link to={`${basePath}/ai`} title="LLM API token cost simulator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'ai' ? 'bg-slate-800 text-white border-slate-700' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>{t('nav.aiCost')}</span>
             </Link>
           </div>
 
@@ -136,8 +160,11 @@ function ContentWrapper({ lang, t }) {
           <Route path="/" element={<GlobalTakeHomeCalculator lang={lang} />} />
           <Route path="/take-home" element={<GlobalTakeHomeCalculator lang={lang} />} />
           <Route path="/contractor" element={<ContractorVsPermCalculator lang={lang} />} />
+          <Route path="/hourly-rate" element={<FreelancerRateCalculator lang={lang} />} />
+          <Route path="/inflation" element={<InflationCalculator lang={lang} />} />
           <Route path="/fx-fees" element={<HiddenFxFeeCalculator lang={lang} />} />
           <Route path="/vat" element={<GlobalInvoiceVatCalculator lang={lang} />} />
+          <Route path="/timezone" element={<TimezoneOverlapCalculator lang={lang} />} />
           <Route path="/salary" element={<NomadTaxCalculator lang={lang} />} />
           <Route path="/ai" element={<DevTokenCalculator lang={lang} />} />
           <Route path="/wasm" element={<QuickWasmCompressor lang={lang} />} />
@@ -155,8 +182,11 @@ function ContentWrapper({ lang, t }) {
               <Route path={`/${l.code}`} element={<GlobalTakeHomeCalculator lang={l.code} />} />
               <Route path={`/${l.code}/take-home`} element={<GlobalTakeHomeCalculator lang={l.code} />} />
               <Route path={`/${l.code}/contractor`} element={<ContractorVsPermCalculator lang={l.code} />} />
+              <Route path={`/${l.code}/hourly-rate`} element={<FreelancerRateCalculator lang={l.code} />} />
+              <Route path={`/${l.code}/inflation`} element={<InflationCalculator lang={l.code} />} />
               <Route path={`/${l.code}/fx-fees`} element={<HiddenFxFeeCalculator lang={l.code} />} />
               <Route path={`/${l.code}/vat`} element={<GlobalInvoiceVatCalculator lang={l.code} />} />
+              <Route path={`/${l.code}/timezone`} element={<TimezoneOverlapCalculator lang={l.code} />} />
               <Route path={`/${l.code}/salary`} element={<NomadTaxCalculator lang={l.code} />} />
               <Route path={`/${l.code}/ai`} element={<DevTokenCalculator lang={l.code} />} />
               <Route path={`/${l.code}/wasm`} element={<QuickWasmCompressor lang={l.code} />} />
@@ -178,7 +208,7 @@ function ContentWrapper({ lang, t }) {
                     <title>{route.title} | GlobalPayCalc</title>
                     <meta name="description" content={route.description} />
                   </Helmet>
-                  <DynamicToolPage routeData={route} type="tax" lang={lang} />
+                  <DynamicToolPage pageData={route} type="tax" lang={lang} />
                 </>
               } />
               {supportedLanguages.map(l => (
@@ -188,7 +218,7 @@ function ContentWrapper({ lang, t }) {
                       <title>{route.title} | GlobalPayCalc</title>
                       <meta name="description" content={route.description} />
                     </Helmet>
-                    <DynamicToolPage routeData={route} type="tax" lang={l.code} />
+                    <DynamicToolPage pageData={route} type="tax" lang={l.code} />
                   </>
                 } />
               ))}
@@ -203,7 +233,7 @@ function ContentWrapper({ lang, t }) {
                     <title>{route.title} | GlobalPayCalc</title>
                     <meta name="description" content={route.description} />
                   </Helmet>
-                  <DynamicToolPage routeData={route} type="llm" lang={lang} />
+                  <DynamicToolPage pageData={route} type="llm" lang={lang} />
                 </>
               } />
               {supportedLanguages.map(l => (
@@ -213,7 +243,7 @@ function ContentWrapper({ lang, t }) {
                       <title>{route.title} | GlobalPayCalc</title>
                       <meta name="description" content={route.description} />
                     </Helmet>
-                    <DynamicToolPage routeData={route} type="llm" lang={l.code} />
+                    <DynamicToolPage pageData={route} type="llm" lang={l.code} />
                   </>
                 } />
               ))}
