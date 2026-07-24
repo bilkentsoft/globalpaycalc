@@ -46,12 +46,11 @@ export default async function handler(req, res) {
     }
   }
 
-  // Simulate AI Bots Ping (OpenAI, Claude, Perplexity)
-  // AI bots don't have ping APIs, they discover via IndexNow and Sitemap
-  results.push({ engine: 'OpenAI (GPTBot)', status: 'success', message: 'IndexNow (Bing/Yandex) ve Sitemap üzerinden sinyal gönderildi.' });
-  results.push({ engine: 'Anthropic (Claude)', status: 'success', message: 'IndexNow (Bing/Yandex) ve Sitemap üzerinden sinyal gönderildi.' });
-  results.push({ engine: 'Perplexity', status: 'success', message: 'IndexNow (Bing/Yandex) ve Sitemap üzerinden sinyal gönderildi.' });
-  results.push({ engine: 'Baidu', status: 'success', message: 'Ping isteği sıraya alındı.' });
+  // AI botların ping API'si yoktur; sitemap ve IndexNow üzerinden keşfederler
+  results.push({ engine: 'OpenAI (GPTBot)', status: 'info', message: 'GPTBot sitemap.xml\'i kendiliginden tarar. Direkt ping API\'si mevcut degil.' });
+  results.push({ engine: 'Anthropic (Claude)', status: 'info', message: 'ClaudeBot sitemap.xml\'i kendiliginden tarar. Direkt ping API\'si mevcut degil.' });
+  results.push({ engine: 'Perplexity', status: 'info', message: 'PerplexityBot sitemap.xml\'i kendiliginden tarar. Direkt ping API\'si mevcut degil.' });
+  results.push({ engine: 'Baidu', status: 'info', message: 'Baidu ping icin sitemap.xml URL\'si Baidu Webmaster\'a manuel eklenmeli.' });
 
   res.status(200).json({ success: true, urlCount, results });
 }

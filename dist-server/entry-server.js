@@ -3412,8 +3412,8 @@ function RankTrackerTab() {
 }
 function AnalyticsTab({ googleStats }) {
   const isDataReady = googleStats && googleStats.status === "success";
-  const hasGscData = googleStats && Array.isArray(googleStats.gscQueries) && googleStats.gscQueries.length > 0;
-  const data = googleStats || { geoData: [], devices: [], gscQueries: [] };
+  googleStats && Array.isArray(googleStats.gscQueries) && googleStats.gscQueries.length > 0;
+  const data = googleStats || { geoData: [], devices: [] };
   const calculators = [
     { name: "Video İndirici (Downloader)", views: 0, conversion: 0 },
     { name: "Maaş ve Vergi Paritesi Hesaplayıcı", views: 0, conversion: 0 },
@@ -3506,7 +3506,7 @@ function AnalyticsTab({ googleStats }) {
           /* @__PURE__ */ jsx("th", { className: "py-3 px-4 text-xs font-bold text-purple-400 uppercase tracking-wider text-center", children: "Gösterim" }),
           /* @__PURE__ */ jsx("th", { className: "py-3 px-4 text-xs font-bold text-purple-400 uppercase tracking-wider text-right", children: "Ort. Sıra (Google)" })
         ] }) }),
-        /* @__PURE__ */ jsx("tbody", { children: !hasGscData ? /* @__PURE__ */ jsx("tr", { children: /* @__PURE__ */ jsx("td", { colSpan: "4", className: "py-8 text-center text-sm font-bold text-purple-300", children: "Google Search Console API bağlandığında gerçek organik kelimeleriniz burada listelenecektir." }) }) : data.gscQueries.map((q, idx) => /* @__PURE__ */ jsxs("tr", { className: "border-b border-purple-500/10 hover:bg-purple-900/20 transition", children: [
+        /* @__PURE__ */ jsx("tbody", { children: !googleStats ? /* @__PURE__ */ jsx("tr", { children: /* @__PURE__ */ jsx("td", { colSpan: "4", className: "py-8 text-center text-sm text-slate-500 animate-pulse", children: "Veriler yükleniyor..." }) }) : !googleStats.gscQueries || googleStats.gscQueries.length === 0 ? /* @__PURE__ */ jsx("tr", { children: /* @__PURE__ */ jsx("td", { colSpan: "4", className: "py-8 text-center text-sm font-bold text-purple-300", children: googleStats.status === "success" ? "Son 7 günde henüz organik arama verisi oluşmamış." : "Google Search Console API bağlandığında gerçek organik kelimeleriniz burada listelenecektir." }) }) : googleStats.gscQueries.map((q, idx) => /* @__PURE__ */ jsxs("tr", { className: "border-b border-purple-500/10 hover:bg-purple-900/20 transition", children: [
           /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-sm font-bold text-white", children: q.query }),
           /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-sm font-mono text-slate-300 text-center", children: q.clicks }),
           /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-sm font-mono text-slate-300 text-center", children: q.impressions }),
@@ -4225,7 +4225,7 @@ function AdminDashboard() {
     };
     fetchRealStats();
     fetchGoogleStats();
-  }, [activeTab]);
+  }, []);
   const handleLogout = async () => {
     await supabase.auth.signOut();
   };

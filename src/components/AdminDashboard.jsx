@@ -362,14 +362,20 @@ function AnalyticsTab({ googleStats }) {
               </tr>
             </thead>
             <tbody>
-              {!hasGscData ? (
+              {!googleStats ? (
+                <tr>
+                  <td colSpan="4" className="py-8 text-center text-sm text-slate-500 animate-pulse">Veriler yükleniyor...</td>
+                </tr>
+              ) : !googleStats.gscQueries || googleStats.gscQueries.length === 0 ? (
                 <tr>
                   <td colSpan="4" className="py-8 text-center text-sm font-bold text-purple-300">
-                    Google Search Console API bağlandığında gerçek organik kelimeleriniz burada listelenecektir.
+                    {googleStats.status === 'success'
+                      ? 'Son 7 günde henüz organik arama verisi oluşmamış.'
+                      : 'Google Search Console API bağlandığında gerçek organik kelimeleriniz burada listelenecektir.'}
                   </td>
                 </tr>
               ) : (
-                data.gscQueries.map((q, idx) => (
+                googleStats.gscQueries.map((q, idx) => (
                   <tr key={idx} className="border-b border-purple-500/10 hover:bg-purple-900/20 transition">
                     <td className="py-3 px-4 text-sm font-bold text-white">{q.query}</td>
                     <td className="py-3 px-4 text-sm font-mono text-slate-300 text-center">{q.clicks}</td>
@@ -1216,7 +1222,7 @@ export default function AdminDashboard() {
 
     fetchRealStats();
     fetchGoogleStats();
-  }, [activeTab]);
+  }, []);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
