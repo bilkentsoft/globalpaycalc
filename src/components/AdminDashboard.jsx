@@ -898,9 +898,11 @@ function PseoTab({ realIndexCount }) {
         data.results.forEach((r, idx) => {
           setTimeout(() => {
             if (r.status === 'success') {
-              setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `✅ Başarılı: ${r.engine} ağına ping gönderildi. (${r.message || '200 OK'})` }, ...prev]);
+              setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `✅ Başarılı: ${r.engine} - ${r.message || '200 OK'}` }, ...prev]);
+            } else if (r.status === 'info') {
+              setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `ℹ️ Bilgi: ${r.engine} - ${r.message}` }, ...prev]);
             } else {
-              setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Hata: ${r.engine} ağına ping başarısız (${r.message || r.statusCode})` }, ...prev]);
+              setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `❌ Hata: ${r.engine} - ${r.message || r.statusCode}` }, ...prev]);
             }
           }, idx * 800);
         });
