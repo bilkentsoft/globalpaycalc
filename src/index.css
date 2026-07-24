@@ -87,3 +87,9 @@
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
+
+@media (max-width: 767px) {
+  .animate-float {
+    animation: none !important;
+  }
+}

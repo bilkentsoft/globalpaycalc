@@ -42,6 +42,33 @@ function ContentWrapper({ lang, t }) {
   const activeTab = hasLangPrefix ? (pathSegments[1] || 'take-home') : (pathSegments[0] || 'take-home');
   const basePath = hasLangPrefix ? `/${pathSegments[0]}` : '';
 
+  const [activeCat, setActiveCat] = useState('tax');
+
+  const tools = [
+    { path: '/take-home', title: t('nav.takeHome'), desc: lang === 'tr' ? 'Gelir vergisi ve sosyal kesinti' : 'Net salary after tax & FICA', icon: DollarSign, color: 'text-emerald-400', bg: 'bg-emerald-500/10', cat: 'tax' },
+    { path: '/contractor', title: t('nav.contractor'), desc: lang === 'tr' ? 'B2B ve bordrolu karşılaştırma' : 'W2 vs 1099 contractor equivalency', icon: Briefcase, color: 'text-cyan-400', bg: 'bg-cyan-500/10', cat: 'tax' },
+    { path: '/hourly-rate', title: t('nav.hourlyRate'), desc: lang === 'tr' ? 'Freelancer saatlik ücret hesabı' : 'Target income to hourly billing rate', icon: UserCheck, color: 'text-emerald-400', bg: 'bg-emerald-500/10', cat: 'tax' },
+    { path: '/beckham-law', title: t('nav.beckhamLaw'), desc: lang === 'tr' ? 'Expat vergi muafiyeti' : 'Spain Beckham law & expat incentives', icon: Award, color: 'text-rose-400', bg: 'bg-rose-500/10', cat: 'tax' },
+    { path: '/crypto-tax', title: t('nav.cryptoTax'), desc: lang === 'tr' ? 'Kripto maaş vergi hesaplama' : 'Taxes on USDT/USDC remote salary', icon: Cpu, color: 'text-cyan-400', bg: 'bg-cyan-500/10', cat: 'tax' },
+    { path: '/nomad-visa', title: t('nav.nomadVisa'), desc: lang === 'tr' ? 'Dijital göçebe vize uygunluğu' : 'Nomad visa minimum income check', icon: Globe, color: 'text-emerald-400', bg: 'bg-emerald-500/10', cat: 'tax' },
+    { path: '/eor-cost', title: t('nav.eorCost'), desc: lang === 'tr' ? 'EOR ve şirket kurma maliyeti' : 'Employer of Record vs local entity cost', icon: Building2, color: 'text-purple-400', bg: 'bg-purple-500/10', cat: 'tax' },
+    { path: '/salary', title: t('nav.salary'), desc: lang === 'tr' ? 'Ülkeler arası satın alma gücü' : 'Global cost of living & PPP parity', icon: Globe, color: 'text-amber-400', bg: 'bg-amber-500/10', cat: 'tax' },
+    { path: '/inflation', title: t('nav.inflation'), desc: lang === 'tr' ? 'Maaşın enflasyon karşısındaki kaybı' : 'Real purchasing power loss calculator', icon: TrendingDown, color: 'text-amber-400', bg: 'bg-amber-500/10', cat: 'finance' },
+    { path: '/fx-fees', title: t('nav.fxFees'), desc: lang === 'tr' ? 'Gizli döviz transfer marjları' : 'Hidden bank FX markup wire fees', icon: ArrowRightLeft, color: 'text-rose-400', bg: 'bg-rose-500/10', cat: 'finance' },
+    { path: '/vat', title: t('nav.vat'), desc: lang === 'tr' ? 'B2B fatura vergi ve KDV matrahı' : 'Invoice VAT & sales tax calculator', icon: FileText, color: 'text-purple-400', bg: 'bg-purple-500/10', cat: 'finance' },
+    { path: '/timezone', title: t('nav.timezone'), desc: lang === 'tr' ? 'Ortak çalışma saati çakışması' : 'Remote meeting window grid builder', icon: Clock, color: 'text-indigo-400', bg: 'bg-indigo-500/10', cat: 'finance' },
+    { path: '/wasm', title: t('nav.bgRemover'), desc: lang === 'tr' ? 'Tarayıcıda yerel görsel işleme' : '100% private WASM image compressor', icon: Image, color: 'text-cyan-400', bg: 'bg-cyan-500/10', cat: 'ai_wasm' },
+    { path: '/ai', title: t('nav.aiCost'), desc: lang === 'tr' ? 'LLM API token maliyet hesabı' : 'Compare GPT-4o, Claude 3.5 API token cost', icon: Sparkles, color: 'text-amber-400', bg: 'bg-amber-500/10', cat: 'ai_wasm' }
+  ];
+
+  useEffect(() => {
+    const currentTabSlug = activeTab === 'video' ? 'take-home' : activeTab;
+    const currentTool = tools.find(t => t.path.replace('/', '') === currentTabSlug);
+    if (currentTool) {
+      setActiveCat(currentTool.cat);
+    }
+  }, [activeTab]);
+
   // Get active route data for dynamic meta
   let pageTitle = 'GlobalPayCalc: Global Remote Net Salary, Expat Tax, FX & AI Cost Suite';
   let pageDesc = t('hero.subtitle');
@@ -134,63 +161,88 @@ function ContentWrapper({ lang, t }) {
             {t('hero.subtitle')}
           </p>
 
-          <div className="flex flex-wrap justify-center gap-2 pt-2">
-            <Link to={`${basePath}/take-home`} title="Global Net Take-Home Salary & Tax Calculator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'take-home' || activeTab === 'video' ? 'bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
-              <span>{t('nav.takeHome')}</span>
-            </Link>
-            <Link to={`${basePath}/contractor`} title="Full-Time vs Contractor Equivalence Calculator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'contractor' ? 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <Briefcase className="w-3.5 h-3.5 text-cyan-400" />
-              <span>{t('nav.contractor')}</span>
-            </Link>
-            <Link to={`${basePath}/hourly-rate`} title="Freelancer Minimum Hourly Rate Calculator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'hourly-rate' ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <UserCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>{t('nav.hourlyRate')}</span>
-            </Link>
-            <Link to={`${basePath}/beckham-law`} title="Expat & Beckham Law Tax Savings Calculator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'beckham-law' ? 'bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <Award className="w-3.5 h-3.5 text-rose-400" />
-              <span>{t('nav.beckhamLaw')}</span>
-            </Link>
-            <Link to={`${basePath}/crypto-tax`} title="Crypto & USDT Remote Salary Tax Estimator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'crypto-tax' ? 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <Cpu className="w-3.5 h-3.5 text-cyan-400" />
-              <span>{t('nav.cryptoTax')}</span>
-            </Link>
-            <Link to={`${basePath}/nomad-visa`} title="Digital Nomad Visa Financial Income Eligibility Checker" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'nomad-visa' ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <Globe className="w-3.5 h-3.5 text-emerald-400" />
-              <span>{t('nav.nomadVisa')}</span>
-            </Link>
-            <Link to={`${basePath}/eor-cost`} title="Employer of Record (EOR) vs Entity Setup Cost Estimator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'eor-cost' ? 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <Building2 className="w-3.5 h-3.5 text-purple-400" />
-              <span>{t('nav.eorCost')}</span>
-            </Link>
-            <Link to={`${basePath}/salary`} title="Calculate remote net salary and tax parity" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'salary' ? 'bg-slate-800 text-white border-slate-700' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <Globe className="w-3.5 h-3.5 text-amber-400" />
-              <span>{t('nav.salary')}</span>
-            </Link>
-            <Link to={`${basePath}/inflation`} title="Inflation & Salary Purchasing Power Loss Calculator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'inflation' ? 'bg-amber-600 text-white border-amber-500 shadow-lg shadow-amber-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <TrendingDown className="w-3.5 h-3.5 text-amber-400" />
-              <span>{t('nav.inflation')}</span>
-            </Link>
-            <Link to={`${basePath}/fx-fees`} title="Real FX Rate & Hidden Bank Fee Estimator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'fx-fees' ? 'bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <ArrowRightLeft className="w-3.5 h-3.5 text-rose-400" />
-              <span>{t('nav.fxFees')}</span>
-            </Link>
-            <Link to={`${basePath}/vat`} title="Global Invoice & VAT / Sales Tax Calculator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'vat' ? 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+          {/* Desktop view navigation */}
+          <div className="hidden md:flex flex-wrap justify-center gap-2 pt-2">
+            {tools.map(tool => {
+              const Icon = tool.icon;
+              const isActive = activeTab === tool.path.replace('/', '') || (tool.path === '/take-home' && activeTab === 'video');
+              const colorScheme = {
+                'text-emerald-400': 'bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20',
+                'text-cyan-400': 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20',
+                'text-rose-400': 'bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20',
+                'text-purple-400': 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20',
+                'text-amber-400': 'bg-amber-600 text-white border-amber-500 shadow-lg shadow-amber-500/20',
+                'text-indigo-400': 'bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-500/20',
+              };
+              const activeClass = colorScheme[tool.color] || 'bg-slate-800 text-white border-slate-700';
+
+              return (
+                <Link 
+                  key={tool.path}
+                  to={`${basePath}${tool.path}`} 
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${isActive ? activeClass : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}
+                >
+                  <Icon className={`w-3.5 h-3.5 ${tool.color}`} />
+                  <span>{tool.title}</span>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Mobile view segment category switcher */}
+          <div className="md:hidden flex space-x-1 bg-slate-900/60 p-1.5 rounded-2xl border border-slate-850/80 max-w-md mx-auto">
+            <button 
+              onClick={() => setActiveCat('tax')} 
+              className={`flex-1 flex items-center justify-center space-x-1 py-3 px-1 rounded-xl text-[10px] font-black transition-all ${activeCat === 'tax' ? 'bg-gradient-to-r from-rose-600 via-purple-600 to-brand-500 text-white shadow-lg shadow-purple-600/20' : 'text-slate-400 hover:text-slate-200'}`}
+            >
+              <DollarSign className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+              <span>{lang === 'tr' ? 'Maaş & Vergi' : 'Salary & Tax'}</span>
+            </button>
+            <button 
+              onClick={() => setActiveCat('finance')} 
+              className={`flex-1 flex items-center justify-center space-x-1 py-3 px-1 rounded-xl text-[10px] font-black transition-all ${activeCat === 'finance' ? 'bg-gradient-to-r from-rose-600 via-purple-600 to-brand-500 text-white shadow-lg shadow-purple-600/20' : 'text-slate-400 hover:text-slate-200'}`}
+            >
               <FileText className="w-3.5 h-3.5 text-purple-400" />
-              <span>{t('nav.vat')}</span>
-            </Link>
-            <Link to={`${basePath}/timezone`} title="Timezone Overlap Calculator for Remote Teams" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'timezone' ? 'bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <Clock className="w-3.5 h-3.5 text-indigo-400" />
-              <span>{t('nav.timezone')}</span>
-            </Link>
-            <Link to={`${basePath}/wasm`} title="Client-side AI image background remover" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'wasm' ? 'bg-slate-800 text-white border-slate-700' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <Image className="w-3.5 h-3.5 text-cyan-400" />
-              <span>{t('nav.bgRemover')}</span>
-            </Link>
-            <Link to={`${basePath}/ai`} title="LLM API token cost simulator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'ai' ? 'bg-slate-800 text-white border-slate-700' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <span>{lang === 'tr' ? 'B2B & Finans' : 'Finance'}</span>
+            </button>
+            <button 
+              onClick={() => setActiveCat('ai_wasm')} 
+              className={`flex-1 flex items-center justify-center space-x-1 py-3 px-1 rounded-xl text-[10px] font-black transition-all ${activeCat === 'ai_wasm' ? 'bg-gradient-to-r from-rose-600 via-purple-600 to-brand-500 text-white shadow-lg shadow-purple-600/20' : 'text-slate-400 hover:text-slate-200'}`}
+            >
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>{t('nav.aiCost')}</span>
-            </Link>
+              <span>{lang === 'tr' ? 'Yapay Zeka' : 'AI & WASM'}</span>
+            </button>
+          </div>
+
+          {/* Mobile view tool grid */}
+          <div className="md:hidden grid grid-cols-2 gap-3 pt-2">
+            {tools.filter(t => t.cat === activeCat).map(tool => {
+              const Icon = tool.icon;
+              const isActive = activeTab === tool.path.replace('/', '') || (tool.path === '/take-home' && activeTab === 'video');
+              const borderColors = {
+                'text-emerald-400': 'border-emerald-500/30',
+                'text-cyan-400': 'border-cyan-500/30',
+                'text-rose-400': 'border-rose-500/30',
+                'text-purple-400': 'border-purple-500/30',
+                'text-amber-400': 'border-amber-500/30',
+                'text-indigo-400': 'border-indigo-500/30',
+              };
+              const borderClass = borderColors[tool.color] || 'border-slate-800';
+
+              return (
+                <Link 
+                  key={tool.path}
+                  to={`${basePath}${tool.path}`}
+                  className={`flex flex-col text-left p-4 rounded-2xl border transition-all duration-150 active:scale-[0.96] cursor-pointer ${isActive ? 'bg-slate-900 border-brand-500 shadow-lg shadow-brand-500/10' : 'bg-slate-900/50 hover:bg-slate-900 border-slate-800'}`}
+                >
+                  <div className={`w-9 h-9 rounded-xl ${tool.bg} flex items-center justify-center mb-3 border ${borderClass}`}>
+                    <Icon className={`w-4 h-4 ${tool.color}`} />
+                  </div>
+                  <span className="text-xs font-black text-white leading-tight">{tool.title}</span>
+                  <span className="text-[10px] text-slate-400 mt-1 font-medium leading-tight">{tool.desc}</span>
+                </Link>
+              );
+            })}
           </div>
 
         </div>

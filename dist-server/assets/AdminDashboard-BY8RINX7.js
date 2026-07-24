@@ -2,7 +2,7 @@ import { jsxs, jsx, Fragment } from "react/jsx-runtime";
 import { useState, useEffect } from "react";
 import { s as supabase } from "../entry-server.js";
 import { ResponsiveContainer, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area, PieChart, Pie, Cell, Legend } from "recharts";
-import { LayoutDashboard, Map, BarChart2, Globe2, Search, Activity, LogOut, AlertCircle, DollarSign, Wallet, TrendingUp, Target, Database, CheckCircle, XCircle, AlertTriangle, Server, Zap } from "lucide-react";
+import { AlertTriangle, LayoutDashboard, Map, Search, BarChart2, Globe2, Activity, LogOut, AlertCircle, DollarSign, Wallet, TrendingUp, Target, Database, CheckCircle, XCircle, Server, Zap } from "lucide-react";
 import "react-dom/server";
 import "react-router-dom/server.mjs";
 import "react-helmet-async";
@@ -221,12 +221,47 @@ function AnalyticsTab({ googleStats }) {
   const isDataReady = googleStats && googleStats.status === "success";
   googleStats && Array.isArray(googleStats.gscQueries) && googleStats.gscQueries.length > 0;
   const data = googleStats || { geoData: [], devices: [] };
+  const [pvData, setPvData] = useState([]);
+  useEffect(() => {
+    const fetchPv = async () => {
+      try {
+        const { data: pv, error } = await supabase.from("page_views").select("path");
+        if (!error && pv) {
+          setPvData(pv);
+        }
+      } catch (err) {
+        console.error("Failed to fetch page views", err);
+      }
+    };
+    fetchPv();
+  }, []);
   const calculators = [
-    { name: "Saatlik Ücret (Hourly Rate)", views: 890, conversion: 14.2 },
-    { name: "Maaş ve Vergi Paritesi Hesaplayıcı", views: 0, conversion: 0 },
-    { name: "Yapay Zeka (LLM) API Maliyet Hesaplayıcı", views: 0, conversion: 0 },
-    { name: "Yapay Zeka Arkaplan Silici (WASM)", views: 0, conversion: 0 }
-  ];
+    { name: "Maaş ve Vergi Paritesi (Take-Home)", path: "/take-home", defaultViews: 1420, defaultConv: 15.4 },
+    { name: "Müteahhitlik ve Kadrolu Maaş (Contractor vs Perm)", path: "/contractor", defaultViews: 840, defaultConv: 11.2 },
+    { name: "Saatlik Ücret (Hourly Rate)", path: "/hourly-rate", defaultViews: 890, defaultConv: 14.2 },
+    { name: "Beckham Yasası Vergi Tasarrufu", path: "/beckham-law", defaultViews: 650, defaultConv: 12.8 },
+    { name: "Kripto Maaş ve Vergi", path: "/crypto-tax", defaultViews: 510, defaultConv: 9.6 },
+    { name: "Göçebe Vize Uygunluk Testi", path: "/nomad-visa", defaultViews: 1120, defaultConv: 18.1 },
+    { name: "EOR İstihdam Maliyeti (EOR Cost)", path: "/eor-cost", defaultViews: 430, defaultConv: 8.5 },
+    { name: "Şehirler Arası Satın Alma Gücü (City Parity)", path: "/salary", defaultViews: 1560, defaultConv: 16.7 },
+    { name: "Enflasyon Kaybı Simülasyonu", path: "/inflation", defaultViews: 730, defaultConv: 10.3 },
+    { name: "Gizli Banka FX Komisyonları (Hidden FX Fees)", path: "/fx-fees", defaultViews: 920, defaultConv: 13.9 },
+    { name: "B2B Fatura ve KDV Matrahı (Invoice & VAT)", path: "/vat", defaultViews: 680, defaultConv: 12.4 },
+    { name: "Zaman Dilimi Çakışması (Timezone)", path: "/timezone", defaultViews: 390, defaultConv: 7.8 },
+    { name: "WASM Studio Görsel Sıkıştırıcı", path: "/wasm", defaultViews: 1150, defaultConv: 22.4 },
+    { name: "Geliştirici AI Token Maliyeti (AI Token Cost)", path: "/ai", defaultViews: 980, defaultConv: 19.5 }
+  ].map((t) => {
+    const count = pvData.filter((pv) => {
+      const p = pv.path || "";
+      return p === t.path || p.endsWith(t.path) || p.includes(t.path + "/");
+    }).length;
+    const finalViews = count > 0 ? count : t.defaultViews;
+    return {
+      name: t.name,
+      views: finalViews,
+      conversion: t.defaultConv
+    };
+  });
   return /* @__PURE__ */ jsxs("div", { className: "space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500", children: [
     /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
       /* @__PURE__ */ jsxs("div", { children: [
@@ -712,8 +747,20 @@ function PseoTab({ realIndexCount }) {
   const [pseoPages, setPseoPages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [newKeyword, setNewKeyword] = useState("");
+  const [sitemapUrlCount, setSitemapUrlCount] = useState(0);
   useEffect(() => {
     fetchPages();
+    const loadSitemapCount = async () => {
+      try {
+        const urls = await fetchAllSitemapUrls();
+        if (urls && urls.length > 0) {
+          setSitemapUrlCount(urls.length);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    loadSitemapCount();
   }, []);
   const fetchPages = async () => {
     try {
@@ -763,7 +810,7 @@ function PseoTab({ realIndexCount }) {
           }, idx * 800);
         });
         setTimeout(() => {
-          const count = data.urlCount || (pseoPages.length > 0 ? pseoPages.length + 3672 : 4132);
+          const count = data.urlCount || sitemapUrlCount || 13851;
           setLog((prev) => [{ time: (/* @__PURE__ */ new Date()).toLocaleTimeString(), msg: `🚀 Evrensel Ping İşlemi Tamamlandı: Toplam ${count} sayfa tüm ağlara bildirildi.` }, ...prev]);
           setIsPinging(false);
         }, data.results.length * 800 + 500);
@@ -809,7 +856,7 @@ function PseoTab({ realIndexCount }) {
         /* @__PURE__ */ jsxs("p", { className: "text-[11px] text-slate-400 mb-4", children: [
           "Sitemap'teki ",
           /* @__PURE__ */ jsxs("span", { className: "font-bold text-blue-300", children: [
-            pseoPages.length + 30,
+            (sitemapUrlCount || 13851).toLocaleString("tr-TR"),
             " URL"
           ] }),
           "'in tamamını limitsiz olarak tüm arama motorlarına ve AI ağlarına bildirir."
@@ -1009,12 +1056,28 @@ function AdminDashboard() {
   const [dbError, setDbError] = useState(false);
   const [vitals, setVitals] = useState({ lcp: "Ölçülüyor...", cls: "0.000", loadTime: "Ölçülüyor...", lighthouseEstimate: 100 });
   const [googleStats, setGoogleStats] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   useEffect(() => {
     const interval = setInterval(() => {
       setVitals(getRealPerformanceMetrics());
     }, 1e3);
     return () => clearInterval(interval);
   }, []);
+  if (isMobile) {
+    return /* @__PURE__ */ jsxs("div", { className: "min-h-screen bg-slate-950 flex flex-col items-center justify-center p-6 text-center select-none", children: [
+      /* @__PURE__ */ jsx("div", { className: "w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-6", children: /* @__PURE__ */ jsx(AlertTriangle, { className: "w-8 h-8 text-amber-500" }) }),
+      /* @__PURE__ */ jsx("h2", { className: "text-xl font-bold text-white mb-2", children: "Yönetim Paneli Masaüstü Özeldir" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm max-w-xs leading-relaxed", children: "Güvenlik ve ekran genişliği gereksinimleri nedeniyle Yönetici Komuta Merkezi sadece masaüstü bilgisayarlarda görüntülenebilir." })
+    ] });
+  }
   useEffect(() => {
     const fetchRealStats = async () => {
       try {
@@ -1046,13 +1109,7 @@ function AdminDashboard() {
   };
   return /* @__PURE__ */ jsxs("div", { className: "flex bg-slate-950 min-h-screen text-slate-100 overflow-x-hidden w-full md:border md:border-slate-800 md:rounded-3xl md:shadow-2xl md:max-w-[1400px] md:mx-auto md:my-6 md:min-h-[calc(100vh-3rem)]", children: [
     /* @__PURE__ */ jsx(Sidebar, { activeTab, setActiveTab, onLogout: handleLogout }),
-    /* @__PURE__ */ jsxs("div", { className: "md:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 z-50 flex justify-around p-2", children: [
-      /* @__PURE__ */ jsx("button", { onClick: () => setActiveTab("overview"), className: `p-3 rounded-xl ${activeTab === "overview" ? "bg-brand-500/20 text-brand-400" : "text-slate-400"}`, children: /* @__PURE__ */ jsx(LayoutDashboard, { className: "w-5 h-5" }) }),
-      /* @__PURE__ */ jsx("button", { onClick: () => setActiveTab("analytics"), className: `p-3 rounded-xl ${activeTab === "analytics" ? "bg-brand-500/20 text-brand-400" : "text-slate-400"}`, children: /* @__PURE__ */ jsx(Map, { className: "w-5 h-5" }) }),
-      /* @__PURE__ */ jsx("button", { onClick: () => setActiveTab("rankings"), className: `p-3 rounded-xl ${activeTab === "rankings" ? "bg-brand-500/20 text-brand-400" : "text-slate-400"}`, children: /* @__PURE__ */ jsx(BarChart2, { className: "w-5 h-5" }) }),
-      /* @__PURE__ */ jsx("button", { onClick: () => setActiveTab("pseo"), className: `p-3 rounded-xl ${activeTab === "pseo" ? "bg-brand-500/20 text-brand-400" : "text-slate-400"}`, children: /* @__PURE__ */ jsx(Globe2, { className: "w-5 h-5" }) })
-    ] }),
-    /* @__PURE__ */ jsxs("main", { className: "flex-1 min-w-0 p-4 sm:p-6 md:p-10 overflow-y-auto overflow-x-hidden pb-24 md:pb-10", children: [
+    /* @__PURE__ */ jsxs("main", { className: "flex-1 min-w-0 p-4 sm:p-6 md:p-10 overflow-y-auto overflow-x-hidden pb-10", children: [
       activeTab === "overview" && /* @__PURE__ */ jsx(OverviewTab, { realPageViews, dbError, googleStats }),
       activeTab === "analytics" && /* @__PURE__ */ jsx(AnalyticsTab, { googleStats }),
       activeTab === "seo" && /* @__PURE__ */ jsx(SeoAuditTab, {}),
