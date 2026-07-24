@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { calculateContractorEquivalence } from '../utils/contractorEngine';
-import { Briefcase, ArrowRight, ShieldCheck, DollarSign, Calculator, Info, CheckCircle2 } from 'lucide-react';
-import { getTranslation } from '../i18n';
+import { Briefcase, Info } from 'lucide-react';
+import calcTranslations from '../data/calculatorTranslations';
 
 export default function ContractorVsPermCalculator({ lang = 'en' }) {
-  const t = (path) => getTranslation(lang, path);
-
   const [baseSalary, setBaseSalary] = useState(95000);
   const [ptoDays, setPtoDays] = useState(20);
   const [healthInsuranceValue, setHealthInsuranceValue] = useState(6000);
@@ -13,6 +11,7 @@ export default function ContractorVsPermCalculator({ lang = 'en' }) {
   const [bonusPercent, setBonusPercent] = useState(5);
   const [countryKey, setCountryKey] = useState('US');
 
+  const tCalc = calcTranslations[lang] || calcTranslations['en'];
   const result = calculateContractorEquivalence({
     baseSalary,
     ptoDays,
@@ -28,13 +27,13 @@ export default function ContractorVsPermCalculator({ lang = 'en' }) {
       <div className="text-center max-w-3xl mx-auto space-y-3">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold">
           <Briefcase className="w-3.5 h-3.5" />
-          <span>W-2 vs 1099 / IR35 / Perm vs Freelance Denkliği</span>
+          <span>{tCalc.contractorBadge}</span>
         </div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Tam Zamanlı Çalışan vs. Serbest Çalışan Karşılaştırıcısı
+          {tCalc.contractorTitle}
         </h2>
         <p className="text-slate-400 text-sm leading-relaxed">
-          Kadrolu çalışandaki ücretli izin, sağlık sigortası ve emeklilik haklarını kaybetmeden serbest çalışan (Contractor) olarak istemeniz gereken minimum fatura tutarını hesaplayın.
+          {tCalc.contractorDesc}
         </p>
       </div>
 
@@ -47,11 +46,11 @@ export default function ContractorVsPermCalculator({ lang = 'en' }) {
           <div className="space-y-5 bg-slate-900/60 p-6 rounded-2xl border border-slate-800">
             <h3 className="text-base font-bold text-white flex items-center space-x-2">
               <Briefcase className="w-4 h-4 text-cyan-400" />
-              <span>Tam Zamanlı Maaşlı Teklif (Employee)</span>
+              <span>{lang === 'tr' ? 'Tam Zamanlı Maaşlı Teklif (Employee)' : 'Full-Time Salaried Offer (Employee)'}</span>
             </h3>
 
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300">Yıllık Brüt Maaş ($ / €)</label>
+              <label className="text-xs font-semibold text-slate-300">{tCalc.permSalaryLabel}</label>
               <input 
                 type="number" 
                 value={baseSalary} 
@@ -61,7 +60,7 @@ export default function ContractorVsPermCalculator({ lang = 'en' }) {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300">Yıllık Ücretli İzin (PTO + Tatil Günü)</label>
+              <label className="text-xs font-semibold text-slate-300">{tCalc.ptoDaysLabel}</label>
               <input 
                 type="number" 
                 value={ptoDays} 
@@ -71,7 +70,9 @@ export default function ContractorVsPermCalculator({ lang = 'en' }) {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300">Sağlık Sigortası Şirket Payı ($/Yıl)</label>
+              <label className="text-xs font-semibold text-slate-300">
+                {lang === 'tr' ? 'Sağlık Sigortası Yıllık Değeri ($/Yıl)' : 'Annual Health Insurance Value ($/Year)'}
+              </label>
               <input 
                 type="number" 
                 value={healthInsuranceValue} 
@@ -82,7 +83,9 @@ export default function ContractorVsPermCalculator({ lang = 'en' }) {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-slate-300">Emeklilik Katkısı (%)</label>
+                <label className="text-xs font-semibold text-slate-300">
+                  {lang === 'tr' ? 'Emeklilik Katkısı (%)' : 'Retirement Contribution (%)'}
+                </label>
                 <input 
                   type="number" 
                   value={retirementMatchPercent} 
@@ -91,7 +94,9 @@ export default function ContractorVsPermCalculator({ lang = 'en' }) {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-slate-300">Yıllık Prim / Bonus (%)</label>
+                <label className="text-xs font-semibold text-slate-300">
+                  {lang === 'tr' ? 'Yıllık Prim / Bonus (%)' : 'Annual Bonus / Commission (%)'}
+                </label>
                 <input 
                   type="number" 
                   value={bonusPercent} 
@@ -102,16 +107,26 @@ export default function ContractorVsPermCalculator({ lang = 'en' }) {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300">Ülke / Bölge Mantığı</label>
+              <label className="text-xs font-semibold text-slate-300">
+                {lang === 'tr' ? 'Ülke / Bölge Kuralları' : 'Country / Region Rules'}
+              </label>
               <select
                 value={countryKey}
                 onChange={(e) => setCountryKey(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-bold focus:border-cyan-500 outline-none"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-bold focus:border-cyan-500 outline-none cursor-pointer"
               >
-                <option value="US">ABD (W-2 vs 1099 Contractor)</option>
-                <option value="UK">İngiltere (IR35 Inside vs Outside)</option>
-                <option value="DE">Almanya & AB (Salaried vs Freelance)</option>
-                <option value="EU">Küresel / Türkiye (Kadrolu vs Şahıs Şirketi)</option>
+                <option value="US">
+                  {lang === 'tr' ? 'ABD (W-2 vs 1099 Contractor)' : 'US (W-2 vs 1099 Contractor)'}
+                </option>
+                <option value="UK">
+                  {lang === 'tr' ? 'İngiltere (IR35 Inside vs Outside)' : 'UK (IR35 Inside vs Outside)'}
+                </option>
+                <option value="DE">
+                  {lang === 'tr' ? 'Almanya & AB (Salaried vs Freelance)' : 'Germany & EU (Salaried vs Freelance)'}
+                </option>
+                <option value="EU">
+                  {lang === 'tr' ? 'Küresel / Türkiye (Kadrolu vs Şahıs Şirketi)' : 'Global / general (Salaried vs Freelance)'}
+                </option>
               </select>
             </div>
           </div>
@@ -120,32 +135,38 @@ export default function ContractorVsPermCalculator({ lang = 'en' }) {
           <div className="space-y-5 bg-gradient-to-br from-cyan-950/30 to-brand-950/20 p-6 rounded-2xl border border-cyan-500/30 flex flex-col justify-between">
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold text-white">İstemeniz Gereken Contractor Fatura Tutarı</h3>
+                <h3 className="text-base font-bold text-white">{tCalc.contractorRateResult}</h3>
                 <span className="text-xs font-bold text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-full border border-cyan-500/20">
-                  {result.contractor.contractorMultiplier}x Çarpan
+                  {result.contractor.contractorMultiplier}x {lang === 'tr' ? 'Çarpan' : 'Multiplier'}
                 </span>
               </div>
 
               <div className="space-y-4">
                 <div className="bg-slate-900/90 p-5 rounded-2xl border border-slate-800">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Minimum Saatlik Fatura Ücretiniz</span>
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{tCalc.requiredHourly}</span>
                   <div className="text-4xl font-black text-cyan-400 mt-1">
-                    ${result.contractor.minHourlyBillingRate} <span className="text-xs text-slate-400 font-normal">/ saat</span>
+                    ${result.contractor.minHourlyBillingRate} <span className="text-xs text-slate-400 font-normal">/{lang === 'tr' ? 'saat' : 'hr'}</span>
                   </div>
                   <p className="text-[11px] text-slate-400 mt-1">
-                    Yılda ortalama {result.contractor.totalBillableHoursAnnual} faturalandırılabilir çalışma saatine göre.
+                    {lang === 'tr'
+                      ? `Yılda ortalama ${result.contractor.totalBillableHoursAnnual} faturalandırılabilir çalışma saatine göre.`
+                      : `Based on an average of ${result.contractor.totalBillableHoursAnnual} billable hours per year.`}
                   </p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-                    <span className="text-[11px] font-bold text-slate-400">Aylık Fatura</span>
+                    <span className="text-[11px] font-bold text-slate-400">
+                      {lang === 'tr' ? 'Aylık Fatura' : 'Monthly Billable'}
+                    </span>
                     <div className="text-xl font-black text-white mt-1">
                       ${result.contractor.minMonthlyBillingRate.toLocaleString()}
                     </div>
                   </div>
                   <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-                    <span className="text-[11px] font-bold text-slate-400">Yıllık Brüt Fatura</span>
+                    <span className="text-[11px] font-bold text-slate-400">
+                      {lang === 'tr' ? 'Yıllık Brüt Fatura' : 'Annual Gross Billable'}
+                    </span>
                     <div className="text-xl font-black text-emerald-400 mt-1">
                       ${result.contractor.requiredGrossAnnual.toLocaleString()}
                     </div>
@@ -155,12 +176,14 @@ export default function ContractorVsPermCalculator({ lang = 'en' }) {
 
               {/* Benefit Breakdown */}
               <div className="space-y-2 pt-2 border-t border-slate-800/80 text-xs">
-                <span className="font-bold text-slate-300">Hesaba Katılan Yan Haklar Değeri:</span>
+                <span className="font-bold text-slate-300">
+                  {lang === 'tr' ? 'Hesaba Katılan Yan Haklar Değeri:' : 'Factored Benefits Value:'}
+                </span>
                 <div className="grid grid-cols-2 gap-2 text-slate-400">
-                  <div>• Ücretli İzin (PTO): <strong className="text-slate-200">${result.breakdown.ptoValue}</strong></div>
-                  <div>• Sağlık Sigortası: <strong className="text-slate-200">${result.breakdown.healthInsuranceValue}</strong></div>
-                  <div>• Emeklilik Katkısı: <strong className="text-slate-200">${result.breakdown.retirementValue}</strong></div>
-                  <div>• Bonus / Prim: <strong className="text-slate-200">${result.breakdown.bonusValue}</strong></div>
+                  <div>• {lang === 'tr' ? 'Ücretli İzin (PTO)' : 'Paid Leave (PTO)'}: <strong className="text-slate-200">${result.breakdown.ptoValue}</strong></div>
+                  <div>• {lang === 'tr' ? 'Sağlık Sigortası' : 'Health Insurance'}: <strong className="text-slate-200">${result.breakdown.healthInsuranceValue}</strong></div>
+                  <div>• {lang === 'tr' ? 'Emeklilik Katkısı' : 'Retirement Match'}: <strong className="text-slate-200">${result.breakdown.retirementValue}</strong></div>
+                  <div>• {lang === 'tr' ? 'Bonus / Prim' : 'Bonus / Comm'}: <strong className="text-slate-200">${result.breakdown.bonusValue}</strong></div>
                 </div>
               </div>
             </div>
@@ -168,7 +191,9 @@ export default function ContractorVsPermCalculator({ lang = 'en' }) {
             <div className="text-[11px] text-slate-400 bg-slate-900/60 p-3 rounded-xl border border-slate-800 flex items-start space-x-2">
               <Info className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
               <span>
-                Contractor çalışanlar kendi muhasebe, bağkur/SE-tax, ekipman ve tatil günlerini kendileri ödediği için tam zamanlı maaşın en az <strong>{result.contractor.contractorMultiplier} katı</strong> tutarında fatura kesmelidir.
+                {lang === 'tr'
+                  ? `Contractor çalışanlar kendi muhasebe, bağkur, ekipman ve tatil günlerini kendileri ödediği için tam zamanlı maaşın en az ${result.contractor.contractorMultiplier} katı tutarında fatura kesmelidir.`
+                  : `Since contractors pay for their own accounting, taxes, gear, and vacation days, they should bill at least ${result.contractor.contractorMultiplier} times the full-time salaried baseline.`}
               </span>
             </div>
 

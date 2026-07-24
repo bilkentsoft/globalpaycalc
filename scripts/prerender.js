@@ -10,48 +10,48 @@ const { render, getRoutes } = await import('file://' + toAbsolute('dist-server/e
 
 const routesToPrerender = getRoutes();
 
-console.log(`Starting prerender for ${routesToPrerender.length} routes...`);
+console.log(`Starting stable sequential prerender for ${routesToPrerender.length} routes...`);
 
 (async () => {
-  const chunkSize = 100;
-  for (let i = 0; i < routesToPrerender.length; i += chunkSize) {
-    const chunk = routesToPrerender.slice(i, i + chunkSize);
-    
-    for (const url of chunk) {
-      try {
-        const { html, helmet } = render(url);
+  let successCount = 0;
+  
+  for (let i = 0; i < routesToPrerender.length; i++) {
+    const url = routesToPrerender[i];
+    try {
+      const { html, helmet } = render(url);
 
-        let result = template;
+      let result = template;
 
-        // Inject helmet meta tags
-        if (helmet) {
-          const headInjection = `
-            ${helmet.title.toString()}
-            ${helmet.meta.toString()}
-            ${helmet.link.toString()}
-          `;
-          result = result.replace(`<!--app-head-->`, headInjection);
-        }
-
-        // Inject HTML
-        result = result.replace(`<div id="root"></div>`, `<div id="root">${html}</div>`);
-
-        // Construct clean file path
-        const absoluteFilePath = url === '/' 
-          ? toAbsolute('dist/index.html')
-          : toAbsolute(`dist${url}/index.html`);
-        
-        fs.mkdirSync(path.dirname(absoluteFilePath), { recursive: true });
-        fs.writeFileSync(absoluteFilePath, result);
-        console.log(`[prerender] ✓ ${url}`);
-      } catch (err) {
-        console.error(`[prerender] Error on ${url}:`, err.message);
+      // Inject helmet meta tags
+      if (helmet) {
+        const headInjection = `
+          ${helmet.title.toString()}
+          ${helmet.meta.toString()}
+          ${helmet.link.toString()}
+        `;
+        result = result.replace(`<!--app-head-->`, headInjection);
       }
+
+      // Inject HTML
+      result = result.replace(`<div id="root"></div>`, `<div id="root">${html}</div>`);
+
+      // Construct clean file path
+      const absoluteFilePath = url === '/' 
+        ? toAbsolute('dist/index.html')
+        : toAbsolute(`dist${url}/index.html`);
+      
+      fs.mkdirSync(path.dirname(absoluteFilePath), { recursive: true });
+      fs.writeFileSync(absoluteFilePath, result, 'utf-8');
+      successCount++;
+    } catch (err) {
+      console.error(`[prerender] Error on ${url}:`, err.message);
     }
     
-    // Allow event loop breathing room for GC
-    await new Promise(resolve => setTimeout(resolve, 50));
+    // Log progress every 500 routes to avoid blocking console I/O
+    if (i > 0 && i % 500 === 0) {
+      console.log(`[prerender] Progress: ${successCount}/${routesToPrerender.length} pages generated.`);
+    }
   }
   
-  console.log(`✅ Prerender complete!`);
+  console.log(`✅ Prerender complete! Successfully pre-rendered ${successCount} routes.`);
 })();

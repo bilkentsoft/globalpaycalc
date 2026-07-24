@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { checkNomadVisaEligibility, nomadVisaRequirements } from '../utils/nomadVisaEngine';
-import { Globe, CheckCircle2, XCircle, DollarSign, Award, Info } from 'lucide-react';
-import { getTranslation } from '../i18n';
+import { Globe, CheckCircle2, XCircle, DollarSign } from 'lucide-react';
+import calcTranslations from '../data/calculatorTranslations';
 
 export default function NomadVisaCalculator({ lang = 'en' }) {
-  const t = (path) => getTranslation(lang, path);
-
   const [monthlyIncome, setMonthlyIncome] = useState(3800);
 
+  const tCalc = calcTranslations[lang] || calcTranslations['en'];
   const result = checkNomadVisaEligibility(monthlyIncome);
 
   return (
@@ -16,13 +15,13 @@ export default function NomadVisaCalculator({ lang = 'en' }) {
       <div className="text-center max-w-3xl mx-auto space-y-3">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
           <Globe className="w-3.5 h-3.5" />
-          <span>Dijital Göçebe Vize Gelir Uyum Testi</span>
+          <span>{tCalc.visaBadge}</span>
         </div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Digital Nomad Visa Income Eligibility Checker
+          {tCalc.visaTitle}
         </h2>
         <p className="text-slate-400 text-sm leading-relaxed">
-          Aylık net remote gelirinize göre İspanya, Portekiz, Dubai, Japonya, İtalya ve Yunanistan Dijital Göçebe Vizelerine başvurup başvuramayacağınızı anında öğrenin.
+          {tCalc.visaDesc}
         </p>
       </div>
 
@@ -32,7 +31,7 @@ export default function NomadVisaCalculator({ lang = 'en' }) {
         <div className="max-w-xl mx-auto space-y-2">
           <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center justify-center space-x-1">
             <DollarSign className="w-4 h-4 text-emerald-400" />
-            <span>Aylık Düzenli Remote Geliriniz ($ USD)</span>
+            <span>{tCalc.monthlyIncomeLabel}</span>
           </label>
           <input 
             type="number" 
@@ -44,9 +43,9 @@ export default function NomadVisaCalculator({ lang = 'en' }) {
 
         {/* Results Overview */}
         <div className="text-center">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Uygun Bulunduğunuz Vize Sayısı</span>
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{tCalc.eligibleVisasHeader}</span>
           <div className="text-4xl font-black text-emerald-400 mt-1">
-            {result.eligibleCount} / {result.totalCount} Ülke Vizesi Uyumlu
+            {tCalc.eligibleVisasCount.replace('{count}', result.eligibleCount).replace('{total}', result.totalCount)}
           </div>
         </div>
 
@@ -69,10 +68,10 @@ export default function NomadVisaCalculator({ lang = 'en' }) {
                     <span className="font-extrabold text-white text-base">{visa.country} {visa.visaName}</span>
                   </div>
                   <div className="text-xs text-slate-400">
-                    Gereken Min. Gelir: <strong className="text-slate-200">${visa.minMonthlyIncomeUsd.toLocaleString()} / ay</strong>
+                    {tCalc.requiredIncome}: <strong className="text-slate-200">${visa.minMonthlyIncomeUsd.toLocaleString()} / {lang === 'tr' ? 'ay' : 'mo'}</strong>
                   </div>
                   <div className="text-[11px] text-emerald-400 font-medium">
-                    Avantaj: {visa.taxPerk}
+                    {tCalc.visaPerks}: {visa.taxPerk}
                   </div>
                 </div>
 
@@ -80,12 +79,12 @@ export default function NomadVisaCalculator({ lang = 'en' }) {
                   {isEligible ? (
                     <span className="px-3 py-1.5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold border border-emerald-500/30 flex items-center space-x-1">
                       <CheckCircle2 className="w-3.5 h-3.5" />
-                      <span>Uygun</span>
+                      <span>{tCalc.eligibleStatus}</span>
                     </span>
                   ) : (
                     <span className="px-3 py-1.5 rounded-full bg-slate-800 text-slate-400 text-xs font-medium flex items-center space-x-1">
                       <XCircle className="w-3.5 h-3.5 text-rose-400" />
-                      <span>Yetersiz</span>
+                      <span>{tCalc.ineligibleStatus}</span>
                     </span>
                   )}
                 </div>

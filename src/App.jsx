@@ -46,47 +46,47 @@ function ContentWrapper({ lang, t }) {
   let pageDesc = t('hero.subtitle');
 
   if (activeTab === 'take-home') {
-    pageTitle = "Global Net Take-Home Salary & Tax Calculator | US, UK, DE, TR | GlobalPayCalc";
-    pageDesc = "Calculate net take-home salary after federal/state income tax, social security, and FICA deductions across 40+ countries.";
+    pageTitle = "Global Net Salary & Tax Calculator | GlobalPayCalc";
+    pageDesc = "Calculate net take-home salary after federal and state income tax, social security, and FICA deductions across 40+ countries. Get instant, accurate projections.";
   } else if (activeTab === 'contractor') {
-    pageTitle = "Full-Time vs Contractor / Freelance Equivalence Calculator (W-2 vs 1099, IR35)";
-    pageDesc = "Compare W-2 salaried offer vs 1099 contractor billing rate. Factor in PTO, health insurance, and SE taxes accurately.";
+    pageTitle = "W-2 vs 1099 Contractor Equivalence Calculator";
+    pageDesc = "Compare W-2 salaried offer vs 1099 contractor billing rates. Factor in PTO, health insurance, and self-employment taxes accurately in our comparison engine.";
   } else if (activeTab === 'hourly-rate') {
-    pageTitle = "Freelancer Minimum Hourly Rate Calculator | Target Net Income & Expenses";
-    pageDesc = "Calculate minimum required hourly and daily billing rate based on annual target income, taxes, and billable hours.";
+    pageTitle = "Freelancer Hourly Rate Calculator | GlobalPayCalc";
+    pageDesc = "Calculate minimum required hourly and daily billing rates based on your annual target income, tax brackets, business expenses, and billable work hours.";
   } else if (activeTab === 'beckham-law') {
-    pageTitle = "Expat & Beckham Law Tax Savings Calculator | Spain, Portugal, Italy, Dubai";
-    pageDesc = "Calculate expat tax exemptions under Spain Beckham Law (24%), Portugal IFICI, Italy 70% Impatriati, and Dubai 0% tax.";
+    pageTitle = "Beckham Law & Expat Tax Savings Calculator";
+    pageDesc = "Calculate expat tax exemptions under Spain's Beckham Law (24% flat), Portugal NHR, Italy 70% Impatriati, and Dubai 0% tax scheme. Save on international taxes.";
   } else if (activeTab === 'crypto-tax') {
-    pageTitle = "Crypto & USDT Remote Salary Tax Estimator | Capital Gains vs Income Tax";
-    pageDesc = "Calculate tax liabilities for remote salaries paid in USDT, USDC, or ETH across US, UK, Germany, Turkey, and Dubai.";
+    pageTitle = "Crypto & USDT Salary Tax Calculator | GlobalPayCalc";
+    pageDesc = "Calculate tax liabilities for remote salaries paid in USDT, USDC, or ETH across US, UK, Germany, and Turkey. Differentiate income and capital gains tax.";
   } else if (activeTab === 'eor-cost') {
-    pageTitle = "Employer of Record (EOR) vs Entity Setup Cost Estimator | Deel vs Local Entity";
-    pageDesc = "Calculate breakeven point between paying Deel/Remote $599/mo per seat vs incorporating a local subsidiary.";
+    pageTitle = "EOR vs Local Entity Setup Cost Calculator";
+    pageDesc = "Calculate the financial breakeven point between paying Deel/Remote $599/mo per seat versus incorporating and operating a local subsidiary entity.";
   } else if (activeTab === 'nomad-visa') {
-    pageTitle = "Digital Nomad Visa Financial Income Eligibility Checker | 10+ Countries";
-    pageDesc = "Check monthly minimum income eligibility for Digital Nomad Visas in Spain, Portugal, Dubai, Japan, Italy, and Greece.";
+    pageTitle = "Digital Nomad Visa Income Eligibility Checker";
+    pageDesc = "Verify monthly minimum income requirements for Digital Nomad Visas in Spain, Portugal, Dubai, Japan, Italy, and Greece. Check your eligible countries.";
   } else if (activeTab === 'inflation') {
-    pageTitle = "Inflation & Salary Purchasing Power Loss Calculator | GlobalPayCalc";
-    pageDesc = "Calculate real salary erosion and required raise percentage based on country inflation rates.";
+    pageTitle = "Inflation & Salary Purchasing Power Calculator";
+    pageDesc = "Calculate real salary erosion and the exact annual pay raise percentage required to maintain your living standard against global country inflation rates.";
   } else if (activeTab === 'fx-fees') {
-    pageTitle = "Real FX Rate & Hidden Bank Fee Estimator (Wise vs SWIFT vs PayPal vs Stripe)";
-    pageDesc = "Calculate real mid-market exchange rate vs hidden bank FX markups and transfer fees for international cross-border payments.";
+    pageTitle = "Real FX Rate & Hidden Bank Fee Estimator";
+    pageDesc = "Compare real mid-market exchange rates against hidden bank FX markups and wire transfer fees for Wise, SWIFT, PayPal, and Stripe global transactions.";
   } else if (activeTab === 'vat') {
-    pageTitle = "Global Invoice & VAT / Sales Tax Calculator | Cross-Border Reverse Charge";
-    pageDesc = "Calculate net, VAT/GST amount, and gross invoice total. Includes B2B cross-border Reverse Charge 0% export exemption.";
+    pageTitle = "Global Invoice & VAT Calculator | GlobalPayCalc";
+    pageDesc = "Calculate net, VAT/GST amounts, and gross invoice totals. Includes B2B cross-border Reverse Charge 0% export exemptions and tax declaration options.";
   } else if (activeTab === 'timezone') {
-    pageTitle = "Timezone Overlap Calculator for Remote Teams | Global Work Hours Grid";
-    pageDesc = "Visualize working hour overlap and shared meeting windows for global remote teams across US, Europe, Asia, and Turkey.";
+    pageTitle = "Timezone Overlap Calculator for Remote Teams";
+    pageDesc = "Visualize working hour overlaps and shared meeting windows for global remote teams across US, Europe, Asia, and Turkey with our interactive time grid.";
   } else if (activeTab === 'salary') {
-    pageTitle = "Remote Salary Calculator & Global Tax Parity Estimator | GlobalPayCalc";
-    pageDesc = "Calculate net remote salaries across 150+ countries. Compare purchasing power, cost of living, and nomad tax laws instantly.";
+    pageTitle = "Global Remote Salary Calculator | GlobalPayCalc";
+    pageDesc = "Calculate net remote salaries across 150+ countries. Compare purchasing power, cost of living index, and nomad tax laws instantly in local currencies.";
   } else if (activeTab === 'wasm') {
-    pageTitle = "Free AI Background & Object Remover | Secure Client-Side | GlobalPayCalc";
-    pageDesc = "Remove photo backgrounds instantly with 100% privacy using client-side WebAssembly AI. No uploads, no limits.";
+    pageTitle = "Free AI Background Remover & Compressor";
+    pageDesc = "Remove photo backgrounds instantly with 100% privacy using client-side WebAssembly AI. Compress and convert images to WebP/PNG without server uploads.";
   } else if (activeTab === 'ai') {
-    pageTitle = "LLM API Cost Simulator: GPT-4o, Claude 3.5 & LLaMA 3 | GlobalPayCalc";
-    pageDesc = "Compare token costs for OpenAI, Anthropic, and open-source models for RAG, customer support, and agents.";
+    pageTitle = "LLM API Token Cost Simulator | GlobalPayCalc";
+    pageDesc = "Compare monthly token costs for OpenAI, Anthropic, and open-source models (GPT-4o, Claude 3.5, LLaMA 3) across RAG pipelines and agent implementations.";
   }
 
   return (
@@ -248,55 +248,16 @@ function ContentWrapper({ lang, t }) {
           ))}
 
           {/* Programmatic SEO Routes */}
-          {generatePseoTaxMatrix().map(route => (
-            <React.Fragment key={route.slug}>
-              <Route path={`/calculator/${route.slug}`} element={
-                <>
-                  <Helmet>
-                    <title>{route.title} | GlobalPayCalc</title>
-                    <meta name="description" content={route.description} />
-                  </Helmet>
-                  <DynamicToolPage pageData={route} type="tax" lang={lang} />
-                </>
-              } />
-              {supportedLanguages.map(l => (
-                <Route key={`${l.code}-${route.slug}`} path={`/${l.code}/calculator/${route.slug}`} element={
-                  <>
-                    <Helmet>
-                      <title>{route.title} | GlobalPayCalc</title>
-                      <meta name="description" content={route.description} />
-                    </Helmet>
-                    <DynamicToolPage pageData={route} type="tax" lang={l.code} />
-                  </>
-                } />
-              ))}
+          <Route path="/calculator/:slug" element={<DynamicToolPage type="tax" lang={lang} />} />
+          <Route path="/tools/:slug" element={<DynamicToolPage type="llm" lang={lang} />} />
+          
+          {supportedLanguages.map(l => (
+            <React.Fragment key={l.code}>
+              <Route path={`/${l.code}/calculator/:slug`} element={<DynamicToolPage type="tax" lang={l.code} />} />
+              <Route path={`/${l.code}/tools/:slug`} element={<DynamicToolPage type="llm" lang={l.code} />} />
             </React.Fragment>
           ))}
 
-          {generatePseoLlmMatrix().map(route => (
-            <React.Fragment key={route.slug}>
-              <Route path={`/tools/${route.slug}`} element={
-                <>
-                  <Helmet>
-                    <title>{route.title} | GlobalPayCalc</title>
-                    <meta name="description" content={route.description} />
-                  </Helmet>
-                  <DynamicToolPage pageData={route} type="llm" lang={lang} />
-                </>
-              } />
-              {supportedLanguages.map(l => (
-                <Route key={`${l.code}-${route.slug}`} path={`/${l.code}/tools/${route.slug}`} element={
-                  <>
-                    <Helmet>
-                      <title>{route.title} | GlobalPayCalc</title>
-                      <meta name="description" content={route.description} />
-                    </Helmet>
-                    <DynamicToolPage pageData={route} type="llm" lang={l.code} />
-                  </>
-                } />
-              ))}
-            </React.Fragment>
-          ))}
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

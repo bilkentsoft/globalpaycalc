@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { calculateGlobalTakeHome, globalTaxCountries } from '../utils/globalTakeHomeEngine';
-import { DollarSign, ShieldCheck, PieChart, Info, Download, Code, Globe } from 'lucide-react';
-import { getTranslation } from '../i18n';
+import { DollarSign, PieChart, Download, Globe } from 'lucide-react';
+import calcTranslations from '../data/calculatorTranslations';
 
 export default function GlobalTakeHomeCalculator({ lang = 'en' }) {
-  const t = (path) => getTranslation(lang, path);
-
   const [grossAmount, setGrossAmount] = useState(90000);
   const [selectedCountry, setSelectedCountry] = useState('US_CA');
   const [period, setPeriod] = useState('annual');
 
+  const tCalc = calcTranslations[lang] || calcTranslations['en'];
   const result = calculateGlobalTakeHome(grossAmount, selectedCountry, period);
 
   const handleExportReport = () => {
@@ -50,13 +49,15 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
       <div className="text-center max-w-3xl mx-auto space-y-3">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-semibold">
           <Globe className="w-3.5 h-3.5" />
-          <span>Dinamik Ülke Bazlı Vergi Motoru</span>
+          <span>{tCalc.takeHomeBadge || (lang === 'tr' ? 'Dinamik Ülke Bazlı Vergi Motoru' : 'Dynamic Country Tax Engine')}</span>
         </div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Global Net Maaş ve Vergi Hesaplayıcı
+          {lang === 'tr' ? 'Global Net Maaş ve Vergi Hesaplayıcı' : 'Global Net Take-Home Salary & Tax Calculator'}
         </h2>
         <p className="text-slate-400 text-sm leading-relaxed">
-          ABD (Federal + Eyalet + FICA), İngiltere, Almanya, Türkiye ve 40+ ülkenin güncel vergi ve sosyal güvenlik kesintilerini hesaplayın.
+          {lang === 'tr' 
+            ? 'ABD (Federal + Eyalet + FICA), İngiltere, Almanya, Türkiye ve 40+ ülkenin vergi kesintilerini hesaplayın.'
+            : 'Calculate net take-home salary after federal/state income tax, social security, and FICA deductions across 40+ countries.'}
         </p>
       </div>
 
@@ -68,7 +69,7 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
           <div className="space-y-2">
             <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-1">
               <DollarSign className="w-3.5 h-3.5 text-brand-400" />
-              <span>Brüt Maaş Tutarı ({result.country.currency})</span>
+              <span>{lang === 'tr' ? `Brüt Maaş Tutarı (${result.country.currency})` : `Gross Salary Amount (${result.country.currency})`}</span>
             </label>
             <input 
               type="number" 
@@ -82,22 +83,22 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
           {/* Period Selector */}
           <div className="space-y-2">
             <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-              Maaş Dönemi
+              {lang === 'tr' ? 'Maaş Dönemi' : 'Salary Period'}
             </label>
             <select
               value={period}
               onChange={(e) => setPeriod(e.target.value)}
               className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-brand-500 transition cursor-pointer"
             >
-              <option value="annual">Yıllık Brüt</option>
-              <option value="monthly">Aylık Brüt</option>
+              <option value="annual">{lang === 'tr' ? 'Yıllık Brüt' : 'Annual Gross'}</option>
+              <option value="monthly">{lang === 'tr' ? 'Aylık Brüt' : 'Monthly Gross'}</option>
             </select>
           </div>
 
           {/* Country Selector */}
           <div className="space-y-2">
             <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-              Ülke / Eyalet Mevzuatı
+              {lang === 'tr' ? 'Ülke / Eyalet Mevzuatı' : 'Country / State Tax Code'}
             </label>
             <select
               value={selectedCountry}
@@ -117,27 +118,33 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
         {/* Results Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
           <div className="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl space-y-2">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Aylık Ele Geçen Net</span>
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{tCalc.netCryptoTakeHome || (lang === 'tr' ? 'Aylık Ele Geçen Net' : 'Net Monthly') }</span>
             <div className="text-3xl font-black text-emerald-400">
-              {result.country.symbol}{Math.round(result.netMonthly).toLocaleString()} <span className="text-xs font-normal text-slate-400">/ ay</span>
+              {result.country.symbol}{Math.round(result.netMonthly).toLocaleString()} <span className="text-xs font-normal text-slate-400">/{lang === 'tr' ? 'ay' : 'mo'}</span>
             </div>
-            <p className="text-[11px] text-slate-400">Vergi ve sigorta kesintileri düşüldükten sonra net tutar.</p>
+            <p className="text-[11px] text-slate-400">
+              {lang === 'tr' ? 'Vergi ve sigorta kesintileri düşüldükten sonra net tutar.' : 'Net take-home amount after all statutory deductions.'}
+            </p>
           </div>
 
           <div className="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl space-y-2">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Yıllık Ele Geçen Net</span>
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{tCalc.standardNet || (lang === 'tr' ? 'Yıllık Ele Geçen Net' : 'Net Annual')}</span>
             <div className="text-3xl font-black text-white">
               {result.country.symbol}{Math.round(result.netAnnual).toLocaleString()}
             </div>
-            <p className="text-[11px] text-slate-400">Yıllık toplam harcanabilir net bütçeniz.</p>
+            <p className="text-[11px] text-slate-400">
+              {lang === 'tr' ? 'Yıllık toplam harcanabilir net bütçeniz.' : 'Your total annual disposable net income.'}
+            </p>
           </div>
 
           <div className="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl space-y-2">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Efektif Vergi Oranı</span>
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{tCalc.totalTaxLiab || (lang === 'tr' ? 'Efektif Vergi Oranı' : 'Effective Tax Rate')}</span>
             <div className="text-3xl font-black text-rose-400">
               %{result.effectiveTaxRate}
             </div>
-            <p className="text-[11px] text-slate-400">Brüt gelirden yapılan toplam yasal kesinti oranı.</p>
+            <p className="text-[11px] text-slate-400">
+              {lang === 'tr' ? 'Brüt gelirden yapılan toplam yasal kesinti oranı.' : 'Overall statutory deductions rate from your gross income.'}
+            </p>
           </div>
         </div>
 
@@ -146,14 +153,18 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-white flex items-center space-x-2">
               <PieChart className="w-4 h-4 text-brand-400" />
-              <span>Yasal Kesinti ve Vergi Detayları ({result.country.name})</span>
+              <span>
+                {lang === 'tr' 
+                  ? `Yasal Kesinti ve Vergi Detayları (${result.country.name})`
+                  : `Deduction & Tax Details (${result.country.name})`}
+              </span>
             </h3>
             <button 
               onClick={handleExportReport}
               className="px-3 py-1.5 rounded-lg bg-brand-500/10 border border-brand-500/20 text-brand-300 hover:bg-brand-500/20 text-xs font-bold transition flex items-center space-x-1.5"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Raporu İndir (.txt)</span>
+              <span>{lang === 'tr' ? 'Raporu İndir (.txt)' : 'Download Report (.txt)'}</span>
             </button>
           </div>
 
@@ -161,9 +172,9 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-slate-800 text-xs font-bold text-slate-400 uppercase">
-                  <th className="py-3 px-4">Kesinti Kalemi</th>
-                  <th className="py-3 px-4 text-right">Yıllık Tutar</th>
-                  <th className="py-3 px-4 text-right">Oran</th>
+                  <th className="py-3 px-4">{lang === 'tr' ? 'Kesinti Kalemi' : 'Deduction Item'}</th>
+                  <th className="py-3 px-4 text-right">{lang === 'tr' ? 'Yıllık Tutar' : 'Annual Amount'}</th>
+                  <th className="py-3 px-4 text-right">{lang === 'tr' ? 'Oran' : 'Rate'}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/50 text-sm">
@@ -179,7 +190,7 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
                   </tr>
                 ))}
                 <tr className="bg-slate-900/50 font-bold border-t border-slate-700">
-                  <td className="py-3 px-4 text-white">Toplam Yasal Kesintiler</td>
+                  <td className="py-3 px-4 text-white">{lang === 'tr' ? 'Toplam Yasal Kesintiler' : 'Total Deductions'}</td>
                   <td className="py-3 px-4 text-right text-rose-400 font-mono">
                     -{result.country.symbol}{Math.round(result.totalDeductions).toLocaleString()}
                   </td>

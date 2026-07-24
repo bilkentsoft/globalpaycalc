@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { calculateInflationImpact, countryInflationRates } from '../utils/inflationEngine';
-import { TrendingDown, AlertTriangle, ShieldCheck, DollarSign, RefreshCw, Info } from 'lucide-react';
-import { getTranslation } from '../i18n';
+import { TrendingDown } from 'lucide-react';
+import calcTranslations from '../data/calculatorTranslations';
 
 export default function InflationCalculator({ lang = 'en' }) {
-  const t = (path) => getTranslation(lang, path);
-
   const [salary, setSalary] = useState(75000);
   const [selectedCountry, setSelectedCountry] = useState('US');
   const [customRate, setCustomRate] = useState('');
   const [years, setYears] = useState(1);
 
+  const tCalc = calcTranslations[lang] || calcTranslations['en'];
   const parsedCustomRate = customRate !== '' ? Number(customRate) : null;
   const result = calculateInflationImpact(salary, selectedCountry, parsedCustomRate, years);
 
@@ -20,13 +19,13 @@ export default function InflationCalculator({ lang = 'en' }) {
       <div className="text-center max-w-3xl mx-auto space-y-3">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
           <TrendingDown className="w-3.5 h-3.5" />
-          <span>Enflasyon ve Maaş Erimesi Simülatörü</span>
+          <span>{tCalc.inflationBadge}</span>
         </div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Enflasyon ve Alım Gücü Kaybı Hesaplayıcı
+          {tCalc.inflationTitle}
         </h2>
         <p className="text-slate-400 text-sm leading-relaxed">
-          Ülke enflasyonuna göre maaşınızın reel erimesini, kaybettiğiniz alım gücünü ve hayat standardınızı korumak için almanız gereken zam oranını hesaplayın.
+          {tCalc.inflationDesc}
         </p>
       </div>
 
@@ -36,7 +35,7 @@ export default function InflationCalculator({ lang = 'en' }) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="space-y-2">
             <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-              Mevcut Maaş ({result.country.symbol})
+              {tCalc.currentSalaryLabel} ({result.country.symbol})
             </label>
             <input 
               type="number" 
@@ -48,7 +47,7 @@ export default function InflationCalculator({ lang = 'en' }) {
 
           <div className="space-y-2">
             <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-              Ülke Resmi Enflasyonu
+              {tCalc.annualInflationLabel}
             </label>
             <select
               value={selectedCountry}
@@ -68,58 +67,70 @@ export default function InflationCalculator({ lang = 'en' }) {
 
           <div className="space-y-2">
             <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-              Zaman Ufku (Yıl)
+              {tCalc.projectionYearsLabel}
             </label>
             <select
               value={years}
               onChange={(e) => setYears(Number(e.target.value))}
               className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-amber-500 outline-none cursor-pointer"
             >
-              <option value={1}>1 Yıl</option>
-              <option value={2}>2 Yıl</option>
-              <option value={3}>3 Yıl</option>
-              <option value={5}>5 Yıl</option>
+              <option value={1}>{tCalc.yearsHorizon.replace('{years}', 1)}</option>
+              <option value={2}>{tCalc.yearsHorizon.replace('{years}', 2)}</option>
+              <option value={3}>{tCalc.yearsHorizon.replace('{years}', 3)}</option>
+              <option value={5}>{tCalc.yearsHorizon.replace('{years}', 5)}</option>
             </select>
           </div>
         </div>
 
         {/* Custom rate override */}
-        <div className="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 flex items-center space-x-4">
-          <label className="text-xs font-bold text-slate-300">Özel Enflasyon Oranı Gir (%):</label>
+        <div className="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+          <label className="text-xs font-bold text-slate-300">
+            {lang === 'tr' ? 'Özel Enflasyon Oranı Gir (%):' : 'Enter Custom Inflation Rate (%):'}
+          </label>
           <input 
             type="number" 
             value={customRate} 
             onChange={(e) => setCustomRate(e.target.value)} 
-            placeholder={`Örn: ${result.country.rate}`}
+            placeholder={`e.g. ${result.country.rate}`}
             className="bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 text-white font-bold text-sm w-32 focus:border-amber-500 outline-none"
           />
-          <span className="text-xs text-slate-400">Girilirse ülkenin resmi oranı yerine kullanılır.</span>
+          <span className="text-xs text-slate-400">
+            {lang === 'tr' ? 'Girilirse ülkenin resmi oranı yerine kullanılır.' : 'If entered, overrides the official country rate.'}
+          </span>
         </div>
 
         {/* Results Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-slate-900/90 p-6 rounded-2xl border border-slate-800 space-y-2">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Erime Sonrası Reel Alım Gücü</span>
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{tCalc.realSalaryValue}</span>
             <div className="text-3xl font-black text-rose-400">
               {result.country.symbol}{result.realPurchasingPower.toLocaleString()}
             </div>
-            <p className="text-[11px] text-slate-400">{years} yıl sonra bugünün parasıyla kalan gerçek değer.</p>
+            <p className="text-[11px] text-slate-400">
+              {lang === 'tr'
+                ? `${years} yıl sonra bugünün parasıyla kalan gerçek değer.`
+                : `Actual value in today's currency after ${years} year(s).`}
+            </p>
           </div>
 
           <div className="bg-slate-900/90 p-6 rounded-2xl border border-slate-800 space-y-2">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Toplam Alım Gücü Kaybı</span>
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{tCalc.cumulativeLoss}</span>
             <div className="text-3xl font-black text-amber-400">
               -{result.country.symbol}{result.purchasingPowerLoss.toLocaleString()}
             </div>
-            <p className="text-[11px] text-slate-400">Enflasyon nedeniyle cebinizden eksilen alım gücü.</p>
+            <p className="text-[11px] text-slate-400">
+              {lang === 'tr' ? 'Enflasyon nedeniyle eriyen satın alma gücü.' : 'Purchasing power eroded due to inflation.'}
+            </p>
           </div>
 
           <div className="bg-gradient-to-br from-emerald-950/40 to-slate-900 p-6 rounded-2xl border border-emerald-500/30 space-y-2">
-            <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">Alınması Gereken Zam Oranı</span>
+            <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">{tCalc.requiredRaise}</span>
             <div className="text-3xl font-black text-emerald-400">
               %{result.requiredRaisePercent}
             </div>
-            <p className="text-[11px] text-slate-400">Maaşınızın erimemesi için yapılması gereken minimum zam.</p>
+            <p className="text-[11px] text-slate-400">
+              {lang === 'tr' ? 'Maaşınızın erimemesi için yapılması gereken asgari zam.' : 'Minimum raise required to maintain standard of living.'}
+            </p>
           </div>
         </div>
 
