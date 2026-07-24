@@ -22,7 +22,8 @@ export default async function handler(req, res) {
       { date: 'Çar', views: 0, revenue: 0 }, { date: 'Per', views: 0, revenue: 0 },
       { date: 'Cum', views: 0, revenue: 0 }, { date: 'Cmt', views: 0, revenue: 0 },
       { date: 'Paz', views: 0, revenue: 0 }
-    ]
+    ],
+    gscQueries: []
   };
 
   if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET || !GOOGLE_REFRESH_TOKEN) {
@@ -71,6 +72,13 @@ export default async function handler(req, res) {
           liveData.gsc.impressions = totalImp;
           liveData.gsc.ctr = totalImp > 0 ? ((totalClicks / totalImp) * 100) : 0;
           liveData.gsc.position = totalImp > 0 ? (totalPos / totalImp) : 0;
+
+          liveData.gscQueries = gscRes.data.rows.slice(0, 15).map(r => ({
+            query: r.keys[0],
+            clicks: r.clicks,
+            impressions: r.impressions,
+            position: r.position.toFixed(1)
+          }));
         }
       }
     } catch (e) {

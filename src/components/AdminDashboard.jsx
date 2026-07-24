@@ -222,7 +222,7 @@ function RankTrackerTab() {
 
 function AnalyticsTab({ googleStats }) {
   const isDataReady = googleStats && googleStats.status === 'success';
-  const data = isDataReady ? googleStats : { geoData: [], devices: [], chartData: [] };
+  const data = isDataReady ? googleStats : { geoData: [], devices: [], chartData: [], gscQueries: [] };
 
   // Gerçek veri (Şimdilik GA4 custom event veya Supabase takip kodu eklenmediği için 0)
   const calculators = [
@@ -355,11 +355,22 @@ function AnalyticsTab({ googleStats }) {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td colSpan="4" className="py-8 text-center text-sm font-bold text-purple-300">
-                  Google Search Console API bağlandığında gerçek organik kelimeleriniz burada listelenecektir.
-                </td>
-              </tr>
+              {!isDataReady || !data.gscQueries || data.gscQueries.length === 0 ? (
+                <tr>
+                  <td colSpan="4" className="py-8 text-center text-sm font-bold text-purple-300">
+                    Google Search Console API bağlandığında gerçek organik kelimeleriniz burada listelenecektir.
+                  </td>
+                </tr>
+              ) : (
+                data.gscQueries.map((q, idx) => (
+                  <tr key={idx} className="border-b border-purple-500/10 hover:bg-purple-900/20 transition">
+                    <td className="py-3 px-4 text-sm font-bold text-white">{q.query}</td>
+                    <td className="py-3 px-4 text-sm font-mono text-slate-300 text-center">{q.clicks}</td>
+                    <td className="py-3 px-4 text-sm font-mono text-slate-300 text-center">{q.impressions}</td>
+                    <td className="py-3 px-4 text-sm font-bold text-emerald-400 text-right">{q.position}</td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
