@@ -4,7 +4,7 @@ import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server.mjs";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useNavigate, Link, useLocation, Routes, Route } from "react-router-dom";
-import { Calculator, X, Lock, FileText, Heart, Globe, DollarSign, Download, Code, Sparkles, Zap, UploadCloud, ShieldCheck, RefreshCw, PieChart, Briefcase, Info, ArrowRightLeft, Copy, Clock, TrendingDown, HelpCircle, ChevronUp, ChevronDown, Star, LayoutDashboard, Map, BarChart2, Globe2, Search, Activity, LogOut, AlertCircle, Wallet, TrendingUp, Target, CheckCircle2, Database, CheckCircle, XCircle, AlertTriangle, Server, Compass, Home, Loader, ArrowLeftRight, ShieldAlert, Link as Link$1, Shield, Mail, Cookie, UserCheck, Image as Image$1 } from "lucide-react";
+import { Calculator, X, Lock, FileText, Heart, Globe, DollarSign, Download, Code, Sparkles, Zap, UploadCloud, ShieldCheck, RefreshCw, PieChart, Briefcase, Info, ArrowRightLeft, Copy, Clock, TrendingDown, Award, Cpu, Building2, CheckCircle2, XCircle, HelpCircle, ChevronUp, ChevronDown, Star, LayoutDashboard, Map, BarChart2, Globe2, Search, Activity, LogOut, AlertCircle, Wallet, TrendingUp, Target, Database, CheckCircle, AlertTriangle, Server, Compass, Home, Loader, ArrowLeftRight, ShieldAlert, Link as Link$1, Shield, Mail, Cookie, UserCheck, Image as Image$1 } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
 import { ResponsiveContainer, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area, PieChart as PieChart$1, Pie, Cell, Legend } from "recharts";
 const nav$7 = {
@@ -4186,6 +4186,474 @@ function TimezoneOverlapCalculator({ lang = "en" }) {
     ] })
   ] });
 }
+const expatRegimes = {
+  ES_BECKHAM: { id: "ES_BECKHAM", name: "Spain (Beckham Law)", flag: "🇪🇸", flatTaxRate: 24, durationYears: 6, maxCap: 6e5 },
+  PT_IFICI: { id: "PT_IFICI", name: "Portugal (NHR 2.0 / IFICI)", flag: "🇵🇹", flatTaxRate: 20, durationYears: 10, maxCap: 0 },
+  IT_IMPATRIATI: { id: "IT_IMPATRIATI", name: "Italy (Rientro dei Cervelli - 50% Exemption)", flag: "🇮🇹", flatTaxRate: 21, durationYears: 5, maxCap: 0 },
+  AE_DUBAI: { id: "AE_DUBAI", name: "Dubai / UAE (0% Income Tax)", flag: "🇦🇪", flatTaxRate: 0, durationYears: 99, maxCap: 0 },
+  US_FEIE: { id: "US_FEIE", name: "US Expat FEIE ($126,500 Exclusion)", flag: "🇺🇸", flatTaxRate: 15, durationYears: 99, maxCap: 126500 }
+};
+function calculateBeckhamSavings(annualGrossSalary = 12e4, regimeId = "ES_BECKHAM", standardTaxRatePercent = 45) {
+  const regime = expatRegimes[regimeId] || expatRegimes.ES_BECKHAM;
+  const standardTaxAmount = annualGrossSalary * (standardTaxRatePercent / 100);
+  const standardNetTakeHome = annualGrossSalary - standardTaxAmount;
+  let expatTaxAmount = 0;
+  if (regime.id === "US_FEIE") {
+    const taxableAmount = Math.max(0, annualGrossSalary - regime.maxCap);
+    expatTaxAmount = taxableAmount * 0.3;
+  } else {
+    expatTaxAmount = annualGrossSalary * (regime.flatTaxRate / 100);
+  }
+  const expatNetTakeHome = annualGrossSalary - expatTaxAmount;
+  const annualTaxSavings = Math.max(0, expatTaxAmount < standardTaxAmount ? standardTaxAmount - expatTaxAmount : 0);
+  const totalDurationSavings = annualTaxSavings * regime.durationYears;
+  return {
+    annualGrossSalary,
+    regime,
+    standardTaxRatePercent,
+    standardTaxAmount: Math.round(standardTaxAmount),
+    standardNetTakeHome: Math.round(standardNetTakeHome),
+    expatTaxAmount: Math.round(expatTaxAmount),
+    expatNetTakeHome: Math.round(expatNetTakeHome),
+    annualTaxSavings: Math.round(annualTaxSavings),
+    totalDurationSavings: Math.round(totalDurationSavings)
+  };
+}
+function BeckhamLawCalculator({ lang = "en" }) {
+  const [annualGross, setAnnualGross] = useState(13e4);
+  const [selectedRegime, setSelectedRegime] = useState("ES_BECKHAM");
+  const [standardTaxRate, setStandardTaxRate] = useState(45);
+  const result = calculateBeckhamSavings(annualGross, selectedRegime, standardTaxRate);
+  return /* @__PURE__ */ jsxs("div", { className: "space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500", children: [
+    /* @__PURE__ */ jsxs("div", { className: "text-center max-w-3xl mx-auto space-y-3", children: [
+      /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-semibold", children: [
+        /* @__PURE__ */ jsx(Award, { className: "w-3.5 h-3.5" }),
+        /* @__PURE__ */ jsx("span", { children: "Expat & Beckham Law Vergi Muafiyeti Hesaplayıcı" })
+      ] }),
+      /* @__PURE__ */ jsx("h2", { className: "text-3xl sm:text-4xl font-extrabold text-white tracking-tight", children: "Beckham Law & Expat Tax Savings Calculator" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm leading-relaxed", children: "İspanya Beckham Yasası (%24 sabit vergi), Portekiz IFICI, İtalya Impatriati ve Dubai %0 vergi avantajı ile ne kadar net tasarruf sağlayacağınızı hesaplayın." })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 sm:p-8 rounded-3xl border-slate-800 space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Yıllık Brüt Maaş ($ / €)" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: annualGross,
+              onChange: (e) => setAnnualGross(Number(e.target.value)),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-lg focus:border-rose-500 outline-none"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Expat Vergi Rejimi / Ülke" }),
+          /* @__PURE__ */ jsx(
+            "select",
+            {
+              value: selectedRegime,
+              onChange: (e) => setSelectedRegime(e.target.value),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-rose-500 outline-none cursor-pointer",
+              children: Object.entries(expatRegimes).map(([code, r]) => /* @__PURE__ */ jsxs("option", { value: code, children: [
+                r.flag,
+                " ",
+                r.name,
+                " (%",
+                r.flatTaxRate,
+                ")"
+              ] }, code))
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Standart Yerel Vergi Oranı (%)" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: standardTaxRate,
+              onChange: (e) => setStandardTaxRate(Number(e.target.value)),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-lg focus:border-rose-500 outline-none"
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/90 p-6 rounded-2xl border border-slate-800", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Standart Vergiye Göre Net Maaş" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-rose-400 mt-1", children: [
+            "$",
+            result.standardNetTakeHome.toLocaleString()
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400 mt-1", children: "Muafiyet yasası olmadan elinize geçen net tutar." })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-gradient-to-br from-emerald-950/40 to-slate-900 p-6 rounded-2xl border border-emerald-500/30", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-emerald-400 uppercase tracking-wider", children: "Expat Rejimi ile Net Maaş" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-emerald-400 mt-1", children: [
+            "$",
+            result.expatNetTakeHome.toLocaleString()
+          ] }),
+          /* @__PURE__ */ jsxs("p", { className: "text-[11px] text-slate-400 mt-1", children: [
+            result.regime.name,
+            " kapsamında elinize geçen net maaş."
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/90 p-6 rounded-2xl border border-slate-800", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-amber-400 uppercase tracking-wider", children: "Yıllık Vergi Tasarrufunuz" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-amber-400 mt-1", children: [
+            "+$",
+            result.annualTaxSavings.toLocaleString()
+          ] }),
+          /* @__PURE__ */ jsxs("p", { className: "text-[11px] text-slate-400 mt-1", children: [
+            result.regime.durationYears,
+            " yıllık toplam: $",
+            result.totalDurationSavings.toLocaleString()
+          ] })
+        ] })
+      ] })
+    ] })
+  ] });
+}
+const cryptoTaxJurisdictions = {
+  US: { name: "United States", flag: "🇺🇸", incomeTaxRate: 28, capitalGainsShortTerm: 28, capitalGainsLongTerm: 15, currency: "$" },
+  UK: { name: "United Kingdom", flag: "🇬🇧", incomeTaxRate: 40, capitalGainsShortTerm: 20, capitalGainsLongTerm: 20, currency: "£" },
+  DE: { name: "Germany", flag: "🇩🇪", incomeTaxRate: 42, capitalGainsShortTerm: 42, capitalGainsLongTerm: 0, currency: "€" },
+  // 0% after 1 year hold
+  TR: { name: "Turkey", flag: "🇹🇷", incomeTaxRate: 35, capitalGainsShortTerm: 0, capitalGainsLongTerm: 0, currency: "₺" },
+  AE: { name: "UAE / Dubai", flag: "🇦🇪", incomeTaxRate: 0, capitalGainsShortTerm: 0, capitalGainsLongTerm: 0, currency: "$" },
+  SG: { name: "Singapore", flag: "🇸🇬", incomeTaxRate: 15, capitalGainsShortTerm: 0, capitalGainsLongTerm: 0, currency: "$" },
+  PT: { name: "Portugal", flag: "🇵🇹", incomeTaxRate: 28, capitalGainsShortTerm: 28, capitalGainsLongTerm: 0, currency: "€" }
+  // 0% after 365 days
+};
+function calculateCryptoSalaryTax(cryptoSalaryUsd = 9e4, countryCode = "US", holdingDays = 30) {
+  const country = cryptoTaxJurisdictions[countryCode] || cryptoTaxJurisdictions.US;
+  const incomeTaxAmount = cryptoSalaryUsd * (country.incomeTaxRate / 100);
+  const netSalaryAfterIncomeTax = cryptoSalaryUsd - incomeTaxAmount;
+  const isLongTerm = holdingDays >= 365;
+  const capitalGainsRate = isLongTerm ? country.capitalGainsLongTerm : country.capitalGainsShortTerm;
+  return {
+    cryptoSalaryUsd,
+    country,
+    holdingDays,
+    isLongTerm,
+    incomeTaxRate: country.incomeTaxRate,
+    capitalGainsRate,
+    incomeTaxAmount: Math.round(incomeTaxAmount),
+    netSalaryAfterIncomeTax: Math.round(netSalaryAfterIncomeTax)
+  };
+}
+function CryptoTaxCalculator({ lang = "en" }) {
+  const [salaryUsd, setSalaryUsd] = useState(96e3);
+  const [selectedCountry, setSelectedCountry] = useState("US");
+  const [holdingDays, setHoldingDays] = useState(30);
+  const result = calculateCryptoSalaryTax(salaryUsd, selectedCountry, holdingDays);
+  return /* @__PURE__ */ jsxs("div", { className: "space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500", children: [
+    /* @__PURE__ */ jsxs("div", { className: "text-center max-w-3xl mx-auto space-y-3", children: [
+      /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold", children: [
+        /* @__PURE__ */ jsx(Cpu, { className: "w-3.5 h-3.5" }),
+        /* @__PURE__ */ jsx("span", { children: "Crypto & USDT Maaş Vergi Hesaplayıcı" })
+      ] }),
+      /* @__PURE__ */ jsx("h2", { className: "text-3xl sm:text-4xl font-extrabold text-white tracking-tight", children: "Crypto & USDT Remote Salary Tax Estimator" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm leading-relaxed", children: "USDT, USDC veya ETH ile maaş alan remote çalışanlar için Gelir Vergisi vs. Sermaye Kazancı (Capital Gains) yükünü ve net kazancı hesaplayın." })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 sm:p-8 rounded-3xl border-slate-800 space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Yıllık Kripto Maaş ($ USDT / USDC)" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: salaryUsd,
+              onChange: (e) => setSalaryUsd(Number(e.target.value)),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-lg focus:border-cyan-500 outline-none"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "İkamet Ülkesi" }),
+          /* @__PURE__ */ jsx(
+            "select",
+            {
+              value: selectedCountry,
+              onChange: (e) => setSelectedCountry(e.target.value),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-cyan-500 outline-none cursor-pointer",
+              children: Object.entries(cryptoTaxJurisdictions).map(([code, c]) => /* @__PURE__ */ jsxs("option", { value: code, children: [
+                c.flag,
+                " ",
+                c.name,
+                " (Gelir Vergisi %",
+                c.incomeTaxRate,
+                ")"
+              ] }, code))
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Kripto Tutma Süresi (Gün)" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: holdingDays,
+              onChange: (e) => setHoldingDays(Number(e.target.value)),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-lg focus:border-cyan-500 outline-none"
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/90 p-6 rounded-2xl border border-slate-800", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Tahakkuk Eden Gelir Vergisi" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-rose-400 mt-1", children: [
+            "$",
+            result.incomeTaxAmount.toLocaleString()
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400 mt-1", children: "Kripto alındığı andaki piyasa değeri üzerinden vergi." })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-gradient-to-br from-cyan-950/40 to-slate-900 p-6 rounded-2xl border border-cyan-500/30", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-cyan-400 uppercase tracking-wider", children: "Vergiler Sonrası Net Maaş" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-white mt-1", children: [
+            "$",
+            result.netSalaryAfterIncomeTax.toLocaleString()
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400 mt-1", children: "Net elinize geçen nakit eşdeğeri." })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/90 p-6 rounded-2xl border border-slate-800", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Sermaye Kazancı Vergi Rejimi" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-2xl font-black text-amber-400 mt-1", children: [
+            "%",
+            result.capitalGainsRate,
+            " ",
+            /* @__PURE__ */ jsxs("span", { className: "text-xs font-normal text-slate-400", children: [
+              "(",
+              result.isLongTerm ? "Uzun Vadeli" : "Kısa Vadeli",
+              ")"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400 mt-1", children: "Bozdurmadan önceki bekletme süresine göre oran." })
+        ] })
+      ] })
+    ] })
+  ] });
+}
+function calculateEorBreakeven({
+  employeeCount = 3,
+  avgSalaryPerEmployee = 8e4,
+  eorMonthlyFeePerSeat = 599,
+  // Deel / Remote.com standard rate
+  entityIncorporationCost = 5e3,
+  // One-time setup
+  entityAnnualComplianceCost = 8e3
+  // Annual CPA, payroll software, legal
+}) {
+  const annualEorCost = employeeCount * eorMonthlyFeePerSeat * 12;
+  const annualEntityCost = entityAnnualComplianceCost + entityIncorporationCost / 3;
+  const breakevenEmployeeCount = Math.ceil((entityAnnualComplianceCost + entityIncorporationCost) / (eorMonthlyFeePerSeat * 12));
+  const savingsUsingEor = annualEntityCost - annualEorCost;
+  return {
+    employeeCount,
+    avgSalaryPerEmployee,
+    eorMonthlyFeePerSeat,
+    annualEorCost: Math.round(annualEorCost),
+    annualEntityCost: Math.round(annualEntityCost),
+    breakevenEmployeeCount,
+    savingsUsingEor: Math.round(savingsUsingEor),
+    recommendation: employeeCount >= breakevenEmployeeCount ? "INCORPORATE_LOCAL" : "USE_EOR"
+  };
+}
+function EorCostCalculator({ lang = "en" }) {
+  const [employeeCount, setEmployeeCount] = useState(3);
+  const [avgSalary, setAvgSalary] = useState(85e3);
+  const [eorFee, setEorFee] = useState(599);
+  const result = calculateEorBreakeven({
+    employeeCount,
+    avgSalaryPerEmployee: avgSalary,
+    eorMonthlyFeePerSeat: eorFee
+  });
+  return /* @__PURE__ */ jsxs("div", { className: "space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500", children: [
+    /* @__PURE__ */ jsxs("div", { className: "text-center max-w-3xl mx-auto space-y-3", children: [
+      /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold", children: [
+        /* @__PURE__ */ jsx(Building2, { className: "w-3.5 h-3.5" }),
+        /* @__PURE__ */ jsx("span", { children: "EOR vs Yerel Şirket Kurma Başa Baş Analizi" })
+      ] }),
+      /* @__PURE__ */ jsx("h2", { className: "text-3xl sm:text-4xl font-extrabold text-white tracking-tight", children: "Employer of Record (EOR) vs Entity Setup Cost Estimator" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm leading-relaxed", children: "Deel / Remote.com ($599/ay) gibi EOR hizmeti kullanmak ile yerel şirket açıp bordro yönetmenin maliyet başa baş noktasını hesaplayın." })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 sm:p-8 rounded-3xl border-slate-800 space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Yurtdışındaki Çalışan Sayısı" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: employeeCount,
+              onChange: (e) => setEmployeeCount(Number(e.target.value)),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-lg focus:border-purple-500 outline-none"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Ortalama Çalışan Başı Yıllık Maaş ($)" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: avgSalary,
+              onChange: (e) => setAvgSalary(Number(e.target.value)),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-lg focus:border-purple-500 outline-none"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Aylık EOR Koltuk Ücreti ($ / ay)" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: eorFee,
+              onChange: (e) => setEorFee(Number(e.target.value)),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-lg focus:border-purple-500 outline-none"
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/90 p-6 rounded-2xl border border-slate-800", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Yıllık Toplam EOR Hizmet Bedeli" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-purple-400 mt-1", children: [
+            "$",
+            result.annualEorCost.toLocaleString()
+          ] }),
+          /* @__PURE__ */ jsxs("p", { className: "text-[11px] text-slate-400 mt-1", children: [
+            employeeCount,
+            " çalışan için Deel/Remote.com maliyeti."
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/90 p-6 rounded-2xl border border-slate-800", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Tahmini Yerel Şirket Kurma/Uyum Maliyeti" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-slate-200 mt-1", children: [
+            "$",
+            result.annualEntityCost.toLocaleString()
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400 mt-1", children: "Hukuk, muhasebe ve yıllık mali beyanname giderleri." })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-gradient-to-br from-emerald-950/40 to-slate-900 p-6 rounded-2xl border border-emerald-500/30", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-emerald-400 uppercase tracking-wider", children: "Başa Baş (Breakeven) Çalışan Sayısı" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-emerald-400 mt-1", children: [
+            result.breakevenEmployeeCount,
+            " Çalışan"
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400 mt-1", children: employeeCount >= result.breakevenEmployeeCount ? "Yerel Şirket Kurmak Daha Ekonomik!" : "EOR Kullanmak Daha Avantajlı!" })
+        ] })
+      ] })
+    ] })
+  ] });
+}
+const nomadVisaRequirements = [
+  { id: "ES", country: "Spain", visaName: "Digital Nomad Visa", flag: "🇪🇸", minMonthlyIncomeUsd: 2900, minSavingsUsd: 0, taxPerk: "Beckham Law 24% option" },
+  { id: "PT", country: "Portugal", visaName: "D8 Digital Nomad Visa", flag: "🇵🇹", minMonthlyIncomeUsd: 3600, minSavingsUsd: 11e3, taxPerk: "IFICI Tax Scheme" },
+  { id: "AE", country: "Dubai / UAE", visaName: "Work Remotely Visa", flag: "🇦🇪", minMonthlyIncomeUsd: 3500, minSavingsUsd: 0, taxPerk: "0% Personal Income Tax" },
+  { id: "JP", country: "Japan", visaName: "Digital Nomad Visa", flag: "🇯🇵", minMonthlyIncomeUsd: 5500, minSavingsUsd: 0, taxPerk: "6 Months Tax Exempt" },
+  { id: "CR", country: "Costa Rica", visaName: "Estancia Digital Nomad", flag: "🇨🇷", minMonthlyIncomeUsd: 3e3, minSavingsUsd: 0, taxPerk: "100% Tax Exempt Income" },
+  { id: "GR", country: "Greece", visaName: "Digital Nomad Visa", flag: "🇬🇷", minMonthlyIncomeUsd: 3800, minSavingsUsd: 0, taxPerk: "50% Income Tax Cut" },
+  { id: "IT", country: "Italy", visaName: "Digital Nomad Visa", flag: "🇮🇹", minMonthlyIncomeUsd: 3100, minSavingsUsd: 0, taxPerk: "Impatriati 50-70% Cut" },
+  { id: "EE", country: "Estonia", visaName: "Digital Nomad Visa", flag: "🇪🇪", minMonthlyIncomeUsd: 4800, minSavingsUsd: 0, taxPerk: "E-Residency Ecosystem" }
+];
+function checkNomadVisaEligibility(monthlyIncomeUsd = 4e3) {
+  const eligibleVisas = nomadVisaRequirements.filter((v) => monthlyIncomeUsd >= v.minMonthlyIncomeUsd);
+  const ineligibleVisas = nomadVisaRequirements.filter((v) => monthlyIncomeUsd < v.minMonthlyIncomeUsd);
+  return {
+    monthlyIncomeUsd,
+    totalCount: nomadVisaRequirements.length,
+    eligibleCount: eligibleVisas.length,
+    eligibleVisas,
+    ineligibleVisas
+  };
+}
+function NomadVisaCalculator({ lang = "en" }) {
+  const [monthlyIncome, setMonthlyIncome] = useState(3800);
+  const result = checkNomadVisaEligibility(monthlyIncome);
+  return /* @__PURE__ */ jsxs("div", { className: "space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500", children: [
+    /* @__PURE__ */ jsxs("div", { className: "text-center max-w-3xl mx-auto space-y-3", children: [
+      /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold", children: [
+        /* @__PURE__ */ jsx(Globe, { className: "w-3.5 h-3.5" }),
+        /* @__PURE__ */ jsx("span", { children: "Dijital Göçebe Vize Gelir Uyum Testi" })
+      ] }),
+      /* @__PURE__ */ jsx("h2", { className: "text-3xl sm:text-4xl font-extrabold text-white tracking-tight", children: "Digital Nomad Visa Income Eligibility Checker" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm leading-relaxed", children: "Aylık net remote gelirinize göre İspanya, Portekiz, Dubai, Japonya, İtalya ve Yunanistan Dijital Göçebe Vizelerine başvurup başvuramayacağınızı anında öğrenin." })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 sm:p-8 rounded-3xl border-slate-800 space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "max-w-xl mx-auto space-y-2", children: [
+        /* @__PURE__ */ jsxs("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center justify-center space-x-1", children: [
+          /* @__PURE__ */ jsx(DollarSign, { className: "w-4 h-4 text-emerald-400" }),
+          /* @__PURE__ */ jsx("span", { children: "Aylık Düzenli Remote Geliriniz ($ USD)" })
+        ] }),
+        /* @__PURE__ */ jsx(
+          "input",
+          {
+            type: "number",
+            value: monthlyIncome,
+            onChange: (e) => setMonthlyIncome(Number(e.target.value)),
+            className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-4 text-white font-bold text-2xl text-center focus:border-emerald-500 outline-none"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "text-center", children: [
+        /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Uygun Bulunduğunuz Vize Sayısı" }),
+        /* @__PURE__ */ jsxs("div", { className: "text-4xl font-black text-emerald-400 mt-1", children: [
+          result.eligibleCount,
+          " / ",
+          result.totalCount,
+          " Ülke Vizesi Uyumlu"
+        ] })
+      ] }),
+      /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 pt-2", children: nomadVisaRequirements.map((visa) => {
+        const isEligible = monthlyIncome >= visa.minMonthlyIncomeUsd;
+        return /* @__PURE__ */ jsxs(
+          "div",
+          {
+            className: `p-5 rounded-2xl border transition flex items-center justify-between ${isEligible ? "bg-gradient-to-r from-emerald-950/30 to-slate-900 border-emerald-500/40" : "bg-slate-900/50 border-slate-800 opacity-60"}`,
+            children: [
+              /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+                /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-2", children: [
+                  /* @__PURE__ */ jsx("span", { className: "text-xl", children: visa.flag }),
+                  /* @__PURE__ */ jsxs("span", { className: "font-extrabold text-white text-base", children: [
+                    visa.country,
+                    " ",
+                    visa.visaName
+                  ] })
+                ] }),
+                /* @__PURE__ */ jsxs("div", { className: "text-xs text-slate-400", children: [
+                  "Gereken Min. Gelir: ",
+                  /* @__PURE__ */ jsxs("strong", { className: "text-slate-200", children: [
+                    "$",
+                    visa.minMonthlyIncomeUsd.toLocaleString(),
+                    " / ay"
+                  ] })
+                ] }),
+                /* @__PURE__ */ jsxs("div", { className: "text-[11px] text-emerald-400 font-medium", children: [
+                  "Avantaj: ",
+                  visa.taxPerk
+                ] })
+              ] }),
+              /* @__PURE__ */ jsx("div", { children: isEligible ? /* @__PURE__ */ jsxs("span", { className: "px-3 py-1.5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold border border-emerald-500/30 flex items-center space-x-1", children: [
+                /* @__PURE__ */ jsx(CheckCircle2, { className: "w-3.5 h-3.5" }),
+                /* @__PURE__ */ jsx("span", { children: "Uygun" })
+              ] }) : /* @__PURE__ */ jsxs("span", { className: "px-3 py-1.5 rounded-full bg-slate-800 text-slate-400 text-xs font-medium flex items-center space-x-1", children: [
+                /* @__PURE__ */ jsx(XCircle, { className: "w-3.5 h-3.5 text-rose-400" }),
+                /* @__PURE__ */ jsx("span", { children: "Yetersiz" })
+              ] }) })
+            ]
+          },
+          visa.id
+        );
+      }) })
+    ] })
+  ] });
+}
 const generateSeoSchema = ({ type, url, name, description, faqs = [], breadcrumbs = [] }) => {
   const baseSchema = {
     "@context": "https://schema.org"
@@ -5638,7 +6106,11 @@ const originCities = [
   { code: "DXB", name: "Dubai (UAE)", flag: "🇦🇪", effTax: 0 },
   { code: "TOR", name: "Toronto (Canada)", flag: "🇨🇦", effTax: 0.33 },
   { code: "SYD", name: "Sydney (Australia)", flag: "🇦🇺", effTax: 0.32 },
-  { code: "AUS", name: "Austin (US)", flag: "🇺🇸", effTax: 0.24 }
+  { code: "AUS", name: "Austin (US)", flag: "🇺🇸", effTax: 0.24 },
+  { code: "ZRH", name: "Zurich (Switzerland)", flag: "🇨🇭", effTax: 0.18 },
+  { code: "AMS", name: "Amsterdam (Netherlands)", flag: "🇳🇱", effTax: 0.37 },
+  { code: "SEO", name: "Seoul (South Korea)", flag: "🇰🇷", effTax: 0.24 },
+  { code: "WAR", name: "Warsaw (Poland)", flag: "🇵🇱", effTax: 0.19 }
 ];
 const destinationCities = [
   { code: "MAD", name: "Madrid (Spain)", flag: "🇪🇸", effTax: 0.15, costIndex: 60 },
@@ -5649,7 +6121,10 @@ const destinationCities = [
   { code: "BKK", name: "Bangkok (Thailand)", flag: "🇹🇭", effTax: 0.15, costIndex: 40 },
   { code: "MED", name: "Medellin (Colombia)", flag: "🇨🇴", effTax: 0.18, costIndex: 35 },
   { code: "BUE", name: "Buenos Aires (Argentina)", flag: "🇦🇷", effTax: 0.1, costIndex: 25 },
-  { code: "CPT", name: "Cape Town (South Africa)", flag: "🇿🇦", effTax: 0.2, costIndex: 45 }
+  { code: "CPT", name: "Cape Town (South Africa)", flag: "🇿🇦", effTax: 0.2, costIndex: 45 },
+  { code: "MEX", name: "Mexico City (Mexico)", flag: "🇲🇽", effTax: 0.22, costIndex: 42 },
+  { code: "TAL", name: "Tallinn (Estonia)", flag: "🇪🇪", effTax: 0.2, costIndex: 65 },
+  { code: "ATH", name: "Athens (Greece)", flag: "🇬🇷", effTax: 0.22, costIndex: 52 }
 ];
 const nomadStatuses = [
   { code: "nomad", label: "Digital Nomad", perk: "Special Tax Scheme / Beckham Law" },
@@ -5832,16 +6307,109 @@ function DynamicToolPage({ pageData, routeData, lang = "en" }) {
         /* @__PURE__ */ jsxs("h2", { className: "text-2xl font-bold text-white flex items-center space-x-3", children: [
           /* @__PURE__ */ jsx(Info, { className: "w-6 h-6 text-purple-400" }),
           /* @__PURE__ */ jsxs("span", { children: [
-            "Comprehensive Analysis: ",
-            isLlmTool ? `${modelA} vs ${modelB}` : `Moving to ${dest == null ? void 0 : dest.name}`
+            "Comprehensive Guide: ",
+            isLlmTool ? `${modelA.toUpperCase()} vs ${modelB.toUpperCase()} API Cost & Latency Benchmark` : `${origin == null ? void 0 : origin.name} to ${dest == null ? void 0 : dest.name} Remote ${status == null ? void 0 : status.label} Net Salary & Tax Breakdown`
           ] })
         ] }),
-        /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm", children: "Detailed insights and frequently asked questions about this specific comparison to help you make informed decisions." })
+        /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm", children: "Detailed financial metrics, legal tax compliance guidelines, and living cost index parity compiled from official sources." })
       ] }),
-      /* @__PURE__ */ jsx("div", { className: "space-y-8", children: faqs.map((faq2, index) => /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h3", { className: "text-lg font-semibold text-slate-200", children: faq2.question }),
-        /* @__PURE__ */ jsx("p", { className: "text-sm text-slate-400 leading-relaxed", children: faq2.answer })
-      ] }, index)) }),
+      /* @__PURE__ */ jsx("div", { className: "space-y-4 text-slate-300 text-sm leading-relaxed", children: !isLlmTool ? /* @__PURE__ */ jsxs(Fragment, { children: [
+        /* @__PURE__ */ jsxs("p", { children: [
+          "Relocating or working remotely from ",
+          /* @__PURE__ */ jsx("strong", { children: origin == null ? void 0 : origin.name }),
+          " to ",
+          /* @__PURE__ */ jsx("strong", { children: dest == null ? void 0 : dest.name }),
+          " involves significant tax structural shifts and purchasing power adjustments. Under the ",
+          /* @__PURE__ */ jsx("strong", { children: status == null ? void 0 : status.perk }),
+          ", remote workers can leverage favorable local income tax brackets. In ",
+          dest == null ? void 0 : dest.name,
+          ", the estimated baseline effective income tax rate is approximately ",
+          /* @__PURE__ */ jsxs("strong", { children: [
+            ((dest == null ? void 0 : dest.effTax) * 100).toFixed(1),
+            "%"
+          ] }),
+          ", compared to ",
+          /* @__PURE__ */ jsxs("strong", { children: [
+            ((origin == null ? void 0 : origin.effTax) * 100).toFixed(1),
+            "%"
+          ] }),
+          " in ",
+          origin == null ? void 0 : origin.name,
+          "."
+        ] }),
+        /* @__PURE__ */ jsxs("p", { children: [
+          "Adjusting for the local cost of living index (",
+          /* @__PURE__ */ jsx("strong", { children: dest == null ? void 0 : dest.costIndex }),
+          " relative to the US baseline of 100), your nominal take-home salary experiences a purchasing power multiplier of ",
+          /* @__PURE__ */ jsxs("strong", { children: [
+            purchasingPowerBoost,
+            "x"
+          ] }),
+          ". This means an annual gross compensation of $85,000 USD yields an estimated net take-home of ",
+          /* @__PURE__ */ jsxs("strong", { children: [
+            "$",
+            Math.round(destNet / 12).toLocaleString(),
+            " per month"
+          ] }),
+          " in ",
+          dest == null ? void 0 : dest.name,
+          ", unlocking higher discretionary savings for remote contractors and digital nomads."
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-slate-900 border border-slate-800 p-4 rounded-xl my-4", children: [
+          /* @__PURE__ */ jsx("h4", { className: "font-bold text-white mb-2", children: "Key Tax & Relocation Summary" }),
+          /* @__PURE__ */ jsxs("ul", { className: "list-disc list-inside space-y-1 text-slate-400 text-xs", children: [
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsxs("strong", { children: [
+                "Origin Base (",
+                origin == null ? void 0 : origin.name,
+                "):"
+              ] }),
+              " Effective Tax ~",
+              ((origin == null ? void 0 : origin.effTax) * 100).toFixed(0),
+              "%"
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsxs("strong", { children: [
+                "Destination Target (",
+                dest == null ? void 0 : dest.name,
+                "):"
+              ] }),
+              " Effective Tax ~",
+              ((dest == null ? void 0 : dest.effTax) * 100).toFixed(0),
+              "%"
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { children: "Applicable Tax Scheme:" }),
+              " ",
+              status == null ? void 0 : status.perk
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { children: "Real Purchasing Power Boost:" }),
+              " ",
+              purchasingPowerBoost,
+              "x"
+            ] })
+          ] })
+        ] })
+      ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
+        /* @__PURE__ */ jsxs("p", { children: [
+          "When architecting AI production systems for ",
+          /* @__PURE__ */ jsx("strong", { children: useCase == null ? void 0 : useCase.replace("-", " ") }),
+          ", choosing between ",
+          /* @__PURE__ */ jsx("strong", { children: modelA }),
+          " and ",
+          /* @__PURE__ */ jsx("strong", { children: modelB }),
+          " impacts monthly cloud API expenditure significantly. Model pricing is token-based (calculated per 1 Million input and output tokens)."
+        ] }),
+        /* @__PURE__ */ jsx("p", { children: "For high-throughput workloads, prompt caching, batch processing, and context window sizing play vital roles in overall cost optimization. Evaluating token ratios (typically 4:1 input to output ratio) ensures predictable monthly billing under SLAs." })
+      ] }) }),
+      /* @__PURE__ */ jsxs("div", { className: "space-y-8 pt-4 border-t border-slate-800", children: [
+        /* @__PURE__ */ jsx("h3", { className: "text-xl font-bold text-white", children: "Frequently Asked Questions" }),
+        faqs.map((faq2, index) => /* @__PURE__ */ jsxs("section", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("h4", { className: "text-base font-semibold text-slate-200", children: faq2.question }),
+          /* @__PURE__ */ jsx("p", { className: "text-sm text-slate-400 leading-relaxed", children: faq2.answer })
+        ] }, index))
+      ] }),
       /* @__PURE__ */ jsx("footer", { className: "pt-6 border-t border-slate-800 text-xs text-slate-500", children: /* @__PURE__ */ jsxs("p", { children: [
         /* @__PURE__ */ jsx("strong", { children: "Disclaimer:" }),
         " The figures provided on this page are automated estimates generated for ",
@@ -6063,7 +6631,7 @@ function ContentWrapper({ lang, t }) {
   const hasLangPrefix = supportedLanguages.some((l) => l.code === pathSegments[0]);
   const activeTab = hasLangPrefix ? pathSegments[1] || "take-home" : pathSegments[0] || "take-home";
   const basePath = hasLangPrefix ? `/${pathSegments[0]}` : "";
-  let pageTitle = "GlobalPayCalc: Global Remote Net Salary, Tax, FX & AI Cost Simulator";
+  let pageTitle = "GlobalPayCalc: Global Remote Net Salary, Expat Tax, FX & AI Cost Suite";
   let pageDesc = t("hero.subtitle");
   if (activeTab === "take-home") {
     pageTitle = "Global Net Take-Home Salary & Tax Calculator | US, UK, DE, TR | GlobalPayCalc";
@@ -6074,6 +6642,18 @@ function ContentWrapper({ lang, t }) {
   } else if (activeTab === "hourly-rate") {
     pageTitle = "Freelancer Minimum Hourly Rate Calculator | Target Net Income & Expenses";
     pageDesc = "Calculate minimum required hourly and daily billing rate based on annual target income, taxes, and billable hours.";
+  } else if (activeTab === "beckham-law") {
+    pageTitle = "Expat & Beckham Law Tax Savings Calculator | Spain, Portugal, Italy, Dubai";
+    pageDesc = "Calculate expat tax exemptions under Spain Beckham Law (24%), Portugal IFICI, Italy 70% Impatriati, and Dubai 0% tax.";
+  } else if (activeTab === "crypto-tax") {
+    pageTitle = "Crypto & USDT Remote Salary Tax Estimator | Capital Gains vs Income Tax";
+    pageDesc = "Calculate tax liabilities for remote salaries paid in USDT, USDC, or ETH across US, UK, Germany, Turkey, and Dubai.";
+  } else if (activeTab === "eor-cost") {
+    pageTitle = "Employer of Record (EOR) vs Entity Setup Cost Estimator | Deel vs Local Entity";
+    pageDesc = "Calculate breakeven point between paying Deel/Remote $599/mo per seat vs incorporating a local subsidiary.";
+  } else if (activeTab === "nomad-visa") {
+    pageTitle = "Digital Nomad Visa Financial Income Eligibility Checker | 10+ Countries";
+    pageDesc = "Check monthly minimum income eligibility for Digital Nomad Visas in Spain, Portugal, Dubai, Japan, Italy, and Greece.";
   } else if (activeTab === "inflation") {
     pageTitle = "Inflation & Salary Purchasing Power Loss Calculator | GlobalPayCalc";
     pageDesc = "Calculate real salary erosion and required raise percentage based on country inflation rates.";
@@ -6131,6 +6711,22 @@ function ContentWrapper({ lang, t }) {
           /* @__PURE__ */ jsx(UserCheck, { className: "w-3.5 h-3.5 text-emerald-400" }),
           /* @__PURE__ */ jsx("span", { children: "Saatlik Ücret" })
         ] }),
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/beckham-law`, title: "Expat & Beckham Law Tax Savings Calculator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "beckham-law" ? "bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(Award, { className: "w-3.5 h-3.5 text-rose-400" }),
+          /* @__PURE__ */ jsx("span", { children: "Beckham Law" })
+        ] }),
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/crypto-tax`, title: "Crypto & USDT Remote Salary Tax Estimator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "crypto-tax" ? "bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(Cpu, { className: "w-3.5 h-3.5 text-cyan-400" }),
+          /* @__PURE__ */ jsx("span", { children: "Kripto Maaş" })
+        ] }),
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/nomad-visa`, title: "Digital Nomad Visa Financial Income Eligibility Checker", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "nomad-visa" ? "bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(Globe, { className: "w-3.5 h-3.5 text-emerald-400" }),
+          /* @__PURE__ */ jsx("span", { children: "Göçebe Vize Testi" })
+        ] }),
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/eor-cost`, title: "Employer of Record (EOR) vs Entity Setup Cost Estimator", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "eor-cost" ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(Building2, { className: "w-3.5 h-3.5 text-purple-400" }),
+          /* @__PURE__ */ jsx("span", { children: "EOR Maliyeti" })
+        ] }),
         /* @__PURE__ */ jsxs(Link, { to: `${basePath}/salary`, title: "Calculate remote net salary and tax parity", className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === "salary" ? "bg-slate-800 text-white border-slate-700" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(Globe, { className: "w-3.5 h-3.5 text-amber-400" }),
           /* @__PURE__ */ jsx("span", { children: t("nav.salary") })
@@ -6166,6 +6762,10 @@ function ContentWrapper({ lang, t }) {
       /* @__PURE__ */ jsx(Route, { path: "/take-home", element: /* @__PURE__ */ jsx(GlobalTakeHomeCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/contractor", element: /* @__PURE__ */ jsx(ContractorVsPermCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/hourly-rate", element: /* @__PURE__ */ jsx(FreelancerRateCalculator, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/beckham-law", element: /* @__PURE__ */ jsx(BeckhamLawCalculator, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/crypto-tax", element: /* @__PURE__ */ jsx(CryptoTaxCalculator, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/eor-cost", element: /* @__PURE__ */ jsx(EorCostCalculator, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/nomad-visa", element: /* @__PURE__ */ jsx(NomadVisaCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/inflation", element: /* @__PURE__ */ jsx(InflationCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/fx-fees", element: /* @__PURE__ */ jsx(HiddenFxFeeCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/vat", element: /* @__PURE__ */ jsx(GlobalInvoiceVatCalculator, { lang }) }),
@@ -6184,6 +6784,10 @@ function ContentWrapper({ lang, t }) {
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/take-home`, element: /* @__PURE__ */ jsx(GlobalTakeHomeCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/contractor`, element: /* @__PURE__ */ jsx(ContractorVsPermCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/hourly-rate`, element: /* @__PURE__ */ jsx(FreelancerRateCalculator, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/beckham-law`, element: /* @__PURE__ */ jsx(BeckhamLawCalculator, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/crypto-tax`, element: /* @__PURE__ */ jsx(CryptoTaxCalculator, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/eor-cost`, element: /* @__PURE__ */ jsx(EorCostCalculator, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/nomad-visa`, element: /* @__PURE__ */ jsx(NomadVisaCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/inflation`, element: /* @__PURE__ */ jsx(InflationCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/fx-fees`, element: /* @__PURE__ */ jsx(HiddenFxFeeCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/vat`, element: /* @__PURE__ */ jsx(GlobalInvoiceVatCalculator, { lang: l.code }) }),
@@ -6279,12 +6883,16 @@ function render(url) {
   return { html, helmet: helmetContext.helmet };
 }
 function getRoutes() {
-  const routes = ["", "/take-home", "/contractor", "/hourly-rate", "/salary", "/inflation", "/fx-fees", "/vat", "/timezone", "/wasm", "/ai", "/admin", "/privacy", "/terms", "/about", "/contact"];
+  const routes = ["", "/take-home", "/contractor", "/hourly-rate", "/beckham-law", "/crypto-tax", "/eor-cost", "/nomad-visa", "/salary", "/inflation", "/fx-fees", "/vat", "/timezone", "/wasm", "/ai", "/admin", "/privacy", "/terms", "/about", "/contact"];
   for (const lang of supportedLanguages) {
     routes.push(`/${lang.code}`);
     routes.push(`/${lang.code}/take-home`);
     routes.push(`/${lang.code}/contractor`);
     routes.push(`/${lang.code}/hourly-rate`);
+    routes.push(`/${lang.code}/beckham-law`);
+    routes.push(`/${lang.code}/crypto-tax`);
+    routes.push(`/${lang.code}/eor-cost`);
+    routes.push(`/${lang.code}/nomad-visa`);
     routes.push(`/${lang.code}/salary`);
     routes.push(`/${lang.code}/inflation`);
     routes.push(`/${lang.code}/fx-fees`);

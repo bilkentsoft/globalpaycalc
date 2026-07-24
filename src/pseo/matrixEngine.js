@@ -1,4 +1,4 @@
-// 3D Programmatic SEO Matrix Generator (Expanded with Global Cities)
+// 3D & 4D Programmatic SEO Matrix Generator (Expanded to 10,000+ Indexable URLs)
 export const originCities = [
   { code: 'SF', name: 'San Francisco (US)', flag: '🇺🇸', effTax: 0.35 },
   { code: 'NYC', name: 'New York City (US)', flag: '🇺🇸', effTax: 0.38 },
@@ -9,7 +9,11 @@ export const originCities = [
   { code: 'DXB', name: 'Dubai (UAE)', flag: '🇦🇪', effTax: 0.00 },
   { code: 'TOR', name: 'Toronto (Canada)', flag: '🇨🇦', effTax: 0.33 },
   { code: 'SYD', name: 'Sydney (Australia)', flag: '🇦🇺', effTax: 0.32 },
-  { code: 'AUS', name: 'Austin (US)', flag: '🇺🇸', effTax: 0.24 }
+  { code: 'AUS', name: 'Austin (US)', flag: '🇺🇸', effTax: 0.24 },
+  { code: 'ZRH', name: 'Zurich (Switzerland)', flag: '🇨🇭', effTax: 0.18 },
+  { code: 'AMS', name: 'Amsterdam (Netherlands)', flag: '🇳🇱', effTax: 0.37 },
+  { code: 'SEO', name: 'Seoul (South Korea)', flag: '🇰🇷', effTax: 0.24 },
+  { code: 'WAR', name: 'Warsaw (Poland)', flag: '🇵🇱', effTax: 0.19 }
 ];
 
 export const destinationCities = [
@@ -21,7 +25,10 @@ export const destinationCities = [
   { code: 'BKK', name: 'Bangkok (Thailand)', flag: '🇹🇭', effTax: 0.15, costIndex: 40 },
   { code: 'MED', name: 'Medellin (Colombia)', flag: '🇨🇴', effTax: 0.18, costIndex: 35 },
   { code: 'BUE', name: 'Buenos Aires (Argentina)', flag: '🇦🇷', effTax: 0.10, costIndex: 25 },
-  { code: 'CPT', name: 'Cape Town (South Africa)', flag: '🇿🇦', effTax: 0.20, costIndex: 45 }
+  { code: 'CPT', name: 'Cape Town (South Africa)', flag: '🇿🇦', effTax: 0.20, costIndex: 45 },
+  { code: 'MEX', name: 'Mexico City (Mexico)', flag: '🇲🇽', effTax: 0.22, costIndex: 42 },
+  { code: 'TAL', name: 'Tallinn (Estonia)', flag: '🇪🇪', effTax: 0.20, costIndex: 65 },
+  { code: 'ATH', name: 'Athens (Greece)', flag: '🇬🇷', effTax: 0.22, costIndex: 52 }
 ];
 
 export const nomadStatuses = [
@@ -52,7 +59,7 @@ export const generatePseoTaxMatrix = () => {
   return routes;
 };
 
-// Generates 2D pSEO routes for LLM Comparison tool (expanded with next-gen models)
+// Generates 2D pSEO routes for LLM Comparison tool
 export const generatePseoLlmMatrix = () => {
   const models = [
     'gpt4o', 'claude35', 'gemini15pro', 'llama31', 'gpt4o-mini', 'mistral-large',

@@ -3,9 +3,10 @@ import { Calculator } from 'lucide-react';
 import { supportedLanguages, getTranslation } from '../i18n';
 import { useNavigate } from 'react-router-dom';
 
-export default function Header({ currentLang, setLang }) {
+export default function Header({ currentLang, setLang, onLanguageChange }) {
   const t = (path) => getTranslation(currentLang, path);
   const navigate = useNavigate();
+  const changeLang = setLang || onLanguageChange;
 
   return (
     <header className="sticky top-0 z-50 glass-card border-b border-slate-800/80 px-4 lg:px-8 py-3.5">
@@ -31,7 +32,7 @@ export default function Header({ currentLang, setLang }) {
             value={currentLang}
             onChange={(e) => {
               const newLang = e.target.value;
-              setLang(newLang);
+              if (changeLang) changeLang(newLang);
               
               // Handle Navigation
               const pathSegments = window.location.pathname.split('/').filter(Boolean);

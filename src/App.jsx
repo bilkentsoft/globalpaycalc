@@ -14,6 +14,10 @@ import GlobalInvoiceVatCalculator from './components/GlobalInvoiceVatCalculator'
 import FreelancerRateCalculator from './components/FreelancerRateCalculator';
 import InflationCalculator from './components/InflationCalculator';
 import TimezoneOverlapCalculator from './components/TimezoneOverlapCalculator';
+import BeckhamLawCalculator from './components/BeckhamLawCalculator';
+import CryptoTaxCalculator from './components/CryptoTaxCalculator';
+import EorCostCalculator from './components/EorCostCalculator';
+import NomadVisaCalculator from './components/NomadVisaCalculator';
 import ProgrammaticSeoGrid from './components/ProgrammaticSeoGrid';
 import AdminDashboard from './components/AdminDashboard';
 import NotFoundPage from './pages/NotFoundPage';
@@ -24,7 +28,7 @@ import { CookieConsent } from './components/CookieConsent';
 import { getTranslation, supportedLanguages } from './i18n';
 import { detectUserLanguage } from './utils/langDetector';
 import { trackPageView } from './utils/analyticsTracker';
-import { Sparkles, Globe, Image, DollarSign, Briefcase, ArrowRightLeft, FileText, Clock, TrendingDown, UserCheck } from 'lucide-react';
+import { Sparkles, Globe, Image, DollarSign, Briefcase, ArrowRightLeft, FileText, Clock, TrendingDown, UserCheck, Award, Cpu, Building2 } from 'lucide-react';
 import { generatePseoTaxMatrix, generatePseoLlmMatrix } from './pseo/matrixEngine';
 
 function ContentWrapper({ lang, t }) {
@@ -37,7 +41,7 @@ function ContentWrapper({ lang, t }) {
   const basePath = hasLangPrefix ? `/${pathSegments[0]}` : '';
 
   // Get active route data for dynamic meta
-  let pageTitle = 'GlobalPayCalc: Global Remote Net Salary, Tax, FX & AI Cost Simulator';
+  let pageTitle = 'GlobalPayCalc: Global Remote Net Salary, Expat Tax, FX & AI Cost Suite';
   let pageDesc = t('hero.subtitle');
 
   if (activeTab === 'take-home') {
@@ -49,6 +53,18 @@ function ContentWrapper({ lang, t }) {
   } else if (activeTab === 'hourly-rate') {
     pageTitle = "Freelancer Minimum Hourly Rate Calculator | Target Net Income & Expenses";
     pageDesc = "Calculate minimum required hourly and daily billing rate based on annual target income, taxes, and billable hours.";
+  } else if (activeTab === 'beckham-law') {
+    pageTitle = "Expat & Beckham Law Tax Savings Calculator | Spain, Portugal, Italy, Dubai";
+    pageDesc = "Calculate expat tax exemptions under Spain Beckham Law (24%), Portugal IFICI, Italy 70% Impatriati, and Dubai 0% tax.";
+  } else if (activeTab === 'crypto-tax') {
+    pageTitle = "Crypto & USDT Remote Salary Tax Estimator | Capital Gains vs Income Tax";
+    pageDesc = "Calculate tax liabilities for remote salaries paid in USDT, USDC, or ETH across US, UK, Germany, Turkey, and Dubai.";
+  } else if (activeTab === 'eor-cost') {
+    pageTitle = "Employer of Record (EOR) vs Entity Setup Cost Estimator | Deel vs Local Entity";
+    pageDesc = "Calculate breakeven point between paying Deel/Remote $599/mo per seat vs incorporating a local subsidiary.";
+  } else if (activeTab === 'nomad-visa') {
+    pageTitle = "Digital Nomad Visa Financial Income Eligibility Checker | 10+ Countries";
+    pageDesc = "Check monthly minimum income eligibility for Digital Nomad Visas in Spain, Portugal, Dubai, Japan, Italy, and Greece.";
   } else if (activeTab === 'inflation') {
     pageTitle = "Inflation & Salary Purchasing Power Loss Calculator | GlobalPayCalc";
     pageDesc = "Calculate real salary erosion and required raise percentage based on country inflation rates.";
@@ -122,6 +138,22 @@ function ContentWrapper({ lang, t }) {
               <UserCheck className="w-3.5 h-3.5 text-emerald-400" />
               <span>Saatlik Ücret</span>
             </Link>
+            <Link to={`${basePath}/beckham-law`} title="Expat & Beckham Law Tax Savings Calculator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'beckham-law' ? 'bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <Award className="w-3.5 h-3.5 text-rose-400" />
+              <span>Beckham Law</span>
+            </Link>
+            <Link to={`${basePath}/crypto-tax`} title="Crypto & USDT Remote Salary Tax Estimator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'crypto-tax' ? 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <Cpu className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Kripto Maaş</span>
+            </Link>
+            <Link to={`${basePath}/nomad-visa`} title="Digital Nomad Visa Financial Income Eligibility Checker" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'nomad-visa' ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <Globe className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Göçebe Vize Testi</span>
+            </Link>
+            <Link to={`${basePath}/eor-cost`} title="Employer of Record (EOR) vs Entity Setup Cost Estimator" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'eor-cost' ? 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <Building2 className="w-3.5 h-3.5 text-purple-400" />
+              <span>EOR Maliyeti</span>
+            </Link>
             <Link to={`${basePath}/salary`} title="Calculate remote net salary and tax parity" className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${activeTab === 'salary' ? 'bg-slate-800 text-white border-slate-700' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Globe className="w-3.5 h-3.5 text-amber-400" />
               <span>{t('nav.salary')}</span>
@@ -161,6 +193,10 @@ function ContentWrapper({ lang, t }) {
           <Route path="/take-home" element={<GlobalTakeHomeCalculator lang={lang} />} />
           <Route path="/contractor" element={<ContractorVsPermCalculator lang={lang} />} />
           <Route path="/hourly-rate" element={<FreelancerRateCalculator lang={lang} />} />
+          <Route path="/beckham-law" element={<BeckhamLawCalculator lang={lang} />} />
+          <Route path="/crypto-tax" element={<CryptoTaxCalculator lang={lang} />} />
+          <Route path="/eor-cost" element={<EorCostCalculator lang={lang} />} />
+          <Route path="/nomad-visa" element={<NomadVisaCalculator lang={lang} />} />
           <Route path="/inflation" element={<InflationCalculator lang={lang} />} />
           <Route path="/fx-fees" element={<HiddenFxFeeCalculator lang={lang} />} />
           <Route path="/vat" element={<GlobalInvoiceVatCalculator lang={lang} />} />
@@ -183,6 +219,10 @@ function ContentWrapper({ lang, t }) {
               <Route path={`/${l.code}/take-home`} element={<GlobalTakeHomeCalculator lang={l.code} />} />
               <Route path={`/${l.code}/contractor`} element={<ContractorVsPermCalculator lang={l.code} />} />
               <Route path={`/${l.code}/hourly-rate`} element={<FreelancerRateCalculator lang={l.code} />} />
+              <Route path={`/${l.code}/beckham-law`} element={<BeckhamLawCalculator lang={l.code} />} />
+              <Route path={`/${l.code}/crypto-tax`} element={<CryptoTaxCalculator lang={l.code} />} />
+              <Route path={`/${l.code}/eor-cost`} element={<EorCostCalculator lang={l.code} />} />
+              <Route path={`/${l.code}/nomad-visa`} element={<NomadVisaCalculator lang={l.code} />} />
               <Route path={`/${l.code}/inflation`} element={<InflationCalculator lang={l.code} />} />
               <Route path={`/${l.code}/fx-fees`} element={<HiddenFxFeeCalculator lang={l.code} />} />
               <Route path={`/${l.code}/vat`} element={<GlobalInvoiceVatCalculator lang={l.code} />} />
@@ -254,6 +294,10 @@ function ContentWrapper({ lang, t }) {
         </Routes>
       </div>
 
+      {activeTab !== 'admin' && !location.pathname.includes('/calculator/') && !location.pathname.includes('/tools/') && (
+        <ToolSeoArticle activeTool={activeTab} lang={lang} />
+      )}
+
       {activeTab !== 'admin' && (
         <div className="space-y-8 mt-12">
           <AdSenseSlot slotId="content-bottom" />
@@ -290,12 +334,4 @@ export default function App() {
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-brand-500 selection:text-white">
       <Header currentLang={lang} onLanguageChange={setLang} />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <ContentWrapper lang={lang} t={t} />
-      </main>
-
-      <Footer lang={lang} />
-      <CookieConsent lang={lang} />
-    </div>
-  );
-}
+      <main className="flex-1 m
