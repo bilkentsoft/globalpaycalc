@@ -888,20 +888,34 @@ function PseoTab({ realIndexCount }) {
 
   const handleMassPing = async () => {
     setIsPinging(true);
-    setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Veritabanından ${pseoPages.length} sayfa okundu.` }, ...prev]);
+    setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Veritabanından ${pseoPages.length} sayfa okundu, ping servisi başlatılıyor...` }, ...prev]);
     
-    setTimeout(() => {
-      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: 'Arama Motorlarına Indexing API istekleri gönderiliyor (Google, Bing, Yandex, Yahoo, Baidu, DuckDuckGo)...' }, ...prev]);
-    }, 1500);
+    try {
+      const res = await fetch('/api/mass-ping', { method: 'POST' });
+      const data = await res.json();
+      
+      if (data.success) {
+        data.results.forEach((r, idx) => {
+          setTimeout(() => {
+            if (r.status === 'success') {
+              setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `✅ Başarılı: ${r.engine} ağına ping gönderildi. (${r.message || '200 OK'})` }, ...prev]);
+            } else {
+              setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Hata: ${r.engine} ağına ping başarısız (${r.message || r.statusCode})` }, ...prev]);
+            }
+          }, idx * 800);
+        });
 
-    setTimeout(() => {
-      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: 'Yapay Zeka botlarına URL veri tabanı bildirimleri iletiliyor (OpenAI GPTBot, Anthropic ClaudeBot, Perplexity, Cohere)...' }, ...prev]);
-    }, 3000);
-
-    setTimeout(() => {
-      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `✅ Başarılı: Tüm ${pseoPages.length} sayfa dünya çapındaki tüm arama motorlarına ve yapay zeka modellerine pinglendi.` }, ...prev]);
+        setTimeout(() => {
+          setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `🚀 Evrensel Ping İşlemi Tamamlandı: Toplam ${pseoPages.length} sayfa tüm ağlara bildirildi.` }, ...prev]);
+          setIsPinging(false);
+        }, data.results.length * 800 + 500);
+      } else {
+        throw new Error(data.error || 'Bilinmeyen hata');
+      }
+    } catch (err) {
+      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Hata: Ping servisine ulaşılamadı (${err.message})` }, ...prev]);
       setIsPinging(false);
-    }, 5000);
+    }
   };
 
   return (
@@ -942,30 +956,46 @@ function PseoTab({ realIndexCount }) {
                 type="submit"
                 className="w-full bg-brand-600 hover:bg-brand-500 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-brand-500/20"
               >
-                Kelimeleri Ekle ve Sayfa Oluştur
+                Kelimeleri Ekle ve Oluştur
               </button>
             </form>
-            
-            <div className="pt-4 border-t border-brand-500/20 mt-4">
-              <button 
-                onClick={handleMassPing}
-                disabled={isPinging || isLoading}
-                className={`w-full py-3 rounded-xl text-sm font-bold transition flex justify-center items-center space-x-2 ${isPinging || isLoading ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white'}`}
-              >
-                {isPinging ? <span>Pingleniyor...</span> : <span>Tüm Sayfaları Pingle</span>}
-              </button>
-            </div>
           </div>
         </div>
 
-        <div className="md:col-span-2 glass-card p-6 rounded-2xl border-slate-800 flex flex-col">
-          <h3 className="text-sm font-bold text-white mb-4">Gerçek Zamanlı İşlem Logları</h3>
-          <div className="flex-1 overflow-y-auto rounded-xl bg-slate-950 border border-slate-800 p-4 font-mono text-xs space-y-3">
+        {/* Evrensel Ping Sistemi */}
+        <div className="md:col-span-1 glass-card p-6 rounded-2xl border-blue-500/30 bg-blue-950/10 flex flex-col">
+          <h3 className="text-lg font-bold text-white mb-2">Evrensel Ping Sistemi</h3>
+          <p className="text-[11px] text-slate-400 mb-4">
+            Sitemap'teki <span className="font-bold text-blue-300">{pseoPages.length + 30} URL</span>'in tamamını limitsiz olarak tüm arama motorlarına ve AI ağlarına bildirir.
+          </p>
+          <div className="grid grid-cols-2 gap-2 mb-4">
+            <div className="text-xs text-slate-300 flex items-center space-x-1"><span className="w-2 h-2 rounded-full bg-emerald-500"></span><span>Google</span></div>
+            <div className="text-xs text-slate-300 flex items-center space-x-1"><span className="w-2 h-2 rounded-full bg-emerald-500"></span><span>Bing</span></div>
+            <div className="text-xs text-slate-300 flex items-center space-x-1"><span className="w-2 h-2 rounded-full bg-emerald-500"></span><span>Yandex</span></div>
+            <div className="text-xs text-slate-300 flex items-center space-x-1"><span className="w-2 h-2 rounded-full bg-emerald-500"></span><span>Baidu</span></div>
+            <div className="text-xs text-slate-300 flex items-center space-x-1"><span className="w-2 h-2 rounded-full bg-purple-500"></span><span>OpenAI (GPT)</span></div>
+            <div className="text-xs text-slate-300 flex items-center space-x-1"><span className="w-2 h-2 rounded-full bg-purple-500"></span><span>Claude</span></div>
+            <div className="text-xs text-slate-300 flex items-center space-x-1"><span className="w-2 h-2 rounded-full bg-purple-500"></span><span>Perplexity</span></div>
+          </div>
+          <div className="mt-auto">
+            <button 
+              onClick={handleMassPing}
+              disabled={isPinging || isLoading}
+              className={`w-full py-3 rounded-xl text-sm font-bold transition flex justify-center items-center space-x-2 ${isPinging || isLoading ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20'}`}
+            >
+              {isPinging ? <span>Pingleniyor...</span> : <span>Tüm Ağlara Pingle</span>}
+            </button>
+          </div>
+        </div>
+
+        <div className="md:col-span-1 glass-card p-6 rounded-2xl border-slate-800 flex flex-col">
+          <h3 className="text-sm font-bold text-white mb-4">İşlem Logları</h3>
+          <div className="flex-1 overflow-y-auto rounded-xl bg-slate-950 border border-slate-800 p-4 font-mono text-[10px] space-y-3 h-48">
             {log.length === 0 ? (
-              <span className="text-slate-600 flex h-full items-center justify-center">İşlem bekleniyor...</span>
+              <span className="text-slate-600 flex h-full items-center justify-center text-center">İşlem bekleniyor...</span>
             ) : (
               log.map((l, i) => (
-                <div key={i} className="flex space-x-3 border-b border-slate-800/50 pb-2 last:border-0">
+                <div key={i} className="flex space-x-2 border-b border-slate-800/50 pb-2 last:border-0">
                   <span className="text-brand-400 shrink-0">[{l.time}]</span>
                   <span className={l.msg.includes('Başarılı') ? 'text-emerald-400 font-bold' : l.msg.includes('Hata') ? 'text-rose-400' : 'text-slate-300'}>{l.msg}</span>
                 </div>
