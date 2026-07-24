@@ -7,7 +7,10 @@ import AdSenseSlot from './components/AdSenseSlot';
 import NomadTaxCalculator from './components/NomadTaxCalculator';
 import DevTokenCalculator from './components/DevTokenCalculator';
 import QuickWasmCompressor from './components/QuickWasmCompressor';
-import SocialVideoDownloader from './components/SocialVideoDownloader';
+import GlobalTakeHomeCalculator from './components/GlobalTakeHomeCalculator';
+import ContractorVsPermCalculator from './components/ContractorVsPermCalculator';
+import HiddenFxFeeCalculator from './components/HiddenFxFeeCalculator';
+import GlobalInvoiceVatCalculator from './components/GlobalInvoiceVatCalculator';
 import ProgrammaticSeoGrid from './components/ProgrammaticSeoGrid';
 import AdminDashboard from './components/AdminDashboard';
 import NotFoundPage from './pages/NotFoundPage';
@@ -18,7 +21,7 @@ import { CookieConsent } from './components/CookieConsent';
 import { getTranslation, supportedLanguages } from './i18n';
 import { detectUserLanguage } from './utils/langDetector';
 import { trackPageView } from './utils/analyticsTracker';
-import { Sparkles, Video, Globe, Zap, Image } from 'lucide-react';
+import { Sparkles, Globe, Image, DollarSign, Briefcase, ArrowRightLeft, FileText } from 'lucide-react';
 import { generatePseoTaxMatrix, generatePseoLlmMatrix } from './pseo/matrixEngine';
 
 function ContentWrapper({ lang, t }) {
@@ -27,14 +30,26 @@ function ContentWrapper({ lang, t }) {
   
   // Ignore language prefix for routing tab highlighting
   const hasLangPrefix = supportedLanguages.some(l => l.code === pathSegments[0]);
-  const activeTab = hasLangPrefix ? (pathSegments[1] || 'salary') : (pathSegments[0] || 'salary');
+  const activeTab = hasLangPrefix ? (pathSegments[1] || 'take-home') : (pathSegments[0] || 'take-home');
   const basePath = hasLangPrefix ? `/${pathSegments[0]}` : '';
 
   // Get active route data for dynamic meta
-  let pageTitle = 'GlobalPayCalc: Global Remote Salary, Tax & AI Cost Simulator';
+  let pageTitle = 'GlobalPayCalc: Global Remote Net Salary, Tax, FX & AI Cost Simulator';
   let pageDesc = t('hero.subtitle');
 
-  if (activeTab === 'salary' || activeTab === 'video') {
+  if (activeTab === 'take-home') {
+    pageTitle = "Global Net Take-Home Salary & Tax Calculator | US, UK, DE, TR | GlobalPayCalc";
+    pageDesc = "Calculate net take-home salary after federal/state income tax, social security, and FICA deductions across 40+ countries.";
+  } else if (activeTab === 'contractor') {
+    pageTitle = "Full-Time vs Contractor / Freelance Equivalence Calculator (W-2 vs 1099, IR35)";
+    pageDesc = "Compare W-2 salaried offer vs 1099 contractor billing rate. Factor in PTO, health insurance, and SE taxes accurately.";
+  } else if (activeTab === 'fx-fees') {
+    pageTitle = "Real FX Rate & Hidden Bank Fee Estimator (Wise vs SWIFT vs PayPal vs Stripe)";
+    pageDesc = "Calculate real mid-market exchange rate vs hidden bank FX markups and transfer fees for international cross-border payments.";
+  } else if (activeTab === 'vat') {
+    pageTitle = "Global Invoice & VAT / Sales Tax Calculator | Cross-Border Reverse Charge";
+    pageDesc = "Calculate net, VAT/GST amount, and gross invoice total. Includes B2B cross-border Reverse Charge 0% export exemption.";
+  } else if (activeTab === 'salary') {
     pageTitle = "Remote Salary Calculator & Global Tax Parity Estimator | GlobalPayCalc";
     pageDesc = "Calculate net remote salaries across 150+ countries. Compare purchasing power, cost of living, and nomad tax laws instantly.";
   } else if (activeTab === 'wasm') {
@@ -83,16 +98,32 @@ function ContentWrapper({ lang, t }) {
           </p>
 
           <div className="flex flex-wrap justify-center gap-2 pt-2">
-            <Link to={`${basePath}/salary`} title="Calculate remote net salary and tax parity" className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'salary' || activeTab === 'video' ? 'bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <Globe className="w-3.5 h-3.5" />
+            <Link to={`${basePath}/take-home`} title="Global Net Take-Home Salary & Tax Calculator" className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'take-home' || activeTab === 'video' ? 'bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
+              <span>{t('nav.takeHome')}</span>
+            </Link>
+            <Link to={`${basePath}/contractor`} title="Full-Time vs Contractor Equivalence Calculator" className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'contractor' ? 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <Briefcase className="w-3.5 h-3.5 text-cyan-400" />
+              <span>{t('nav.contractor')}</span>
+            </Link>
+            <Link to={`${basePath}/fx-fees`} title="Real FX Rate & Hidden Bank Fee Estimator" className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'fx-fees' ? 'bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <ArrowRightLeft className="w-3.5 h-3.5 text-rose-400" />
+              <span>{t('nav.fxFees')}</span>
+            </Link>
+            <Link to={`${basePath}/vat`} title="Global Invoice & VAT / Sales Tax Calculator" className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'vat' ? 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <FileText className="w-3.5 h-3.5 text-purple-400" />
+              <span>{t('nav.vat')}</span>
+            </Link>
+            <Link to={`${basePath}/salary`} title="Calculate remote net salary and tax parity" className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'salary' ? 'bg-slate-800 text-white border-slate-700' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <Globe className="w-3.5 h-3.5 text-amber-400" />
               <span>{t('nav.salary')}</span>
             </Link>
-            <Link to={`${basePath}/ai`} title="LLM API token cost simulator" className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'ai' ? 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+            <Link to={`${basePath}/ai`} title="LLM API token cost simulator" className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'ai' ? 'bg-slate-800 text-white border-slate-700' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               <span>{t('nav.aiCost')}</span>
             </Link>
-            <Link to={`${basePath}/wasm`} title="Client-side AI image background remover" className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'wasm' ? 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
-              <Image className="w-3.5 h-3.5" />
+            <Link to={`${basePath}/wasm`} title="Client-side AI image background remover" className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === 'wasm' ? 'bg-slate-800 text-white border-slate-700' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}>
+              <Image className="w-3.5 h-3.5 text-cyan-400" />
               <span>{t('nav.bgRemover')}</span>
             </Link>
           </div>
@@ -102,11 +133,15 @@ function ContentWrapper({ lang, t }) {
 
       <div className="pt-4">
         <Routes>
-          <Route path="/" element={<NomadTaxCalculator lang={lang} />} />
-          <Route path="/video" element={<NomadTaxCalculator lang={lang} />} />
-          <Route path="/wasm" element={<QuickWasmCompressor lang={lang} />} />
+          <Route path="/" element={<GlobalTakeHomeCalculator lang={lang} />} />
+          <Route path="/take-home" element={<GlobalTakeHomeCalculator lang={lang} />} />
+          <Route path="/contractor" element={<ContractorVsPermCalculator lang={lang} />} />
+          <Route path="/fx-fees" element={<HiddenFxFeeCalculator lang={lang} />} />
+          <Route path="/vat" element={<GlobalInvoiceVatCalculator lang={lang} />} />
           <Route path="/salary" element={<NomadTaxCalculator lang={lang} />} />
           <Route path="/ai" element={<DevTokenCalculator lang={lang} />} />
+          <Route path="/wasm" element={<QuickWasmCompressor lang={lang} />} />
+          <Route path="/video" element={<GlobalTakeHomeCalculator lang={lang} />} />
           <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           
           <Route path="/privacy" element={<PrivacyPolicy />} />
@@ -117,11 +152,15 @@ function ContentWrapper({ lang, t }) {
           {/* Lang Routes */}
           {supportedLanguages.map(l => (
             <React.Fragment key={l.code}>
-              <Route path={`/${l.code}`} element={<NomadTaxCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/video`} element={<NomadTaxCalculator lang={l.code} />} />
-              <Route path={`/${l.code}/wasm`} element={<QuickWasmCompressor lang={l.code} />} />
+              <Route path={`/${l.code}`} element={<GlobalTakeHomeCalculator lang={l.code} />} />
+              <Route path={`/${l.code}/take-home`} element={<GlobalTakeHomeCalculator lang={l.code} />} />
+              <Route path={`/${l.code}/contractor`} element={<ContractorVsPermCalculator lang={l.code} />} />
+              <Route path={`/${l.code}/fx-fees`} element={<HiddenFxFeeCalculator lang={l.code} />} />
+              <Route path={`/${l.code}/vat`} element={<GlobalInvoiceVatCalculator lang={l.code} />} />
               <Route path={`/${l.code}/salary`} element={<NomadTaxCalculator lang={l.code} />} />
               <Route path={`/${l.code}/ai`} element={<DevTokenCalculator lang={l.code} />} />
+              <Route path={`/${l.code}/wasm`} element={<QuickWasmCompressor lang={l.code} />} />
+              <Route path={`/${l.code}/video`} element={<GlobalTakeHomeCalculator lang={l.code} />} />
               
               <Route path={`/${l.code}/privacy`} element={<PrivacyPolicy lang={l.code} />} />
               <Route path={`/${l.code}/terms`} element={<TermsOfService lang={l.code} />} />
@@ -139,7 +178,7 @@ function ContentWrapper({ lang, t }) {
                     <title>{route.title} | GlobalPayCalc</title>
                     <meta name="description" content={route.description} />
                   </Helmet>
-                  <DynamicToolPage pageData={route} lang={lang} />
+                  <DynamicToolPage routeData={route} type="tax" lang={lang} />
                 </>
               } />
               {supportedLanguages.map(l => (
@@ -149,13 +188,13 @@ function ContentWrapper({ lang, t }) {
                       <title>{route.title} | GlobalPayCalc</title>
                       <meta name="description" content={route.description} />
                     </Helmet>
-                    <DynamicToolPage pageData={route} lang={l.code} />
+                    <DynamicToolPage routeData={route} type="tax" lang={l.code} />
                   </>
                 } />
               ))}
             </React.Fragment>
           ))}
-          
+
           {generatePseoLlmMatrix().map(route => (
             <React.Fragment key={route.slug}>
               <Route path={`/tools/${route.slug}`} element={
@@ -164,7 +203,7 @@ function ContentWrapper({ lang, t }) {
                     <title>{route.title} | GlobalPayCalc</title>
                     <meta name="description" content={route.description} />
                   </Helmet>
-                  <DynamicToolPage pageData={route} lang={lang} />
+                  <DynamicToolPage routeData={route} type="llm" lang={lang} />
                 </>
               } />
               {supportedLanguages.map(l => (
@@ -174,90 +213,59 @@ function ContentWrapper({ lang, t }) {
                       <title>{route.title} | GlobalPayCalc</title>
                       <meta name="description" content={route.description} />
                     </Helmet>
-                    <DynamicToolPage pageData={route} lang={l.code} />
+                    <DynamicToolPage routeData={route} type="llm" lang={l.code} />
                   </>
                 } />
               ))}
             </React.Fragment>
           ))}
 
-          {/* Fallback 404 Route */}
-          <Route path="*" element={<NotFoundPage lang={lang} />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
 
-      {activeTab !== 'admin' && !location.pathname.includes('/calculator/') && !location.pathname.includes('/tools/') && (
-        <div className="max-w-4xl mx-auto mt-16 mb-8 p-6 md:p-8 rounded-3xl bg-slate-900/60 border border-slate-800/80 text-left shadow-2xl">
-          <h2 className="text-base font-black text-white mb-3">{t('hero.seoTitle')}</h2>
-          <p className="text-sm text-slate-400 leading-relaxed" dangerouslySetInnerHTML={{ __html: t('hero.seoText') }} />
-          
-          <div className="mt-8 pt-8 border-t border-slate-800/80">
-            <h3 className="text-base font-black text-white mb-4">{t('faq.title')}</h3>
-            <div className="space-y-6 text-sm text-slate-400 leading-relaxed">
-              <div>
-                <strong className="text-slate-300 block mb-1">{t('faq.q1')}</strong>
-                <p>{t('faq.a1')}</p>
-              </div>
-              <div>
-                <strong className="text-slate-300 block mb-1">{t('faq.q2')}</strong>
-                <p>{t('faq.a2')}</p>
-              </div>
-              <div>
-                <strong className="text-slate-300 block mb-1">{t('faq.q3')}</strong>
-                <p>{t('faq.a3')}</p>
-              </div>
-            </div>
-          </div>
+      {activeTab !== 'admin' && (
+        <div className="space-y-8 mt-12">
+          <AdSenseSlot slotId="content-bottom" />
+          <ProgrammaticSeoGrid lang={lang} />
         </div>
       )}
-
-      {activeTab !== 'admin' && (
-        <AdSenseSlot slotId="mid-content-rectangle" format="rectangle" />
-      )}
-      {activeTab !== 'admin' && <ProgrammaticSeoGrid lang={lang} />}
     </>
   );
 }
 
 export default function App() {
+  const [lang, setLang] = useState('en');
   const location = useLocation();
-  const [lang, setLang] = useState(() => {
-    const pathSegments = location.pathname.split('/').filter(Boolean);
-    const possibleLang = pathSegments[0];
-    if (supportedLanguages.some(l => l.code === possibleLang)) return possibleLang;
-    return 'en';
-  });
 
   useEffect(() => {
-    // Keep lang synced if URL changes via client-side routing
+    // Detect URL lang prefix
     const pathSegments = location.pathname.split('/').filter(Boolean);
-    const possibleLang = pathSegments[0];
-    const isSupported = supportedLanguages.some(l => l.code === possibleLang);
-    
-    if (isSupported) {
-      if (lang !== possibleLang) setLang(possibleLang);
+    const urlLang = supportedLanguages.find(l => l.code === pathSegments[0]);
+
+    if (urlLang) {
+      setLang(urlLang.code);
     } else {
-      if (lang !== 'en') setLang('en');
+      const detected = detectUserLanguage();
+      setLang(detected);
     }
-  }, [location.pathname]);
 
-  useEffect(() => {
+    // Analytics Tracking
     trackPageView(location.pathname);
-  }, [location.pathname]);
+  }, [location]);
 
   const t = (path) => getTranslation(lang, path);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans">
-      {!location.pathname.includes('/admin') && <Header currentLang={lang} setLang={setLang} />}
-      <main className={`flex-1 w-full ${location.pathname.includes('/admin') ? '' : 'max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-12'}`}>
-        {!location.pathname.includes('/admin') && (
-          <AdSenseSlot slotId="header-leaderboard" format="horizontal" />
-        )}
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-brand-500 selection:text-white">
+      <Header currentLang={lang} onLanguageChange={setLang} />
+
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <ContentWrapper lang={lang} t={t} />
       </main>
-      {!location.pathname.includes('/admin') && <Footer lang={lang} />}
-      {!location.pathname.includes('/admin') && <CookieConsent lang={lang} />}
+
+      <Footer lang={lang} />
+      <CookieConsent lang={lang} />
     </div>
   );
 }

@@ -7,7 +7,7 @@ import { getTranslation } from '../i18n';
 const faqData = {
   en: [
     { question: "Is my personal data or file uploads secure on GlobalPayCalc?", answer: "Yes, 100%. All processing (image compression, background removal, tax calculations, token estimations) occurs entirely inside your local browser memory (RAM). We do not upload, store, or log any of your files on any remote servers." },
-    { question: "How does the Social Video Downloader work without a watermark?", answer: "Our downloader communicates with a secure serverless proxy engine that parses public meta-streams of TikTok, Reels, and Shorts videos, extracting the original, un-watermarked HD direct download links directly to your browser." },
+    { question: "How does the Global Take-Home Salary & FX Fee engine work?", answer: "Our dynamic engine integrates official income tax brackets, social security statutory deductions, and real mid-market exchange rates to calculate your exact net salary and reveal hidden bank transfer markups across 40+ countries." },
     { question: "Where do the remote tax and living cost index (PPP) rates come from?", answer: "The data is updated monthly, compiling verified official local income tax structures, remote worker Beckham law schemes, and cost-of-living index ratings relative to the US baseline (sources include local tax registries, OECD, and Numbeo database metrics)." },
     { question: "Why is this utility engine completely free to use?", answer: "We monetize the platform exclusively through non-intrusive, zero-CLS Google AdSense and AdX advertisement slots. This allows us to keep all computing tools free, unlimited, and open source without charging subscription fees." },
     { question: "How accurate is the AI Token API Cost Simulator?", answer: "The prices are synced with official provider API pricing (including OpenAI, Anthropic, Google, and Meta). It projects monthly and yearly costs based on your specific input/output token volume assumptions." },
@@ -15,7 +15,7 @@ const faqData = {
   ],
   tr: [
     { question: "GlobalPayCalc üzerinde yüklediğim dosyalar veya kişisel verilerim güvende mi?", answer: "Evet, kesinlikle. Görsel sıkıştırma, arka plan silme, vergi hesaplama ve token maliyeti simülasyonu gibi tüm işlemler tamamen bilgisayarınızın veya telefonunuzun yerel bellek (RAM) katmanında gerçekleşir. Verileriniz asla bir sunucuya yüklenmez, kaydedilmez ve satılmaz." },
-    { question: "Sosyal medya video indirici nasıl filigransız indirme sağlıyor?", answer: "Sistemimiz, TikTok, Instagram Reels ve YouTube Shorts videolarının herkese açık kaynak kodlarını güvenli bir sunucu (edge proxy) üzerinden analiz ederek, filigransız orijinal HD doğrudan indirme bağlantılarını tarayıcınıza iletir." },
+    { question: "Küresel Net Maaş, Vergi ve FX Komisyon Motoru nasıl çalışır?", answer: "Dinamik hesaplama motorumuz; ABD, İngiltere, Almanya, Türkiye ve 40+ ülkenin resmi gelir vergisi dilimlerini, sosyal güvenlik kesintilerini ve reel piyasa döviz kurlarını kullanarak elinize geçecek net tutarı ve bankaların kestiği gizli marjı tam doğrulukla hesaplar." },
     { question: "Uzaktan çalışma vergi ve yaşam maliyeti (PPP) verileri güncel ve gerçek mi?", answer: "Evet. Hesaplama motorumuzda yer alan veriler; OECD veritabanı, yerel maliye bakanlıkları ve Numbeo yaşam maliyeti indeksleri derlenerek aylık bazda güncellenmektedir. Ülkelerin remote çalışanlar için sunduğu güncel Beckham Yasası, NHR ve yerel istisna kuralları dahildir." },
     { question: "Bu platform neden tamamen ücretsiz?", answer: "Sitemizi tamamen reklamsız hissettiren, hız kaybına veya yerleşim kaymasına yol açmayan entegre Google AdSense ve AdX reklam alanları üzerinden finanse ediyoruz. Bu sayede tüm araçlarımızı sınırsız ve aboneliksiz sunabiliyoruz." },
     { question: "Yapay Zeka Token API Maliyet Simülatörü fiyatları güncel mi?", answer: "Evet, tüm fiyatlar OpenAI, Anthropic, Google Gemini ve Llama sağlayıcılarının resmi API fiyat tarifeleriyle (1 Milyon token başına fiyatlandırma) birebir eşleşmektedir ve düzenli güncellenir." },
@@ -23,7 +23,7 @@ const faqData = {
   ],
   es: [
     { question: "¿Están seguros mis datos personales o archivos subidos en GlobalPayCalc?", answer: "Sí, 100%. Todo el procesamiento ocurre dentro de la memoria del navegador local (RAM). No subimos, almacenamos ni registramos ninguno de sus archivos en servidores remotos." },
-    { question: "¿Cómo funciona el descargador de videos sin marca de agua?", answer: "Nuestro descargador se conecta a un proxy seguro que procesa metadatos públicos de videos de TikTok, Reels y Shorts, extrayendo los enlaces de descarga directa HD originales sin marca de agua." },
+    { question: "¿Cómo funciona el motor de salario neto y tarifas FX?", answer: "Nuestro motor integra tramos impositivos oficiales, deducciones de seguridad social y tasas de cambio del mercado real para calcular su salario neto exacto y revelar tarifas bancarias ocultas." },
     { question: "¿De dónde provienen las tasas de impuestos y los índices de costo de vida (PPP)?", answer: "Los datos se actualizan mensualmente, compilando estructuras oficiales de impuestos sobre la renta, leyes Beckham locales para trabajadores remotos e índices de costo de vida en comparación con EE.UU. (fuentes incluyen registros fiscales y la base de datos de Numbeo)." },
     { question: "¿Por qué esta herramienta es completamente gratuita?", answer: "Monetizamos la plataforma a través de anuncios de Google AdSense no intrusivos. Esto nos permite mantener todas las herramientas gratuitas, ilimitadas y de código abierto." },
     { question: "¿Qué tan preciso es el simulador de costos de API de tokens IA?", answer: "Los precios están sincronizados con las tarifas oficiales de los proveedores (incluyendo OpenAI, Anthropic, Google y Meta) basadas en su volumen mensual de tokens." },
@@ -31,7 +31,7 @@ const faqData = {
   ],
   de: [
     { question: "Sind meine persönlichen Daten oder hochgeladenen Dateien auf GlobalPayCalc sicher?", answer: "Ja, zu 100%. Die gesamte Verarbeitung erfolgt im Arbeitsspeicher (RAM) Ihres Browsers. Wir laden keine Dateien auf Remote-Server hoch, speichern sie nicht und protokollieren sie nicht." },
-    { question: "Wie funktioniert der Social Video Downloader ohne Wasserzeichen?", answer: "Unser Downloader kommuniziert mit einem sicheren Serverless-Proxy, der öffentliche Metadaten von TikTok-, Reels- und Shorts-Videos analysiert und die direkten HD-Downloadlinks ohne Wasserzeichen extrahiert." },
+    { question: "Wie funktioniert der Netto-Gehalts- und FX-Gebühren-Rechner?", answer: "Unser System nutzt offizielle Einkommensteuertabellen, Sozialabgaben und echte Marktwechselkurse, um Ihr genaues Nettogehalt und versteckte Bankgebühren zu berechnen." },
     { question: "Woher stammen die Steuersätze und Lebenshaltungskostenindizes (Kaufkraftparität)?", answer: "Die Daten werden monatlich aktualisiert und basieren auf verifizierten lokalen Einkommensteuertabellen, Sonderregelungen für Remote-Arbeiter und Lebenshaltungskostenindizes (Quellen sind Finanzämter, OECD und Numbeo)." },
     { question: "Warum ist diese Web-App komplett kostenlos?", answer: "Wir finanzieren die Plattform ausschließlich über nicht störende Google AdSense-Anzeigen. Dadurch können wir alle Rechner unbegrenzt und kostenlos für alle anbieten." },
     { question: "Wie genau ist der KI-Token- und API-Kostensimulator?", answer: "Die Preise stimmen mit den offiziellen API-Preisen der Anbieter (OpenAI, Anthropic, Google, Meta) überein und berechnen die Kosten basierend auf Ihren Token-Eingaben." },
@@ -39,7 +39,7 @@ const faqData = {
   ],
   pt: [
     { question: "Meus dados pessoais ou uploads estão seguros no GlobalPayCalc?", answer: "Sim, 100%. Todo o processamento ocorre na memória do seu navegador local (RAM). Não fazemos upload, armazenamento ou registro de seus arquivos em nossos servidores." },
-    { question: "Como funciona o baixador de vídeos sociais sem marca d'água?", answer: "Nosso sistema conecta-se a um proxy seguro que lê os streams públicos de vídeos do TikTok, Reels e Shorts, extraindo links de download direto em HD sem marca d'água." },
+    { question: "Como funciona o motor de salário líquido e taxas de câmbio?", answer: "Nosso motor integra tabelas oficiais de impostos, deduções de seguridade social e taxas de câmbio reais para calcular seu salário líquido e revelar taxas bancárias ocultas." },
     { question: "De onde vêm as taxas de impostos e índices de custo de vida (PPP)?", answer: "Os dados são atualizados mensalmente a partir de órgãos oficiais, incluindo impostos sobre a renda locais, regimes fiscais para nômades e dados de custo de vida do Numbeo e OCDE." },
     { question: "Por que esta plataforma é totalmente gratuita?", answer: "Nós monetizamos o site através de anúncios integrados do Google AdSense. Isso nos permite manter todas as ferramentas de utilidade pública 100% grátis e ilimitadas." },
     { question: "Quão preciso é o simulador de custos de tokens e APIs de IA?", answer: "Os valores são sincronizados com as tarifas oficiais das APIs dos provedores (OpenAI, Anthropic, Google, Meta) por milhão de tokens de entrada e saída." },
@@ -47,7 +47,7 @@ const faqData = {
   ],
   fr: [
     { question: "Mes données et fichiers sont-ils sécurisés sur GlobalPayCalc ?", answer: "Oui, à 105%. Tous les calculs et compressions se déroulent localement dans la mémoire de votre navigateur (RAM). Aucun fichier n'est téléversé ou stocké sur des serveurs externes." },
-    { question: "Comment fonctionne le téléchargeur de vidéos sans filigrane ?", answer: "Il utilise un proxy sécurisé pour analyser les flux publics des vidéos TikTok, Reels et Shorts, vous fournissant directement les liens de téléchargement HD d'origine sans filigrane." },
+    { question: "Comment fonctionne le moteur de salaire net et de frais de change ?", answer: "Notre moteur intègre les barèmes fiscaux officiels, les cotisations sociales et les taux de change du marché en temps réel pour calculer votre salaire net exact." },
     { question: "D'où proviennent les données fiscales et de coût de la vie ?", answer: "Les données sont mises à jour mensuellement à partir de barèmes fiscaux officiels, de lois Beckham locales et des indices de coût de la vie de la base de données Numbeo." },
     { question: "Pourquoi ce site est-il entièrement gratuit ?", answer: "Nous finançons ce service via des encarts publicitaires non intrusifs Google AdSense. Cela permet de garder tous nos outils open-source et gratuits pour les utilisateurs." },
     { question: "Quelle est la précision du simulateur de coût des tokens IA ?", answer: "Les prix sont alignés en temps réel sur les grilles tarifaires officielles des fournisseurs (OpenAI, Anthropic, Google, Meta) par million de tokens." },
@@ -55,7 +55,7 @@ const faqData = {
   ],
   id: [
     { question: "Apakah data pribadi atau berkas yang saya unggah aman di GlobalPayCalc?", answer: "Ya, 100% aman. Semua proses kompresi, hapus latar belakang, dan perhitungan pajak berjalan langsung di memori peramban Anda (RAM). Kami tidak menyimpan berkas Anda." },
-    { question: "Bagaimana cara kerja pengunduh video sosial tanpa watermark?", answer: "Pengunduh kami terhubung ke server proxy aman untuk mengurai tautan publik TikTok, Reels, dan Shorts, lalu mengambil berkas HD asli tanpa tanda air langsung ke browser Anda." },
+    { question: "Bagaimana cara kerja mesin gaji bersih dan biaya nilai tukar?", answer: "Mesin kami mengintegrasikan tarif pajak resmi, potongan jaminan sosial, dan nilai tukar riil untuk menghitung gaji bersih Anda secara akurat." },
     { question: "Dari mana asal data pajak dan indeks biaya hidup (PPP)?", answer: "Data diperbarui setiap bulan berdasarkan laporan perpajakan resmi setempat, undang-undang Beckham pekerja jarak jauh, dan indeks biaya hidup dari basis data Numbeo." },
     { question: "Mengapa semua kalkulator ini gratis digunakan?", answer: "Kami membiayai platform ini sepenuhnya melalui slot iklan Google AdSense yang aman dan rapi, sehingga kami dapat menjaga semua utilitas tetap gratis tanpa biaya bulanan." },
     { question: "Seberapa akurat simulator biaya API token AI?", answer: "Harga disesuaikan dengan tarif API resmi dari penyedia (OpenAI, Anthropic, Google, Meta) untuk hitungan per satu juta token." },

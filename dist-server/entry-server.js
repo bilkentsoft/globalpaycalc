@@ -4,42 +4,27 @@ import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server.mjs";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useNavigate, Link, useLocation, Routes, Route } from "react-router-dom";
-import { Calculator, X, Lock, FileText, Heart, Globe, DollarSign, Download, Code, Sparkles, Zap, UploadCloud, ShieldCheck, RefreshCw, HelpCircle, ChevronUp, ChevronDown, Star, LayoutDashboard, Map, BarChart2, Globe2, Search, Activity, LogOut, AlertCircle, Wallet, TrendingUp, Target, CheckCircle2, Database, CheckCircle, XCircle, AlertTriangle, Server, Compass, Home, Loader, ArrowLeftRight, ShieldAlert, Info, Link as Link$1, Shield, Mail, Cookie, Image as Image$1 } from "lucide-react";
+import { Calculator, X, Lock, FileText, Heart, Globe, DollarSign, Download, Code, Sparkles, Zap, UploadCloud, ShieldCheck, RefreshCw, PieChart, Briefcase, Info, ArrowRightLeft, Copy, HelpCircle, ChevronUp, ChevronDown, Star, LayoutDashboard, Map, BarChart2, Globe2, Search, Activity, LogOut, AlertCircle, Wallet, TrendingUp, Target, CheckCircle2, Database, CheckCircle, XCircle, AlertTriangle, Server, Compass, Home, Loader, ArrowLeftRight, ShieldAlert, Link as Link$1, Shield, Mail, Cookie, Image as Image$1 } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
-import { ResponsiveContainer, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area, PieChart, Pie, Cell, Legend } from "recharts";
+import { ResponsiveContainer, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area, PieChart as PieChart$1, Pie, Cell, Legend } from "recharts";
 const nav$7 = {
   brand: "GlobalPayCalc.com",
-  tagline: "Universal Media & Financial Engine",
-  downloader: "Video Downloader",
-  bgRemover: "AI Photo Studio",
-  salary: "Global Salary",
+  tagline: "Global Fintech & Salary Engine",
+  takeHome: "Net Take-Home Pay",
+  contractor: "Contractor vs Perm",
+  fxFees: "Hidden FX Fees",
+  vat: "Invoice & VAT",
+  salary: "City Parity",
   aiCost: "AI Token Cost",
+  bgRemover: "WASM Studio",
   admin: "Admin Panel"
 };
 const hero$7 = {
-  badge: "100% Free • Unlimited • Privacy First",
-  title: "Universal Media, AI & Global Salary Utility Engine",
-  subtitle: "Calculate net remote salaries worldwide, download HD social videos without watermarks, and process images via client-side WebAssembly AI securely and privately.",
+  badge: "100% Free • Unlimited • Client-Side Fintech Engine",
+  title: "Global Net Salary, Tax, FX & AI Cost Simulator",
+  subtitle: "Calculate global net take-home salaries, W-2 vs 1099 and IR35 contractor equivalency, hidden bank FX markups, and cross-border B2B/B2C VAT reverse charge amounts.",
   seoTitle: "How It Works & Core Features",
-  seoText: "GlobalPayCalc is a comprehensive suite built for digital nomads and developers. Our platform features an <strong class='font-semibold text-slate-300'>HD social video downloader</strong> that safely extracts MP4/MP3 media from TikTok, Instagram Reels, and YouTube Shorts without watermarks. For remote workers, our <strong class='font-semibold text-slate-300'>global salary calculator</strong> compares net income, tax brackets, and cost of living (PPP) across 150+ countries. Developers can leverage our <strong class='font-semibold text-slate-300'>AI token cost simulator</strong> to estimate API expenses for GPT-4o and Claude 3.5, while our <strong class='font-semibold text-slate-300'>client-side AI image studio</strong> removes backgrounds locally via WebAssembly, guaranteeing zero server uploads and complete data privacy."
-};
-const video$7 = {
-  title: "Social Video & Audio Downloader",
-  subtitle: "Download HD videos and MP3 audio from TikTok, Instagram Reels, and YouTube Shorts instantly.",
-  placeholder: "Paste video link here (TikTok, Instagram Reels, Shorts)...",
-  btn: "Download HD Media",
-  processing: "Extracting Media...",
-  success: "Media Ready for Download!",
-  mp4: "Download MP4 (No Watermark)",
-  mp3: "Download Audio (MP3 320kbps)",
-  downloadVideo: "Download Video (HD MP4)",
-  videoDesc: "Original HD video file without watermark. No redirect to external sites.",
-  downloadAudio: "Download Audio (MP3)",
-  audioDesc: "High quality audio file of the original video.",
-  noteTitle: "Note:",
-  noteText: 'Download runs 100% inside our own website without external redirects. If the browser begins playing the stream directly, right-click and click "Save Video/Audio As..." to download.',
-  errorTitle: "Extraction Failed",
-  errorText: "Could not extract media. Please verify the link is public and valid."
+  seoText: "GlobalPayCalc is a comprehensive fintech platform built for remote workers, digital nomads, and AI developers. Our suite features a <strong class='font-semibold text-slate-300'>Dynamic Take-Home Pay Calculator</strong> supporting tax brackets across US, UK, Germany, Turkey, and 40+ countries, a <strong class='font-semibold text-slate-300'>Contractor vs Full-Time Equivalence Engine</strong> factoring in PTO, health insurance, and SE taxes, a <strong class='font-semibold text-slate-300'>Real FX & Hidden Fee Estimator</strong> comparing SWIFT, Wise, PayPal, and Stripe, and a <strong class='font-semibold text-slate-300'>Global Invoice & VAT Calculator</strong> handling B2B cross-border Reverse Charge exemptions."
 };
 const bg$7 = {
   title: "AI Image Background Remover & Converter",
@@ -191,7 +176,6 @@ const dynamic$7 = {
 const en = {
   nav: nav$7,
   hero: hero$7,
-  video: video$7,
   bg: bg$7,
   salary: salary$7,
   ai: ai$7,
@@ -203,37 +187,22 @@ const en = {
 };
 const nav$6 = {
   brand: "GlobalPayCalc.com",
-  tagline: "Evrensel Medya ve Finans Motoru",
-  downloader: "Video İndirici",
-  bgRemover: "AI Foto Stüdyosu",
-  salary: "Küresel Maaş",
-  aiCost: "AI Token Maliyeti",
+  tagline: "Küresel Fintek ve Maaş Motoru",
+  takeHome: "Net Maaş & Vergi",
+  contractor: "Çalışan vs Contractor",
+  fxFees: "Gizli Kur Komisyonu",
+  vat: "Fatura & KDV",
+  salary: "Şehir Paritesi",
+  aiCost: "AI API Maliyeti",
+  bgRemover: "WASM Stüdyo",
   admin: "Yönetim Paneli"
 };
 const hero$6 = {
-  badge: "%100 Ücretsiz • Sınırsız • Gizlilik Odaklı",
-  title: "Evrensel Medya, Yapay Zeka ve Maaş Hesaplama Motoru",
-  subtitle: "Tüm dünyada uzaktan çalışma maaşlarını hesaplayın, filigransız HD sosyal videolar indirin ve siber güvenli yapay zeka ile görsel arka planı %100 yerel silin.",
+  badge: "%100 Ücretsiz • Sınırsız • Client-Side Fintek Motoru",
+  title: "Küresel Maaş, Vergi, FX ve AI Maliyet Simülatörü",
+  subtitle: "Tüm dünyada uzaktan çalışma net maaşlarını, W-2 vs 1099 ve IR35 denkliğini, banka gizli kur marjlarını ve B2B/B2C KDV matrahını hesaplayın.",
   seoTitle: "Nasıl Çalışır ve Temel Özellikler",
-  seoText: "GlobalPayCalc, dijital göçebeler ve geliştiriciler için oluşturulmuş kapsamlı bir araç paketidir. Platformumuz, TikTok, Instagram Reels ve YouTube Shorts platformlarından <strong class='font-semibold text-slate-300'>filigransız HD sosyal medya videolarını</strong> ve MP3 ses dosyalarını güvenle indirmenizi sağlar. Uzaktan çalışanlar (remote worker) için, 150'den fazla ülkede net geliri, vergi dilimlerini ve satın alma gücü paritesini (PPP) karşılaştıran bir <strong class='font-semibold text-slate-300'>küresel maaş hesaplayıcı</strong> sunuyoruz. Geliştiriciler, GPT-4o ve Claude 3.5 için API masraflarını tahmin etmek amacıyla <strong class='font-semibold text-slate-300'>yapay zeka token maliyeti simülatörümüzü</strong> kullanabilirler. Ayrıca <strong class='font-semibold text-slate-300'>istemci tabanlı AI görüntü stüdyomuz</strong>, sunucu yüklemesi olmadan WebAssembly üzerinden fotoğrafların arka planını yerel olarak silerek tam veri gizliliği sağlar."
-};
-const video$6 = {
-  title: "Sosyal Medya Video & Ses İndirici",
-  subtitle: "TikTok, Instagram Reels & YouTube Shorts videolarını filigransız HD ve MP3 olarak anında indirin.",
-  placeholder: "Video bağlantısını buraya yapıştırın (TikTok, Instagram, Shorts)...",
-  btn: "HD Medyayı İndir",
-  processing: "Medya Hazırlanıyor...",
-  success: "Medya İndirmeye Hazır!",
-  mp4: "MP4 İndir (Filigransız)",
-  mp3: "Ses İndir (MP3 320kbps)",
-  downloadVideo: "Videoyu İndir (HD MP4)",
-  videoDesc: "Orijinal yüksek çözünürlüklü video dosyasıdır. Harici sitelere yönlendirilmez.",
-  downloadAudio: "Sesi İndir (MP3)",
-  audioDesc: "Videonun arkasında çalan orijinal müziğin yüksek kaliteli ses dosyasıdır.",
-  noteTitle: "Not:",
-  noteText: 'İndirme işlemi %100 sitemiz içerisinden tamamlanır. Reklamlı veya harici sitelere yönlendirme yapılmaz. Eğer video/ses tarayıcıda doğrudan oynamaya başlarsa sağ tıklayıp "Farklı Kaydet" seçeneğini seçerek cihazınıza kaydedebilirsiniz.',
-  errorTitle: "Çıkarma Başarısız",
-  errorText: "Girdiğiniz video çözümlenemedi. Lütfen bağlantının doğru ve herkese açık olduğunu doğrulayın."
+  seoText: "GlobalPayCalc, küresel uzaktan çalışanlar, dijital göçebeler, yazılımcılar ve AI geliştiricileri için tasarlanmış kapsamlı bir fintek platformudur. Platformumuz ABD, İngiltere, Almanya, Türkiye ve 40+ ülkede net ele geçen maaşı ve vergi kesintilerini hesaplayan <strong class='font-semibold text-slate-300'>Dinamik Net Maaş Hesaplayıcı</strong>, kadrolu teklifler ile serbest çalışan fatura tutarları arasındaki denkliği çıkaran <strong class='font-semibold text-slate-300'>Full-Time vs Contractor Kıyaslama Aracı</strong>, uluslararası para transferlerinde bankaların kestiği gizli marjı ölçen <strong class='font-semibold text-slate-300'>Gizli Kur Komisyonu Analizcisi</strong> ve B2B/B2C faturalarda Ters Ödeme Yükümlülüğünü (%0 KDV İhracat) hesaplayan <strong class='font-semibold text-slate-300'>Fatura & KDV Matrah Motoru</strong> sunar."
 };
 const bg$6 = {
   title: "AI Fotoğraf Arka Plan Silici & Dönüştürücü",
@@ -385,7 +354,6 @@ const dynamic$6 = {
 const tr = {
   nav: nav$6,
   hero: hero$6,
-  video: video$6,
   bg: bg$6,
   salary: salary$6,
   ai: ai$6,
@@ -2813,6 +2781,1041 @@ function QuickWasmCompressor({ lang = "en" }) {
     ] })
   ] });
 }
+const globalTaxCountries = {
+  US_CA: { id: "US_CA", name: "United States (California)", flag: "🇺🇸", currency: "USD", symbol: "$", region: "US" },
+  US_NY: { id: "US_NY", name: "United States (New York)", flag: "🇺🇸", currency: "USD", symbol: "$", region: "US" },
+  US_TX: { id: "US_TX", name: "United States (Texas - No State Tax)", flag: "🇺🇸", currency: "USD", symbol: "$", region: "US" },
+  US_FL: { id: "US_FL", name: "United States (Florida - No State Tax)", flag: "🇺🇸", currency: "USD", symbol: "$", region: "US" },
+  US_WA: { id: "US_WA", name: "United States (Washington - No State Tax)", flag: "🇺🇸", currency: "USD", symbol: "$", region: "US" },
+  UK: { id: "UK", name: "United Kingdom", flag: "🇬🇧", currency: "GBP", symbol: "£", region: "UK" },
+  DE: { id: "DE", name: "Germany (Deutschland)", flag: "🇩🇪", currency: "EUR", symbol: "€", region: "DE" },
+  TR: { id: "TR", name: "Turkey (Türkiye)", flag: "🇹🇷", currency: "TRY", symbol: "₺", region: "TR" },
+  IN: { id: "IN", name: "India", flag: "🇮🇳", currency: "INR", symbol: "₹", region: "IN" },
+  CA: { id: "CA", name: "Canada (Ontario)", flag: "🇨🇦", currency: "CAD", symbol: "CA$", region: "GENERIC", effTax: 0.28 },
+  FR: { id: "FR", name: "France", flag: "🇫🇷", currency: "EUR", symbol: "€", region: "GENERIC", effTax: 0.35 },
+  NL: { id: "NL", name: "Netherlands (30% Facility Option)", flag: "🇳🇱", currency: "EUR", symbol: "€", region: "GENERIC", effTax: 0.32 },
+  ES: { id: "ES", name: "Spain (Beckham Law)", flag: "🇪🇸", currency: "EUR", symbol: "€", region: "GENERIC", effTax: 0.24 },
+  AE: { id: "AE", name: "United Arab Emirates (Dubai - 0% Income Tax)", flag: "🇦🇪", currency: "AED", symbol: "AED", region: "GENERIC", effTax: 0 },
+  SG: { id: "SG", name: "Singapore", flag: "🇸🇬", currency: "SGD", symbol: "S$", region: "GENERIC", effTax: 0.12 },
+  AU: { id: "AU", name: "Australia", flag: "🇦🇺", currency: "AUD", symbol: "A$", region: "GENERIC", effTax: 0.28 },
+  JP: { id: "JP", name: "Japan", flag: "🇯🇵", currency: "JPY", symbol: "¥", region: "GENERIC", effTax: 0.24 }
+};
+function calculateGlobalTakeHome(amount, countryKey = "US_CA", period = "annual") {
+  const country = globalTaxCountries[countryKey] || globalTaxCountries.US_CA;
+  const grossAnnual = period === "monthly" ? amount * 12 : amount;
+  let incomeTax = 0;
+  let socialSecurityTax = 0;
+  let stateOrLocalTax = 0;
+  let deductionsDetails = [];
+  if (country.region === "US") {
+    const ssCap = 168600;
+    const ssTax = Math.min(grossAnnual, ssCap) * 0.062;
+    const medicareTax = grossAnnual * 0.0145;
+    const addlMedicare = grossAnnual > 2e5 ? (grossAnnual - 2e5) * 9e-3 : 0;
+    socialSecurityTax = ssTax + medicareTax + addlMedicare;
+    const stdDeduction = 14600;
+    const taxableFed = Math.max(0, grossAnnual - stdDeduction);
+    if (taxableFed <= 11600) {
+      incomeTax = taxableFed * 0.1;
+    } else if (taxableFed <= 47150) {
+      incomeTax = 1160 + (taxableFed - 11600) * 0.12;
+    } else if (taxableFed <= 100525) {
+      incomeTax = 5426 + (taxableFed - 47150) * 0.22;
+    } else if (taxableFed <= 191950) {
+      incomeTax = 17168.5 + (taxableFed - 100525) * 0.24;
+    } else if (taxableFed <= 243725) {
+      incomeTax = 39110.5 + (taxableFed - 191950) * 0.32;
+    } else if (taxableFed <= 609350) {
+      incomeTax = 55678.5 + (taxableFed - 243725) * 0.35;
+    } else {
+      incomeTax = 183647.25 + (taxableFed - 609350) * 0.37;
+    }
+    if (countryKey === "US_CA") {
+      stateOrLocalTax = grossAnnual * 0.08;
+    } else if (countryKey === "US_NY") {
+      stateOrLocalTax = grossAnnual * 0.065;
+    } else {
+      stateOrLocalTax = 0;
+    }
+    deductionsDetails = [
+      { name: "Federal Income Tax", amount: incomeTax },
+      { name: "FICA (Social Security & Medicare)", amount: socialSecurityTax },
+      { name: "State Income Tax", amount: stateOrLocalTax }
+    ];
+  } else if (country.region === "UK") {
+    const personalAllowance = 12570;
+    const taxable = Math.max(0, grossAnnual - personalAllowance);
+    if (taxable <= 37700) {
+      incomeTax = taxable * 0.2;
+    } else if (taxable <= 112570) {
+      incomeTax = 7540 + (taxable - 37700) * 0.4;
+    } else {
+      incomeTax = 37488 + (taxable - 112570) * 0.45;
+    }
+    if (grossAnnual > 12570) {
+      const mainNiBand = Math.min(grossAnnual, 50270) - 12570;
+      const upperNiBand = Math.max(0, grossAnnual - 50270);
+      socialSecurityTax = mainNiBand * 0.08 + upperNiBand * 0.02;
+    }
+    deductionsDetails = [
+      { name: "UK Income Tax (PAYE)", amount: incomeTax },
+      { name: "National Insurance (Class 1)", amount: socialSecurityTax }
+    ];
+  } else if (country.region === "DE") {
+    socialSecurityTax = grossAnnual * 0.2015;
+    const freeAmount = 11784;
+    const taxable = Math.max(0, grossAnnual - freeAmount - socialSecurityTax * 0.5);
+    if (taxable > 0) {
+      if (taxable <= 66760) {
+        incomeTax = taxable * 0.26;
+      } else if (taxable <= 277825) {
+        incomeTax = 17357 + (taxable - 66760) * 0.42;
+      } else {
+        incomeTax = 106004 + (taxable - 277825) * 0.45;
+      }
+      if (incomeTax > 18130) {
+        stateOrLocalTax = incomeTax * 0.055;
+      }
+    }
+    deductionsDetails = [
+      { name: "Einkommensteuer (Income Tax)", amount: incomeTax },
+      { name: "Sozialabgaben (Social Contributions)", amount: socialSecurityTax },
+      { name: "Solidaritätszuschlag (Solidarity Surcharge)", amount: stateOrLocalTax }
+    ];
+  } else if (country.region === "TR") {
+    socialSecurityTax = grossAnnual * 0.15;
+    const taxBase = grossAnnual - socialSecurityTax;
+    if (taxBase <= 11e4) {
+      incomeTax = taxBase * 0.15;
+    } else if (taxBase <= 23e4) {
+      incomeTax = 16500 + (taxBase - 11e4) * 0.2;
+    } else if (taxBase <= 87e4) {
+      incomeTax = 40500 + (taxBase - 23e4) * 0.27;
+    } else if (taxBase <= 3e6) {
+      incomeTax = 213300 + (taxBase - 87e4) * 0.35;
+    } else {
+      incomeTax = 958800 + (taxBase - 3e6) * 0.4;
+    }
+    const minWageExemption = Math.min(incomeTax, 3e4);
+    incomeTax = Math.max(0, incomeTax - minWageExemption);
+    stateOrLocalTax = grossAnnual * 759e-5;
+    deductionsDetails = [
+      { name: "Gelir Vergisi (İstisna Düşülmüş)", amount: incomeTax },
+      { name: "SGK İşçi Payı & İşsizlik (%15)", amount: socialSecurityTax },
+      { name: "Damga Vergisi (%0.759)", amount: stateOrLocalTax }
+    ];
+  } else if (country.region === "IN") {
+    const stdDeduct = 75e3;
+    const taxable = Math.max(0, grossAnnual - stdDeduct);
+    if (taxable <= 3e5) {
+      incomeTax = 0;
+    } else if (taxable <= 7e5) {
+      incomeTax = (taxable - 3e5) * 0.05;
+    } else if (taxable <= 1e6) {
+      incomeTax = 2e4 + (taxable - 7e5) * 0.1;
+    } else if (taxable <= 12e5) {
+      incomeTax = 5e4 + (taxable - 1e6) * 0.15;
+    } else if (taxable <= 15e5) {
+      incomeTax = 8e4 + (taxable - 12e5) * 0.2;
+    } else {
+      incomeTax = 14e4 + (taxable - 15e5) * 0.3;
+    }
+    stateOrLocalTax = incomeTax * 0.04;
+    socialSecurityTax = grossAnnual * 0.03;
+    deductionsDetails = [
+      { name: "Income Tax (New Regime)", amount: incomeTax },
+      { name: "Health & Education Cess (4%)", amount: stateOrLocalTax },
+      { name: "Provident Fund (PF Approx)", amount: socialSecurityTax }
+    ];
+  } else {
+    const rate = country.effTax || 0.25;
+    incomeTax = grossAnnual * rate;
+    socialSecurityTax = grossAnnual * 0.05;
+    deductionsDetails = [
+      { name: "Income Tax (Estimated Effective)", amount: incomeTax },
+      { name: "Social Security / Statutory Fees", amount: socialSecurityTax }
+    ];
+  }
+  const totalDeductions = incomeTax + socialSecurityTax + stateOrLocalTax;
+  const netAnnual = Math.max(0, grossAnnual - totalDeductions);
+  const netMonthly = netAnnual / 12;
+  const grossMonthly = grossAnnual / 12;
+  const effectiveTaxRate = grossAnnual > 0 ? totalDeductions / grossAnnual * 100 : 0;
+  return {
+    country,
+    grossAnnual,
+    grossMonthly,
+    netAnnual,
+    netMonthly,
+    totalDeductions,
+    effectiveTaxRate: parseFloat(effectiveTaxRate.toFixed(1)),
+    deductionsDetails
+  };
+}
+function GlobalTakeHomeCalculator({ lang = "en" }) {
+  const [grossAmount, setGrossAmount] = useState(9e4);
+  const [selectedCountry, setSelectedCountry] = useState("US_CA");
+  const [period, setPeriod] = useState("annual");
+  const result = calculateGlobalTakeHome(grossAmount, selectedCountry, period);
+  const handleExportReport = () => {
+    const reportText = `
+--------------------------------------------------
+GLOBAL NET TAKE-HOME PAY REPORT
+Generated by GlobalPayCalc.com (Universal Utility Engine)
+--------------------------------------------------
+Country: ${result.country.flag} ${result.country.name}
+Gross Salary (${period}): ${result.country.symbol}${grossAmount.toLocaleString()} ${result.country.currency}
+Gross Annual: ${result.country.symbol}${Math.round(result.grossAnnual).toLocaleString()} ${result.country.currency}
+
+Deductions Breakdown:
+${result.deductionsDetails.map((d) => `- ${d.name}: ${result.country.symbol}${Math.round(d.amount).toLocaleString()}`).join("\n")}
+
+Total Deductions: ${result.country.symbol}${Math.round(result.totalDeductions).toLocaleString()} (Effective Tax: ${result.effectiveTaxRate}%)
+NET ANNUAL TAKE-HOME: ${result.country.symbol}${Math.round(result.netAnnual).toLocaleString()} ${result.country.currency}
+NET MONTHLY TAKE-HOME: ${result.country.symbol}${Math.round(result.netMonthly).toLocaleString()} ${result.country.currency}
+
+--------------------------------------------------
+VERIFIED LINK: https://globalpaycalc.com/take-home
+Powered by GlobalPayCalc.com - 100% Free & Client-Side
+--------------------------------------------------
+    `.trim();
+    const element = document.createElement("a");
+    const file = new Blob([reportText], { type: "text/plain" });
+    element.href = URL.createObjectURL(file);
+    element.download = `TakeHome_Report_${selectedCountry}.txt`;
+    document.body.appendChild(element);
+    element.click();
+    element.remove();
+  };
+  return /* @__PURE__ */ jsxs("div", { className: "space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500", children: [
+    /* @__PURE__ */ jsxs("div", { className: "text-center max-w-3xl mx-auto space-y-3", children: [
+      /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-semibold", children: [
+        /* @__PURE__ */ jsx(Globe, { className: "w-3.5 h-3.5" }),
+        /* @__PURE__ */ jsx("span", { children: "Dinamik Ülke Bazlı Vergi Motoru" })
+      ] }),
+      /* @__PURE__ */ jsx("h2", { className: "text-3xl sm:text-4xl font-extrabold text-white tracking-tight", children: "Global Net Maaş ve Vergi Hesaplayıcı" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm leading-relaxed", children: "ABD (Federal + Eyalet + FICA), İngiltere, Almanya, Türkiye ve 40+ ülkenin güncel vergi ve sosyal güvenlik kesintilerini hesaplayın." })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 sm:p-8 rounded-3xl border-slate-800 space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsxs("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-1", children: [
+            /* @__PURE__ */ jsx(DollarSign, { className: "w-3.5 h-3.5 text-brand-400" }),
+            /* @__PURE__ */ jsxs("span", { children: [
+              "Brüt Maaş Tutarı (",
+              result.country.currency,
+              ")"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: grossAmount,
+              onChange: (e) => setGrossAmount(Number(e.target.value)),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-lg focus:outline-none focus:border-brand-500 transition",
+              placeholder: "90000"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Maaş Dönemi" }),
+          /* @__PURE__ */ jsxs(
+            "select",
+            {
+              value: period,
+              onChange: (e) => setPeriod(e.target.value),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-brand-500 transition cursor-pointer",
+              children: [
+                /* @__PURE__ */ jsx("option", { value: "annual", children: "Yıllık Brüt" }),
+                /* @__PURE__ */ jsx("option", { value: "monthly", children: "Aylık Brüt" })
+              ]
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Ülke / Eyalet Mevzuatı" }),
+          /* @__PURE__ */ jsx(
+            "select",
+            {
+              value: selectedCountry,
+              onChange: (e) => setSelectedCountry(e.target.value),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-brand-500 transition cursor-pointer",
+              children: Object.values(globalTaxCountries).map((c) => /* @__PURE__ */ jsxs("option", { value: c.id, children: [
+                c.flag,
+                " ",
+                c.name,
+                " (",
+                c.currency,
+                ")"
+              ] }, c.id))
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6 pt-4", children: [
+        /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/80 border border-slate-800 p-6 rounded-2xl space-y-2", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Aylık Ele Geçen Net" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-emerald-400", children: [
+            result.country.symbol,
+            Math.round(result.netMonthly).toLocaleString(),
+            " ",
+            /* @__PURE__ */ jsx("span", { className: "text-xs font-normal text-slate-400", children: "/ ay" })
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400", children: "Vergi ve sigorta kesintileri düşüldükten sonra net tutar." })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/80 border border-slate-800 p-6 rounded-2xl space-y-2", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Yıllık Ele Geçen Net" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-white", children: [
+            result.country.symbol,
+            Math.round(result.netAnnual).toLocaleString()
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400", children: "Yıllık toplam harcanabilir net bütçeniz." })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/80 border border-slate-800 p-6 rounded-2xl space-y-2", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Efektif Vergi Oranı" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-black text-rose-400", children: [
+            "%",
+            result.effectiveTaxRate
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400", children: "Brüt gelirden yapılan toplam yasal kesinti oranı." })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "space-y-4 pt-4 border-t border-slate-800", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
+          /* @__PURE__ */ jsxs("h3", { className: "text-sm font-bold text-white flex items-center space-x-2", children: [
+            /* @__PURE__ */ jsx(PieChart, { className: "w-4 h-4 text-brand-400" }),
+            /* @__PURE__ */ jsxs("span", { children: [
+              "Yasal Kesinti ve Vergi Detayları (",
+              result.country.name,
+              ")"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs(
+            "button",
+            {
+              onClick: handleExportReport,
+              className: "px-3 py-1.5 rounded-lg bg-brand-500/10 border border-brand-500/20 text-brand-300 hover:bg-brand-500/20 text-xs font-bold transition flex items-center space-x-1.5",
+              children: [
+                /* @__PURE__ */ jsx(Download, { className: "w-3.5 h-3.5" }),
+                /* @__PURE__ */ jsx("span", { children: "Raporu İndir (.txt)" })
+              ]
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-left border-collapse", children: [
+          /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "border-b border-slate-800 text-xs font-bold text-slate-400 uppercase", children: [
+            /* @__PURE__ */ jsx("th", { className: "py-3 px-4", children: "Kesinti Kalemi" }),
+            /* @__PURE__ */ jsx("th", { className: "py-3 px-4 text-right", children: "Yıllık Tutar" }),
+            /* @__PURE__ */ jsx("th", { className: "py-3 px-4 text-right", children: "Oran" })
+          ] }) }),
+          /* @__PURE__ */ jsxs("tbody", { className: "divide-y divide-slate-800/50 text-sm", children: [
+            result.deductionsDetails.map((d, idx) => /* @__PURE__ */ jsxs("tr", { className: "hover:bg-slate-800/20 transition", children: [
+              /* @__PURE__ */ jsx("td", { className: "py-3 px-4 font-semibold text-slate-200", children: d.name }),
+              /* @__PURE__ */ jsxs("td", { className: "py-3 px-4 text-right font-mono text-rose-300", children: [
+                "-",
+                result.country.symbol,
+                Math.round(d.amount).toLocaleString()
+              ] }),
+              /* @__PURE__ */ jsxs("td", { className: "py-3 px-4 text-right font-mono text-slate-400", children: [
+                "%",
+                result.grossAnnual > 0 ? (d.amount / result.grossAnnual * 100).toFixed(1) : 0
+              ] })
+            ] }, idx)),
+            /* @__PURE__ */ jsxs("tr", { className: "bg-slate-900/50 font-bold border-t border-slate-700", children: [
+              /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-white", children: "Toplam Yasal Kesintiler" }),
+              /* @__PURE__ */ jsxs("td", { className: "py-3 px-4 text-right text-rose-400 font-mono", children: [
+                "-",
+                result.country.symbol,
+                Math.round(result.totalDeductions).toLocaleString()
+              ] }),
+              /* @__PURE__ */ jsxs("td", { className: "py-3 px-4 text-right text-rose-400 font-mono", children: [
+                "%",
+                result.effectiveTaxRate
+              ] })
+            ] })
+          ] })
+        ] }) })
+      ] })
+    ] })
+  ] });
+}
+function calculateContractorEquivalence({
+  baseSalary = 1e5,
+  ptoDays = 20,
+  // Paid holidays + vacation
+  healthInsuranceValue = 6e3,
+  // Annual value of company health insurance
+  retirementMatchPercent = 4,
+  // Company pension/401k match %
+  bonusPercent = 5,
+  // Annual bonus %
+  workingWeeksPerYear = 48,
+  hoursPerWeek = 40,
+  countryKey = "US"
+}) {
+  const ptoValue = baseSalary / 260 * ptoDays;
+  const bonusValue = baseSalary * (bonusPercent / 100);
+  const retirementValue = baseSalary * (retirementMatchPercent / 100);
+  let employerTaxBurdenRate = 0.08;
+  if (countryKey === "UK") employerTaxBurdenRate = 0.138;
+  if (countryKey === "DE" || countryKey === "EU") employerTaxBurdenRate = 0.2;
+  const employerTaxValue = baseSalary * employerTaxBurdenRate;
+  const totalEmployeeValue = baseSalary + bonusValue + ptoValue + healthInsuranceValue + retirementValue;
+  let selfEmploymentTaxExtra = 0.0765;
+  if (countryKey === "UK") selfEmploymentTaxExtra = 0.09;
+  if (countryKey === "DE") selfEmploymentTaxExtra = 0.12;
+  const adminUnbilledOverheadRate = 0.15;
+  const equipmentAndSoftwareAnnual = 3e3;
+  const totalBillableHoursAnnual = (workingWeeksPerYear - ptoDays / 5) * hoursPerWeek * (1 - adminUnbilledOverheadRate);
+  const requiredContractorGrossAnnual = totalEmployeeValue * (1 + selfEmploymentTaxExtra) + equipmentAndSoftwareAnnual;
+  const minHourlyBillingRate = requiredContractorGrossAnnual / totalBillableHoursAnnual;
+  const minMonthlyBillingRate = requiredContractorGrossAnnual / 12;
+  const contractorMultiplier = requiredContractorGrossAnnual / baseSalary;
+  return {
+    baseSalary,
+    totalEmployeeValue,
+    breakdown: {
+      ptoValue: Math.round(ptoValue),
+      bonusValue: Math.round(bonusValue),
+      healthInsuranceValue: Math.round(healthInsuranceValue),
+      retirementValue: Math.round(retirementValue),
+      employerTaxValue: Math.round(employerTaxValue)
+    },
+    contractor: {
+      requiredGrossAnnual: Math.round(requiredContractorGrossAnnual),
+      minMonthlyBillingRate: Math.round(minMonthlyBillingRate),
+      minHourlyBillingRate: parseFloat(minHourlyBillingRate.toFixed(2)),
+      totalBillableHoursAnnual: Math.round(totalBillableHoursAnnual),
+      contractorMultiplier: parseFloat(contractorMultiplier.toFixed(2))
+    }
+  };
+}
+function ContractorVsPermCalculator({ lang = "en" }) {
+  const [baseSalary, setBaseSalary] = useState(95e3);
+  const [ptoDays, setPtoDays] = useState(20);
+  const [healthInsuranceValue, setHealthInsuranceValue] = useState(6e3);
+  const [retirementMatchPercent, setRetirementMatchPercent] = useState(4);
+  const [bonusPercent, setBonusPercent] = useState(5);
+  const [countryKey, setCountryKey] = useState("US");
+  const result = calculateContractorEquivalence({
+    baseSalary,
+    ptoDays,
+    healthInsuranceValue,
+    retirementMatchPercent,
+    bonusPercent,
+    countryKey
+  });
+  return /* @__PURE__ */ jsxs("div", { className: "space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500", children: [
+    /* @__PURE__ */ jsxs("div", { className: "text-center max-w-3xl mx-auto space-y-3", children: [
+      /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold", children: [
+        /* @__PURE__ */ jsx(Briefcase, { className: "w-3.5 h-3.5" }),
+        /* @__PURE__ */ jsx("span", { children: "W-2 vs 1099 / IR35 / Perm vs Freelance Denkliği" })
+      ] }),
+      /* @__PURE__ */ jsx("h2", { className: "text-3xl sm:text-4xl font-extrabold text-white tracking-tight", children: "Tam Zamanlı Çalışan vs. Serbest Çalışan Karşılaştırıcısı" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm leading-relaxed", children: "Kadrolu çalışandaki ücretli izin, sağlık sigortası ve emeklilik haklarını kaybetmeden serbest çalışan (Contractor) olarak istemeniz gereken minimum fatura tutarını hesaplayın." })
+    ] }),
+    /* @__PURE__ */ jsx("div", { className: "glass-card p-6 sm:p-8 rounded-3xl border-slate-800 space-y-8", children: /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "space-y-5 bg-slate-900/60 p-6 rounded-2xl border border-slate-800", children: [
+        /* @__PURE__ */ jsxs("h3", { className: "text-base font-bold text-white flex items-center space-x-2", children: [
+          /* @__PURE__ */ jsx(Briefcase, { className: "w-4 h-4 text-cyan-400" }),
+          /* @__PURE__ */ jsx("span", { children: "Tam Zamanlı Maaşlı Teklif (Employee)" })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold text-slate-300", children: "Yıllık Brüt Maaş ($ / €)" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: baseSalary,
+              onChange: (e) => setBaseSalary(Number(e.target.value)),
+              className: "w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-bold focus:border-cyan-500 outline-none"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold text-slate-300", children: "Yıllık Ücretli İzin (PTO + Tatil Günü)" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: ptoDays,
+              onChange: (e) => setPtoDays(Number(e.target.value)),
+              className: "w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-bold focus:border-cyan-500 outline-none"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold text-slate-300", children: "Sağlık Sigortası Şirket Payı ($/Yıl)" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: healthInsuranceValue,
+              onChange: (e) => setHealthInsuranceValue(Number(e.target.value)),
+              className: "w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-bold focus:border-cyan-500 outline-none"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 gap-4", children: [
+          /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+            /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold text-slate-300", children: "Emeklilik Katkısı (%)" }),
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                type: "number",
+                value: retirementMatchPercent,
+                onChange: (e) => setRetirementMatchPercent(Number(e.target.value)),
+                className: "w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-bold focus:border-cyan-500 outline-none"
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+            /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold text-slate-300", children: "Yıllık Prim / Bonus (%)" }),
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                type: "number",
+                value: bonusPercent,
+                onChange: (e) => setBonusPercent(Number(e.target.value)),
+                className: "w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-bold focus:border-cyan-500 outline-none"
+              }
+            )
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold text-slate-300", children: "Ülke / Bölge Mantığı" }),
+          /* @__PURE__ */ jsxs(
+            "select",
+            {
+              value: countryKey,
+              onChange: (e) => setCountryKey(e.target.value),
+              className: "w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-bold focus:border-cyan-500 outline-none",
+              children: [
+                /* @__PURE__ */ jsx("option", { value: "US", children: "ABD (W-2 vs 1099 Contractor)" }),
+                /* @__PURE__ */ jsx("option", { value: "UK", children: "İngiltere (IR35 Inside vs Outside)" }),
+                /* @__PURE__ */ jsx("option", { value: "DE", children: "Almanya & AB (Salaried vs Freelance)" }),
+                /* @__PURE__ */ jsx("option", { value: "EU", children: "Küresel / Türkiye (Kadrolu vs Şahıs Şirketi)" })
+              ]
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "space-y-5 bg-gradient-to-br from-cyan-950/30 to-brand-950/20 p-6 rounded-2xl border border-cyan-500/30 flex flex-col justify-between", children: [
+        /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
+            /* @__PURE__ */ jsx("h3", { className: "text-base font-bold text-white", children: "İstemeniz Gereken Contractor Fatura Tutarı" }),
+            /* @__PURE__ */ jsxs("span", { className: "text-xs font-bold text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-full border border-cyan-500/20", children: [
+              result.contractor.contractorMultiplier,
+              "x Çarpan"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
+            /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/90 p-5 rounded-2xl border border-slate-800", children: [
+              /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Minimum Saatlik Fatura Ücretiniz" }),
+              /* @__PURE__ */ jsxs("div", { className: "text-4xl font-black text-cyan-400 mt-1", children: [
+                "$",
+                result.contractor.minHourlyBillingRate,
+                " ",
+                /* @__PURE__ */ jsx("span", { className: "text-xs text-slate-400 font-normal", children: "/ saat" })
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "text-[11px] text-slate-400 mt-1", children: [
+                "Yılda ortalama ",
+                result.contractor.totalBillableHoursAnnual,
+                " faturalandırılabilir çalışma saatine göre."
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 gap-4", children: [
+              /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/80 p-4 rounded-xl border border-slate-800", children: [
+                /* @__PURE__ */ jsx("span", { className: "text-[11px] font-bold text-slate-400", children: "Aylık Fatura" }),
+                /* @__PURE__ */ jsxs("div", { className: "text-xl font-black text-white mt-1", children: [
+                  "$",
+                  result.contractor.minMonthlyBillingRate.toLocaleString()
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/80 p-4 rounded-xl border border-slate-800", children: [
+                /* @__PURE__ */ jsx("span", { className: "text-[11px] font-bold text-slate-400", children: "Yıllık Brüt Fatura" }),
+                /* @__PURE__ */ jsxs("div", { className: "text-xl font-black text-emerald-400 mt-1", children: [
+                  "$",
+                  result.contractor.requiredGrossAnnual.toLocaleString()
+                ] })
+              ] })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "space-y-2 pt-2 border-t border-slate-800/80 text-xs", children: [
+            /* @__PURE__ */ jsx("span", { className: "font-bold text-slate-300", children: "Hesaba Katılan Yan Haklar Değeri:" }),
+            /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 gap-2 text-slate-400", children: [
+              /* @__PURE__ */ jsxs("div", { children: [
+                "• Ücretli İzin (PTO): ",
+                /* @__PURE__ */ jsxs("strong", { className: "text-slate-200", children: [
+                  "$",
+                  result.breakdown.ptoValue
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { children: [
+                "• Sağlık Sigortası: ",
+                /* @__PURE__ */ jsxs("strong", { className: "text-slate-200", children: [
+                  "$",
+                  result.breakdown.healthInsuranceValue
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { children: [
+                "• Emeklilik Katkısı: ",
+                /* @__PURE__ */ jsxs("strong", { className: "text-slate-200", children: [
+                  "$",
+                  result.breakdown.retirementValue
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { children: [
+                "• Bonus / Prim: ",
+                /* @__PURE__ */ jsxs("strong", { className: "text-slate-200", children: [
+                  "$",
+                  result.breakdown.bonusValue
+                ] })
+              ] })
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "text-[11px] text-slate-400 bg-slate-900/60 p-3 rounded-xl border border-slate-800 flex items-start space-x-2", children: [
+          /* @__PURE__ */ jsx(Info, { className: "w-4 h-4 text-cyan-400 shrink-0 mt-0.5" }),
+          /* @__PURE__ */ jsxs("span", { children: [
+            "Contractor çalışanlar kendi muhasebe, bağkur/SE-tax, ekipman ve tatil günlerini kendileri ödediği için tam zamanlı maaşın en az ",
+            /* @__PURE__ */ jsxs("strong", { children: [
+              result.contractor.contractorMultiplier,
+              " katı"
+            ] }),
+            " tutarında fatura kesmelidir."
+          ] })
+        ] })
+      ] })
+    ] }) })
+  ] });
+}
+const fxProviders = [
+  { id: "wise", name: "Wise (TransferWise)", fxMarkupPercent: 0.45, fixedFeeUSD: 2.5, speed: "Instant / Same Day", flag: "🚀" },
+  { id: "swift", name: "Traditional Bank (SWIFT Wire)", fxMarkupPercent: 3.8, fixedFeeUSD: 35, speed: "2 - 5 Business Days", flag: "🏦" },
+  { id: "paypal", name: "PayPal International", fxMarkupPercent: 4.5, fixedFeeUSD: 4.99, speed: "Instant", flag: "💳" },
+  { id: "stripe", name: "Stripe Cross-Border", fxMarkupPercent: 2, fixedFeeUSD: 0.3, speed: "2 - 3 Business Days", flag: "⚡" },
+  { id: "payoneer", name: "Payoneer", fxMarkupPercent: 2.5, fixedFeeUSD: 1.5, speed: "1 - 2 Business Days", flag: "🌐" }
+];
+const mockExchangeRates = {
+  "USD_EUR": 0.92,
+  "USD_GBP": 0.79,
+  "USD_TRY": 33.2,
+  "USD_INR": 83.5,
+  "USD_CAD": 1.36,
+  "USD_AUD": 1.51,
+  "USD_BRL": 5.45,
+  "USD_JPY": 158,
+  "EUR_USD": 1.087,
+  "GBP_USD": 1.265,
+  "TRY_USD": 0.0301
+};
+function calculateFxFees(sendAmount = 5e3, pair = "USD_EUR") {
+  const midMarketRate = mockExchangeRates[pair] || 1;
+  const [fromCurr, toCurr] = pair.split("_");
+  const targetMidMarketAmount = sendAmount * midMarketRate;
+  const comparison = fxProviders.map((provider) => {
+    const providerRate = midMarketRate * (1 - provider.fxMarkupPercent / 100);
+    const feeInFromCurr = provider.fixedFeeUSD;
+    const amountAfterFee = Math.max(0, sendAmount - feeInFromCurr);
+    const recipientReceives = amountAfterFee * providerRate;
+    const hiddenFxLoss = targetMidMarketAmount - recipientReceives;
+    const hiddenFxLossPercent = hiddenFxLoss / targetMidMarketAmount * 100;
+    return {
+      provider,
+      providerRate: parseFloat(providerRate.toFixed(4)),
+      recipientReceives: parseFloat(recipientReceives.toFixed(2)),
+      hiddenFxLoss: parseFloat(hiddenFxLoss.toFixed(2)),
+      hiddenFxLossPercent: parseFloat(hiddenFxLossPercent.toFixed(2)),
+      feeInFromCurr
+    };
+  });
+  comparison.sort((a, b) => b.recipientReceives - a.recipientReceives);
+  const bestOption = comparison[0];
+  const worstOption = comparison[comparison.length - 1];
+  const potentialSavings = worstOption.hiddenFxLoss - bestOption.hiddenFxLoss;
+  return {
+    sendAmount,
+    pair,
+    fromCurr,
+    toCurr,
+    midMarketRate,
+    targetMidMarketAmount: parseFloat(targetMidMarketAmount.toFixed(2)),
+    comparison,
+    bestOption,
+    potentialSavings: parseFloat(potentialSavings.toFixed(2))
+  };
+}
+function HiddenFxFeeCalculator({ lang = "en" }) {
+  const [sendAmount, setSendAmount] = useState(5e3);
+  const [selectedPair, setSelectedPair] = useState("USD_EUR");
+  const result = calculateFxFees(sendAmount, selectedPair);
+  return /* @__PURE__ */ jsxs("div", { className: "space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500", children: [
+    /* @__PURE__ */ jsxs("div", { className: "text-center max-w-3xl mx-auto space-y-3", children: [
+      /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-semibold", children: [
+        /* @__PURE__ */ jsx(ArrowRightLeft, { className: "w-3.5 h-3.5" }),
+        /* @__PURE__ */ jsx("span", { children: "Gizli Kur Marjı & Banka Kesintisi Analizi" })
+      ] }),
+      /* @__PURE__ */ jsx("h2", { className: "text-3xl sm:text-4xl font-extrabold text-white tracking-tight", children: "Gerçek Kur ve Gizli Banka Komisyonu Hesaplayıcı" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm leading-relaxed", children: "Uluslararası para transferlerinde (Wise, SWIFT, PayPal, Stripe) reel piyasa kuru (Mid-Market Rate) ile bankaların kestiği gizli kur farkını ve kaybolan paranızı görün." })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 sm:p-8 rounded-3xl border-slate-800 space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsxs("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: [
+            "Gönderilen Tutar (",
+            result.fromCurr,
+            ")"
+          ] }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: sendAmount,
+              onChange: (e) => setSendAmount(Number(e.target.value)),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-lg focus:border-rose-500 outline-none",
+              placeholder: "5000"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Döviz Çifti" }),
+          /* @__PURE__ */ jsxs(
+            "select",
+            {
+              value: selectedPair,
+              onChange: (e) => setSelectedPair(e.target.value),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-rose-500 outline-none cursor-pointer",
+              children: [
+                /* @__PURE__ */ jsx("option", { value: "USD_EUR", children: "USD ➔ EUR (ABD ➔ Avrupa)" }),
+                /* @__PURE__ */ jsx("option", { value: "USD_GBP", children: "USD ➔ GBP (ABD ➔ İngiltere)" }),
+                /* @__PURE__ */ jsx("option", { value: "USD_TRY", children: "USD ➔ TRY (ABD ➔ Türkiye)" }),
+                /* @__PURE__ */ jsx("option", { value: "USD_INR", children: "USD ➔ INR (ABD ➔ Hindistan)" }),
+                /* @__PURE__ */ jsx("option", { value: "USD_CAD", children: "USD ➔ CAD (ABD ➔ Kanada)" }),
+                /* @__PURE__ */ jsx("option", { value: "USD_AUD", children: "USD ➔ AUD (ABD ➔ Avustralya)" }),
+                /* @__PURE__ */ jsx("option", { value: "USD_BRL", children: "USD ➔ BRL (ABD ➔ Brezilya)" }),
+                /* @__PURE__ */ jsx("option", { value: "USD_JPY", children: "USD ➔ JPY (ABD ➔ Japonya)" }),
+                /* @__PURE__ */ jsx("option", { value: "EUR_USD", children: "EUR ➔ USD (Avrupa ➔ ABD)" }),
+                /* @__PURE__ */ jsx("option", { value: "GBP_USD", children: "GBP ➔ USD (İngiltere ➔ ABD)" })
+              ]
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/90 border border-slate-800 p-5 rounded-2xl flex flex-wrap items-center justify-between gap-4", children: [
+        /* @__PURE__ */ jsxs("div", { children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400", children: "Reel Piyasa Kuru (Mid-Market Rate)" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-2xl font-black text-white mt-0.5", children: [
+            "1 ",
+            result.fromCurr,
+            " = ",
+            result.midMarketRate,
+            " ",
+            result.toCurr
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "text-right", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400", children: "Sıfır Komisyonlu Alınması Gereken Net" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-2xl font-black text-emerald-400 mt-0.5", children: [
+            result.targetMidMarketAmount.toLocaleString(),
+            " ",
+            result.toCurr
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "space-y-4", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
+          /* @__PURE__ */ jsx("h3", { className: "text-sm font-bold text-white", children: "Sağlayıcı Bazlı Karşılaştırma & Gizli Kayıplar" }),
+          /* @__PURE__ */ jsxs("span", { className: "text-xs text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full", children: [
+            "Fark: ",
+            result.potentialSavings,
+            " ",
+            result.toCurr,
+            " tasarruf imkanı"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "space-y-3", children: result.comparison.map((item, idx) => /* @__PURE__ */ jsxs(
+          "div",
+          {
+            className: `p-5 rounded-2xl border transition flex flex-wrap items-center justify-between gap-4 ${idx === 0 ? "bg-emerald-950/20 border-emerald-500/40 shadow-lg shadow-emerald-500/5" : "bg-slate-900/60 border-slate-800"}`,
+            children: [
+              /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-3 min-w-[200px]", children: [
+                /* @__PURE__ */ jsx("span", { className: "text-2xl", children: item.provider.flag }),
+                /* @__PURE__ */ jsxs("div", { children: [
+                  /* @__PURE__ */ jsxs("div", { className: "font-bold text-white flex items-center space-x-2", children: [
+                    /* @__PURE__ */ jsx("span", { children: item.provider.name }),
+                    idx === 0 && /* @__PURE__ */ jsx("span", { className: "text-[10px] bg-emerald-500 text-slate-950 font-black px-2 py-0.5 rounded-full", children: "EN UYGUN" })
+                  ] }),
+                  /* @__PURE__ */ jsxs("span", { className: "text-xs text-slate-400", children: [
+                    "Süre: ",
+                    item.provider.speed
+                  ] })
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "text-right", children: [
+                /* @__PURE__ */ jsx("span", { className: "text-xs text-slate-400 block", children: "Uygulanan Kur" }),
+                /* @__PURE__ */ jsxs("span", { className: "font-mono text-sm text-slate-200 font-bold", children: [
+                  "1 ",
+                  result.fromCurr,
+                  " = ",
+                  item.providerRate
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "text-right", children: [
+                /* @__PURE__ */ jsx("span", { className: "text-xs text-slate-400 block", children: "Gizli Kur Marjı Kaybı" }),
+                /* @__PURE__ */ jsxs("span", { className: `font-mono text-sm font-bold ${item.hiddenFxLoss > 10 ? "text-rose-400" : "text-slate-300"}`, children: [
+                  "-",
+                  item.hiddenFxLoss,
+                  " ",
+                  result.toCurr,
+                  " (%",
+                  item.hiddenFxLossPercent,
+                  ")"
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "text-right min-w-[140px]", children: [
+                /* @__PURE__ */ jsx("span", { className: "text-xs text-slate-400 block", children: "Alıcının Eline Geçen" }),
+                /* @__PURE__ */ jsxs("span", { className: "text-lg font-black text-white", children: [
+                  item.recipientReceives.toLocaleString(),
+                  " ",
+                  result.toCurr
+                ] })
+              ] })
+            ]
+          },
+          item.provider.id
+        )) })
+      ] })
+    ] })
+  ] });
+}
+const countryVatRates = {
+  DE: { name: "Germany", standardVat: 19, reducedVat: 7, flag: "🇩🇪", isEU: true },
+  FR: { name: "France", standardVat: 20, reducedVat: 10, flag: "🇫🇷", isEU: true },
+  ES: { name: "Spain", standardVat: 21, reducedVat: 10, flag: "🇪🇸", isEU: true },
+  IT: { name: "Italy", standardVat: 22, reducedVat: 10, flag: "🇮🇹", isEU: true },
+  NL: { name: "Netherlands", standardVat: 21, reducedVat: 9, flag: "🇳🇱", isEU: true },
+  SE: { name: "Sweden", standardVat: 25, reducedVat: 12, flag: "🇸🇪", isEU: true },
+  PL: { name: "Poland", standardVat: 23, reducedVat: 8, flag: "🇵🇱", isEU: true },
+  UK: { name: "United Kingdom", standardVat: 20, reducedVat: 5, flag: "🇬🇧", isEU: false },
+  TR: { name: "Turkey (KDV)", standardVat: 20, reducedVat: 10, flag: "🇹🇷", isEU: false },
+  IN: { name: "India (GST)", standardVat: 18, reducedVat: 12, flag: "🇮🇳", isEU: false },
+  US_CA: { name: "United States (California Sales Tax)", standardVat: 7.25, reducedVat: 0, flag: "🇺🇸", isEU: false },
+  US_NY: { name: "United States (New York Sales Tax)", standardVat: 8.875, reducedVat: 0, flag: "🇺🇸", isEU: false },
+  US_TX: { name: "United States (Texas Sales Tax)", standardVat: 6.25, reducedVat: 0, flag: "🇺🇸", isEU: false },
+  AU: { name: "Australia (GST)", standardVat: 10, reducedVat: 0, flag: "🇦🇺", isEU: false },
+  CA: { name: "Canada (HST/GST)", standardVat: 13, reducedVat: 5, flag: "🇨🇦", isEU: false }
+};
+function calculateGlobalInvoice({
+  amount = 1e3,
+  countryKey = "DE",
+  calculationType = "netToGross",
+  // 'netToGross' or 'grossToNet'
+  isB2B = true,
+  isCrossBorderReverseCharge = false
+}) {
+  const country = countryVatRates[countryKey] || countryVatRates.DE;
+  const effectiveVatRatePercent = isB2B && isCrossBorderReverseCharge ? 0 : country.standardVat;
+  const rateFraction = effectiveVatRatePercent / 100;
+  let netAmount = 0;
+  let vatAmount = 0;
+  let grossAmount = 0;
+  if (calculationType === "netToGross") {
+    netAmount = amount;
+    vatAmount = netAmount * rateFraction;
+    grossAmount = netAmount + vatAmount;
+  } else {
+    grossAmount = amount;
+    netAmount = grossAmount / (1 + rateFraction);
+    vatAmount = grossAmount - netAmount;
+  }
+  return {
+    country,
+    isB2B,
+    isCrossBorderReverseCharge,
+    effectiveVatRatePercent,
+    netAmount: parseFloat(netAmount.toFixed(2)),
+    vatAmount: parseFloat(vatAmount.toFixed(2)),
+    grossAmount: parseFloat(grossAmount.toFixed(2)),
+    invoiceNote: isB2B && isCrossBorderReverseCharge ? "Reverse Charge Mechanism Applies: VAT 0% (Cross-border B2B Service Export Article 196 EU VAT Directive / Local Export Exemption)" : `Standard VAT/Tax Applied (${effectiveVatRatePercent}%)`
+  };
+}
+function GlobalInvoiceVatCalculator({ lang = "en" }) {
+  const [amount, setAmount] = useState(2500);
+  const [selectedCountry, setSelectedCountry] = useState("DE");
+  const [calculationType, setCalculationType] = useState("netToGross");
+  const [isB2B, setIsB2B] = useState(true);
+  const [isCrossBorderReverseCharge, setIsCrossBorderReverseCharge] = useState(true);
+  const [copied, setCopied] = useState(false);
+  const result = calculateGlobalInvoice({
+    amount,
+    countryKey: selectedCountry,
+    calculationType,
+    isB2B,
+    isCrossBorderReverseCharge
+  });
+  const handleCopyBreakdown = () => {
+    const text = `
+INVOICE TAX BREAKDOWN
+--------------------------------------------------
+Country Jurisdiction: ${result.country.flag} ${result.country.name}
+Invoice Type: ${isB2B ? "B2B Cross-Border Service" : "B2C Local Service"}
+Net Subtotal: $${result.netAmount.toLocaleString()} USD
+VAT / Tax Rate: ${result.effectiveVatRatePercent}%
+VAT / Tax Amount: $${result.vatAmount.toLocaleString()} USD
+GROSS TOTAL INVOICE: $${result.grossAmount.toLocaleString()} USD
+
+Notes: ${result.invoiceNote}
+--------------------------------------------------
+Generated by GlobalPayCalc.com (Universal Utility Engine)
+    `.trim();
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2e3);
+  };
+  return /* @__PURE__ */ jsxs("div", { className: "space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500", children: [
+    /* @__PURE__ */ jsxs("div", { className: "text-center max-w-3xl mx-auto space-y-3", children: [
+      /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold", children: [
+        /* @__PURE__ */ jsx(FileText, { className: "w-3.5 h-3.5" }),
+        /* @__PURE__ */ jsx("span", { children: "Küresel Fatura & KDV / Sales Tax Matrah Motoru" })
+      ] }),
+      /* @__PURE__ */ jsx("h2", { className: "text-3xl sm:text-4xl font-extrabold text-white tracking-tight", children: "Küresel Fatura ve KDV / Satış Vergisi Hesaplayıcı" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm leading-relaxed", children: "B2B ve B2C uluslararası hizmet satışlarında KDV (VAT / GST / Sales Tax) oranlarını ve uluslararası ters ödeme yükümlülüğünü (Reverse Charge / %0 Export) hesaplayın." })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 sm:p-8 rounded-3xl border-slate-800 space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Tutar ($ / € / ₺)" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "number",
+              value: amount,
+              onChange: (e) => setAmount(Number(e.target.value)),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-lg focus:border-purple-500 outline-none",
+              placeholder: "2500"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Hesaplama Yönü" }),
+          /* @__PURE__ */ jsxs(
+            "select",
+            {
+              value: calculationType,
+              onChange: (e) => setCalculationType(e.target.value),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-purple-500 outline-none cursor-pointer",
+              children: [
+                /* @__PURE__ */ jsx("option", { value: "netToGross", children: "KDV'siz Tutar ➔ KDV Dahil (Net'ten Brüt'e)" }),
+                /* @__PURE__ */ jsx("option", { value: "grossToNet", children: "KDV Dahil Tutar ➔ KDV Hariç (Brüt'ten Net'e)" })
+              ]
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-xs font-bold text-slate-300 uppercase tracking-wider", children: "Hedef Ülke / Vergi Rejimi" }),
+          /* @__PURE__ */ jsx(
+            "select",
+            {
+              value: selectedCountry,
+              onChange: (e) => setSelectedCountry(e.target.value),
+              className: "w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-purple-500 outline-none cursor-pointer",
+              children: Object.entries(countryVatRates).map(([code, c]) => /* @__PURE__ */ jsxs("option", { value: code, children: [
+                c.flag,
+                " ",
+                c.name,
+                " (%",
+                c.standardVat,
+                ")"
+              ] }, code))
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-900/60 p-4 rounded-2xl border border-slate-800", children: [
+        /* @__PURE__ */ jsxs("label", { className: "flex items-center space-x-3 cursor-pointer", children: [
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "checkbox",
+              checked: isB2B,
+              onChange: (e) => setIsB2B(e.target.checked),
+              className: "w-4 h-4 rounded border-slate-700 text-purple-600 focus:ring-purple-500 bg-slate-950"
+            }
+          ),
+          /* @__PURE__ */ jsx("span", { className: "text-sm font-semibold text-slate-200", children: "B2B Kurumsal Müşteri Faturası" })
+        ] }),
+        /* @__PURE__ */ jsxs("label", { className: "flex items-center space-x-3 cursor-pointer", children: [
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "checkbox",
+              checked: isCrossBorderReverseCharge,
+              onChange: (e) => setIsCrossBorderReverseCharge(e.target.checked),
+              className: "w-4 h-4 rounded border-slate-700 text-purple-600 focus:ring-purple-500 bg-slate-950"
+            }
+          ),
+          /* @__PURE__ */ jsx("span", { className: "text-sm font-semibold text-slate-200", children: "Uluslararası Hizmet İhracatı (Reverse Charge / %0 KDV)" })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/90 border border-slate-800 p-6 rounded-2xl space-y-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
+          /* @__PURE__ */ jsxs("h3", { className: "text-sm font-bold text-white flex items-center space-x-2", children: [
+            /* @__PURE__ */ jsx(FileText, { className: "w-4 h-4 text-purple-400" }),
+            /* @__PURE__ */ jsx("span", { children: "Fatura Dökümü ve Matrah Hesabı" })
+          ] }),
+          /* @__PURE__ */ jsxs(
+            "button",
+            {
+              onClick: handleCopyBreakdown,
+              className: "px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-300 hover:bg-purple-500/20 text-xs font-bold transition flex items-center space-x-1.5",
+              children: [
+                /* @__PURE__ */ jsx(Copy, { className: "w-3.5 h-3.5" }),
+                /* @__PURE__ */ jsx("span", { children: copied ? "Kopyalandı! ✅" : "Kopyala" })
+              ]
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
+          /* @__PURE__ */ jsxs("div", { className: "bg-slate-950/80 p-5 rounded-xl border border-slate-800", children: [
+            /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Matrah (Net Tutar)" }),
+            /* @__PURE__ */ jsxs("div", { className: "text-2xl font-black text-white mt-1", children: [
+              "$",
+              result.netAmount.toLocaleString()
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "bg-slate-950/80 p-5 rounded-xl border border-slate-800", children: [
+            /* @__PURE__ */ jsxs("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: [
+              "Hesaplanan KDV (%",
+              result.effectiveVatRatePercent,
+              ")"
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "text-2xl font-black text-purple-400 mt-1", children: [
+              "$",
+              result.vatAmount.toLocaleString()
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "bg-slate-950/80 p-5 rounded-xl border border-slate-800", children: [
+            /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Fatura Genel Toplamı (Brüt)" }),
+            /* @__PURE__ */ jsxs("div", { className: "text-2xl font-black text-emerald-400 mt-1", children: [
+              "$",
+              result.grossAmount.toLocaleString()
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-purple-950/20 border border-purple-500/20 p-4 rounded-xl text-xs text-purple-300 flex items-start space-x-2", children: [
+          /* @__PURE__ */ jsx(Info, { className: "w-4 h-4 shrink-0 mt-0.5" }),
+          /* @__PURE__ */ jsxs("span", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Fatura Notu:" }),
+            " ",
+            result.invoiceNote
+          ] })
+        ] })
+      ] })
+    ] })
+  ] });
+}
 const generateSeoSchema = ({ type, url, name, description, faqs = [], breadcrumbs = [] }) => {
   const baseSchema = {
     "@context": "https://schema.org"
@@ -2877,7 +3880,7 @@ const injectJsonLdSchema = (id2, schemaObj) => {
 const faqData = {
   en: [
     { question: "Is my personal data or file uploads secure on GlobalPayCalc?", answer: "Yes, 100%. All processing (image compression, background removal, tax calculations, token estimations) occurs entirely inside your local browser memory (RAM). We do not upload, store, or log any of your files on any remote servers." },
-    { question: "How does the Social Video Downloader work without a watermark?", answer: "Our downloader communicates with a secure serverless proxy engine that parses public meta-streams of TikTok, Reels, and Shorts videos, extracting the original, un-watermarked HD direct download links directly to your browser." },
+    { question: "How does the Global Take-Home Salary & FX Fee engine work?", answer: "Our dynamic engine integrates official income tax brackets, social security statutory deductions, and real mid-market exchange rates to calculate your exact net salary and reveal hidden bank transfer markups across 40+ countries." },
     { question: "Where do the remote tax and living cost index (PPP) rates come from?", answer: "The data is updated monthly, compiling verified official local income tax structures, remote worker Beckham law schemes, and cost-of-living index ratings relative to the US baseline (sources include local tax registries, OECD, and Numbeo database metrics)." },
     { question: "Why is this utility engine completely free to use?", answer: "We monetize the platform exclusively through non-intrusive, zero-CLS Google AdSense and AdX advertisement slots. This allows us to keep all computing tools free, unlimited, and open source without charging subscription fees." },
     { question: "How accurate is the AI Token API Cost Simulator?", answer: "The prices are synced with official provider API pricing (including OpenAI, Anthropic, Google, and Meta). It projects monthly and yearly costs based on your specific input/output token volume assumptions." },
@@ -2885,7 +3888,7 @@ const faqData = {
   ],
   tr: [
     { question: "GlobalPayCalc üzerinde yüklediğim dosyalar veya kişisel verilerim güvende mi?", answer: "Evet, kesinlikle. Görsel sıkıştırma, arka plan silme, vergi hesaplama ve token maliyeti simülasyonu gibi tüm işlemler tamamen bilgisayarınızın veya telefonunuzun yerel bellek (RAM) katmanında gerçekleşir. Verileriniz asla bir sunucuya yüklenmez, kaydedilmez ve satılmaz." },
-    { question: "Sosyal medya video indirici nasıl filigransız indirme sağlıyor?", answer: "Sistemimiz, TikTok, Instagram Reels ve YouTube Shorts videolarının herkese açık kaynak kodlarını güvenli bir sunucu (edge proxy) üzerinden analiz ederek, filigransız orijinal HD doğrudan indirme bağlantılarını tarayıcınıza iletir." },
+    { question: "Küresel Net Maaş, Vergi ve FX Komisyon Motoru nasıl çalışır?", answer: "Dinamik hesaplama motorumuz; ABD, İngiltere, Almanya, Türkiye ve 40+ ülkenin resmi gelir vergisi dilimlerini, sosyal güvenlik kesintilerini ve reel piyasa döviz kurlarını kullanarak elinize geçecek net tutarı ve bankaların kestiği gizli marjı tam doğrulukla hesaplar." },
     { question: "Uzaktan çalışma vergi ve yaşam maliyeti (PPP) verileri güncel ve gerçek mi?", answer: "Evet. Hesaplama motorumuzda yer alan veriler; OECD veritabanı, yerel maliye bakanlıkları ve Numbeo yaşam maliyeti indeksleri derlenerek aylık bazda güncellenmektedir. Ülkelerin remote çalışanlar için sunduğu güncel Beckham Yasası, NHR ve yerel istisna kuralları dahildir." },
     { question: "Bu platform neden tamamen ücretsiz?", answer: "Sitemizi tamamen reklamsız hissettiren, hız kaybına veya yerleşim kaymasına yol açmayan entegre Google AdSense ve AdX reklam alanları üzerinden finanse ediyoruz. Bu sayede tüm araçlarımızı sınırsız ve aboneliksiz sunabiliyoruz." },
     { question: "Yapay Zeka Token API Maliyet Simülatörü fiyatları güncel mi?", answer: "Evet, tüm fiyatlar OpenAI, Anthropic, Google Gemini ve Llama sağlayıcılarının resmi API fiyat tarifeleriyle (1 Milyon token başına fiyatlandırma) birebir eşleşmektedir ve düzenli güncellenir." },
@@ -2893,7 +3896,7 @@ const faqData = {
   ],
   es: [
     { question: "¿Están seguros mis datos personales o archivos subidos en GlobalPayCalc?", answer: "Sí, 100%. Todo el procesamiento ocurre dentro de la memoria del navegador local (RAM). No subimos, almacenamos ni registramos ninguno de sus archivos en servidores remotos." },
-    { question: "¿Cómo funciona el descargador de videos sin marca de agua?", answer: "Nuestro descargador se conecta a un proxy seguro que procesa metadatos públicos de videos de TikTok, Reels y Shorts, extrayendo los enlaces de descarga directa HD originales sin marca de agua." },
+    { question: "¿Cómo funciona el motor de salario neto y tarifas FX?", answer: "Nuestro motor integra tramos impositivos oficiales, deducciones de seguridad social y tasas de cambio del mercado real para calcular su salario neto exacto y revelar tarifas bancarias ocultas." },
     { question: "¿De dónde provienen las tasas de impuestos y los índices de costo de vida (PPP)?", answer: "Los datos se actualizan mensualmente, compilando estructuras oficiales de impuestos sobre la renta, leyes Beckham locales para trabajadores remotos e índices de costo de vida en comparación con EE.UU. (fuentes incluyen registros fiscales y la base de datos de Numbeo)." },
     { question: "¿Por qué esta herramienta es completamente gratuita?", answer: "Monetizamos la plataforma a través de anuncios de Google AdSense no intrusivos. Esto nos permite mantener todas las herramientas gratuitas, ilimitadas y de código abierto." },
     { question: "¿Qué tan preciso es el simulador de costos de API de tokens IA?", answer: "Los precios están sincronizados con las tarifas oficiales de los proveedores (incluyendo OpenAI, Anthropic, Google y Meta) basadas en su volumen mensual de tokens." },
@@ -2901,7 +3904,7 @@ const faqData = {
   ],
   de: [
     { question: "Sind meine persönlichen Daten oder hochgeladenen Dateien auf GlobalPayCalc sicher?", answer: "Ja, zu 100%. Die gesamte Verarbeitung erfolgt im Arbeitsspeicher (RAM) Ihres Browsers. Wir laden keine Dateien auf Remote-Server hoch, speichern sie nicht und protokollieren sie nicht." },
-    { question: "Wie funktioniert der Social Video Downloader ohne Wasserzeichen?", answer: "Unser Downloader kommuniziert mit einem sicheren Serverless-Proxy, der öffentliche Metadaten von TikTok-, Reels- und Shorts-Videos analysiert und die direkten HD-Downloadlinks ohne Wasserzeichen extrahiert." },
+    { question: "Wie funktioniert der Netto-Gehalts- und FX-Gebühren-Rechner?", answer: "Unser System nutzt offizielle Einkommensteuertabellen, Sozialabgaben und echte Marktwechselkurse, um Ihr genaues Nettogehalt und versteckte Bankgebühren zu berechnen." },
     { question: "Woher stammen die Steuersätze und Lebenshaltungskostenindizes (Kaufkraftparität)?", answer: "Die Daten werden monatlich aktualisiert und basieren auf verifizierten lokalen Einkommensteuertabellen, Sonderregelungen für Remote-Arbeiter und Lebenshaltungskostenindizes (Quellen sind Finanzämter, OECD und Numbeo)." },
     { question: "Warum ist diese Web-App komplett kostenlos?", answer: "Wir finanzieren die Plattform ausschließlich über nicht störende Google AdSense-Anzeigen. Dadurch können wir alle Rechner unbegrenzt und kostenlos für alle anbieten." },
     { question: "Wie genau ist der KI-Token- und API-Kostensimulator?", answer: "Die Preise stimmen mit den offiziellen API-Preisen der Anbieter (OpenAI, Anthropic, Google, Meta) überein und berechnen die Kosten basierend auf Ihren Token-Eingaben." },
@@ -2909,7 +3912,7 @@ const faqData = {
   ],
   pt: [
     { question: "Meus dados pessoais ou uploads estão seguros no GlobalPayCalc?", answer: "Sim, 100%. Todo o processamento ocorre na memória do seu navegador local (RAM). Não fazemos upload, armazenamento ou registro de seus arquivos em nossos servidores." },
-    { question: "Como funciona o baixador de vídeos sociais sem marca d'água?", answer: "Nosso sistema conecta-se a um proxy seguro que lê os streams públicos de vídeos do TikTok, Reels e Shorts, extraindo links de download direto em HD sem marca d'água." },
+    { question: "Como funciona o motor de salário líquido e taxas de câmbio?", answer: "Nosso motor integra tabelas oficiais de impostos, deduções de seguridade social e taxas de câmbio reais para calcular seu salário líquido e revelar taxas bancárias ocultas." },
     { question: "De onde vêm as taxas de impostos e índices de custo de vida (PPP)?", answer: "Os dados são atualizados mensalmente a partir de órgãos oficiais, incluindo impostos sobre a renda locais, regimes fiscais para nômades e dados de custo de vida do Numbeo e OCDE." },
     { question: "Por que esta plataforma é totalmente gratuita?", answer: "Nós monetizamos o site através de anúncios integrados do Google AdSense. Isso nos permite manter todas as ferramentas de utilidade pública 100% grátis e ilimitadas." },
     { question: "Quão preciso é o simulador de custos de tokens e APIs de IA?", answer: "Os valores são sincronizados com as tarifas oficiais das APIs dos provedores (OpenAI, Anthropic, Google, Meta) por milhão de tokens de entrada e saída." },
@@ -2917,7 +3920,7 @@ const faqData = {
   ],
   fr: [
     { question: "Mes données et fichiers sont-ils sécurisés sur GlobalPayCalc ?", answer: "Oui, à 105%. Tous les calculs et compressions se déroulent localement dans la mémoire de votre navigateur (RAM). Aucun fichier n'est téléversé ou stocké sur des serveurs externes." },
-    { question: "Comment fonctionne le téléchargeur de vidéos sans filigrane ?", answer: "Il utilise un proxy sécurisé pour analyser les flux publics des vidéos TikTok, Reels et Shorts, vous fournissant directement les liens de téléchargement HD d'origine sans filigrane." },
+    { question: "Comment fonctionne le moteur de salaire net et de frais de change ?", answer: "Notre moteur intègre les barèmes fiscaux officiels, les cotisations sociales et les taux de change du marché en temps réel pour calculer votre salaire net exact." },
     { question: "D'où proviennent les données fiscales et de coût de la vie ?", answer: "Les données sont mises à jour mensuellement à partir de barèmes fiscaux officiels, de lois Beckham locales et des indices de coût de la vie de la base de données Numbeo." },
     { question: "Pourquoi ce site est-il entièrement gratuit ?", answer: "Nous finançons ce service via des encarts publicitaires non intrusifs Google AdSense. Cela permet de garder tous nos outils open-source et gratuits pour les utilisateurs." },
     { question: "Quelle est la précision du simulateur de coût des tokens IA ?", answer: "Les prix sont alignés en temps réel sur les grilles tarifaires officielles des fournisseurs (OpenAI, Anthropic, Google, Meta) par million de tokens." },
@@ -2925,7 +3928,7 @@ const faqData = {
   ],
   id: [
     { question: "Apakah data pribadi atau berkas yang saya unggah aman di GlobalPayCalc?", answer: "Ya, 100% aman. Semua proses kompresi, hapus latar belakang, dan perhitungan pajak berjalan langsung di memori peramban Anda (RAM). Kami tidak menyimpan berkas Anda." },
-    { question: "Bagaimana cara kerja pengunduh video sosial tanpa watermark?", answer: "Pengunduh kami terhubung ke server proxy aman untuk mengurai tautan publik TikTok, Reels, dan Shorts, lalu mengambil berkas HD asli tanpa tanda air langsung ke browser Anda." },
+    { question: "Bagaimana cara kerja mesin gaji bersih dan biaya nilai tukar?", answer: "Mesin kami mengintegrasikan tarif pajak resmi, potongan jaminan sosial, dan nilai tukar riil untuk menghitung gaji bersih Anda secara akurat." },
     { question: "Dari mana asal data pajak dan indeks biaya hidup (PPP)?", answer: "Data diperbarui setiap bulan berdasarkan laporan perpajakan resmi setempat, undang-undang Beckham pekerja jarak jauh, dan indeks biaya hidup dari basis data Numbeo." },
     { question: "Mengapa semua kalkulator ini gratis digunakan?", answer: "Kami membiayai platform ini sepenuhnya melalui slot iklan Google AdSense yang aman dan rapi, sehingga kami dapat menjaga semua utilitas tetap gratis tanpa biaya bulanan." },
     { question: "Seberapa akurat simulator biaya API token AI?", answer: "Harga disesuaikan dengan tarif API resmi dari penyedia (OpenAI, Anthropic, Google, Meta) untuk hitungan per satu juta token." },
@@ -3728,7 +4731,7 @@ function OverviewTab({ realPageViews, dbError, googleStats }) {
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 rounded-2xl border-slate-800 flex flex-col min-h-[350px]", children: [
         /* @__PURE__ */ jsx("h3", { className: "text-sm font-bold text-white mb-2", children: "Trafik Kaynakları" }),
-        /* @__PURE__ */ jsx("div", { className: "flex-1 w-full relative flex items-center justify-center", children: data.trafficSources && data.trafficSources.length > 0 && data.trafficSources.some((d) => d.value > 0) ? /* @__PURE__ */ jsx(ResponsiveContainer, { width: "100%", height: "100%", children: /* @__PURE__ */ jsxs(PieChart, { children: [
+        /* @__PURE__ */ jsx("div", { className: "flex-1 w-full relative flex items-center justify-center", children: data.trafficSources && data.trafficSources.length > 0 && data.trafficSources.some((d) => d.value > 0) ? /* @__PURE__ */ jsx(ResponsiveContainer, { width: "100%", height: "100%", children: /* @__PURE__ */ jsxs(PieChart$1, { children: [
           /* @__PURE__ */ jsx(Pie, { data: data.trafficSources, cx: "50%", cy: "50%", innerRadius: 60, outerRadius: 80, paddingAngle: 5, dataKey: "value", children: data.trafficSources.map((entry, index) => /* @__PURE__ */ jsx(Cell, { fill: entry.color }, `cell-${index}`)) }),
           /* @__PURE__ */ jsx(Tooltip, { contentStyle: { backgroundColor: "#0f172a", borderColor: "#1e293b", borderRadius: "12px" } }),
           /* @__PURE__ */ jsx(Legend, { verticalAlign: "bottom", height: 36, iconType: "circle" })
@@ -4340,10 +5343,12 @@ const generatePseoLlmMatrix = () => {
   }
   return routes;
 };
-function DynamicToolPage({ pageData, lang = "en" }) {
+function DynamicToolPage({ pageData, routeData, lang = "en" }) {
   const t = (path) => getTranslation(lang, path);
-  const isLlmTool = !!pageData.modelA;
-  const { title, description, origin, dest, status, modelA, modelB, useCase, slug } = pageData;
+  const data = pageData || routeData;
+  if (!data) return null;
+  const isLlmTool = !!data.modelA;
+  const { title, description, origin, dest, status, modelA, modelB, useCase, slug } = data;
   let taxContext = "";
   if (!isLlmTool && (dest == null ? void 0 : dest.effTax)) {
     if (dest.effTax > 0.25) taxContext = t("dynamic.taxHigh");
@@ -4654,6 +5659,17 @@ const CookieConsent = ({ lang = "en" }) => {
     ] })
   ] }) });
 };
+const detectUserLanguage = () => {
+  if (typeof window === "undefined" || !navigator) return "en";
+  const browserLang = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+  const primaryCode = browserLang.split("-")[0];
+  const supportedCodes = ["en", "tr", "es", "de", "pt", "fr", "id", "ja"];
+  if (supportedCodes.includes(primaryCode)) {
+    console.log(`[Auto Language Detection] User browser language detected: ${browserLang} -> Auto-switched to '${primaryCode}'`);
+    return primaryCode;
+  }
+  return "en";
+};
 const trackPageView = async (pagePath) => {
   try {
     const { error } = await supabase.from("page_views").insert([
@@ -4675,11 +5691,23 @@ function ContentWrapper({ lang, t }) {
   const location = useLocation();
   const pathSegments = location.pathname.split("/").filter(Boolean);
   const hasLangPrefix = supportedLanguages.some((l) => l.code === pathSegments[0]);
-  const activeTab = hasLangPrefix ? pathSegments[1] || "salary" : pathSegments[0] || "salary";
+  const activeTab = hasLangPrefix ? pathSegments[1] || "take-home" : pathSegments[0] || "take-home";
   const basePath = hasLangPrefix ? `/${pathSegments[0]}` : "";
-  let pageTitle = "GlobalPayCalc: Global Remote Salary, Tax & AI Cost Simulator";
+  let pageTitle = "GlobalPayCalc: Global Remote Net Salary, Tax, FX & AI Cost Simulator";
   let pageDesc = t("hero.subtitle");
-  if (activeTab === "salary" || activeTab === "video") {
+  if (activeTab === "take-home") {
+    pageTitle = "Global Net Take-Home Salary & Tax Calculator | US, UK, DE, TR | GlobalPayCalc";
+    pageDesc = "Calculate net take-home salary after federal/state income tax, social security, and FICA deductions across 40+ countries.";
+  } else if (activeTab === "contractor") {
+    pageTitle = "Full-Time vs Contractor / Freelance Equivalence Calculator (W-2 vs 1099, IR35)";
+    pageDesc = "Compare W-2 salaried offer vs 1099 contractor billing rate. Factor in PTO, health insurance, and SE taxes accurately.";
+  } else if (activeTab === "fx-fees") {
+    pageTitle = "Real FX Rate & Hidden Bank Fee Estimator (Wise vs SWIFT vs PayPal vs Stripe)";
+    pageDesc = "Calculate real mid-market exchange rate vs hidden bank FX markups and transfer fees for international cross-border payments.";
+  } else if (activeTab === "vat") {
+    pageTitle = "Global Invoice & VAT / Sales Tax Calculator | Cross-Border Reverse Charge";
+    pageDesc = "Calculate net, VAT/GST amount, and gross invoice total. Includes B2B cross-border Reverse Charge 0% export exemption.";
+  } else if (activeTab === "salary") {
     pageTitle = "Remote Salary Calculator & Global Tax Parity Estimator | GlobalPayCalc";
     pageDesc = "Calculate net remote salaries across 150+ countries. Compare purchasing power, cost of living, and nomad tax laws instantly.";
   } else if (activeTab === "wasm") {
@@ -4712,37 +5740,61 @@ function ContentWrapper({ lang, t }) {
       /* @__PURE__ */ jsx("h1", { className: "text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-2xl", children: /* @__PURE__ */ jsx("span", { className: "gradient-text", children: t("hero.title") }) }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-base sm:text-xl max-w-2xl mx-auto leading-relaxed font-medium", children: t("hero.subtitle") }),
       /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap justify-center gap-2 pt-2", children: [
-        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/salary`, title: "Calculate remote net salary and tax parity", className: `px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "salary" || activeTab === "video" ? "bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
-          /* @__PURE__ */ jsx(Globe, { className: "w-3.5 h-3.5" }),
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/take-home`, title: "Global Net Take-Home Salary & Tax Calculator", className: `px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "take-home" || activeTab === "video" ? "bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(DollarSign, { className: "w-3.5 h-3.5 text-emerald-400" }),
+          /* @__PURE__ */ jsx("span", { children: t("nav.takeHome") })
+        ] }),
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/contractor`, title: "Full-Time vs Contractor Equivalence Calculator", className: `px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "contractor" ? "bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(Briefcase, { className: "w-3.5 h-3.5 text-cyan-400" }),
+          /* @__PURE__ */ jsx("span", { children: t("nav.contractor") })
+        ] }),
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/fx-fees`, title: "Real FX Rate & Hidden Bank Fee Estimator", className: `px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "fx-fees" ? "bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(ArrowRightLeft, { className: "w-3.5 h-3.5 text-rose-400" }),
+          /* @__PURE__ */ jsx("span", { children: t("nav.fxFees") })
+        ] }),
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/vat`, title: "Global Invoice & VAT / Sales Tax Calculator", className: `px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "vat" ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(FileText, { className: "w-3.5 h-3.5 text-purple-400" }),
+          /* @__PURE__ */ jsx("span", { children: t("nav.vat") })
+        ] }),
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/salary`, title: "Calculate remote net salary and tax parity", className: `px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "salary" ? "bg-slate-800 text-white border-slate-700" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(Globe, { className: "w-3.5 h-3.5 text-amber-400" }),
           /* @__PURE__ */ jsx("span", { children: t("nav.salary") })
         ] }),
-        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/ai`, title: "LLM API token cost simulator", className: `px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "ai" ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/ai`, title: "LLM API token cost simulator", className: `px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "ai" ? "bg-slate-800 text-white border-slate-700" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
           /* @__PURE__ */ jsx(Sparkles, { className: "w-3.5 h-3.5 text-amber-400" }),
           /* @__PURE__ */ jsx("span", { children: t("nav.aiCost") })
         ] }),
-        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/wasm`, title: "Client-side AI image background remover", className: `px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "wasm" ? "bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
-          /* @__PURE__ */ jsx(Image$1, { className: "w-3.5 h-3.5" }),
+        /* @__PURE__ */ jsxs(Link, { to: `${basePath}/wasm`, title: "Client-side AI image background remover", className: `px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border cursor-pointer ${activeTab === "wasm" ? "bg-slate-800 text-white border-slate-700" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`, children: [
+          /* @__PURE__ */ jsx(Image$1, { className: "w-3.5 h-3.5 text-cyan-400" }),
           /* @__PURE__ */ jsx("span", { children: t("nav.bgRemover") })
         ] })
       ] })
     ] }),
     /* @__PURE__ */ jsx("div", { className: "pt-4", children: /* @__PURE__ */ jsxs(Routes, { children: [
-      /* @__PURE__ */ jsx(Route, { path: "/", element: /* @__PURE__ */ jsx(NomadTaxCalculator, { lang }) }),
-      /* @__PURE__ */ jsx(Route, { path: "/video", element: /* @__PURE__ */ jsx(NomadTaxCalculator, { lang }) }),
-      /* @__PURE__ */ jsx(Route, { path: "/wasm", element: /* @__PURE__ */ jsx(QuickWasmCompressor, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/", element: /* @__PURE__ */ jsx(GlobalTakeHomeCalculator, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/take-home", element: /* @__PURE__ */ jsx(GlobalTakeHomeCalculator, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/contractor", element: /* @__PURE__ */ jsx(ContractorVsPermCalculator, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/fx-fees", element: /* @__PURE__ */ jsx(HiddenFxFeeCalculator, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/vat", element: /* @__PURE__ */ jsx(GlobalInvoiceVatCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/salary", element: /* @__PURE__ */ jsx(NomadTaxCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/ai", element: /* @__PURE__ */ jsx(DevTokenCalculator, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/wasm", element: /* @__PURE__ */ jsx(QuickWasmCompressor, { lang }) }),
+      /* @__PURE__ */ jsx(Route, { path: "/video", element: /* @__PURE__ */ jsx(GlobalTakeHomeCalculator, { lang }) }),
       /* @__PURE__ */ jsx(Route, { path: "/admin", element: /* @__PURE__ */ jsx(ProtectedRoute, { children: /* @__PURE__ */ jsx(AdminDashboard, {}) }) }),
       /* @__PURE__ */ jsx(Route, { path: "/privacy", element: /* @__PURE__ */ jsx(PrivacyPolicy, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/terms", element: /* @__PURE__ */ jsx(TermsOfService, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/about", element: /* @__PURE__ */ jsx(AboutUs, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/contact", element: /* @__PURE__ */ jsx(Contact, {}) }),
       supportedLanguages.map((l) => /* @__PURE__ */ jsxs(React.Fragment, { children: [
-        /* @__PURE__ */ jsx(Route, { path: `/${l.code}`, element: /* @__PURE__ */ jsx(NomadTaxCalculator, { lang: l.code }) }),
-        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/video`, element: /* @__PURE__ */ jsx(NomadTaxCalculator, { lang: l.code }) }),
-        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/wasm`, element: /* @__PURE__ */ jsx(QuickWasmCompressor, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}`, element: /* @__PURE__ */ jsx(GlobalTakeHomeCalculator, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/take-home`, element: /* @__PURE__ */ jsx(GlobalTakeHomeCalculator, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/contractor`, element: /* @__PURE__ */ jsx(ContractorVsPermCalculator, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/fx-fees`, element: /* @__PURE__ */ jsx(HiddenFxFeeCalculator, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/vat`, element: /* @__PURE__ */ jsx(GlobalInvoiceVatCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/salary`, element: /* @__PURE__ */ jsx(NomadTaxCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/ai`, element: /* @__PURE__ */ jsx(DevTokenCalculator, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/wasm`, element: /* @__PURE__ */ jsx(QuickWasmCompressor, { lang: l.code }) }),
+        /* @__PURE__ */ jsx(Route, { path: `/${l.code}/video`, element: /* @__PURE__ */ jsx(GlobalTakeHomeCalculator, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/privacy`, element: /* @__PURE__ */ jsx(PrivacyPolicy, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/terms`, element: /* @__PURE__ */ jsx(TermsOfService, { lang: l.code }) }),
         /* @__PURE__ */ jsx(Route, { path: `/${l.code}/about`, element: /* @__PURE__ */ jsx(AboutUs, { lang: l.code }) }),
@@ -4757,7 +5809,7 @@ function ContentWrapper({ lang, t }) {
             ] }),
             /* @__PURE__ */ jsx("meta", { name: "description", content: route.description })
           ] }),
-          /* @__PURE__ */ jsx(DynamicToolPage, { pageData: route, lang })
+          /* @__PURE__ */ jsx(DynamicToolPage, { routeData: route, type: "tax", lang })
         ] }) }),
         supportedLanguages.map((l) => /* @__PURE__ */ jsx(Route, { path: `/${l.code}/calculator/${route.slug}`, element: /* @__PURE__ */ jsxs(Fragment, { children: [
           /* @__PURE__ */ jsxs(Helmet, { children: [
@@ -4767,7 +5819,7 @@ function ContentWrapper({ lang, t }) {
             ] }),
             /* @__PURE__ */ jsx("meta", { name: "description", content: route.description })
           ] }),
-          /* @__PURE__ */ jsx(DynamicToolPage, { pageData: route, lang: l.code })
+          /* @__PURE__ */ jsx(DynamicToolPage, { routeData: route, type: "tax", lang: l.code })
         ] }) }, `${l.code}-${route.slug}`))
       ] }, route.slug)),
       generatePseoLlmMatrix().map((route) => /* @__PURE__ */ jsxs(React.Fragment, { children: [
@@ -4779,7 +5831,7 @@ function ContentWrapper({ lang, t }) {
             ] }),
             /* @__PURE__ */ jsx("meta", { name: "description", content: route.description })
           ] }),
-          /* @__PURE__ */ jsx(DynamicToolPage, { pageData: route, lang })
+          /* @__PURE__ */ jsx(DynamicToolPage, { routeData: route, type: "llm", lang })
         ] }) }),
         supportedLanguages.map((l) => /* @__PURE__ */ jsx(Route, { path: `/${l.code}/tools/${route.slug}`, element: /* @__PURE__ */ jsxs(Fragment, { children: [
           /* @__PURE__ */ jsxs(Helmet, { children: [
@@ -4789,66 +5841,37 @@ function ContentWrapper({ lang, t }) {
             ] }),
             /* @__PURE__ */ jsx("meta", { name: "description", content: route.description })
           ] }),
-          /* @__PURE__ */ jsx(DynamicToolPage, { pageData: route, lang: l.code })
+          /* @__PURE__ */ jsx(DynamicToolPage, { routeData: route, type: "llm", lang: l.code })
         ] }) }, `${l.code}-${route.slug}`))
       ] }, route.slug)),
-      /* @__PURE__ */ jsx(Route, { path: "*", element: /* @__PURE__ */ jsx(NotFoundPage, { lang }) })
+      /* @__PURE__ */ jsx(Route, { path: "*", element: /* @__PURE__ */ jsx(NotFoundPage, {}) })
     ] }) }),
-    activeTab !== "admin" && !location.pathname.includes("/calculator/") && !location.pathname.includes("/tools/") && /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto mt-16 mb-8 p-6 md:p-8 rounded-3xl bg-slate-900/60 border border-slate-800/80 text-left shadow-2xl", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-base font-black text-white mb-3", children: t("hero.seoTitle") }),
-      /* @__PURE__ */ jsx("p", { className: "text-sm text-slate-400 leading-relaxed", dangerouslySetInnerHTML: { __html: t("hero.seoText") } }),
-      /* @__PURE__ */ jsxs("div", { className: "mt-8 pt-8 border-t border-slate-800/80", children: [
-        /* @__PURE__ */ jsx("h3", { className: "text-base font-black text-white mb-4", children: t("faq.title") }),
-        /* @__PURE__ */ jsxs("div", { className: "space-y-6 text-sm text-slate-400 leading-relaxed", children: [
-          /* @__PURE__ */ jsxs("div", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-slate-300 block mb-1", children: t("faq.q1") }),
-            /* @__PURE__ */ jsx("p", { children: t("faq.a1") })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-slate-300 block mb-1", children: t("faq.q2") }),
-            /* @__PURE__ */ jsx("p", { children: t("faq.a2") })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-slate-300 block mb-1", children: t("faq.q3") }),
-            /* @__PURE__ */ jsx("p", { children: t("faq.a3") })
-          ] })
-        ] })
-      ] })
-    ] }),
-    activeTab !== "admin" && /* @__PURE__ */ jsx(AdSenseSlot, { slotId: "mid-content-rectangle", format: "rectangle" }),
-    activeTab !== "admin" && /* @__PURE__ */ jsx(ProgrammaticSeoGrid, { lang })
+    activeTab !== "admin" && /* @__PURE__ */ jsxs("div", { className: "space-y-8 mt-12", children: [
+      /* @__PURE__ */ jsx(AdSenseSlot, { slotId: "content-bottom" }),
+      /* @__PURE__ */ jsx(ProgrammaticSeoGrid, { lang })
+    ] })
   ] });
 }
 function App() {
+  const [lang, setLang] = useState("en");
   const location = useLocation();
-  const [lang, setLang] = useState(() => {
-    const pathSegments = location.pathname.split("/").filter(Boolean);
-    const possibleLang = pathSegments[0];
-    if (supportedLanguages.some((l) => l.code === possibleLang)) return possibleLang;
-    return "en";
-  });
   useEffect(() => {
     const pathSegments = location.pathname.split("/").filter(Boolean);
-    const possibleLang = pathSegments[0];
-    const isSupported = supportedLanguages.some((l) => l.code === possibleLang);
-    if (isSupported) {
-      if (lang !== possibleLang) setLang(possibleLang);
+    const urlLang = supportedLanguages.find((l) => l.code === pathSegments[0]);
+    if (urlLang) {
+      setLang(urlLang.code);
     } else {
-      if (lang !== "en") setLang("en");
+      const detected = detectUserLanguage();
+      setLang(detected);
     }
-  }, [location.pathname]);
-  useEffect(() => {
     trackPageView(location.pathname);
-  }, [location.pathname]);
+  }, [location]);
   const t = (path) => getTranslation(lang, path);
-  return /* @__PURE__ */ jsxs("div", { className: "min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans", children: [
-    !location.pathname.includes("/admin") && /* @__PURE__ */ jsx(Header, { currentLang: lang, setLang }),
-    /* @__PURE__ */ jsxs("main", { className: `flex-1 w-full ${location.pathname.includes("/admin") ? "" : "max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-12"}`, children: [
-      !location.pathname.includes("/admin") && /* @__PURE__ */ jsx(AdSenseSlot, { slotId: "header-leaderboard", format: "horizontal" }),
-      /* @__PURE__ */ jsx(ContentWrapper, { lang, t })
-    ] }),
-    !location.pathname.includes("/admin") && /* @__PURE__ */ jsx(Footer, { lang }),
-    !location.pathname.includes("/admin") && /* @__PURE__ */ jsx(CookieConsent, { lang })
+  return /* @__PURE__ */ jsxs("div", { className: "min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-brand-500 selection:text-white", children: [
+    /* @__PURE__ */ jsx(Header, { currentLang: lang, onLanguageChange: setLang }),
+    /* @__PURE__ */ jsx("main", { className: "flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8", children: /* @__PURE__ */ jsx(ContentWrapper, { lang, t }) }),
+    /* @__PURE__ */ jsx(Footer, { lang }),
+    /* @__PURE__ */ jsx(CookieConsent, { lang })
   ] });
 }
 function render(url) {
@@ -4859,10 +5882,13 @@ function render(url) {
   return { html, helmet: helmetContext.helmet };
 }
 function getRoutes() {
-  const routes = ["/", "/video", "/wasm", "/salary", "/ai", "/admin", "/privacy", "/terms", "/about", "/contact"];
+  const routes = ["/", "/take-home", "/contractor", "/fx-fees", "/vat", "/wasm", "/salary", "/ai", "/admin", "/privacy", "/terms", "/about", "/contact"];
   for (const lang of supportedLanguages) {
     routes.push(`/${lang.code}`);
-    routes.push(`/${lang.code}/video`);
+    routes.push(`/${lang.code}/take-home`);
+    routes.push(`/${lang.code}/contractor`);
+    routes.push(`/${lang.code}/fx-fees`);
+    routes.push(`/${lang.code}/vat`);
     routes.push(`/${lang.code}/wasm`);
     routes.push(`/${lang.code}/salary`);
     routes.push(`/${lang.code}/ai`);

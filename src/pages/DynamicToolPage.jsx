@@ -5,11 +5,14 @@ import { getTranslation } from '../i18n';
 import { Link } from 'react-router-dom';
 import { generatePseoTaxMatrix, generatePseoLlmMatrix } from '../pseo/matrixEngine';
 
-export default function DynamicToolPage({ pageData, lang = 'en' }) {
+export default function DynamicToolPage({ pageData, routeData, lang = 'en' }) {
   const t = (path) => getTranslation(lang, path);
 
-  const isLlmTool = !!pageData.modelA;
-  const { title, description, origin, dest, status, modelA, modelB, useCase, slug } = pageData;
+  const data = pageData || routeData;
+  if (!data) return null;
+
+  const isLlmTool = !!data.modelA;
+  const { title, description, origin, dest, status, modelA, modelB, useCase, slug } = data;
 
   let taxContext = '';
   if (!isLlmTool && dest?.effTax) {

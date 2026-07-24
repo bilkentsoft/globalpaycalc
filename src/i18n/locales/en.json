@@ -1,37 +1,22 @@
 {
   "nav": {
     "brand": "GlobalPayCalc.com",
-    "tagline": "Universal Media & Financial Engine",
-    "downloader": "Video Downloader",
-    "bgRemover": "AI Photo Studio",
-    "salary": "Global Salary",
+    "tagline": "Global Fintech & Salary Engine",
+    "takeHome": "Net Take-Home Pay",
+    "contractor": "Contractor vs Perm",
+    "fxFees": "Hidden FX Fees",
+    "vat": "Invoice & VAT",
+    "salary": "City Parity",
     "aiCost": "AI Token Cost",
+    "bgRemover": "WASM Studio",
     "admin": "Admin Panel"
   },
   "hero": {
-    "badge": "100% Free • Unlimited • Privacy First",
-    "title": "Universal Media, AI & Global Salary Utility Engine",
-    "subtitle": "Calculate net remote salaries worldwide, download HD social videos without watermarks, and process images via client-side WebAssembly AI securely and privately.",
+    "badge": "100% Free • Unlimited • Client-Side Fintech Engine",
+    "title": "Global Net Salary, Tax, FX & AI Cost Simulator",
+    "subtitle": "Calculate global net take-home salaries, W-2 vs 1099 and IR35 contractor equivalency, hidden bank FX markups, and cross-border B2B/B2C VAT reverse charge amounts.",
     "seoTitle": "How It Works & Core Features",
-    "seoText": "GlobalPayCalc is a comprehensive suite built for digital nomads and developers. Our platform features an <strong class='font-semibold text-slate-300'>HD social video downloader</strong> that safely extracts MP4/MP3 media from TikTok, Instagram Reels, and YouTube Shorts without watermarks. For remote workers, our <strong class='font-semibold text-slate-300'>global salary calculator</strong> compares net income, tax brackets, and cost of living (PPP) across 150+ countries. Developers can leverage our <strong class='font-semibold text-slate-300'>AI token cost simulator</strong> to estimate API expenses for GPT-4o and Claude 3.5, while our <strong class='font-semibold text-slate-300'>client-side AI image studio</strong> removes backgrounds locally via WebAssembly, guaranteeing zero server uploads and complete data privacy."
-  },
-  "video": {
-    "title": "Social Video & Audio Downloader",
-    "subtitle": "Download HD videos and MP3 audio from TikTok, Instagram Reels, and YouTube Shorts instantly.",
-    "placeholder": "Paste video link here (TikTok, Instagram Reels, Shorts)...",
-    "btn": "Download HD Media",
-    "processing": "Extracting Media...",
-    "success": "Media Ready for Download!",
-    "mp4": "Download MP4 (No Watermark)",
-    "mp3": "Download Audio (MP3 320kbps)",
-    "downloadVideo": "Download Video (HD MP4)",
-    "videoDesc": "Original HD video file without watermark. No redirect to external sites.",
-    "downloadAudio": "Download Audio (MP3)",
-    "audioDesc": "High quality audio file of the original video.",
-    "noteTitle": "Note:",
-    "noteText": "Download runs 100% inside our own website without external redirects. If the browser begins playing the stream directly, right-click and click \"Save Video/Audio As...\" to download.",
-    "errorTitle": "Extraction Failed",
-    "errorText": "Could not extract media. Please verify the link is public and valid."
+    "seoText": "GlobalPayCalc is a comprehensive fintech platform built for remote workers, digital nomads, and AI developers. Our suite features a <strong class='font-semibold text-slate-300'>Dynamic Take-Home Pay Calculator</strong> supporting tax brackets across US, UK, Germany, Turkey, and 40+ countries, a <strong class='font-semibold text-slate-300'>Contractor vs Full-Time Equivalence Engine</strong> factoring in PTO, health insurance, and SE taxes, a <strong class='font-semibold text-slate-300'>Real FX & Hidden Fee Estimator</strong> comparing SWIFT, Wise, PayPal, and Stripe, and a <strong class='font-semibold text-slate-300'>Global Invoice & VAT Calculator</strong> handling B2B cross-border Reverse Charge exemptions."
   },
   "bg": {
     "title": "AI Image Background Remover & Converter",

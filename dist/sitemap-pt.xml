@@ -6,6 +6,26 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://globalpaycalc.com/pt/take-home</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://globalpaycalc.com/pt/contractor</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://globalpaycalc.com/pt/fx-fees</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://globalpaycalc.com/pt/vat</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://globalpaycalc.com/pt/wasm</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>

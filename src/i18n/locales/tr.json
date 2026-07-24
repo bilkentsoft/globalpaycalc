@@ -1,37 +1,22 @@
 {
   "nav": {
     "brand": "GlobalPayCalc.com",
-    "tagline": "Evrensel Medya ve Finans Motoru",
-    "downloader": "Video İndirici",
-    "bgRemover": "AI Foto Stüdyosu",
-    "salary": "Küresel Maaş",
-    "aiCost": "AI Token Maliyeti",
+    "tagline": "Küresel Fintek ve Maaş Motoru",
+    "takeHome": "Net Maaş & Vergi",
+    "contractor": "Çalışan vs Contractor",
+    "fxFees": "Gizli Kur Komisyonu",
+    "vat": "Fatura & KDV",
+    "salary": "Şehir Paritesi",
+    "aiCost": "AI API Maliyeti",
+    "bgRemover": "WASM Stüdyo",
     "admin": "Yönetim Paneli"
   },
   "hero": {
-    "badge": "%100 Ücretsiz • Sınırsız • Gizlilik Odaklı",
-    "title": "Evrensel Medya, Yapay Zeka ve Maaş Hesaplama Motoru",
-    "subtitle": "Tüm dünyada uzaktan çalışma maaşlarını hesaplayın, filigransız HD sosyal videolar indirin ve siber güvenli yapay zeka ile görsel arka planı %100 yerel silin.",
+    "badge": "%100 Ücretsiz • Sınırsız • Client-Side Fintek Motoru",
+    "title": "Küresel Maaş, Vergi, FX ve AI Maliyet Simülatörü",
+    "subtitle": "Tüm dünyada uzaktan çalışma net maaşlarını, W-2 vs 1099 ve IR35 denkliğini, banka gizli kur marjlarını ve B2B/B2C KDV matrahını hesaplayın.",
     "seoTitle": "Nasıl Çalışır ve Temel Özellikler",
-    "seoText": "GlobalPayCalc, dijital göçebeler ve geliştiriciler için oluşturulmuş kapsamlı bir araç paketidir. Platformumuz, TikTok, Instagram Reels ve YouTube Shorts platformlarından <strong class='font-semibold text-slate-300'>filigransız HD sosyal medya videolarını</strong> ve MP3 ses dosyalarını güvenle indirmenizi sağlar. Uzaktan çalışanlar (remote worker) için, 150'den fazla ülkede net geliri, vergi dilimlerini ve satın alma gücü paritesini (PPP) karşılaştıran bir <strong class='font-semibold text-slate-300'>küresel maaş hesaplayıcı</strong> sunuyoruz. Geliştiriciler, GPT-4o ve Claude 3.5 için API masraflarını tahmin etmek amacıyla <strong class='font-semibold text-slate-300'>yapay zeka token maliyeti simülatörümüzü</strong> kullanabilirler. Ayrıca <strong class='font-semibold text-slate-300'>istemci tabanlı AI görüntü stüdyomuz</strong>, sunucu yüklemesi olmadan WebAssembly üzerinden fotoğrafların arka planını yerel olarak silerek tam veri gizliliği sağlar."
-  },
-  "video": {
-    "title": "Sosyal Medya Video & Ses İndirici",
-    "subtitle": "TikTok, Instagram Reels & YouTube Shorts videolarını filigransız HD ve MP3 olarak anında indirin.",
-    "placeholder": "Video bağlantısını buraya yapıştırın (TikTok, Instagram, Shorts)...",
-    "btn": "HD Medyayı İndir",
-    "processing": "Medya Hazırlanıyor...",
-    "success": "Medya İndirmeye Hazır!",
-    "mp4": "MP4 İndir (Filigransız)",
-    "mp3": "Ses İndir (MP3 320kbps)",
-    "downloadVideo": "Videoyu İndir (HD MP4)",
-    "videoDesc": "Orijinal yüksek çözünürlüklü video dosyasıdır. Harici sitelere yönlendirilmez.",
-    "downloadAudio": "Sesi İndir (MP3)",
-    "audioDesc": "Videonun arkasında çalan orijinal müziğin yüksek kaliteli ses dosyasıdır.",
-    "noteTitle": "Not:",
-    "noteText": "İndirme işlemi %100 sitemiz içerisinden tamamlanır. Reklamlı veya harici sitelere yönlendirme yapılmaz. Eğer video/ses tarayıcıda doğrudan oynamaya başlarsa sağ tıklayıp \"Farklı Kaydet\" seçeneğini seçerek cihazınıza kaydedebilirsiniz.",
-    "errorTitle": "Çıkarma Başarısız",
-    "errorText": "Girdiğiniz video çözümlenemedi. Lütfen bağlantının doğru ve herkese açık olduğunu doğrulayın."
+    "seoText": "GlobalPayCalc, küresel uzaktan çalışanlar, dijital göçebeler, yazılımcılar ve AI geliştiricileri için tasarlanmış kapsamlı bir fintek platformudur. Platformumuz ABD, İngiltere, Almanya, Türkiye ve 40+ ülkede net ele geçen maaşı ve vergi kesintilerini hesaplayan <strong class='font-semibold text-slate-300'>Dinamik Net Maaş Hesaplayıcı</strong>, kadrolu teklifler ile serbest çalışan fatura tutarları arasındaki denkliği çıkaran <strong class='font-semibold text-slate-300'>Full-Time vs Contractor Kıyaslama Aracı</strong>, uluslararası para transferlerinde bankaların kestiği gizli marjı ölçen <strong class='font-semibold text-slate-300'>Gizli Kur Komisyonu Analizcisi</strong> ve B2B/B2C faturalarda Ters Ödeme Yükümlülüğünü (%0 KDV İhracat) hesaplayan <strong class='font-semibold text-slate-300'>Fatura & KDV Matrah Motoru</strong> sunar."
   },
   "bg": {
     "title": "AI Fotoğraf Arka Plan Silici & Dönüştürücü",
