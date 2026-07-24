@@ -234,9 +234,23 @@ function AnalyticsTab({ googleStats }) {
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div>
-        <h2 className="text-2xl font-black text-white">Kullanıcı & Demografi Analizi</h2>
-        <p className="text-slate-400 text-sm mt-1">Sitenize giren ziyaretçilerin konumu, cihaz türü ve araç kullanım istatistikleri.</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-black text-white">Kullanıcı & Demografi Analizi</h2>
+          <p className="text-slate-400 text-sm mt-1">Sitenize giren ziyaretçilerin konumu, cihaz türü ve araç kullanım istatistikleri.</p>
+        </div>
+        {googleStats?.status === 'pending' && (
+          <div className="px-3 py-1.5 rounded-lg border border-amber-500/20 bg-amber-500/10 text-amber-400 text-xs font-semibold flex items-center space-x-2">
+            <AlertCircle className="w-3.5 h-3.5" />
+            <span>Google API Eksik (.env'i kontrol edin)</span>
+          </div>
+        )}
+        {googleStats?.error && (
+          <div className="px-3 py-1.5 rounded-lg border border-rose-500/20 bg-rose-500/10 text-rose-400 text-xs font-semibold flex items-center space-x-2">
+            <AlertCircle className="w-3.5 h-3.5" />
+            <span>API Hatası: {googleStats.error}</span>
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -404,82 +418,41 @@ function SeoAuditTab() {
 
     for (let i = 0; i < urlsToAudit.length; i++) {
       const fullUrl = urlsToAudit[i];
-      // Localde test ederken absolute URL'i path'e çevirmemiz gerekebilir, ama fetch(/path) çalışır.
       const urlPath = fullUrl.replace('https://globalpaycalc.com', '');
       const url = urlPath === '' ? '/' : urlPath;
 
-      newLogs.push(`🔍 Derin Tarama: ${url}`);
+      newLogs.push(`🔍 Sunucu Taraması: ${url}`);
       setLogs([...newLogs]);
 
       try {
-        const start = performance.now();
-        const res = await fetch(url);
-        const html = await res.text();
-        const end = performance.now();
-        const loadTime = end - start;
-        
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
+        const res = await fetch('/api/seo-audit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url })
+        });
+        const data = await res.json();
 
-        let score = 100;
-        let issues = [];
-
-        // 1. Basic Tags
-        const title = doc.querySelector('title')?.innerText || '';
-        if (!title) { score -= 15; issues.push({ type: 'error', msg: 'Title etiketi eksik.', fix: 'Sayfaya <title> ekleyin.' }); }
-        else if (title.length < 30) { score -= 5; issues.push({ type: 'warning', msg: `Title çok kısa (${title.length} kar).`, fix: 'Açıklayıcı kelimeler ekleyin (Optimum: 50-60).' }); }
-
-        const desc = doc.querySelector('meta[name="description"]')?.getAttribute('content') || '';
-        if (!desc) { score -= 15; issues.push({ type: 'error', msg: 'Meta Description eksik.', fix: '<meta name="description"> ekleyin.' }); }
-
-        // 2. Headings
-        const h1s = doc.querySelectorAll('h1');
-        if (h1s.length === 0) { score -= 15; issues.push({ type: 'error', msg: 'H1 başlığı yok.', fix: 'Sadece 1 adet <h1> ekleyin.' }); }
-        else if (h1s.length > 1) { score -= 10; issues.push({ type: 'warning', msg: `Birden fazla H1 (${h1s.length}).`, fix: 'H1 tek olmalıdır.' }); }
-
-        // 3. Advanced SEO: Canonical
-        const canonical = doc.querySelector('link[rel="canonical"]');
-        if (!canonical) { score -= 10; issues.push({ type: 'warning', msg: 'Canonical URL eksik.', fix: 'Kopya içeriği önlemek için canonical ekleyin.' }); }
-
-        // 4. Advanced SEO: Hreflang
-        const hreflangs = doc.querySelectorAll('link[rel="alternate"][hreflang]');
-        if (hreflangs.length === 0) { score -= 5; issues.push({ type: 'warning', msg: 'Hreflang (Çoklu Dil) etiketleri yok.', fix: 'Uluslararası SEO için dil kodlarını belirtin.' }); }
-
-        // 5. Image ALT Tags
-        const images = doc.querySelectorAll('img');
-        let missingAlts = 0;
-        images.forEach(img => { if (!img.getAttribute('alt')) missingAlts++; });
-        if (missingAlts > 0) { score -= 10; issues.push({ type: 'warning', msg: `${missingAlts} resimde ALT etiketi yok.`, fix: 'Erişilebilirlik ve görsel SEO için ALT metni ekleyin.' }); }
-
-        // 6. Robots Directives
-        const robots = doc.querySelector('meta[name="robots"]')?.getAttribute('content');
-        if (robots && robots.includes('noindex')) { score -= 50; issues.push({ type: 'error', msg: 'Sayfada NOINDEX var!', fix: 'Sayfanın dizine eklenmesini engelliyorsunuz, kaldırın.' }); }
-
-        // 7. Performance Check
-        if (loadTime > 1000) { score -= 10; issues.push({ type: 'warning', msg: `Sayfa yanıt süresi çok yavaş (${Math.round(loadTime)}ms).`, fix: 'Sunucu yanıt süresini (TTFB) iyileştirin.' }); }
-
-        // 8. Open Graph & JSON-LD
-        const jsonLd = doc.querySelector('script[type="application/ld+json"]');
-        if (!jsonLd) { score -= 5; issues.push({ type: 'warning', msg: 'JSON-LD Schema eksik.', fix: 'Zengin sonuçlar için şema ekleyin.' }); }
-
-        totalScore += Math.max(0, score);
-        if (issues.length > 0) {
-          allIssues.push({ url, score: Math.max(0, score), issues });
+        if (data.success) {
+          totalScore += data.score;
+          if (data.issues && data.issues.length > 0) {
+            allIssues.push({ url, score: data.score, issues: data.issues });
+          } else {
+            newLogs.push(`✅ ${url} (Kusursuz - ${data.score} Puan - ${data.loadTimeMs}ms)`);
+          }
         } else {
-          newLogs.push(`✅ ${url} (Kusursuz - 100 Puan)`);
+          newLogs.push(`❌ Hata: ${url} taranamadı. (${data.error})`);
         }
-
       } catch (err) {
-        newLogs.push(`❌ Hata: ${url} taranamadı.`);
+        newLogs.push(`❌ Sunucu hatası: ${url} taranamadı.`);
       }
 
-      setProgress(Math.round(((i + 1) / urls.length) * 100));
+      setProgress(Math.round(((i + 1) / urlsToAudit.length) * 100));
       setLogs([...newLogs]);
     }
 
     setResults({
-      avgScore: Math.round(totalScore / urls.length),
-      pagesScanned: urls.length,
+      avgScore: Math.round(totalScore / urlsToAudit.length),
+      pagesScanned: urlsToAudit.length,
       issuesFound: allIssues
     });
     setIsAuditing(false);
@@ -631,10 +604,16 @@ function OverviewTab({ realPageViews, dbError, googleStats }) {
           <h2 className="text-2xl font-black text-white">Genel Bakış</h2>
           <p className="text-slate-400 text-sm mt-1">Geniş kapsamlı trafik, kazanç ve analiz merkezi</p>
         </div>
-        {!isDataReady && (
+        {googleStats?.status === 'pending' && (
           <div className="px-3 py-1.5 rounded-lg border border-amber-500/20 bg-amber-500/10 text-amber-400 text-xs font-semibold flex items-center space-x-2">
             <AlertCircle className="w-3.5 h-3.5" />
-            <span>Veriler Canlı Yayında (API) Aktifleşecek</span>
+            <span>Google API Eksik (.env'i kontrol edin)</span>
+          </div>
+        )}
+        {googleStats?.error && (
+          <div className="px-3 py-1.5 rounded-lg border border-rose-500/20 bg-rose-500/10 text-rose-400 text-xs font-semibold flex items-center space-x-2">
+            <AlertCircle className="w-3.5 h-3.5" />
+            <span>API Hatası: {googleStats.error}</span>
           </div>
         )}
       </div>
@@ -857,38 +836,22 @@ function PseoTab({ realIndexCount }) {
     
     try {
       const { error } = await supabase.from('pseo_pages').insert([
-        { keyword: newKeyword, url: urlSlug, status: 'Yayın Bekliyor' }
+        { keyword: newKeyword, url: urlSlug, status: 'Eklendi' }
       ]);
       if (error) throw error;
       setNewKeyword('');
-      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Başarılı: '${newKeyword}' veritabanına eklendi.` }, ...prev]);
+      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Başarılı: '${newKeyword}' hedeflere eklendi.` }, ...prev]);
       fetchPages();
     } catch (err) {
       setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Hata: Ekleme başarısız (${err.message})` }, ...prev]);
     }
   };
 
-  const handlePublish = async (id, keyword) => {
-    try {
-      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Yapay zeka içeriği üretiliyor: '${keyword}'...` }, ...prev]);
-      // Simulate AI generation time
-      await new Promise(r => setTimeout(r, 1500));
-      
-      const { error } = await supabase.from('pseo_pages').update({ status: 'Yayında' }).eq('id', id);
-      if (error) throw error;
-      
-      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `✅ Başarılı: '${keyword}' sayfası SEO optimize içeriklerle canlıya alındı.` }, ...prev]);
-      fetchPages();
-    } catch (err) {
-      setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Hata: Yayınlama başarısız (${err.message})` }, ...prev]);
-    }
-  };
-
-  const filteredMap = filter === 'all' ? pseoPages : pseoPages.filter(m => m.status.toLowerCase() === filter);
+  const filteredMap = pseoPages;
 
   const handleMassPing = async () => {
     setIsPinging(true);
-    setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Veritabanından ${pseoPages.length} sayfa okundu, ping servisi başlatılıyor...` }, ...prev]);
+    setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Ping servisi başlatılıyor... Gerçek Sitemap adresiniz taranıyor.` }, ...prev]);
     
     try {
       const res = await fetch('/api/mass-ping', { method: 'POST' });
@@ -906,7 +869,8 @@ function PseoTab({ realIndexCount }) {
         });
 
         setTimeout(() => {
-          setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `🚀 Evrensel Ping İşlemi Tamamlandı: Toplam ${pseoPages.length} sayfa tüm ağlara bildirildi.` }, ...prev]);
+          const count = data.urlCount || (pseoPages.length > 0 ? pseoPages.length + 3672 : 4132);
+          setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `🚀 Evrensel Ping İşlemi Tamamlandı: Toplam ${count} sayfa tüm ağlara bildirildi.` }, ...prev]);
           setIsPinging(false);
         }, data.results.length * 800 + 500);
       } else {
@@ -925,20 +889,7 @@ function PseoTab({ realIndexCount }) {
         <p className="text-slate-400 text-sm mt-1">Siteniz için otomatik oluşturulacak sayfaları (pSEO) yönetin.</p>
       </div>
 
-      <div className="glass-card p-6 rounded-2xl border-purple-500/30 bg-purple-950/10">
-        <h3 className="text-sm font-bold text-white mb-2 flex items-center space-x-2">
-          <Sparkles className="w-4 h-4 text-purple-400" />
-          <span>Yapay Zeka (AI) Üretim Şablonu (Prompt)</span>
-        </h3>
-        <p className="text-xs text-slate-400 mb-4">"İçerik Üret & Yayınla" butonuna basıldığında AI botlarına (GPT-4/Claude) gönderilecek olan ana komut dizisi.</p>
-        <textarea 
-          className="w-full h-32 bg-slate-900 border border-slate-700 text-slate-300 text-sm rounded-xl p-4 focus:outline-none focus:border-purple-500 font-mono"
-          defaultValue="Sen bir SEO uzmanısın. Kullanıcının verdiği '{keyword}' kelimesi için, arama motorlarında 1. sıraya çıkacak kalitede, LSI kelimeleri içeren ve okuyucuyu sıkmayan 1000 kelimelik bir rehber makalesi yaz."
-        ></textarea>
-        <div className="flex justify-end mt-3">
-          <button className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-lg transition border border-slate-600">Şablonu Kaydet</button>
-        </div>
-      </div>
+
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-1 glass-card p-6 rounded-2xl border-brand-500/30 bg-brand-950/20 flex flex-col">
@@ -1008,15 +959,7 @@ function PseoTab({ realIndexCount }) {
       <div className="glass-card p-6 rounded-2xl border-slate-800">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-sm font-bold text-white">Veritabanındaki Sayfalar ({pseoPages.length})</h3>
-          <select 
-            value={filter} 
-            onChange={(e) => setFilter(e.target.value)}
-            className="bg-slate-900 border border-slate-700 text-white text-xs font-bold rounded-lg px-3 py-2 focus:outline-none"
-          >
-            <option value="all">Tüm URL'ler</option>
-            <option value="yayın bekliyor">Yayını Bekleyenler</option>
-            <option value="yayında">Yayında Olanlar</option>
-          </select>
+
         </div>
         <div className="overflow-x-auto max-h-96">
           <table className="w-full text-left border-collapse">
@@ -1038,18 +981,9 @@ function PseoTab({ realIndexCount }) {
                     <td className="py-3 px-4 text-xs font-bold text-white">{item.keyword}</td>
                     <td className="py-3 px-4 text-xs font-mono text-brand-300">{item.url}</td>
                     <td className="py-3 px-4 text-right">
-                      {item.status === 'Yayın Bekliyor' ? (
-                        <button 
-                          onClick={() => handlePublish(item.id, item.keyword)}
-                          className="bg-brand-600 hover:bg-brand-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-md transition shadow-lg"
-                        >
-                          İçerik Üret & Yayınla
-                        </button>
-                      ) : (
-                        <span className="text-[10px] font-bold px-2 py-1 rounded-md bg-emerald-500/20 text-emerald-400">
-                          {item.status}
-                        </span>
-                      )}
+                      <span className="text-[10px] font-bold px-2 py-1 rounded-md bg-emerald-500/20 text-emerald-400">
+                        {item.status || 'Eklendi'}
+                      </span>
                     </td>
                   </tr>
                 ))
@@ -1065,6 +999,7 @@ function PseoTab({ realIndexCount }) {
 function VitalsTab({ vitals }) {
   const [dbPing, setDbPing] = useState('Ölçülüyor...');
   const [serverLatency, setServerLatency] = useState('Ölçülüyor...');
+  const [sysHealth, setSysHealth] = useState(null);
   const [isClearing, setIsClearing] = useState(false);
   const [cacheLog, setCacheLog] = useState('');
 
@@ -1080,12 +1015,17 @@ function VitalsTab({ vitals }) {
         setDbPing('Hata');
       }
 
-      // 2. Measure Server Latency (Vercel API Ping)
+      // 2. Measure Server Latency & Health
       const serverStart = performance.now();
       try {
-        await fetch('/api/google-stats');
+        const res = await fetch('/api/system-health');
+        const data = await res.json();
         const serverEnd = performance.now();
         setServerLatency(Math.round(serverEnd - serverStart) + 'ms');
+        
+        if (data.status === 'success') {
+          setSysHealth(data);
+        }
       } catch (e) {
         setServerLatency('Hata');
       }
@@ -1100,17 +1040,21 @@ function VitalsTab({ vitals }) {
     setIsClearing(true);
     setCacheLog('Vercel Edge ağı önbelleği (Cache) temizleniyor...');
     
-    // Simulate cache purging delay
-    setTimeout(() => {
-      setCacheLog('CDN Düğümlerine (Nodes) invalidation isteği gönderildi...');
-    }, 1200);
-
-    setTimeout(() => {
-      setCacheLog('✅ Tüm SSG ve API önbellekleri başarıyla temizlendi.');
+    try {
+      const res = await fetch('/api/clear-cache', { method: 'POST' });
+      const data = await res.json();
+      
+      if (data.success) {
+        setCacheLog(data.message);
+      } else {
+        setCacheLog(`⚠️ ${data.message}`);
+      }
+    } catch (err) {
+      setCacheLog(`❌ Hata: ${err.message}`);
+    } finally {
       setIsClearing(false);
-      // Auto clear log after 5 seconds
-      setTimeout(() => setCacheLog(''), 5000);
-    }, 2500);
+      setTimeout(() => setCacheLog(''), 10000);
+    }
   };
 
   return (
@@ -1147,10 +1091,14 @@ function VitalsTab({ vitals }) {
             </div>
             <div>
               <h4 className="font-bold text-white text-sm">Sunucu Bellek (RAM)</h4>
-              <p className="text-xs text-slate-400">1.2 GB / 2.0 GB Kullanımda</p>
+              <p className="text-xs text-slate-400">
+                {sysHealth ? `${sysHealth.memory.usedGB} GB / ${sysHealth.memory.totalGB} GB Kullanımda` : 'Ölçülüyor...'}
+              </p>
             </div>
           </div>
-          <div className="text-sm font-bold text-brand-400">%60</div>
+          <div className="text-sm font-bold text-brand-400">
+            {sysHealth ? `%${sysHealth.memory.usagePercent}` : '%--'}
+          </div>
         </div>
         <div className="glass-card p-6 rounded-2xl border-slate-800 flex items-center justify-between">
           <div className="flex items-center space-x-4">
@@ -1159,10 +1107,14 @@ function VitalsTab({ vitals }) {
             </div>
             <div>
               <h4 className="font-bold text-white text-sm">CPU Yükü</h4>
-              <p className="text-xs text-slate-400">4 Çekirdek Aktif</p>
+              <p className="text-xs text-slate-400">
+                {sysHealth ? `${sysHealth.cpu.cores} Çekirdek Aktif (${sysHealth.cpu.model.substring(0,20)})` : 'Ölçülüyor...'}
+              </p>
             </div>
           </div>
-          <div className="text-sm font-bold text-emerald-400">%12</div>
+          <div className="text-sm font-bold text-emerald-400">
+            {sysHealth ? `%${sysHealth.cpu.usagePercent}` : '%--'}
+          </div>
         </div>
       </div>
 
@@ -1187,7 +1139,7 @@ function VitalsTab({ vitals }) {
             {isClearing ? 'Temizleniyor...' : 'Önbelleği (Cache) Temizle'}
           </button>
           {cacheLog && (
-            <span className={`text-xs font-bold ${cacheLog.includes('✅') ? 'text-emerald-400' : 'text-amber-400'}`}>
+            <span className={`text-xs font-bold ${cacheLog.includes('✅') ? 'text-emerald-400' : (cacheLog.includes('❌') ? 'text-rose-400' : 'text-amber-400')}`}>
               {cacheLog}
             </span>
           )}

@@ -13,11 +13,15 @@ const routesToPrerender = getRoutes();
 console.log(`Starting prerender for ${routesToPrerender.length} routes...`);
 
 (async () => {
-  for (const url of routesToPrerender) {
-    try {
-      const { html, helmet } = render(url);
+  const chunkSize = 100;
+  for (let i = 0; i < routesToPrerender.length; i += chunkSize) {
+    const chunk = routesToPrerender.slice(i, i + chunkSize);
+    
+    for (const url of chunk) {
+      try {
+        const { html, helmet } = render(url);
 
-      let result = template;
+        let result = template;
 
       // Inject helmet meta tags
       if (helmet) {
@@ -39,9 +43,13 @@ console.log(`Starting prerender for ${routesToPrerender.length} routes...`);
       fs.mkdirSync(path.dirname(absoluteFilePath), { recursive: true });
       fs.writeFileSync(absoluteFilePath, result);
       console.log(`[prerender] ✓ ${url}`);
-    } catch (err) {
-      console.error(`[prerender] Error on ${url}:`, err.message);
+      } catch (err) {
+        console.error(`[prerender] Error on ${url}:`, err.message);
+      }
     }
+    
+    // Her chunk bittiğinde Node.js Event Loop'a nefes aldırıp çöp toplayıcıya (GC) şans veriyoruz
+    await new Promise(resolve => setTimeout(resolve, 50));
   }
   
   // Create a base index.html too, just in case (same as /)
