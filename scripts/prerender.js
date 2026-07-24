@@ -39,9 +39,13 @@ console.log(`Starting prerender for ${routesToPrerender.length} routes...`);
       // Construct file path
       const filePath = `dist${url === '/' ? '/index' : url}`;
       const absoluteFilePath = toAbsolute(`${filePath}/index.html`.replace('//', '/'));
+      const altFilePath = toAbsolute(`${filePath}.html`.replace('//', '/'));
       
       fs.mkdirSync(path.dirname(absoluteFilePath), { recursive: true });
       fs.writeFileSync(absoluteFilePath, result);
+      if (url !== '/') {
+        fs.writeFileSync(altFilePath, result);
+      }
       console.log(`[prerender] ✓ ${url}`);
       } catch (err) {
         console.error(`[prerender] Error on ${url}:`, err.message);

@@ -5540,12 +5540,12 @@ function OverviewTab({ realPageViews, dbError, googleStats }) {
         /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-start", children: [
           /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
             /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Indexlenen Toplam Sayfa" }),
-            /* @__PURE__ */ jsx("div", { className: "text-4xl font-black text-white", children: sitemapUrls.length > 0 ? sitemapUrls.length.toLocaleString("tr-TR") : "3.920" })
+            /* @__PURE__ */ jsx("div", { className: "text-4xl font-black text-white", children: sitemapUrls.length > 0 ? sitemapUrls.length.toLocaleString("tr-TR") : "11.232" })
           ] }),
           /* @__PURE__ */ jsx("div", { className: "p-2.5 bg-purple-500/20 rounded-xl", children: /* @__PURE__ */ jsx(Globe2, { className: "w-5 h-5 text-purple-400" }) })
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-xs text-slate-400", children: [
-          /* @__PURE__ */ jsx("span", { children: "8 Dilde 3.920+ SSG HTML" }),
+          /* @__PURE__ */ jsx("span", { children: "8 Dilde 11.232+ SSG HTML" }),
           /* @__PURE__ */ jsx("span", { className: "text-emerald-400 font-bold", children: "%100 Pre-rendered" })
         ] })
       ] })
@@ -6111,7 +6111,18 @@ const originCities = [
   { code: "ZRH", name: "Zurich (Switzerland)", flag: "🇨🇭", effTax: 0.18 },
   { code: "AMS", name: "Amsterdam (Netherlands)", flag: "🇳🇱", effTax: 0.37 },
   { code: "SEO", name: "Seoul (South Korea)", flag: "🇰🇷", effTax: 0.24 },
-  { code: "WAR", name: "Warsaw (Poland)", flag: "🇵🇱", effTax: 0.19 }
+  { code: "WAR", name: "Warsaw (Poland)", flag: "🇵🇱", effTax: 0.19 },
+  { code: "VIE", name: "Vienna (Austria)", flag: "🇦🇹", effTax: 0.38 },
+  { code: "DUB", name: "Dublin (Ireland)", flag: "🇮🇪", effTax: 0.3 },
+  { code: "VAN", name: "Vancouver (Canada)", flag: "🇨🇦", effTax: 0.31 },
+  { code: "MIA", name: "Miami (US)", flag: "🇺🇸", effTax: 0.24 },
+  { code: "STO", name: "Stockholm (Sweden)", flag: "🇸🇪", effTax: 0.45 },
+  { code: "CPH", name: "Copenhagen (Denmark)", flag: "🇩🇰", effTax: 0.46 },
+  { code: "OSL", name: "Oslo (Norway)", flag: "🇳🇴", effTax: 0.4 },
+  { code: "BRU", name: "Brussels (Belgium)", flag: "🇧🇪", effTax: 0.44 },
+  { code: "MIL", name: "Milan (Italy)", flag: "🇮🇹", effTax: 0.36 },
+  { code: "HKG", name: "Hong Kong", flag: "🇭🇰", effTax: 0.15 },
+  { code: "TPE", name: "Taipei (Taiwan)", flag: "🇹🇼", effTax: 0.18 }
 ];
 const destinationCities = [
   { code: "MAD", name: "Madrid (Spain)", flag: "🇪🇸", effTax: 0.15, costIndex: 60 },
@@ -6125,7 +6136,21 @@ const destinationCities = [
   { code: "CPT", name: "Cape Town (South Africa)", flag: "🇿🇦", effTax: 0.2, costIndex: 45 },
   { code: "MEX", name: "Mexico City (Mexico)", flag: "🇲🇽", effTax: 0.22, costIndex: 42 },
   { code: "TAL", name: "Tallinn (Estonia)", flag: "🇪🇪", effTax: 0.2, costIndex: 65 },
-  { code: "ATH", name: "Athens (Greece)", flag: "🇬🇷", effTax: 0.22, costIndex: 52 }
+  { code: "ATH", name: "Athens (Greece)", flag: "🇬🇷", effTax: 0.22, costIndex: 52 },
+  { code: "BCN", name: "Barcelona (Spain)", flag: "🇪🇸", effTax: 0.15, costIndex: 62 },
+  { code: "OPO", name: "Porto (Portugal)", flag: "🇵🇹", effTax: 0.2, costIndex: 50 },
+  { code: "SGN", name: "Ho Chi Minh City (Vietnam)", flag: "🇻🇳", effTax: 0.1, costIndex: 30 },
+  { code: "KL", name: "Kuala Lumpur (Malaysia)", flag: "🇲🇾", effTax: 0.12, costIndex: 38 },
+  { code: "BUD", name: "Budapest (Hungary)", flag: "🇭🇺", effTax: 0.15, costIndex: 48 },
+  { code: "PRG", name: "Prague (Czechia)", flag: "🇨🇿", effTax: 0.15, costIndex: 54 },
+  { code: "KRK", name: "Krakow (Poland)", flag: "🇵🇱", effTax: 0.12, costIndex: 45 },
+  { code: "SP", name: "Sao Paulo (Brazil)", flag: "🇧🇷", effTax: 0.18, costIndex: 40 },
+  { code: "SCL", name: "Santiago (Chile)", flag: "🇨🇱", effTax: 0.2, costIndex: 48 },
+  { code: "SJO", name: "San Jose (Costa Rica)", flag: "🇨🇷", effTax: 0.1, costIndex: 52 },
+  { code: "VLC", name: "Valencia (Spain)", flag: "🇪🇸", effTax: 0.15, costIndex: 55 },
+  { code: "CAG", name: "Cagliari / Sardinia (Italy)", flag: "🇮🇹", effTax: 0.1, costIndex: 48 },
+  { code: "TBS", name: "Tbilisi (Georgia)", flag: "🇬🇪", effTax: 0.01, costIndex: 35 }
+  // 1% Individual Entrepreneur tax rate!
 ];
 const nomadStatuses = [
   { code: "nomad", label: "Digital Nomad", perk: "Special Tax Scheme / Beckham Law" },
