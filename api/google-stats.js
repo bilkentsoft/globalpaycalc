@@ -23,7 +23,8 @@ export default async function handler(req, res) {
       { date: 'Cum', views: 0, revenue: 0 }, { date: 'Cmt', views: 0, revenue: 0 },
       { date: 'Paz', views: 0, revenue: 0 }
     ],
-    gscQueries: []
+    gscQueries: [],
+    gscPages: []
   };
 
   if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET || !GOOGLE_REFRESH_TOKEN) {
@@ -77,6 +78,25 @@ export default async function handler(req, res) {
             query: r.keys[0],
             clicks: r.clicks,
             impressions: r.impressions,
+            position: r.position.toFixed(1)
+          }));
+        }
+        // Page-level performance
+        const gscPagesRes = await searchConsole.searchanalytics.query({
+          siteUrl,
+          requestBody: {
+            startDate: yyyyMMdd(sevenDaysAgo),
+            endDate: yyyyMMdd(today),
+            dimensions: ['page'],
+            rowLimit: 50
+          }
+        });
+        if (gscPagesRes.data.rows) {
+          liveData.gscPages = gscPagesRes.data.rows.map(r => ({
+            page: r.keys[0].replace('https://globalpaycalc.com', '') || '/',
+            clicks: r.clicks,
+            impressions: r.impressions,
+            ctr: (r.ctr * 100).toFixed(1),
             position: r.position.toFixed(1)
           }));
         }

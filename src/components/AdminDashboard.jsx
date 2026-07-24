@@ -792,30 +792,43 @@ function OverviewTab({ realPageViews, dbError, googleStats }) {
         
       </div>
 
-      {/* TOP PAGES TABLE */}
+      {/* GSC TOP PAGES TABLE */}
       <div className="glass-card p-6 rounded-2xl border-slate-800">
-        <h3 className="text-sm font-bold text-white mb-4">En Çok Kazandıran Sayfalar (Top Pages)</h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-sm font-bold text-white">Sayfa Bazlı SEO Performansı (Google Search Console)</h3>
+          {googleStats?.status === 'success' && (
+            <span className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-1 rounded-full font-bold">Son 7 Gün</span>
+          )}
+        </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-slate-800">
                 <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Sayfa URL</th>
-                <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right">Ziyaretçi</th>
-                <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right">Kazanç</th>
+                <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Tıklama</th>
+                <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Gösterim</th>
+                <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">CTR</th>
+                <th className="py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right">Ort. Sıra</th>
               </tr>
             </thead>
             <tbody>
-              {data.topPages && data.topPages.length > 0 ? (
-                data.topPages.map((page, idx) => (
+              {!googleStats ? (
+                <tr><td colSpan="5" className="py-8 text-center text-sm text-slate-500 animate-pulse">Veriler yükleniyor...</td></tr>
+              ) : googleStats.gscPages && googleStats.gscPages.length > 0 ? (
+                googleStats.gscPages.map((p, idx) => (
                   <tr key={idx} className="border-b border-slate-800/50 hover:bg-slate-800/20 transition">
-                    <td className="py-3 px-4 text-sm font-mono text-brand-300">{page.url}</td>
-                    <td className="py-3 px-4 text-sm text-slate-300 text-right">{page.views.toLocaleString()}</td>
-                    <td className="py-3 px-4 text-sm font-bold text-emerald-400 text-right">{page.earnings.toFixed(2)} ₺</td>
+                    <td className="py-3 px-4 text-xs font-mono text-brand-300 max-w-xs truncate">{p.page}</td>
+                    <td className="py-3 px-4 text-sm font-bold text-white text-center">{p.clicks}</td>
+                    <td className="py-3 px-4 text-sm text-slate-300 text-center">{p.impressions}</td>
+                    <td className="py-3 px-4 text-sm text-slate-300 text-center">%{p.ctr}</td>
+                    <td className="py-3 px-4 text-sm font-bold text-emerald-400 text-right">{p.position}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="3" className="py-8 text-center text-sm text-slate-500">Kayıt bulunamadı. Veri akışı bekleniyor.</td>
+                  <td colSpan="5" className="py-8 text-center text-sm text-slate-500">
+                    {googleStats?.status === 'success' ? 'Son 7 günde henüz sayfa gösterimi oluşmamış.' : 'Google Search Console bağlandığında sayfa performansı burada görünecek.'}
+                  </td>
                 </tr>
               )}
             </tbody>

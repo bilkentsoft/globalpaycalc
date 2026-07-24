@@ -3703,7 +3703,6 @@ function OverviewTab({ realPageViews, dbError, googleStats }) {
     ga4: { visitors: 0, bounceRate: 0, avgSessionDuration: "00:00" },
     gsc: { clicks: 0, impressions: 0, position: 0 },
     trafficSources: [],
-    topPages: [],
     chartData: []
   };
   const data = googleStats && googleStats.adsense ? googleStats : fallbackData;
@@ -3873,21 +3872,28 @@ function OverviewTab({ realPageViews, dbError, googleStats }) {
       ] })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 rounded-2xl border-slate-800", children: [
-      /* @__PURE__ */ jsx("h3", { className: "text-sm font-bold text-white mb-4", children: "En Çok Kazandıran Sayfalar (Top Pages)" }),
+      /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between mb-4", children: [
+        /* @__PURE__ */ jsx("h3", { className: "text-sm font-bold text-white", children: "Sayfa Bazlı SEO Performansı (Google Search Console)" }),
+        (googleStats == null ? void 0 : googleStats.status) === "success" && /* @__PURE__ */ jsx("span", { className: "text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-1 rounded-full font-bold", children: "Son 7 Gün" })
+      ] }),
       /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-left border-collapse", children: [
         /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "border-b border-slate-800", children: [
           /* @__PURE__ */ jsx("th", { className: "py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Sayfa URL" }),
-          /* @__PURE__ */ jsx("th", { className: "py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right", children: "Ziyaretçi" }),
-          /* @__PURE__ */ jsx("th", { className: "py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right", children: "Kazanç" })
+          /* @__PURE__ */ jsx("th", { className: "py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center", children: "Tıklama" }),
+          /* @__PURE__ */ jsx("th", { className: "py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center", children: "Gösterim" }),
+          /* @__PURE__ */ jsx("th", { className: "py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center", children: "CTR" }),
+          /* @__PURE__ */ jsx("th", { className: "py-3 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right", children: "Ort. Sıra" })
         ] }) }),
-        /* @__PURE__ */ jsx("tbody", { children: data.topPages && data.topPages.length > 0 ? data.topPages.map((page, idx) => /* @__PURE__ */ jsxs("tr", { className: "border-b border-slate-800/50 hover:bg-slate-800/20 transition", children: [
-          /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-sm font-mono text-brand-300", children: page.url }),
-          /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-sm text-slate-300 text-right", children: page.views.toLocaleString() }),
-          /* @__PURE__ */ jsxs("td", { className: "py-3 px-4 text-sm font-bold text-emerald-400 text-right", children: [
-            page.earnings.toFixed(2),
-            " ₺"
-          ] })
-        ] }, idx)) : /* @__PURE__ */ jsx("tr", { children: /* @__PURE__ */ jsx("td", { colSpan: "3", className: "py-8 text-center text-sm text-slate-500", children: "Kayıt bulunamadı. Veri akışı bekleniyor." }) }) })
+        /* @__PURE__ */ jsx("tbody", { children: !googleStats ? /* @__PURE__ */ jsx("tr", { children: /* @__PURE__ */ jsx("td", { colSpan: "5", className: "py-8 text-center text-sm text-slate-500 animate-pulse", children: "Veriler yükleniyor..." }) }) : googleStats.gscPages && googleStats.gscPages.length > 0 ? googleStats.gscPages.map((p, idx) => /* @__PURE__ */ jsxs("tr", { className: "border-b border-slate-800/50 hover:bg-slate-800/20 transition", children: [
+          /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-xs font-mono text-brand-300 max-w-xs truncate", children: p.page }),
+          /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-sm font-bold text-white text-center", children: p.clicks }),
+          /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-sm text-slate-300 text-center", children: p.impressions }),
+          /* @__PURE__ */ jsxs("td", { className: "py-3 px-4 text-sm text-slate-300 text-center", children: [
+            "%",
+            p.ctr
+          ] }),
+          /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-sm font-bold text-emerald-400 text-right", children: p.position })
+        ] }, idx)) : /* @__PURE__ */ jsx("tr", { children: /* @__PURE__ */ jsx("td", { colSpan: "5", className: "py-8 text-center text-sm text-slate-500", children: (googleStats == null ? void 0 : googleStats.status) === "success" ? "Son 7 günde henüz sayfa gösterimi oluşmamış." : "Google Search Console bağlandığında sayfa performansı burada görünecek." }) }) })
       ] }) })
     ] })
   ] });
