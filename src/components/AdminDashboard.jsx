@@ -1204,7 +1204,7 @@ export default function AdminDashboard() {
 
     const fetchGoogleStats = async () => {
       try {
-        const res = await fetch('/api/google-stats');
+        const res = await fetch('/api/google-stats', { cache: 'no-store' });
         if (!res.ok) throw new Error('API Bulunamadı veya Ayarlanmadı');
         const data = await res.json();
         setGoogleStats(data);
