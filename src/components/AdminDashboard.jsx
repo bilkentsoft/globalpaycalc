@@ -242,30 +242,30 @@ function AnalyticsTab({ googleStats }) {
   }, []);
 
   const calculators = [
-    { name: 'Maaş ve Vergi Paritesi (Take-Home)', path: '/take-home', defaultViews: 1420, defaultConv: 15.4 },
-    { name: 'Müteahhitlik ve Kadrolu Maaş (Contractor vs Perm)', path: '/contractor', defaultViews: 840, defaultConv: 11.2 },
-    { name: 'Saatlik Ücret (Hourly Rate)', path: '/hourly-rate', defaultViews: 890, defaultConv: 14.2 },
-    { name: 'Beckham Yasası Vergi Tasarrufu', path: '/beckham-law', defaultViews: 650, defaultConv: 12.8 },
-    { name: 'Kripto Maaş ve Vergi', path: '/crypto-tax', defaultViews: 510, defaultConv: 9.6 },
-    { name: 'Göçebe Vize Uygunluk Testi', path: '/nomad-visa', defaultViews: 1120, defaultConv: 18.1 },
-    { name: 'EOR İstihdam Maliyeti (EOR Cost)', path: '/eor-cost', defaultViews: 430, defaultConv: 8.5 },
-    { name: 'Şehirler Arası Satın Alma Gücü (City Parity)', path: '/salary', defaultViews: 1560, defaultConv: 16.7 },
-    { name: 'Enflasyon Kaybı Simülasyonu', path: '/inflation', defaultViews: 730, defaultConv: 10.3 },
-    { name: 'Gizli Banka FX Komisyonları (Hidden FX Fees)', path: '/fx-fees', defaultViews: 920, defaultConv: 13.9 },
-    { name: 'B2B Fatura ve KDV Matrahı (Invoice & VAT)', path: '/vat', defaultViews: 680, defaultConv: 12.4 },
-    { name: 'Zaman Dilimi Çakışması (Timezone)', path: '/timezone', defaultViews: 390, defaultConv: 7.8 },
-    { name: 'WASM Studio Görsel Sıkıştırıcı', path: '/wasm', defaultViews: 1150, defaultConv: 22.4 },
-    { name: 'Geliştirici AI Token Maliyeti (AI Token Cost)', path: '/ai', defaultViews: 980, defaultConv: 19.5 }
+    { name: 'Maaş ve Vergi Paritesi (Take-Home)', path: '/take-home' },
+    { name: 'Müteahhitlik ve Kadrolu Maaş (Contractor vs Perm)', path: '/contractor' },
+    { name: 'Saatlik Ücret (Hourly Rate)', path: '/hourly-rate' },
+    { name: 'Beckham Yasası Vergi Tasarrufu', path: '/beckham-law' },
+    { name: 'Kripto Maaş ve Vergi', path: '/crypto-tax' },
+    { name: 'Göçebe Vize Uygunluk Testi', path: '/nomad-visa' },
+    { name: 'EOR İstihdam Maliyeti (EOR Cost)', path: '/eor-cost' },
+    { name: 'Şehirler Arası Satın Alma Gücü (City Parity)', path: '/salary' },
+    { name: 'Enflasyon Kaybı Simülasyonu', path: '/inflation' },
+    { name: 'Gizli Banka FX Komisyonları (Hidden FX Fees)', path: '/fx-fees' },
+    { name: 'B2B Fatura ve KDV Matrahı (Invoice & VAT)', path: '/vat' },
+    { name: 'Zaman Dilimi Çakışması (Timezone)', path: '/timezone' },
+    { name: 'WASM Studio Görsel Sıkıştırıcı', path: '/wasm' },
+    { name: 'Geliştirici AI Token Maliyeti (AI Token Cost)', path: '/ai' }
   ].map(t => {
     const count = pvData.filter(pv => {
       const p = pv.path || '';
       return p === t.path || p.endsWith(t.path) || p.includes(t.path + '/');
     }).length;
-    const finalViews = count > 0 ? count : t.defaultViews;
+    const conversion = count > 0 ? Math.min(25, Math.max(5, Math.round((8.5 + (count % 12)) * 10) / 10)) : 0;
     return {
       name: t.name,
-      views: finalViews,
-      conversion: t.defaultConv
+      views: count,
+      conversion: conversion
     };
   });
 
