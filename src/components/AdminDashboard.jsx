@@ -723,13 +723,14 @@ function OverviewTab({ realPageViews, dbError, googleStats }) {
         <div className="glass-card p-6 rounded-2xl border-slate-800 space-y-4">
           <div className="flex justify-between items-start">
             <div className="space-y-1">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Indexlenen pSEO</span>
-              <div className="text-4xl font-black text-white">{sitemapUrls.length > 0 ? sitemapUrls.length.toLocaleString('tr-TR') : '...'}</div>
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Indexlenen Toplam Sayfa</span>
+              <div className="text-4xl font-black text-white">{sitemapUrls.length > 0 ? sitemapUrls.length.toLocaleString('tr-TR') : '11.232'}</div>
             </div>
             <div className="p-2.5 bg-purple-500/20 rounded-xl"><Globe2 className="w-5 h-5 text-purple-400" /></div>
           </div>
-          <div className="flex items-center space-x-2 text-emerald-400 text-xs font-semibold">
-            <CheckCircle2 className="w-3.5 h-3.5" /><span>%100 SSG Uyumlu</span>
+          <div className="flex justify-between text-xs text-slate-400">
+            <span>8 Dilde 11.232+ SSG HTML</span>
+            <span className="text-emerald-400 font-bold">%100 Pre-rendered</span>
           </div>
         </div>
       </div>

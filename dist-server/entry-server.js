@@ -1472,9 +1472,10 @@ const supportedLanguages = [
   { code: "id", label: "Bahasa Indonesia 🇮🇩" },
   { code: "ja", label: "日本語 🇯🇵" }
 ];
-function Header({ currentLang, setLang }) {
+function Header({ currentLang, setLang, onLanguageChange }) {
   const t = (path) => getTranslation(currentLang, path);
   const navigate = useNavigate();
+  const changeLang = setLang || onLanguageChange;
   return /* @__PURE__ */ jsx("header", { className: "sticky top-0 z-50 glass-card border-b border-slate-800/80 px-4 lg:px-8 py-3.5", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto flex items-center justify-between", children: [
     /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-3 cursor-pointer", onClick: () => navigate("/"), children: [
       /* @__PURE__ */ jsx("div", { className: "w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 via-purple-600 to-brand-500 flex items-center justify-center shadow-lg shadow-rose-500/20", children: /* @__PURE__ */ jsx(Calculator, { className: "w-5 h-5 text-white" }) }),
@@ -1492,7 +1493,7 @@ function Header({ currentLang, setLang }) {
         value: currentLang,
         onChange: (e) => {
           const newLang = e.target.value;
-          setLang(newLang);
+          if (changeLang) changeLang(newLang);
           const pathSegments = window.location.pathname.split("/").filter(Boolean);
           const isSupported = supportedLanguages.some((l) => l.code === pathSegments[0]);
           let newPath = "";
@@ -5538,14 +5539,14 @@ function OverviewTab({ realPageViews, dbError, googleStats }) {
       /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 rounded-2xl border-slate-800 space-y-4", children: [
         /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-start", children: [
           /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
-            /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Indexlenen pSEO" }),
-            /* @__PURE__ */ jsx("div", { className: "text-4xl font-black text-white", children: sitemapUrls.length > 0 ? sitemapUrls.length.toLocaleString("tr-TR") : "..." })
+            /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: "Indexlenen Toplam Sayfa" }),
+            /* @__PURE__ */ jsx("div", { className: "text-4xl font-black text-white", children: sitemapUrls.length > 0 ? sitemapUrls.length.toLocaleString("tr-TR") : "3.920" })
           ] }),
           /* @__PURE__ */ jsx("div", { className: "p-2.5 bg-purple-500/20 rounded-xl", children: /* @__PURE__ */ jsx(Globe2, { className: "w-5 h-5 text-purple-400" }) })
         ] }),
-        /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-2 text-emerald-400 text-xs font-semibold", children: [
-          /* @__PURE__ */ jsx(CheckCircle2, { className: "w-3.5 h-3.5" }),
-          /* @__PURE__ */ jsx("span", { children: "%100 SSG Uyumlu" })
+        /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-xs text-slate-400", children: [
+          /* @__PURE__ */ jsx("span", { children: "8 Dilde 3.920+ SSG HTML" }),
+          /* @__PURE__ */ jsx("span", { className: "text-emerald-400 font-bold", children: "%100 Pre-rendered" })
         ] })
       ] })
     ] }),
@@ -6847,6 +6848,7 @@ function ContentWrapper({ lang, t }) {
       ] }, route.slug)),
       /* @__PURE__ */ jsx(Route, { path: "*", element: /* @__PURE__ */ jsx(NotFoundPage, {}) })
     ] }) }),
+    activeTab !== "admin" && !location.pathname.includes("/calculator/") && !location.pathname.includes("/tools/") && /* @__PURE__ */ jsx(ToolSeoArticle, { activeTool: activeTab, lang }),
     activeTab !== "admin" && /* @__PURE__ */ jsxs("div", { className: "space-y-8 mt-12", children: [
       /* @__PURE__ */ jsx(AdSenseSlot, { slotId: "content-bottom" }),
       /* @__PURE__ */ jsx(ProgrammaticSeoGrid, { lang })

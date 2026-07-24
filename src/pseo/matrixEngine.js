@@ -1,4 +1,4 @@
-// 3D & 4D Programmatic SEO Matrix Generator (Expanded to 10,000+ Indexable URLs)
+// 3D & 4D Programmatic SEO Matrix Generator (Expanded to 11,200+ Indexable URLs)
 export const originCities = [
   { code: 'SF', name: 'San Francisco (US)', flag: '🇺🇸', effTax: 0.35 },
   { code: 'NYC', name: 'New York City (US)', flag: '🇺🇸', effTax: 0.38 },
@@ -13,7 +13,18 @@ export const originCities = [
   { code: 'ZRH', name: 'Zurich (Switzerland)', flag: '🇨🇭', effTax: 0.18 },
   { code: 'AMS', name: 'Amsterdam (Netherlands)', flag: '🇳🇱', effTax: 0.37 },
   { code: 'SEO', name: 'Seoul (South Korea)', flag: '🇰🇷', effTax: 0.24 },
-  { code: 'WAR', name: 'Warsaw (Poland)', flag: '🇵🇱', effTax: 0.19 }
+  { code: 'WAR', name: 'Warsaw (Poland)', flag: '🇵🇱', effTax: 0.19 },
+  { code: 'VIE', name: 'Vienna (Austria)', flag: '🇦🇹', effTax: 0.38 },
+  { code: 'DUB', name: 'Dublin (Ireland)', flag: '🇮🇪', effTax: 0.30 },
+  { code: 'VAN', name: 'Vancouver (Canada)', flag: '🇨🇦', effTax: 0.31 },
+  { code: 'MIA', name: 'Miami (US)', flag: '🇺🇸', effTax: 0.24 },
+  { code: 'STO', name: 'Stockholm (Sweden)', flag: '🇸🇪', effTax: 0.45 },
+  { code: 'CPH', name: 'Copenhagen (Denmark)', flag: '🇩🇰', effTax: 0.46 },
+  { code: 'OSL', name: 'Oslo (Norway)', flag: '🇳🇴', effTax: 0.40 },
+  { code: 'BRU', name: 'Brussels (Belgium)', flag: '🇧🇪', effTax: 0.44 },
+  { code: 'MIL', name: 'Milan (Italy)', flag: '🇮🇹', effTax: 0.36 },
+  { code: 'HKG', name: 'Hong Kong', flag: '🇭🇰', effTax: 0.15 },
+  { code: 'TPE', name: 'Taipei (Taiwan)', flag: '🇹🇼', effTax: 0.18 }
 ];
 
 export const destinationCities = [
@@ -28,7 +39,20 @@ export const destinationCities = [
   { code: 'CPT', name: 'Cape Town (South Africa)', flag: '🇿🇦', effTax: 0.20, costIndex: 45 },
   { code: 'MEX', name: 'Mexico City (Mexico)', flag: '🇲🇽', effTax: 0.22, costIndex: 42 },
   { code: 'TAL', name: 'Tallinn (Estonia)', flag: '🇪🇪', effTax: 0.20, costIndex: 65 },
-  { code: 'ATH', name: 'Athens (Greece)', flag: '🇬🇷', effTax: 0.22, costIndex: 52 }
+  { code: 'ATH', name: 'Athens (Greece)', flag: '🇬🇷', effTax: 0.22, costIndex: 52 },
+  { code: 'BCN', name: 'Barcelona (Spain)', flag: '🇪🇸', effTax: 0.15, costIndex: 62 },
+  { code: 'OPO', name: 'Porto (Portugal)', flag: '🇵🇹', effTax: 0.20, costIndex: 50 },
+  { code: 'SGN', name: 'Ho Chi Minh City (Vietnam)', flag: '🇻🇳', effTax: 0.10, costIndex: 30 },
+  { code: 'KL', name: 'Kuala Lumpur (Malaysia)', flag: '🇲🇾', effTax: 0.12, costIndex: 38 },
+  { code: 'BUD', name: 'Budapest (Hungary)', flag: '🇭🇺', effTax: 0.15, costIndex: 48 },
+  { code: 'PRG', name: 'Prague (Czechia)', flag: '🇨🇿', effTax: 0.15, costIndex: 54 },
+  { code: 'KRK', name: 'Krakow (Poland)', flag: '🇵🇱', effTax: 0.12, costIndex: 45 },
+  { code: 'SP', name: 'Sao Paulo (Brazil)', flag: '🇧🇷', effTax: 0.18, costIndex: 40 },
+  { code: 'SCL', name: 'Santiago (Chile)', flag: '🇨🇱', effTax: 0.20, costIndex: 48 },
+  { code: 'SJO', name: 'San Jose (Costa Rica)', flag: '🇨🇷', effTax: 0.10, costIndex: 52 },
+  { code: 'VLC', name: 'Valencia (Spain)', flag: '🇪🇸', effTax: 0.15, costIndex: 55 },
+  { code: 'CAG', name: 'Cagliari / Sardinia (Italy)', flag: '🇮🇹', effTax: 0.10, costIndex: 48 },
+  { code: 'TBS', name: 'Tbilisi (Georgia)', flag: '🇬🇪', effTax: 0.01, costIndex: 35 } // 1% Individual Entrepreneur tax rate!
 ];
 
 export const nomadStatuses = [
