@@ -7211,27 +7211,6 @@ const detectUserLanguage = () => {
   }
   return "en";
 };
-const trackPageView = async (pagePath) => {
-  try {
-    const anonKey = "sb_publishable_XHDhqH6SkyX3N81O2ywSWw_EqkCreUb";
-    const isValidJwt = anonKey && anonKey.split(".").length === 3;
-    if (!isValidJwt) {
-      return;
-    }
-    const { error } = await supabase.from("page_views").insert([
-      {
-        path: pagePath,
-        timestamp: (/* @__PURE__ */ new Date()).toISOString(),
-        user_agent: navigator.userAgent,
-        referrer: document.referrer || "direct"
-      }
-    ]);
-    if (error) {
-      console.warn('[AnalyticsTracker] Table "page_views" insert failed.');
-    }
-  } catch (err) {
-  }
-};
 const AdminDashboard = React.lazy(() => import("./assets/AdminDashboard-CfJ1aKnp.js"));
 const PrivacyPolicy = React.lazy(() => import("./assets/Legal-BadAf7-J.js").then((m) => ({ default: m.PrivacyPolicy })));
 const TermsOfService = React.lazy(() => import("./assets/Legal-BadAf7-J.js").then((m) => ({ default: m.TermsOfService })));
@@ -7514,7 +7493,11 @@ function App() {
         setLang(detected);
       }
     }
-    trackPageView(location.pathname);
+    import("./assets/analyticsTracker-DVbsgxzG.js").then(({ trackPageView }) => {
+      trackPageView(location.pathname);
+    }).catch((err) => {
+      console.warn("[Analytics] Failed to track page view dynamically", err);
+    });
   }, [location.pathname, urlLang]);
   const t = (path) => getTranslation(lang, path);
   return /* @__PURE__ */ jsxs("div", { className: "min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-brand-500 selection:text-white", children: [

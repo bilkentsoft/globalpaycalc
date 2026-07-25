@@ -37,7 +37,6 @@ const Contact = React.lazy(() => import('./pages/Legal').then(m => ({ default: m
 import { CookieConsent } from './components/CookieConsent';
 import { getTranslation, supportedLanguages } from './i18n';
 import { detectUserLanguage } from './utils/langDetector';
-import { trackPageView } from './utils/analyticsTracker';
 import { initializeAnalytics } from './utils/adEngine';
 import { Sparkles, Globe, Image, DollarSign, Briefcase, ArrowRightLeft, FileText, Clock, TrendingDown, UserCheck, Award, Cpu, Building2 } from 'lucide-react';
 import { generatePseoTaxMatrix, generatePseoLlmMatrix } from './pseo/matrixEngine';
@@ -376,8 +375,12 @@ export default function App() {
         setLang(detected);
       }
     }
-    // Analytics Tracking
-    trackPageView(location.pathname);
+    // Analytics Tracking (Dynamically loaded to prevent initial bundle bloat)
+    import('./utils/analyticsTracker').then(({ trackPageView }) => {
+       trackPageView(location.pathname);
+    }).catch(err => {
+       console.warn('[Analytics] Failed to track page view dynamically', err);
+    });
   }, [location.pathname, urlLang]);
 
   const t = (path) => getTranslation(lang, path);
