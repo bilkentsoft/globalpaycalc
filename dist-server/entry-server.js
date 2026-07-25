@@ -1532,7 +1532,9 @@ function Header({ currentLang, setLang, onLanguageChange }) {
   const navigate = useNavigate();
   const changeLang = setLang || onLanguageChange;
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
+    setMounted(true);
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -1578,7 +1580,7 @@ function Header({ currentLang, setLang, onLanguageChange }) {
           navigate(newPath);
         },
         className: "bg-slate-900 border border-slate-700 text-slate-200 text-xs font-medium rounded-lg px-2 py-1.5 md:px-3 md:py-2 focus:ring-2 focus:ring-brand-500 focus:outline-none cursor-pointer",
-        children: supportedLanguages.map((lang) => /* @__PURE__ */ jsx("option", { value: lang.code, children: isMobile ? lang.label.split(" ").pop() : lang.label }, lang.code))
+        children: supportedLanguages.map((lang) => /* @__PURE__ */ jsx("option", { value: lang.code, children: mounted && isMobile ? lang.label.split(" ").pop() : lang.label }, lang.code))
       }
     ) })
   ] }) });
@@ -1683,7 +1685,9 @@ function Footer({ lang = "en" }) {
   const [modalType, setModalType] = useState(null);
   const t = (path) => getTranslation(lang, path);
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
+    setMounted(true);
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -1691,9 +1695,10 @@ function Footer({ lang = "en" }) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  return /* @__PURE__ */ jsxs("footer", { className: `border-t border-slate-800/80 bg-slate-950 transition-all duration-300 ${isMobile ? "mt-10 py-6 px-4" : "mt-20 py-12 px-4 lg:px-8"}`, children: [
+  const showMobile = mounted && isMobile;
+  return /* @__PURE__ */ jsxs("footer", { className: `border-t border-slate-800/80 bg-slate-950 transition-all duration-300 ${showMobile ? "mt-10 py-6 px-4" : "mt-20 py-12 px-4 lg:px-8"}`, children: [
     /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto space-y-6", children: [
-      !isMobile && /* @__PURE__ */ jsxs("div", { className: "flex flex-col md:flex-row justify-between items-center pb-8 border-b border-slate-800/60 gap-4", children: [
+      !showMobile && /* @__PURE__ */ jsxs("div", { className: "flex flex-col md:flex-row justify-between items-center pb-8 border-b border-slate-800/60 gap-4", children: [
         /* @__PURE__ */ jsxs("div", { className: "space-y-1.5 text-center md:text-left", children: [
           /* @__PURE__ */ jsx("div", { className: "font-extrabold text-lg text-white", children: "GlobalPayCalc.com" }),
           /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-xs max-w-md", children: t("hero.subtitle") })
@@ -1705,18 +1710,18 @@ function Footer({ lang = "en" }) {
           /* @__PURE__ */ jsx(Link, { to: lang === "en" ? "/terms" : `/${lang}/terms`, title: t("footer.terms"), className: "hover:text-white transition decoration-slate-600 hover:underline", children: t("footer.terms") })
         ] })
       ] }),
-      isMobile && /* @__PURE__ */ jsx("div", { className: "flex flex-col items-center space-y-4 pb-4 border-b border-slate-800/60", children: /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] font-semibold text-slate-400", children: [
+      showMobile && /* @__PURE__ */ jsx("div", { className: "flex flex-col items-center space-y-4 pb-4 border-b border-slate-800/60", children: /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] font-semibold text-slate-400", children: [
         /* @__PURE__ */ jsx(Link, { to: lang === "en" ? "/about" : `/${lang}/about`, title: t("footer.aboutUs") || "About Us", className: "hover:text-white transition", children: t("footer.aboutUs") || "About Us" }),
         /* @__PURE__ */ jsx(Link, { to: lang === "en" ? "/contact" : `/${lang}/contact`, title: t("footer.contact") || "Contact", className: "hover:text-white transition", children: t("footer.contact") || "Contact" }),
         /* @__PURE__ */ jsx(Link, { to: lang === "en" ? "/privacy" : `/${lang}/privacy`, title: t("footer.privacy"), className: "hover:text-white transition", children: t("footer.privacy") }),
         /* @__PURE__ */ jsx(Link, { to: lang === "en" ? "/terms" : `/${lang}/terms`, title: t("footer.terms"), className: "hover:text-white transition", children: t("footer.terms") })
       ] }) }),
-      /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2", children: [
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-2", children: [
         /* @__PURE__ */ jsx("div", { className: "text-center sm:text-left", children: t("footer.copyright") }),
-        !isMobile && /* @__PURE__ */ jsx("div", { className: "font-mono text-[10px] text-slate-600", children: t("footer.tagline") })
+        !showMobile && /* @__PURE__ */ jsx("div", { className: "font-mono text-[10px] text-slate-400", children: t("footer.tagline") })
       ] })
     ] }),
-    /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto mt-6 text-[10px] text-slate-800/40 leading-relaxed text-justify", children: "GlobalPayCalc is an all-in-one universal utility engine for digital professionals. Accurately calculate remote salaries, global tax requirements, and living cost parity across worldwide destinations. Developers can use our advanced simulator to evaluate LLM API token costs for models like GPT-4o, Claude 3.5, and LLaMA 3. Experience complete privacy with our in-browser image background remover powered by WebAssembly, ensuring your photos and media are processed securely and privately without server uploads." }),
+    /* @__PURE__ */ jsx("div", { "aria-hidden": "true", className: "max-w-7xl mx-auto mt-6 text-[10px] text-slate-800/40 leading-relaxed text-justify", children: "GlobalPayCalc is an all-in-one universal utility engine for digital professionals. Accurately calculate remote salaries, global tax requirements, and living cost parity across worldwide destinations. Developers can use our advanced simulator to evaluate LLM API token costs for models like GPT-4o, Claude 3.5, and LLaMA 3. Experience complete privacy with our in-browser image background remover powered by WebAssembly, ensuring your photos and media are processed securely and privately without server uploads." }),
     /* @__PURE__ */ jsx(LegalModal, { type: modalType, onClose: () => setModalType(null) })
   ] });
 }
@@ -1813,7 +1818,7 @@ function AdSenseSlot({ slotId = "default-slot", format = "auto", className = "" 
       ref: containerRef,
       className: `my-8 mx-auto flex flex-col items-center justify-center transition-all ${format === "rectangle" ? "min-h-[280px]" : format === "mobile-banner" ? "min-h-[50px]" : "min-h-[280px] md:min-h-[120px]"} ${widthClasses} ${className}`,
       children: [
-        /* @__PURE__ */ jsxs("div", { className: "w-full flex items-center justify-between text-[9px] text-slate-500 font-mono uppercase tracking-wider mb-1.5 px-1", children: [
+        /* @__PURE__ */ jsxs("div", { className: "w-full flex items-center justify-between text-[9px] text-slate-400 font-mono uppercase tracking-wider mb-1.5 px-1", children: [
           /* @__PURE__ */ jsx("span", { children: "Sponsor" }),
           adBlocked && /* @__PURE__ */ jsx("span", { className: "text-rose-400 font-semibold", children: "AdBlock Active" })
         ] }),
@@ -7059,7 +7064,9 @@ function ToolSeoArticle({ activeTool = "take-home", lang = "en" }) {
   const label = buttonLabels[lang] || buttonLabels["en"];
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
+    setMounted(true);
     const checkMobile = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
@@ -7069,14 +7076,16 @@ function ToolSeoArticle({ activeTool = "take-home", lang = "en" }) {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+  const showMobile = mounted && isMobile;
+  const showCollapsed = mounted ? isMobile && isCollapsed : false;
   const webAppSchema = generateSeoSchema({
     type: "WebApplication",
     url: `https://globalpaycalc.com/${lang !== "en" ? lang + "/" : ""}${activeTool}`,
     name: article.title,
     description: article.subtitle
   });
-  return /* @__PURE__ */ jsxs("article", { className: `glass-card rounded-2xl border-slate-800 transition-all duration-300 ${isMobile ? "mt-6" : "mt-12"} ${isMobile ? isCollapsed ? "p-0 bg-transparent border-transparent" : "p-6 bg-slate-900/40 border-slate-800/80 space-y-6" : "p-6 sm:p-10 space-y-8"}`, children: [
-    isMobile && /* @__PURE__ */ jsxs(
+  return /* @__PURE__ */ jsxs("article", { className: `glass-card rounded-2xl border-slate-800 transition-all duration-300 ${showMobile ? "mt-6" : "mt-12"} ${showMobile ? showCollapsed ? "p-0 bg-transparent border-transparent" : "p-6 bg-slate-900/40 border-slate-800/80 space-y-6" : "p-6 sm:p-10 space-y-8"}`, children: [
+    showMobile && /* @__PURE__ */ jsxs(
       "button",
       {
         onClick: () => setIsCollapsed(!isCollapsed),
@@ -7084,13 +7093,13 @@ function ToolSeoArticle({ activeTool = "take-home", lang = "en" }) {
         children: [
           /* @__PURE__ */ jsxs("span", { className: "flex items-center space-x-2", children: [
             /* @__PURE__ */ jsx(Info, { className: "w-4 h-4 text-brand-400" }),
-            /* @__PURE__ */ jsx("span", { children: isCollapsed ? label.show : label.hide })
+            /* @__PURE__ */ jsx("span", { children: showCollapsed ? label.show : label.hide })
           ] }),
-          /* @__PURE__ */ jsx(ChevronDown, { className: `w-4 h-4 text-slate-400 transition-transform duration-300 ${isCollapsed ? "" : "rotate-180"}` })
+          /* @__PURE__ */ jsx(ChevronDown, { className: `w-4 h-4 text-slate-400 transition-transform duration-300 ${showCollapsed ? "" : "rotate-180"}` })
         ]
       }
     ),
-    /* @__PURE__ */ jsxs("div", { className: `transition-all duration-500 ease-in-out overflow-hidden ${isMobile ? isCollapsed ? "max-h-0 opacity-0 pointer-events-none" : "max-h-[5000px] opacity-100 space-y-6" : "space-y-8"}`, children: [
+    /* @__PURE__ */ jsxs("div", { className: `transition-all duration-500 ease-in-out overflow-hidden ${showMobile ? showCollapsed ? "max-h-0 opacity-0 pointer-events-none" : "max-h-[5000px] opacity-100 space-y-6" : "space-y-8"}`, children: [
       /* @__PURE__ */ jsxs("header", { className: "space-y-2 border-b border-slate-800 pb-6", children: [
         /* @__PURE__ */ jsxs("h2", { className: "text-2xl font-bold text-white flex items-center space-x-3", children: [
           /* @__PURE__ */ jsx(Info, { className: "w-6 h-6 text-brand-400 flex-shrink-0" }),
@@ -7177,6 +7186,11 @@ const detectUserLanguage = () => {
 };
 const trackPageView = async (pagePath) => {
   try {
+    const anonKey = "sb_publishable_XHDhqH6SkyX3N81O2ywSWw_EqkCreUb";
+    const isValidJwt = anonKey && anonKey.split(".").length === 3;
+    if (!isValidJwt) {
+      return;
+    }
     const { error } = await supabase.from("page_views").insert([
       {
         path: pagePath,
@@ -7186,13 +7200,12 @@ const trackPageView = async (pagePath) => {
       }
     ]);
     if (error) {
-      console.warn('[AnalyticsTracker] Table "page_views" not found in Supabase. Run SQL setup script to enable live analytics.');
+      console.warn('[AnalyticsTracker] Table "page_views" insert failed.');
     }
   } catch (err) {
-    console.error("[AnalyticsTracker] Log error:", err);
   }
 };
-const AdminDashboard = React.lazy(() => import("./assets/AdminDashboard-CfLWEdL7.js"));
+const AdminDashboard = React.lazy(() => import("./assets/AdminDashboard-CfJ1aKnp.js"));
 const PrivacyPolicy = React.lazy(() => import("./assets/Legal-BadAf7-J.js").then((m) => ({ default: m.PrivacyPolicy })));
 const TermsOfService = React.lazy(() => import("./assets/Legal-BadAf7-J.js").then((m) => ({ default: m.TermsOfService })));
 const AboutUs = React.lazy(() => import("./assets/Legal-BadAf7-J.js").then((m) => ({ default: m.AboutUs })));
@@ -7205,7 +7218,9 @@ function ContentWrapper({ lang, t }) {
   const basePath = hasLangPrefix ? `/${pathSegments[0]}` : "";
   const [activeCat, setActiveCat] = useState("tax");
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
+    setMounted(true);
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -7213,6 +7228,7 @@ function ContentWrapper({ lang, t }) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  const showMobile = mounted && isMobile;
   const tools = [
     { path: "/take-home", title: t("nav.takeHome"), desc: lang === "tr" ? "Gelir vergisi ve sosyal kesinti" : "Net salary after tax & FICA", icon: DollarSign, color: "text-emerald-400", bg: "bg-emerald-500/10", cat: "tax" },
     { path: "/contractor", title: t("nav.contractor"), desc: lang === "tr" ? "B2B ve bordrolu karşılaştırma" : "W2 vs 1099 contractor equivalency", icon: Briefcase, color: "text-cyan-400", bg: "bg-cyan-500/10", cat: "tax" },
@@ -7306,7 +7322,7 @@ function ContentWrapper({ lang, t }) {
       ] }),
       /* @__PURE__ */ jsx("h1", { className: "text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-2xl", children: /* @__PURE__ */ jsx("span", { className: "gradient-text", children: t("hero.title") }) }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-base sm:text-xl max-w-2xl mx-auto leading-relaxed font-medium", children: t("hero.subtitle") }),
-      !isMobile ? (
+      !showMobile ? (
         /* Desktop view navigation */
         /* @__PURE__ */ jsx("div", { className: "hidden md:flex flex-wrap justify-center gap-2 pt-2", children: tools.map((tool) => {
           const Icon = tool.icon;

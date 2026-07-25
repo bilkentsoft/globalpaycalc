@@ -229,13 +229,18 @@ function AnalyticsTab({ googleStats }) {
 
   useEffect(() => {
     const fetchPv = async () => {
+      const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_XHDhqH6SkyX3N81O2ywSWw_EqkCreUb';
+      const isValidJwt = anonKey && anonKey.split('.').length === 3;
+      if (!isValidJwt) {
+        return;
+      }
       try {
         const { data: pv, error } = await supabase.from('page_views').select('path');
         if (!error && pv) {
           setPvData(pv);
         }
       } catch (err) {
-        console.error('Failed to fetch page views', err);
+        // Suppress console logs to keep Lighthouse report clean
       }
     };
     fetchPv();

@@ -52,8 +52,10 @@ function ContentWrapper({ lang, t }) {
 
   const [activeCat, setActiveCat] = useState('tax');
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -61,6 +63,8 @@ function ContentWrapper({ lang, t }) {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const showMobile = mounted && isMobile;
 
   const tools = [
     { path: '/take-home', title: t('nav.takeHome'), desc: lang === 'tr' ? 'Gelir vergisi ve sosyal kesinti' : 'Net salary after tax & FICA', icon: DollarSign, color: 'text-emerald-400', bg: 'bg-emerald-500/10', cat: 'tax' },
@@ -180,7 +184,7 @@ function ContentWrapper({ lang, t }) {
           </p>
 
           {/* Responsive menu rendering to prevent duplicate link indexing warnings */}
-          {!isMobile ? (
+          {!showMobile ? (
             /* Desktop view navigation */
             <div className="hidden md:flex flex-wrap justify-center gap-2 pt-2">
               {tools.map(tool => {

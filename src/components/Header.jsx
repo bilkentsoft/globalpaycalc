@@ -9,7 +9,9 @@ export default function Header({ currentLang, setLang, onLanguageChange }) {
   const changeLang = setLang || onLanguageChange;
 
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
+    setMounted(true);
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -73,7 +75,7 @@ export default function Header({ currentLang, setLang, onLanguageChange }) {
           >
             {supportedLanguages.map(lang => (
               <option key={lang.code} value={lang.code}>
-                {isMobile ? lang.label.split(' ').pop() : lang.label}
+                {mounted && isMobile ? lang.label.split(' ').pop() : lang.label}
               </option>
             ))}
           </select>

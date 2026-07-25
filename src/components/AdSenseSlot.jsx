@@ -51,7 +51,7 @@ export default function AdSenseSlot({ slotId = 'default-slot', format = 'auto', 
             : 'min-h-[280px] md:min-h-[120px]' // Horizontal fallback: reserve 280px on mobile for rectangle, 120px on desktop
       } ${widthClasses} ${className}`}
     >
-      <div className="w-full flex items-center justify-between text-[9px] text-slate-500 font-mono uppercase tracking-wider mb-1.5 px-1">
+      <div className="w-full flex items-center justify-between text-[9px] text-slate-400 font-mono uppercase tracking-wider mb-1.5 px-1">
         <span>Sponsor</span>
         {adBlocked && <span className="text-rose-400 font-semibold">AdBlock Active</span>}
       </div>

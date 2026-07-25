@@ -35,8 +35,10 @@ export default function ToolSeoArticle({ activeTool = 'take-home', lang = 'en' }
 
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const checkMobile = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
@@ -47,6 +49,9 @@ export default function ToolSeoArticle({ activeTool = 'take-home', lang = 'en' }
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  const showMobile = mounted && isMobile;
+  const showCollapsed = mounted ? (isMobile && isCollapsed) : false;
+
   const webAppSchema = generateSeoSchema({
     type: 'WebApplication',
     url: `https://globalpaycalc.com/${lang !== 'en' ? lang + '/' : ''}${activeTool}`,
@@ -55,21 +60,21 @@ export default function ToolSeoArticle({ activeTool = 'take-home', lang = 'en' }
   });
 
   return (
-    <article className={`glass-card rounded-2xl border-slate-800 transition-all duration-300 ${isMobile ? 'mt-6' : 'mt-12'} ${isMobile ? (isCollapsed ? 'p-0 bg-transparent border-transparent' : 'p-6 bg-slate-900/40 border-slate-800/80 space-y-6') : 'p-6 sm:p-10 space-y-8'}`}>
-      {isMobile && (
+    <article className={`glass-card rounded-2xl border-slate-800 transition-all duration-300 ${showMobile ? 'mt-6' : 'mt-12'} ${showMobile ? (showCollapsed ? 'p-0 bg-transparent border-transparent' : 'p-6 bg-slate-900/40 border-slate-800/80 space-y-6') : 'p-6 sm:p-10 space-y-8'}`}>
+      {showMobile && (
         <button 
           onClick={() => setIsCollapsed(!isCollapsed)}
           className="w-full flex items-center justify-between p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-200 hover:text-white transition font-bold text-xs active:scale-[0.98] outline-none"
         >
           <span className="flex items-center space-x-2">
             <Info className="w-4 h-4 text-brand-400" />
-            <span>{isCollapsed ? label.show : label.hide}</span>
+            <span>{showCollapsed ? label.show : label.hide}</span>
           </span>
-          <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${isCollapsed ? '' : 'rotate-180'}`} />
+          <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${showCollapsed ? '' : 'rotate-180'}`} />
         </button>
       )}
 
-      <div className={`transition-all duration-500 ease-in-out overflow-hidden ${isMobile ? (isCollapsed ? 'max-h-0 opacity-0 pointer-events-none' : 'max-h-[5000px] opacity-100 space-y-6') : 'space-y-8'}`}>
+      <div className={`transition-all duration-500 ease-in-out overflow-hidden ${showMobile ? (showCollapsed ? 'max-h-0 opacity-0 pointer-events-none' : 'max-h-[5000px] opacity-100 space-y-6') : 'space-y-8'}`}>
         <header className="space-y-2 border-b border-slate-800 pb-6">
           <h2 className="text-2xl font-bold text-white flex items-center space-x-3">
             <Info className="w-6 h-6 text-brand-400 flex-shrink-0" />

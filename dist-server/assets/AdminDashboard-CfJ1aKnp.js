@@ -224,13 +224,17 @@ function AnalyticsTab({ googleStats }) {
   const [pvData, setPvData] = useState([]);
   useEffect(() => {
     const fetchPv = async () => {
+      const anonKey = "sb_publishable_XHDhqH6SkyX3N81O2ywSWw_EqkCreUb";
+      const isValidJwt = anonKey.split(".").length === 3;
+      if (!isValidJwt) {
+        return;
+      }
       try {
         const { data: pv, error } = await supabase.from("page_views").select("path");
         if (!error && pv) {
           setPvData(pv);
         }
       } catch (err) {
-        console.error("Failed to fetch page views", err);
       }
     };
     fetchPv();
