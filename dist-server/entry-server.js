@@ -7212,10 +7212,10 @@ const detectUserLanguage = () => {
   return "en";
 };
 const AdminDashboard = React.lazy(() => import("./assets/AdminDashboard-CfJ1aKnp.js"));
-const PrivacyPolicy = React.lazy(() => import("./assets/Legal-BadAf7-J.js").then((m) => ({ default: m.PrivacyPolicy })));
-const TermsOfService = React.lazy(() => import("./assets/Legal-BadAf7-J.js").then((m) => ({ default: m.TermsOfService })));
-const AboutUs = React.lazy(() => import("./assets/Legal-BadAf7-J.js").then((m) => ({ default: m.AboutUs })));
-const Contact = React.lazy(() => import("./assets/Legal-BadAf7-J.js").then((m) => ({ default: m.Contact })));
+const PrivacyPolicy = React.lazy(() => import("./assets/Legal-DMSyZP2V.js").then((m) => ({ default: m.PrivacyPolicy })));
+const TermsOfService = React.lazy(() => import("./assets/Legal-DMSyZP2V.js").then((m) => ({ default: m.TermsOfService })));
+const AboutUs = React.lazy(() => import("./assets/Legal-DMSyZP2V.js").then((m) => ({ default: m.AboutUs })));
+const Contact = React.lazy(() => import("./assets/Legal-DMSyZP2V.js").then((m) => ({ default: m.Contact })));
 function ContentWrapper({ lang, t }) {
   const location = useLocation();
   const navigate = useNavigate();
