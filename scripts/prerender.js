@@ -5,7 +5,19 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const toAbsolute = (p) => path.resolve(__dirname, '..', p);
 
-const template = fs.readFileSync(toAbsolute('dist/index.html'), 'utf-8');
+let template = fs.readFileSync(toAbsolute('dist/index.html'), 'utf-8');
+
+// Find and inline main CSS dynamically to eliminate render-blocking network requests
+const assetsDir = toAbsolute('dist/assets');
+const cssFile = fs.readdirSync(assetsDir).find(file => file.startsWith('main-') && file.endsWith('.css'));
+if (cssFile) {
+  const cssPath = path.join(assetsDir, cssFile);
+  const cssContent = fs.readFileSync(cssPath, 'utf-8');
+  console.log(`[prerender] Inlining main CSS file: ${cssFile} (${cssContent.length} bytes)`);
+  const cssLinkRegex = new RegExp(`<link rel="stylesheet"[^>]*href="[^"]*${cssFile}"[^>]*>`, 'i');
+  template = template.replace(cssLinkRegex, `<style>${cssContent}</style>`);
+}
+
 const { render, getRoutes } = await import('file://' + toAbsolute('dist-server/entry-server.js').replace(/\\/g, '/'));
 
 const routesToPrerender = getRoutes();
