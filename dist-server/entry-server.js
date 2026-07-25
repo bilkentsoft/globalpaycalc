@@ -1682,9 +1682,18 @@ function LegalModal({ type, lang = "en", onClose }) {
 function Footer({ lang = "en" }) {
   const [modalType, setModalType] = useState(null);
   const t = (path) => getTranslation(lang, path);
-  return /* @__PURE__ */ jsxs("footer", { className: "border-t border-slate-800/80 bg-slate-950 mt-20 py-12 px-4 lg:px-8", children: [
-    /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto space-y-8", children: [
-      /* @__PURE__ */ jsxs("div", { className: "flex flex-col md:flex-row justify-between items-center pb-8 border-b border-slate-800/60 gap-4", children: [
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return /* @__PURE__ */ jsxs("footer", { className: `border-t border-slate-800/80 bg-slate-950 transition-all duration-300 ${isMobile ? "mt-10 py-6 px-4" : "mt-20 py-12 px-4 lg:px-8"}`, children: [
+    /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto space-y-6", children: [
+      !isMobile && /* @__PURE__ */ jsxs("div", { className: "flex flex-col md:flex-row justify-between items-center pb-8 border-b border-slate-800/60 gap-4", children: [
         /* @__PURE__ */ jsxs("div", { className: "space-y-1.5 text-center md:text-left", children: [
           /* @__PURE__ */ jsx("div", { className: "font-extrabold text-lg text-white", children: "GlobalPayCalc.com" }),
           /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-xs max-w-md", children: t("hero.subtitle") })
@@ -1696,12 +1705,18 @@ function Footer({ lang = "en" }) {
           /* @__PURE__ */ jsx(Link, { to: lang === "en" ? "/terms" : `/${lang}/terms`, title: t("footer.terms"), className: "hover:text-white transition decoration-slate-600 hover:underline", children: t("footer.terms") })
         ] })
       ] }),
-      /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4", children: [
-        /* @__PURE__ */ jsx("div", { children: t("footer.copyright") }),
-        /* @__PURE__ */ jsx("div", { className: "font-mono text-[10px] text-slate-600", children: t("footer.tagline") })
+      isMobile && /* @__PURE__ */ jsx("div", { className: "flex flex-col items-center space-y-4 pb-4 border-b border-slate-800/60", children: /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] font-semibold text-slate-400", children: [
+        /* @__PURE__ */ jsx(Link, { to: lang === "en" ? "/about" : `/${lang}/about`, title: t("footer.aboutUs") || "About Us", className: "hover:text-white transition", children: t("footer.aboutUs") || "About Us" }),
+        /* @__PURE__ */ jsx(Link, { to: lang === "en" ? "/contact" : `/${lang}/contact`, title: t("footer.contact") || "Contact", className: "hover:text-white transition", children: t("footer.contact") || "Contact" }),
+        /* @__PURE__ */ jsx(Link, { to: lang === "en" ? "/privacy" : `/${lang}/privacy`, title: t("footer.privacy"), className: "hover:text-white transition", children: t("footer.privacy") }),
+        /* @__PURE__ */ jsx(Link, { to: lang === "en" ? "/terms" : `/${lang}/terms`, title: t("footer.terms"), className: "hover:text-white transition", children: t("footer.terms") })
+      ] }) }),
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2", children: [
+        /* @__PURE__ */ jsx("div", { className: "text-center sm:text-left", children: t("footer.copyright") }),
+        !isMobile && /* @__PURE__ */ jsx("div", { className: "font-mono text-[10px] text-slate-600", children: t("footer.tagline") })
       ] })
     ] }),
-    /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto mt-8 text-[10px] text-slate-800 leading-relaxed text-justify", children: "GlobalPayCalc is an all-in-one universal utility engine for digital professionals. Accurately calculate remote salaries, global tax requirements, and living cost parity across worldwide destinations. Developers can use our advanced simulator to evaluate LLM API token costs for models like GPT-4o, Claude 3.5, and LLaMA 3. Experience complete privacy with our in-browser image background remover powered by WebAssembly, ensuring your photos and media are processed securely and privately without server uploads." }),
+    /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto mt-6 text-[10px] text-slate-800/40 leading-relaxed text-justify", children: "GlobalPayCalc is an all-in-one universal utility engine for digital professionals. Accurately calculate remote salaries, global tax requirements, and living cost parity across worldwide destinations. Developers can use our advanced simulator to evaluate LLM API token costs for models like GPT-4o, Claude 3.5, and LLaMA 3. Experience complete privacy with our in-browser image background remover powered by WebAssembly, ensuring your photos and media are processed securely and privately without server uploads." }),
     /* @__PURE__ */ jsx(LegalModal, { type: modalType, onClose: () => setModalType(null) })
   ] });
 }
@@ -7031,36 +7046,75 @@ function ToolSeoArticle({ activeTool = "take-home", lang = "en" }) {
     ja: "よくある質問"
   };
   const faqLabel = faqLabels[lang] || faqLabels["en"];
+  const buttonLabels = {
+    en: { show: "Show Detailed Guide & FAQs", hide: "Hide Detailed Guide & FAQs" },
+    tr: { show: "Detaylı Rehber & SSS Göster", hide: "Detaylı Rehber & SSS Gizle" },
+    es: { show: "Mostrar Guía Detallada y Preguntas Frecuentes", hide: "Ocultar Guía Detallada y Preguntas Frecuentes" },
+    de: { show: "Detaillierte Anleitung & FAQs anzeigen", hide: "Detaillierte Anleitung & FAQs ausblenden" },
+    pt: { show: "Mostrar Guia Detalhado e Perguntas Frequentes", hide: "Ocultar Guia Detalhado e Perguntas Frequentes" },
+    fr: { show: "Afficher le Guide Détaillé & FAQ", hide: "Masquer le Guide Détaillé & FAQ" },
+    id: { show: "Tampilkan Panduan Detail & FAQ", hide: "Sembunyikan Panduan Detail & FAQ" },
+    ja: { show: "詳細ガイドとよくある質問を表示", hide: "詳細ガイドとよくある質問を非表示" }
+  };
+  const label = buttonLabels[lang] || buttonLabels["en"];
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      setIsCollapsed(mobile);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
   const webAppSchema = generateSeoSchema({
     type: "WebApplication",
     url: `https://globalpaycalc.com/${lang !== "en" ? lang + "/" : ""}${activeTool}`,
     name: article.title,
     description: article.subtitle
   });
-  return /* @__PURE__ */ jsxs("article", { className: "glass-card p-6 sm:p-10 rounded-2xl border-slate-800 space-y-8 mt-12", children: [
-    /* @__PURE__ */ jsxs("header", { className: "space-y-2 border-b border-slate-800 pb-6", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "text-2xl font-bold text-white flex items-center space-x-3", children: [
-        /* @__PURE__ */ jsx(Info, { className: "w-6 h-6 text-brand-400 flex-shrink-0" }),
-        /* @__PURE__ */ jsx("span", { children: article.title })
+  return /* @__PURE__ */ jsxs("article", { className: `glass-card rounded-2xl border-slate-800 transition-all duration-300 ${isMobile ? "mt-6" : "mt-12"} ${isMobile ? isCollapsed ? "p-0 bg-transparent border-transparent" : "p-6 bg-slate-900/40 border-slate-800/80 space-y-6" : "p-6 sm:p-10 space-y-8"}`, children: [
+    isMobile && /* @__PURE__ */ jsxs(
+      "button",
+      {
+        onClick: () => setIsCollapsed(!isCollapsed),
+        className: "w-full flex items-center justify-between p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-200 hover:text-white transition font-bold text-xs active:scale-[0.98] outline-none",
+        children: [
+          /* @__PURE__ */ jsxs("span", { className: "flex items-center space-x-2", children: [
+            /* @__PURE__ */ jsx(Info, { className: "w-4 h-4 text-brand-400" }),
+            /* @__PURE__ */ jsx("span", { children: isCollapsed ? label.show : label.hide })
+          ] }),
+          /* @__PURE__ */ jsx(ChevronDown, { className: `w-4 h-4 text-slate-400 transition-transform duration-300 ${isCollapsed ? "" : "rotate-180"}` })
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsxs("div", { className: `transition-all duration-500 ease-in-out overflow-hidden ${isMobile ? isCollapsed ? "max-h-0 opacity-0 pointer-events-none" : "max-h-[5000px] opacity-100 space-y-6" : "space-y-8"}`, children: [
+      /* @__PURE__ */ jsxs("header", { className: "space-y-2 border-b border-slate-800 pb-6", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-2xl font-bold text-white flex items-center space-x-3", children: [
+          /* @__PURE__ */ jsx(Info, { className: "w-6 h-6 text-brand-400 flex-shrink-0" }),
+          /* @__PURE__ */ jsx("span", { children: article.title })
+        ] }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm font-medium", children: article.subtitle })
       ] }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm font-medium", children: article.subtitle })
-    ] }),
-    /* @__PURE__ */ jsx("div", { className: "space-y-4 text-slate-300 text-sm leading-relaxed", children: (article.paragraphs || []).map((p, idx) => /* @__PURE__ */ jsx("p", { children: p }, idx)) }),
-    article.faqs && article.faqs.length > 0 && /* @__PURE__ */ jsxs("div", { className: "space-y-6 pt-6 border-t border-slate-800", children: [
-      /* @__PURE__ */ jsxs("h3", { className: "text-xl font-bold text-white flex items-center space-x-2", children: [
-        /* @__PURE__ */ jsx(HelpCircle, { className: "w-5 h-5 text-amber-400" }),
-        /* @__PURE__ */ jsx("span", { children: faqLabel })
+      /* @__PURE__ */ jsx("div", { className: "space-y-4 text-slate-300 text-sm leading-relaxed", children: (article.paragraphs || []).map((p, idx) => /* @__PURE__ */ jsx("p", { children: p }, idx)) }),
+      article.faqs && article.faqs.length > 0 && /* @__PURE__ */ jsxs("div", { className: "space-y-6 pt-6 border-t border-slate-800", children: [
+        /* @__PURE__ */ jsxs("h3", { className: "text-xl font-bold text-white flex items-center space-x-2", children: [
+          /* @__PURE__ */ jsx(HelpCircle, { className: "w-5 h-5 text-amber-400" }),
+          /* @__PURE__ */ jsx("span", { children: faqLabel })
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "space-y-4", children: article.faqs.map((faq2, idx) => /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/60 p-4 rounded-xl border border-slate-800 space-y-1", children: [
+          /* @__PURE__ */ jsx("h4", { className: "font-semibold text-slate-200 text-sm", children: faq2.q }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-400 leading-relaxed", children: faq2.a })
+        ] }, idx)) })
       ] }),
-      /* @__PURE__ */ jsx("div", { className: "space-y-4", children: article.faqs.map((faq2, idx) => /* @__PURE__ */ jsxs("div", { className: "bg-slate-900/60 p-4 rounded-xl border border-slate-800 space-y-1", children: [
-        /* @__PURE__ */ jsx("h4", { className: "font-semibold text-slate-200 text-sm", children: faq2.q }),
-        /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-400 leading-relaxed", children: faq2.a })
-      ] }, idx)) })
-    ] }),
-    /* @__PURE__ */ jsxs("footer", { className: "pt-6 border-t border-slate-800 text-xs text-slate-500 flex items-center justify-between", children: [
-      /* @__PURE__ */ jsx("span", { children: "© GlobalPayCalc.com — 100% Client-Side Financial Utility Engine" }),
-      /* @__PURE__ */ jsxs("span", { className: "flex items-center space-x-1 text-emerald-400 font-mono", children: [
-        /* @__PURE__ */ jsx(ShieldCheck, { className: "w-3.5 h-3.5" }),
-        /* @__PURE__ */ jsx("span", { children: "SSL 256-Bit Encrypted" })
+      /* @__PURE__ */ jsxs("footer", { className: "pt-6 border-t border-slate-800 text-xs text-slate-500 flex items-center justify-between", children: [
+        /* @__PURE__ */ jsx("span", { children: "© GlobalPayCalc.com — 100% Client-Side Financial Utility Engine" }),
+        /* @__PURE__ */ jsxs("span", { className: "flex items-center space-x-1 text-emerald-400 font-mono", children: [
+          /* @__PURE__ */ jsx(ShieldCheck, { className: "w-3.5 h-3.5" }),
+          /* @__PURE__ */ jsx("span", { children: "SSL 256-Bit Encrypted" })
+        ] })
       ] })
     ] }),
     /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(webAppSchema) } })
