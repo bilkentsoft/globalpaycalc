@@ -58,9 +58,8 @@ export default function ToolSeoArticle({ activeTool = 'take-home', lang = 'en' }
     name: article.title,
     description: article.subtitle,
   });
-
   return (
-    <article className={`glass-card rounded-2xl border-slate-800 transition-all duration-300 ${showMobile ? 'mt-6' : 'mt-12'} ${showMobile ? (showCollapsed ? 'p-0 bg-transparent border-transparent' : 'p-6 bg-slate-900/40 border-slate-800/80 space-y-6') : 'p-6 sm:p-10 space-y-8'}`}>
+    <article className={`glass-card rounded-2xl border-slate-800 ${showMobile ? 'mt-6' : 'mt-12'} ${showMobile ? (showCollapsed ? 'p-0 bg-transparent border-transparent' : 'p-6 bg-slate-900/40 border-slate-800/80 space-y-6') : 'p-6 sm:p-10 space-y-8'}`}>
       {showMobile && (
         <button 
           onClick={() => setIsCollapsed(!isCollapsed)}

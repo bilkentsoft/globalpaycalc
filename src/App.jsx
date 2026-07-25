@@ -51,20 +51,6 @@ function ContentWrapper({ lang, t }) {
   const basePath = hasLangPrefix ? `/${pathSegments[0]}` : '';
 
   const [activeCat, setActiveCat] = useState('tax');
-  const [isMobile, setIsMobile] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const showMobile = mounted && isMobile;
 
   const tools = [
     { path: '/take-home', title: t('nav.takeHome'), desc: lang === 'tr' ? 'Gelir vergisi ve sosyal kesinti' : 'Net salary after tax & FICA', icon: DollarSign, color: 'text-emerald-400', bg: 'bg-emerald-500/10', cat: 'tax' },
@@ -183,97 +169,33 @@ function ContentWrapper({ lang, t }) {
             {t('hero.subtitle')}
           </p>
 
-          {/* Responsive menu rendering to prevent duplicate link indexing warnings */}
-          {!showMobile ? (
-            /* Desktop view navigation */
-            <div className="hidden md:flex flex-wrap justify-center gap-2 pt-2">
-              {tools.map(tool => {
-                const Icon = tool.icon;
-                const isActive = activeTab === tool.path.replace('/', '') || (tool.path === '/take-home' && activeTab === 'video');
-                const colorScheme = {
-                  'text-emerald-400': 'bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20',
-                  'text-cyan-400': 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20',
-                  'text-rose-400': 'bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20',
-                  'text-purple-400': 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20',
-                  'text-amber-400': 'bg-amber-600 text-white border-amber-500 shadow-lg shadow-amber-500/20',
-                  'text-indigo-400': 'bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-500/20',
-                };
-                const activeClass = colorScheme[tool.color] || 'bg-slate-800 text-white border-slate-700';
+          <div className="w-full flex items-center justify-start md:justify-center overflow-x-auto md:overflow-x-visible scrollbar-none gap-2 pt-3 pb-2 px-4 md:px-0 -mx-4 md:mx-0 snap-x">
+            {tools.map(tool => {
+              const Icon = tool.icon;
+              const isActive = activeTab === tool.path.replace('/', '') || (tool.path === '/take-home' && activeTab === 'video');
+              const colorScheme = {
+                'text-emerald-400': 'bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20',
+                'text-cyan-400': 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20',
+                'text-rose-400': 'bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20',
+                'text-purple-400': 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20',
+                'text-amber-400': 'bg-amber-600 text-white border-amber-500 shadow-lg shadow-amber-500/20',
+                'text-indigo-400': 'bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-500/20',
+              };
+              const activeClass = colorScheme[tool.color] || 'bg-slate-800 text-white border-slate-700';
 
-                return (
-                  <Link 
-                    key={tool.path}
-                    to={`${basePath}${tool.path}`} 
-                    title={tool.desc}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${isActive ? activeClass : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}
-                  >
-                    <Icon className={`w-3.5 h-3.5 ${tool.color}`} />
-                    <span>{tool.title}</span>
-                  </Link>
-                );
-              })}
-            </div>
-          ) : (
-            <>
-              {/* Mobile view segment category switcher */}
-              <div className="md:hidden flex space-x-1 bg-slate-900/60 p-1.5 rounded-2xl border border-slate-850/80 max-w-md mx-auto">
-                <button 
-                  onClick={() => setActiveCat('tax')} 
-                  className={`flex-1 flex items-center justify-center space-x-1 py-3 px-1 rounded-xl text-[10px] font-black transition-all ${activeCat === 'tax' ? 'bg-gradient-to-r from-rose-600 via-purple-600 to-brand-500 text-white shadow-lg shadow-purple-600/20' : 'text-slate-400 hover:text-slate-200'}`}
+              return (
+                <Link 
+                  key={tool.path}
+                  to={`${basePath}${tool.path}`} 
+                  title={tool.desc}
+                  className={`px-3 py-2 rounded-xl text-[11px] md:text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer snap-start flex-shrink-0 ${isActive ? activeClass : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`}
                 >
-                  <DollarSign className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-                  <span>{lang === 'tr' ? 'Maaş & Vergi' : 'Salary & Tax'}</span>
-                </button>
-                <button 
-                  onClick={() => setActiveCat('finance')} 
-                  className={`flex-1 flex items-center justify-center space-x-1 py-3 px-1 rounded-xl text-[10px] font-black transition-all ${activeCat === 'finance' ? 'bg-gradient-to-r from-rose-600 via-purple-600 to-brand-500 text-white shadow-lg shadow-purple-600/20' : 'text-slate-400 hover:text-slate-200'}`}
-                >
-                  <FileText className="w-3.5 h-3.5 text-purple-400" />
-                  <span>{lang === 'tr' ? 'B2B & Finans' : 'Finance'}</span>
-                </button>
-                <button 
-                  onClick={() => setActiveCat('ai_wasm')} 
-                  className={`flex-1 flex items-center justify-center space-x-1 py-3 px-1 rounded-xl text-[10px] font-black transition-all ${activeCat === 'ai_wasm' ? 'bg-gradient-to-r from-rose-600 via-purple-600 to-brand-500 text-white shadow-lg shadow-purple-600/20' : 'text-slate-400 hover:text-slate-200'}`}
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                  <span>{lang === 'tr' ? 'Yapay Zeka' : 'AI & WASM'}</span>
-                </button>
-              </div>
-
-              {/* Mobile view tool grid */}
-              <div className="md:hidden grid grid-cols-2 gap-3 pt-2">
-                {tools.filter(t => t.cat === activeCat).map(tool => {
-                  const Icon = tool.icon;
-                  const isActive = activeTab === tool.path.replace('/', '') || (tool.path === '/take-home' && activeTab === 'video');
-                  const borderColors = {
-                    'text-emerald-400': 'border-emerald-500/30',
-                    'text-cyan-400': 'border-cyan-500/30',
-                    'text-rose-400': 'border-rose-500/30',
-                    'text-purple-400': 'border-purple-500/30',
-                    'text-amber-400': 'border-amber-500/30',
-                    'text-indigo-400': 'border-indigo-500/30',
-                  };
-                  const borderClass = borderColors[tool.color] || 'border-slate-800';
-
-                  return (
-                    <Link 
-                      key={tool.path}
-                      to={`${basePath}${tool.path}`}
-                      title={tool.desc}
-                      className={`flex flex-col text-left p-4 rounded-2xl border transition-all duration-150 active:scale-[0.96] cursor-pointer ${isActive ? 'bg-slate-900 border-brand-500 shadow-lg shadow-brand-500/10' : 'bg-slate-900/50 hover:bg-slate-900 border-slate-800'}`}
-                    >
-                      <div className={`w-9 h-9 rounded-xl ${tool.bg} flex items-center justify-center mb-3 border ${borderClass}`}>
-                        <Icon className={`w-4 h-4 ${tool.color}`} />
-                      </div>
-                      <span className="text-xs font-black text-white leading-tight">{tool.title}</span>
-                      <span className="text-[10px] text-slate-400 mt-1 font-medium leading-tight">{tool.desc}</span>
-                    </Link>
-                  );
-                })}
-              </div>
-            </>
-          )}
-
+                  <Icon className={`w-3.5 h-3.5 ${tool.color}`} />
+                  <span>{tool.title}</span>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       )}
 
@@ -370,29 +292,30 @@ function ContentWrapper({ lang, t }) {
 }
 
 export default function App() {
-  const [lang, setLang] = useState('en');
   const location = useLocation();
 
-  useEffect(() => {
-    // Detect URL lang prefix
-    const pathSegments = location.pathname.split('/').filter(Boolean);
-    const urlLang = supportedLanguages.find(l => l.code === pathSegments[0]);
+  // Detect URL lang prefix synchronously during render phase
+  const pathSegments = location.pathname.split('/').filter(Boolean);
+  const urlLang = supportedLanguages.find(l => l.code === pathSegments[0]);
 
+  // Always use the URL prefix if present, otherwise default to 'en' during initial hydration
+  const [lang, setLang] = useState(urlLang ? urlLang.code : 'en');
+
+  useEffect(() => {
     if (urlLang) {
-      // URL has explicit lang prefix — always trust it and persist
       setLang(urlLang.code);
       try { localStorage.setItem('gpc_lang', urlLang.code); } catch (_) {}
     } else {
-      // No URL prefix — prefer explicit user selection, then browser detection
       let preferred = null;
       try { preferred = localStorage.getItem('gpc_lang'); } catch (_) {}
       const detected = preferred || detectUserLanguage();
-      setLang(detected);
+      if (detected && detected !== lang) {
+        setLang(detected);
+      }
     }
-
     // Analytics Tracking
     trackPageView(location.pathname);
-  }, [location]);
+  }, [location.pathname, urlLang]);
 
   const t = (path) => getTranslation(lang, path);
 

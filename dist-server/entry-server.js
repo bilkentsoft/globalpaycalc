@@ -7084,7 +7084,7 @@ function ToolSeoArticle({ activeTool = "take-home", lang = "en" }) {
     name: article.title,
     description: article.subtitle
   });
-  return /* @__PURE__ */ jsxs("article", { className: `glass-card rounded-2xl border-slate-800 transition-all duration-300 ${showMobile ? "mt-6" : "mt-12"} ${showMobile ? showCollapsed ? "p-0 bg-transparent border-transparent" : "p-6 bg-slate-900/40 border-slate-800/80 space-y-6" : "p-6 sm:p-10 space-y-8"}`, children: [
+  return /* @__PURE__ */ jsxs("article", { className: `glass-card rounded-2xl border-slate-800 ${showMobile ? "mt-6" : "mt-12"} ${showMobile ? showCollapsed ? "p-0 bg-transparent border-transparent" : "p-6 bg-slate-900/40 border-slate-800/80 space-y-6" : "p-6 sm:p-10 space-y-8"}`, children: [
     showMobile && /* @__PURE__ */ jsxs(
       "button",
       {
@@ -7217,18 +7217,6 @@ function ContentWrapper({ lang, t }) {
   const activeTab = hasLangPrefix ? pathSegments[1] || "take-home" : pathSegments[0] || "take-home";
   const basePath = hasLangPrefix ? `/${pathSegments[0]}` : "";
   const [activeCat, setActiveCat] = useState("tax");
-  const [isMobile, setIsMobile] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-  const showMobile = mounted && isMobile;
   const tools = [
     { path: "/take-home", title: t("nav.takeHome"), desc: lang === "tr" ? "Gelir vergisi ve sosyal kesinti" : "Net salary after tax & FICA", icon: DollarSign, color: "text-emerald-400", bg: "bg-emerald-500/10", cat: "tax" },
     { path: "/contractor", title: t("nav.contractor"), desc: lang === "tr" ? "B2B ve bordrolu karşılaştırma" : "W2 vs 1099 contractor equivalency", icon: Briefcase, color: "text-cyan-400", bg: "bg-cyan-500/10", cat: "tax" },
@@ -7322,98 +7310,32 @@ function ContentWrapper({ lang, t }) {
       ] }),
       /* @__PURE__ */ jsx("h1", { className: "text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-2xl", children: /* @__PURE__ */ jsx("span", { className: "gradient-text", children: t("hero.title") }) }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-base sm:text-xl max-w-2xl mx-auto leading-relaxed font-medium", children: t("hero.subtitle") }),
-      !showMobile ? (
-        /* Desktop view navigation */
-        /* @__PURE__ */ jsx("div", { className: "hidden md:flex flex-wrap justify-center gap-2 pt-2", children: tools.map((tool) => {
-          const Icon = tool.icon;
-          const isActive = activeTab === tool.path.replace("/", "") || tool.path === "/take-home" && activeTab === "video";
-          const colorScheme = {
-            "text-emerald-400": "bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20",
-            "text-cyan-400": "bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20",
-            "text-rose-400": "bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20",
-            "text-purple-400": "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20",
-            "text-amber-400": "bg-amber-600 text-white border-amber-500 shadow-lg shadow-amber-500/20",
-            "text-indigo-400": "bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-500/20"
-          };
-          const activeClass = colorScheme[tool.color] || "bg-slate-800 text-white border-slate-700";
-          return /* @__PURE__ */ jsxs(
-            Link,
-            {
-              to: `${basePath}${tool.path}`,
-              title: tool.desc,
-              className: `px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer ${isActive ? activeClass : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`,
-              children: [
-                /* @__PURE__ */ jsx(Icon, { className: `w-3.5 h-3.5 ${tool.color}` }),
-                /* @__PURE__ */ jsx("span", { children: tool.title })
-              ]
-            },
-            tool.path
-          );
-        }) })
-      ) : /* @__PURE__ */ jsxs(Fragment, { children: [
-        /* @__PURE__ */ jsxs("div", { className: "md:hidden flex space-x-1 bg-slate-900/60 p-1.5 rounded-2xl border border-slate-850/80 max-w-md mx-auto", children: [
-          /* @__PURE__ */ jsxs(
-            "button",
-            {
-              onClick: () => setActiveCat("tax"),
-              className: `flex-1 flex items-center justify-center space-x-1 py-3 px-1 rounded-xl text-[10px] font-black transition-all ${activeCat === "tax" ? "bg-gradient-to-r from-rose-600 via-purple-600 to-brand-500 text-white shadow-lg shadow-purple-600/20" : "text-slate-400 hover:text-slate-200"}`,
-              children: [
-                /* @__PURE__ */ jsx(DollarSign, { className: "w-3.5 h-3.5 text-emerald-400 animate-pulse" }),
-                /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Maaş & Vergi" : "Salary & Tax" })
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxs(
-            "button",
-            {
-              onClick: () => setActiveCat("finance"),
-              className: `flex-1 flex items-center justify-center space-x-1 py-3 px-1 rounded-xl text-[10px] font-black transition-all ${activeCat === "finance" ? "bg-gradient-to-r from-rose-600 via-purple-600 to-brand-500 text-white shadow-lg shadow-purple-600/20" : "text-slate-400 hover:text-slate-200"}`,
-              children: [
-                /* @__PURE__ */ jsx(FileText, { className: "w-3.5 h-3.5 text-purple-400" }),
-                /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "B2B & Finans" : "Finance" })
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxs(
-            "button",
-            {
-              onClick: () => setActiveCat("ai_wasm"),
-              className: `flex-1 flex items-center justify-center space-x-1 py-3 px-1 rounded-xl text-[10px] font-black transition-all ${activeCat === "ai_wasm" ? "bg-gradient-to-r from-rose-600 via-purple-600 to-brand-500 text-white shadow-lg shadow-purple-600/20" : "text-slate-400 hover:text-slate-200"}`,
-              children: [
-                /* @__PURE__ */ jsx(Sparkles, { className: "w-3.5 h-3.5 text-amber-400" }),
-                /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Yapay Zeka" : "AI & WASM" })
-              ]
-            }
-          )
-        ] }),
-        /* @__PURE__ */ jsx("div", { className: "md:hidden grid grid-cols-2 gap-3 pt-2", children: tools.filter((t2) => t2.cat === activeCat).map((tool) => {
-          const Icon = tool.icon;
-          const isActive = activeTab === tool.path.replace("/", "") || tool.path === "/take-home" && activeTab === "video";
-          const borderColors = {
-            "text-emerald-400": "border-emerald-500/30",
-            "text-cyan-400": "border-cyan-500/30",
-            "text-rose-400": "border-rose-500/30",
-            "text-purple-400": "border-purple-500/30",
-            "text-amber-400": "border-amber-500/30",
-            "text-indigo-400": "border-indigo-500/30"
-          };
-          const borderClass = borderColors[tool.color] || "border-slate-800";
-          return /* @__PURE__ */ jsxs(
-            Link,
-            {
-              to: `${basePath}${tool.path}`,
-              title: tool.desc,
-              className: `flex flex-col text-left p-4 rounded-2xl border transition-all duration-150 active:scale-[0.96] cursor-pointer ${isActive ? "bg-slate-900 border-brand-500 shadow-lg shadow-brand-500/10" : "bg-slate-900/50 hover:bg-slate-900 border-slate-800"}`,
-              children: [
-                /* @__PURE__ */ jsx("div", { className: `w-9 h-9 rounded-xl ${tool.bg} flex items-center justify-center mb-3 border ${borderClass}`, children: /* @__PURE__ */ jsx(Icon, { className: `w-4 h-4 ${tool.color}` }) }),
-                /* @__PURE__ */ jsx("span", { className: "text-xs font-black text-white leading-tight", children: tool.title }),
-                /* @__PURE__ */ jsx("span", { className: "text-[10px] text-slate-400 mt-1 font-medium leading-tight", children: tool.desc })
-              ]
-            },
-            tool.path
-          );
-        }) })
-      ] })
+      /* @__PURE__ */ jsx("div", { className: "w-full flex items-center justify-start md:justify-center overflow-x-auto md:overflow-x-visible scrollbar-none gap-2 pt-3 pb-2 px-4 md:px-0 -mx-4 md:mx-0 snap-x", children: tools.map((tool) => {
+        const Icon = tool.icon;
+        const isActive = activeTab === tool.path.replace("/", "") || tool.path === "/take-home" && activeTab === "video";
+        const colorScheme = {
+          "text-emerald-400": "bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20",
+          "text-cyan-400": "bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20",
+          "text-rose-400": "bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-500/20",
+          "text-purple-400": "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/20",
+          "text-amber-400": "bg-amber-600 text-white border-amber-500 shadow-lg shadow-amber-500/20",
+          "text-indigo-400": "bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-500/20"
+        };
+        const activeClass = colorScheme[tool.color] || "bg-slate-800 text-white border-slate-700";
+        return /* @__PURE__ */ jsxs(
+          Link,
+          {
+            to: `${basePath}${tool.path}`,
+            title: tool.desc,
+            className: `px-3 py-2 rounded-xl text-[11px] md:text-xs font-bold transition flex items-center space-x-1.5 border cursor-pointer snap-start flex-shrink-0 ${isActive ? activeClass : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800"}`,
+            children: [
+              /* @__PURE__ */ jsx(Icon, { className: `w-3.5 h-3.5 ${tool.color}` }),
+              /* @__PURE__ */ jsx("span", { children: tool.title })
+            ]
+          },
+          tool.path
+        );
+      }) })
     ] }),
     /* @__PURE__ */ jsx("div", { className: "pt-4", children: /* @__PURE__ */ jsx(React.Suspense, { fallback: /* @__PURE__ */ jsxs("div", { className: "min-h-[450px] flex flex-col items-center justify-center bg-slate-900/40 rounded-3xl border border-slate-800/80 p-8 text-center animate-pulse", children: [
       /* @__PURE__ */ jsx("div", { className: "w-10 h-10 rounded-full border-2 border-brand-500 border-t-transparent animate-spin mb-4" }),
@@ -7478,11 +7400,11 @@ function ContentWrapper({ lang, t }) {
   ] });
 }
 function App() {
-  const [lang, setLang] = useState("en");
   const location = useLocation();
+  const pathSegments = location.pathname.split("/").filter(Boolean);
+  const urlLang = supportedLanguages.find((l) => l.code === pathSegments[0]);
+  const [lang, setLang] = useState(urlLang ? urlLang.code : "en");
   useEffect(() => {
-    const pathSegments = location.pathname.split("/").filter(Boolean);
-    const urlLang = supportedLanguages.find((l) => l.code === pathSegments[0]);
     if (urlLang) {
       setLang(urlLang.code);
       try {
@@ -7496,10 +7418,12 @@ function App() {
       } catch (_) {
       }
       const detected = preferred || detectUserLanguage();
-      setLang(detected);
+      if (detected && detected !== lang) {
+        setLang(detected);
+      }
     }
     trackPageView(location.pathname);
-  }, [location]);
+  }, [location.pathname, urlLang]);
   const t = (path) => getTranslation(lang, path);
   return /* @__PURE__ */ jsxs("div", { className: "min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-brand-500 selection:text-white", children: [
     /* @__PURE__ */ jsx(Header, { currentLang: lang, onLanguageChange: setLang }),

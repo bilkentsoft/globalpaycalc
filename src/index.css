@@ -92,4 +92,16 @@
   .animate-float {
     animation: none !important;
   }
+  .gradient-text {
+    animation: none !important;
+    background-size: 100% auto;
+  }
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
