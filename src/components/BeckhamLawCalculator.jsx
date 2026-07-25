@@ -49,6 +49,7 @@ export default function BeckhamLawCalculator({ lang = 'en' }) {
             </label>
             <select
               value={selectedRegime}
+              aria-label="Expat Tax Regime Selection"
               onChange={(e) => setSelectedRegime(e.target.value)}
               className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-rose-500 outline-none cursor-pointer"
             >

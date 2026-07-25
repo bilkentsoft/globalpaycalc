@@ -49,6 +49,7 @@ export default function HiddenFxFeeCalculator({ lang = 'en' }) {
             </label>
             <select
               value={selectedPair}
+              aria-label="Currency Pair Selector"
               onChange={(e) => setSelectedPair(e.target.value)}
               className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-rose-500 outline-none cursor-pointer"
             >

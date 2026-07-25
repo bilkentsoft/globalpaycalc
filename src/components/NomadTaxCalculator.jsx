@@ -98,6 +98,7 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
             <label className="block text-xs font-semibold text-slate-300">{t('salary.home')}</label>
             <select
               value={homeCountry}
+              aria-label="Home Country Selector"
               onChange={(e) => setHomeCountry(e.target.value)}
               className="w-full bg-slate-900 border border-slate-700 text-slate-200 text-sm rounded-xl p-3 focus:ring-2 focus:ring-brand-500 focus:outline-none cursor-pointer font-medium"
             >
@@ -114,6 +115,7 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
             <label className="block text-xs font-semibold text-slate-300">{t('salary.target')}</label>
             <select
               value={targetCountry}
+              aria-label="Target Country Selector"
               onChange={(e) => setTargetCountry(e.target.value)}
               className="w-full bg-slate-900 border border-slate-700 text-slate-200 text-sm rounded-xl p-3 focus:ring-2 focus:ring-brand-500 focus:outline-none cursor-pointer font-medium"
             >

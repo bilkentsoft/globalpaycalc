@@ -49,6 +49,7 @@ export default function CryptoTaxCalculator({ lang = 'en' }) {
             </label>
             <select
               value={selectedCountry}
+              aria-label="Country Residency Selection"
               onChange={(e) => setSelectedCountry(e.target.value)}
               className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-cyan-500 outline-none cursor-pointer"
             >

@@ -87,6 +87,7 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
             </label>
             <select
               value={period}
+              aria-label="Salary Period"
               onChange={(e) => setPeriod(e.target.value)}
               className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-brand-500 transition cursor-pointer"
             >
@@ -102,6 +103,7 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
             </label>
             <select
               value={selectedCountry}
+              aria-label="Country Tax Jurisdiction"
               onChange={(e) => setSelectedCountry(e.target.value)}
               className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-brand-500 transition cursor-pointer"
             >

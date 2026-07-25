@@ -38,6 +38,7 @@ export default function TimezoneOverlapCalculator({ lang = 'en' }) {
             </label>
             <select
               value={tzA}
+              aria-label="Location A Timezone"
               onChange={(e) => setTzA(e.target.value)}
               className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-indigo-500 outline-none cursor-pointer"
             >
@@ -55,6 +56,7 @@ export default function TimezoneOverlapCalculator({ lang = 'en' }) {
             </label>
             <select
               value={tzB}
+              aria-label="Location B Timezone"
               onChange={(e) => setTzB(e.target.value)}
               className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-indigo-500 outline-none cursor-pointer"
             >

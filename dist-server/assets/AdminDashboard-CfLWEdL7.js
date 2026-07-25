@@ -449,6 +449,7 @@ function SeoAuditTab() {
             "select",
             {
               value: auditGroup,
+              "aria-label": "Tarama Grubu Kategori Seçimi",
               onChange: (e) => setAuditGroup(e.target.value),
               className: "w-full bg-slate-900 border border-slate-700 text-white text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-brand-500",
               disabled: isAuditing || isLoadingSitemap,

@@ -112,6 +112,7 @@ export default function ContractorVsPermCalculator({ lang = 'en' }) {
               </label>
               <select
                 value={countryKey}
+                aria-label="Country or Region Regulations"
                 onChange={(e) => setCountryKey(e.target.value)}
                 className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-bold focus:border-cyan-500 outline-none cursor-pointer"
               >

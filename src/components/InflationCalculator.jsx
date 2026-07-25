@@ -51,6 +51,7 @@ export default function InflationCalculator({ lang = 'en' }) {
             </label>
             <select
               value={selectedCountry}
+              aria-label="Country Inflation Baseline"
               onChange={(e) => {
                 setSelectedCountry(e.target.value);
                 setCustomRate('');
@@ -71,6 +72,7 @@ export default function InflationCalculator({ lang = 'en' }) {
             </label>
             <select
               value={years}
+              aria-label="Projection Horizon Years"
               onChange={(e) => setYears(Number(e.target.value))}
               className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:border-amber-500 outline-none cursor-pointer"
             >
