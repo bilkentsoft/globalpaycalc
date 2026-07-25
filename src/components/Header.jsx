@@ -40,6 +40,7 @@ export default function Header({ currentLang, setLang, onLanguageChange }) {
         <div className="relative">
           <select
             value={currentLang}
+            aria-label="Select Language"
             onChange={(e) => {
               const newLang = e.target.value;
               // Persist explicit user choice immediately

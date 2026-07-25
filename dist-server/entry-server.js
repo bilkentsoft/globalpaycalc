@@ -1555,6 +1555,7 @@ function Header({ currentLang, setLang, onLanguageChange }) {
       "select",
       {
         value: currentLang,
+        "aria-label": "Select Language",
         onChange: (e) => {
           const newLang = e.target.value;
           try {

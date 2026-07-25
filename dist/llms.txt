@@ -1,0 +1,33 @@
+# GlobalPayCalc — Global Remote Tax & Financial Calculators
+
+This file provides information about GlobalPayCalc for LLM crawlers, search agents, and automated WebMCP integrations. GlobalPayCalc is a client-side suite of advanced tools helping remote workers, expats, digital nomads, and B2B professionals calculate tax rates, currencies, and compensation equivalencies across 150+ countries.
+
+## Core Calculators
+
+Here are the main tools available on our website:
+
+*   [Take-Home Salary & Tax Calculator](https://globalpaycalc.com/take-home) - Calculate net monthly and annual income after tax and social security contributions across multiple countries.
+*   [Contractor vs Perm Calculator](https://globalpaycalc.com/contractor) - Determine the equivalency between a permanent salary (W2/employment) and a B2B contractor rate (1099/freelance).
+*   [Freelancer Hourly Rate Calculator](https://globalpaycalc.com/hourly-rate) - Calculate the billing rate required to match a desired yearly net income.
+*   [Beckham Law Calculator](https://globalpaycalc.com/beckham-law) - Estimate Spain's expat tax exemptions and tax savings under the Beckham Law regime.
+*   [Crypto Tax & USDT Salary Calculator](https://globalpaycalc.com/crypto-tax) - Check local tax liabilities on remote salaries paid in stablecoins or crypto assets.
+*   [Nomad Visa Minimum Income Tester](https://globalpaycalc.com/nomad-visa) - Evaluate minimum income requirements and eligibility rules for major digital nomad visas.
+*   [EOR Employment Cost Calculator](https://globalpaycalc.com/eor-cost) - Compare payroll employer taxes and agency fees for Employer of Record (EOR) hiring vs. setting up a local entity.
+*   [City Parity Cost of Living & PPP Calculator](https://globalpaycalc.com/salary) - Estimate purchasing power parity and cost of living comparisons between major global cities.
+*   [Salary Inflation Loss Simulator](https://globalpaycalc.com/inflation) - Calculate real purchasing power erosion over time due to localized inflation index rates.
+*   [Hidden Bank FX Markups & Wire Fees](https://globalpaycalc.com/fx-fees) - Calculate the true cost of international bank wire transfers and currency exchange markups.
+*   [B2B Invoice VAT & Sales Tax Calculator](https://globalpaycalc.com/vat) - Calculate domestic and cross-border B2B invoice amounts, reverse charges, and local VAT rates.
+*   [Timezone Overlap Meeting Window Builder](https://globalpaycalc.com/timezone) - Model timezone overlaps and find optimal communication windows for remote teams.
+*   [WASM Studio Private Image Compressor](https://globalpaycalc.com/wasm) - Compress images client-side without uploading files to any external server.
+*   [AI Developer Token Cost Calculator](https://globalpaycalc.com/ai) - Compare token pricing and run costs across GPT-4o, Claude 3.5 Sonnet, and other LLM APIs.
+
+## Multi-Language Options
+
+Our platform supports localized pages in multiple languages:
+*   [Türkçe](https://globalpaycalc.com/tr)
+*   [Español](https://globalpaycalc.com/es)
+*   [Deutsch](https://globalpaycalc.com/de)
+*   [Português](https://globalpaycalc.com/pt)
+*   [Français](https://globalpaycalc.com/fr)
+*   [Bahasa Indonesia](https://globalpaycalc.com/id)
+*   [日本語](https://globalpaycalc.com/ja)
