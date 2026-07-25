@@ -1726,6 +1726,7 @@ function Footer({ lang = "en" }) {
   ] });
 }
 let scriptInjected = false;
+let analyticsInjected = false;
 const initializeAdSense = () => {
   if (scriptInjected || typeof window === "undefined") return;
   const injectScript = () => {
@@ -1744,6 +1745,32 @@ const initializeAdSense = () => {
     events.forEach((event) => window.removeEventListener(event, injectScript));
   };
   events.forEach((event) => window.addEventListener(event, injectScript, { passive: true }));
+};
+const initializeAnalytics = () => {
+  if (analyticsInjected || typeof window === "undefined") return;
+  const injectAnalytics = () => {
+    if (analyticsInjected) return;
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-N383BLFQH5";
+    document.head.appendChild(script);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function() {
+      window.dataLayer.push(arguments);
+    };
+    window.gtag("js", /* @__PURE__ */ new Date());
+    window.gtag("config", "G-N383BLFQH5", {
+      page_path: window.location.pathname
+    });
+    analyticsInjected = true;
+    console.log("[AnalyticsEngine] Google Analytics script injected on user interaction.");
+    cleanup();
+  };
+  const events = ["pointerdown", "touchstart", "scroll", "mousemove", "keydown"];
+  const cleanup = () => {
+    events.forEach((event) => window.removeEventListener(event, injectAnalytics));
+  };
+  events.forEach((event) => window.addEventListener(event, injectAnalytics, { passive: true }));
 };
 function useLazyAd() {
   const [shouldRender, setShouldRender] = useState(false);
@@ -7469,6 +7496,7 @@ function App() {
   const urlLang = supportedLanguages.find((l) => l.code === pathSegments[0]);
   const [lang, setLang] = useState(urlLang ? urlLang.code : "en");
   useEffect(() => {
+    initializeAnalytics();
     if (urlLang) {
       setLang(urlLang.code);
       try {

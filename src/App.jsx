@@ -38,6 +38,7 @@ import { CookieConsent } from './components/CookieConsent';
 import { getTranslation, supportedLanguages } from './i18n';
 import { detectUserLanguage } from './utils/langDetector';
 import { trackPageView } from './utils/analyticsTracker';
+import { initializeAnalytics } from './utils/adEngine';
 import { Sparkles, Globe, Image, DollarSign, Briefcase, ArrowRightLeft, FileText, Clock, TrendingDown, UserCheck, Award, Cpu, Building2 } from 'lucide-react';
 import { generatePseoTaxMatrix, generatePseoLlmMatrix } from './pseo/matrixEngine';
 
@@ -361,6 +362,9 @@ export default function App() {
   const [lang, setLang] = useState(urlLang ? urlLang.code : 'en');
 
   useEffect(() => {
+    // Setup lazy analytics load on interaction
+    initializeAnalytics();
+
     if (urlLang) {
       setLang(urlLang.code);
       try { localStorage.setItem('gpc_lang', urlLang.code); } catch (_) {}
