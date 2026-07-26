@@ -136,6 +136,41 @@ export default function InflationCalculator({ lang = 'en' }) {
           </div>
         </div>
 
+        {/* Visual Inflation Erosion Bar Chart */}
+        <div className="pt-6 border-t border-slate-800 space-y-3">
+          <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300">
+            <span>{lang === 'tr' ? 'Enflasyon Alım Gücü Erozyon Grafiği' : 'Inflation Purchasing Power Visual Chart'}</span>
+            <span className="text-amber-400 font-extrabold">%{result.inflationRate} {lang === 'tr' ? 'Enflasyon' : 'Inflation'}</span>
+          </div>
+
+          <div className="space-y-2.5 text-xs">
+            {/* Nominal Baseline */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-slate-300 font-medium">
+                <span>{lang === 'tr' ? 'Mevcut Nominal Maaş' : 'Current Nominal Salary'}</span>
+                <span className="font-mono text-slate-200">{result.country.symbol}{result.salary.toLocaleString()}</span>
+              </div>
+              <div className="w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800">
+                <div className="bg-slate-600 h-full rounded-full transition-all duration-500" style={{ width: '100%' }}></div>
+              </div>
+            </div>
+
+            {/* Eroded Real Value */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-slate-300 font-medium">
+                <span>{lang === 'tr' ? `${years} Yıl Sonra Gerçek Alım Gücü` : `Real Value After ${years} Year(s)`}</span>
+                <span className="font-mono text-rose-400 font-bold">{result.country.symbol}{result.realPurchasingPower.toLocaleString()}</span>
+              </div>
+              <div className="w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800">
+                <div 
+                  className="bg-gradient-to-r from-rose-500 to-pink-600 h-full rounded-full transition-all duration-500"
+                  style={{ width: `${Math.min(100, (result.realPurchasingPower / result.salary) * 100)}%` }}
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );

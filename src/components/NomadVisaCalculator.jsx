@@ -93,6 +93,44 @@ export default function NomadVisaCalculator({ lang = 'en' }) {
           })}
         </div>
 
+        {/* Visual Benchmark Bar Chart */}
+        <div className="pt-6 border-t border-slate-800 space-y-4">
+          <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300">
+            <span>{lang === 'tr' ? 'Vize Asgari Gelir Karşılaştırma Grafiği' : 'Nomad Visa Income Threshold Visual Chart'}</span>
+            <span className="text-cyan-400 font-extrabold">${monthlyIncome.toLocaleString()} / {lang === 'tr' ? 'ay' : 'mo'}</span>
+          </div>
+
+          <div className="space-y-2.5">
+            {nomadVisaRequirements.map((visa) => {
+              const isEligible = monthlyIncome >= visa.minMonthlyIncomeUsd;
+              const maxVal = 6000;
+              const barWidth = Math.min(100, (visa.minMonthlyIncomeUsd / maxVal) * 100);
+              const userWidth = Math.min(100, (monthlyIncome / maxVal) * 100);
+
+              return (
+                <div key={visa.id} className="space-y-1 text-xs">
+                  <div className="flex justify-between items-center text-slate-300 font-medium">
+                    <span className="flex items-center space-x-1.5">
+                      <span>{visa.flag}</span>
+                      <span>{visa.country}</span>
+                    </span>
+                    <span className="font-mono text-slate-400">
+                      ${visa.minMonthlyIncomeUsd.toLocaleString()} {isEligible ? '✅' : '❌'}
+                    </span>
+                  </div>
+
+                  <div className="w-full bg-slate-900 rounded-full h-3 p-0.5 border border-slate-800 relative overflow-hidden">
+                    <div 
+                      className={`h-full rounded-full transition-all duration-500 ${isEligible ? 'bg-gradient-to-r from-emerald-500 to-teal-400' : 'bg-rose-500/50'}`}
+                      style={{ width: `${barWidth}%` }}
+                    ></div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
       </div>
     </div>
   );

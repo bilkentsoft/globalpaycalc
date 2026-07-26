@@ -198,6 +198,49 @@ export default function ContractorVsPermCalculator({ lang = 'en' }) {
               </span>
             </div>
 
+            {/* Visual Comparative Bar Chart */}
+            <div className="pt-4 border-t border-slate-800 space-y-3">
+              <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300">
+                <span>{lang === 'tr' ? 'Maaş vs Fatura Karşılaştırma Grafiği' : 'Salary vs Billing Comparison Chart'}</span>
+                <span className="text-cyan-400 font-extrabold">{result.contractor.contractorMultiplier}x {lang === 'tr' ? 'Çarpan' : 'Multiplier'}</span>
+              </div>
+
+              <div className="space-y-2">
+                {/* Bar 1: Salaried Base */}
+                <div className="space-y-1">
+                  <div className="flex justify-between text-xs text-slate-400 font-medium">
+                    <span>{lang === 'tr' ? 'Kadrolu Taban Brüt Maaş' : 'Salaried Base Pay'}</span>
+                    <span className="font-mono text-slate-200">${result.baseSalary.toLocaleString()}</span>
+                  </div>
+                  <div className="w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800">
+                    <div className="bg-slate-600 h-full rounded-full transition-all duration-500" style={{ width: `${(result.baseSalary / result.contractor.requiredGrossAnnual) * 100}%` }}></div>
+                  </div>
+                </div>
+
+                {/* Bar 2: Total Employee Value */}
+                <div className="space-y-1">
+                  <div className="flex justify-between text-xs text-slate-400 font-medium">
+                    <span>{lang === 'tr' ? 'Kadrolu Toplam Paket Değeri (+Yan Haklar)' : 'Total Employee Package (+Benefits)'}</span>
+                    <span className="font-mono text-cyan-300">${result.totalEmployeeValue.toLocaleString()}</span>
+                  </div>
+                  <div className="w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800">
+                    <div className="bg-gradient-to-r from-blue-500 to-cyan-400 h-full rounded-full transition-all duration-500" style={{ width: `${(result.totalEmployeeValue / result.contractor.requiredGrossAnnual) * 100}%` }}></div>
+                  </div>
+                </div>
+
+                {/* Bar 3: Contractor Required Gross */}
+                <div className="space-y-1">
+                  <div className="flex justify-between text-xs text-slate-400 font-medium">
+                    <span>{lang === 'tr' ? 'Gerekli Yıllık Contractor Faturası' : 'Required Annual Contractor Billing'}</span>
+                    <span className="font-mono text-emerald-400 font-bold">${result.contractor.requiredGrossAnnual.toLocaleString()}</span>
+                  </div>
+                  <div className="w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800">
+                    <div className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500" style={{ width: '100%' }}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </div>

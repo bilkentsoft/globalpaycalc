@@ -109,6 +109,38 @@ export default function BeckhamLawCalculator({ lang = 'en' }) {
           </div>
         </div>
 
+        {/* Visual Comparative Bar Chart */}
+        <div className="pt-6 border-t border-slate-800 space-y-3">
+          <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300">
+            <span>{lang === 'tr' ? 'Vergi Tasarrufu Görsel Grafiği' : 'Expat Tax Savings Visual Chart'}</span>
+            <span className="text-amber-400 font-extrabold">{result.regime.durationYears} {lang === 'tr' ? 'Yıllık Tasarruf:' : 'Yr Total:'} ${result.totalDurationSavings.toLocaleString()}</span>
+          </div>
+
+          <div className="space-y-2">
+            {/* Standard Net */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs text-slate-400 font-medium">
+                <span>{lang === 'tr' ? 'Standart Vergi Sonrası Net' : 'Standard Net Take-Home'}</span>
+                <span className="font-mono text-rose-300">${result.standardNetTakeHome.toLocaleString()}</span>
+              </div>
+              <div className="w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800">
+                <div className="bg-gradient-to-r from-rose-500 to-pink-600 h-full rounded-full transition-all duration-500" style={{ width: `${(result.standardNetTakeHome / result.annualGrossSalary) * 100}%` }}></div>
+              </div>
+            </div>
+
+            {/* Expat Net */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs text-slate-400 font-medium">
+                <span>{lang === 'tr' ? `Expat Yasası Net (${result.regime.name})` : `Expat Regime Net (${result.regime.name})`}</span>
+                <span className="font-mono text-emerald-400 font-bold">${result.expatNetTakeHome.toLocaleString()}</span>
+              </div>
+              <div className="w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800">
+                <div className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500" style={{ width: `${(result.expatNetTakeHome / result.annualGrossSalary) * 100}%` }}></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );

@@ -205,6 +205,39 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
               </div>
 
             </div>
+
+            {/* Visual Parity Bar Chart */}
+            <div className="pt-4 border-t border-slate-800 space-y-3">
+              <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300">
+                <span>{lang === 'tr' ? 'Lokasyon Bazlı Net Maaş & Satın Alma Gücü Grafiği' : 'Location Parity & Purchasing Power Chart'}</span>
+                <span className="text-emerald-400 font-extrabold">{result.purchasingPowerBoost}x {lang === 'tr' ? 'Alım Gücü Çarpanı' : 'PPP Boost'}</span>
+              </div>
+
+              <div className="space-y-2 text-xs">
+                {/* Home Net */}
+                <div className="space-y-1">
+                  <div className="flex justify-between text-slate-300 font-medium">
+                    <span>{result.home.flag} {result.home.name} ({lang === 'tr' ? 'Aylık Net' : 'Monthly Net'})</span>
+                    <span className="font-mono text-slate-200">${Math.round(result.home.netMonthly).toLocaleString()}</span>
+                  </div>
+                  <div className="w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800">
+                    <div className="bg-slate-600 h-full rounded-full transition-all duration-500" style={{ width: `${Math.min(100, (result.home.netMonthly / Math.max(result.home.netMonthly, result.target.netMonthly)) * 100)}%` }}></div>
+                  </div>
+                </div>
+
+                {/* Target Net */}
+                <div className="space-y-1">
+                  <div className="flex justify-between text-slate-300 font-medium">
+                    <span>{result.target.flag} {result.target.name} ({lang === 'tr' ? 'Aylık Net' : 'Monthly Net'})</span>
+                    <span className="font-mono text-emerald-400 font-bold">${Math.round(result.target.netMonthly).toLocaleString()}</span>
+                  </div>
+                  <div className="w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800">
+                    <div className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500" style={{ width: `${Math.min(100, (result.target.netMonthly / Math.max(result.home.netMonthly, result.target.netMonthly)) * 100)}%` }}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
           {/* Recommendations */}

@@ -2300,6 +2300,52 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
               ] }),
               /* @__PURE__ */ jsx("div", { className: "text-[11px] text-brand-300/70 mt-1", children: t("salary.netMonthlyAfterTax").replace("{tax}", (result.target.effTax * 100).toFixed(0)) })
             ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "pt-4 border-t border-slate-800 space-y-3", children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300", children: [
+              /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Lokasyon Bazlı Net Maaş & Satın Alma Gücü Grafiği" : "Location Parity & Purchasing Power Chart" }),
+              /* @__PURE__ */ jsxs("span", { className: "text-emerald-400 font-extrabold", children: [
+                result.purchasingPowerBoost,
+                "x ",
+                lang === "tr" ? "Alım Gücü Çarpanı" : "PPP Boost"
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "space-y-2 text-xs", children: [
+              /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+                /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-slate-300 font-medium", children: [
+                  /* @__PURE__ */ jsxs("span", { children: [
+                    result.home.flag,
+                    " ",
+                    result.home.name,
+                    " (",
+                    lang === "tr" ? "Aylık Net" : "Monthly Net",
+                    ")"
+                  ] }),
+                  /* @__PURE__ */ jsxs("span", { className: "font-mono text-slate-200", children: [
+                    "$",
+                    Math.round(result.home.netMonthly).toLocaleString()
+                  ] })
+                ] }),
+                /* @__PURE__ */ jsx("div", { className: "w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800", children: /* @__PURE__ */ jsx("div", { className: "bg-slate-600 h-full rounded-full transition-all duration-500", style: { width: `${Math.min(100, result.home.netMonthly / Math.max(result.home.netMonthly, result.target.netMonthly) * 100)}%` } }) })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+                /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-slate-300 font-medium", children: [
+                  /* @__PURE__ */ jsxs("span", { children: [
+                    result.target.flag,
+                    " ",
+                    result.target.name,
+                    " (",
+                    lang === "tr" ? "Aylık Net" : "Monthly Net",
+                    ")"
+                  ] }),
+                  /* @__PURE__ */ jsxs("span", { className: "font-mono text-emerald-400 font-bold", children: [
+                    "$",
+                    Math.round(result.target.netMonthly).toLocaleString()
+                  ] })
+                ] }),
+                /* @__PURE__ */ jsx("div", { className: "w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800", children: /* @__PURE__ */ jsx("div", { className: "bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500", style: { width: `${Math.min(100, result.target.netMonthly / Math.max(result.home.netMonthly, result.target.netMonthly) * 100)}%` } }) })
+              ] })
+            ] })
           ] })
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 rounded-2xl border-slate-800 space-y-4", children: [
@@ -2673,6 +2719,46 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
         ] })
       ] })
     ] }, model.id)) }),
+    /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 rounded-2xl border-slate-800 space-y-4 max-w-4xl mx-auto", children: [
+      /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300", children: [
+        /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "12 Model için Aylık API Maliyet Kıyaslama Grafiği" : "Monthly API Cost Benchmark Chart (12 LLMs)" }),
+        /* @__PURE__ */ jsxs("span", { className: "text-cyan-400 font-extrabold", children: [
+          inputTokens,
+          "M In / ",
+          outputTokens,
+          "M Out"
+        ] })
+      ] }),
+      /* @__PURE__ */ jsx("div", { className: "space-y-2.5", children: results.map((m) => {
+        const maxCost = results[results.length - 1].monthlyTotal || 1;
+        const barWidth = Math.min(100, Math.max(3, m.monthlyTotal / maxCost * 100));
+        return /* @__PURE__ */ jsxs("div", { className: "space-y-1 text-xs", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-slate-300 font-medium", children: [
+            /* @__PURE__ */ jsxs("span", { className: "flex items-center space-x-2", children: [
+              /* @__PURE__ */ jsx("span", { className: "font-bold text-white", children: m.name }),
+              /* @__PURE__ */ jsxs("span", { className: "text-[10px] text-slate-500 font-mono", children: [
+                "(",
+                m.provider,
+                ")"
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxs("span", { className: "font-mono text-emerald-400 font-bold", children: [
+              "$",
+              m.monthlyTotal.toFixed(2),
+              " /",
+              lang === "tr" ? "ay" : "mo"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsx("div", { className: "w-full bg-slate-900 rounded-full h-3 p-0.5 border border-slate-800", children: /* @__PURE__ */ jsx(
+            "div",
+            {
+              className: "bg-gradient-to-r from-cyan-500 to-indigo-600 h-full rounded-full transition-all duration-500",
+              style: { width: `${barWidth}%` }
+            }
+          ) })
+        ] }, m.id);
+      }) })
+    ] }),
     /* @__PURE__ */ jsxs("div", { className: "glass-card p-6 rounded-2xl border-slate-800 space-y-4 max-w-4xl mx-auto", children: [
       /* @__PURE__ */ jsxs("h4", { className: "text-xs font-bold text-white flex items-center space-x-2 uppercase tracking-wide", children: [
         /* @__PURE__ */ jsx(Heart, { className: "w-4 h-4 text-purple-500" }),
@@ -3645,6 +3731,64 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
           /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400", children: lang === "tr" ? "Brüt gelirden yapılan toplam yasal kesinti oranı." : "Overall statutory deductions rate from your gross income." })
         ] })
       ] }),
+      /* @__PURE__ */ jsxs("div", { className: "pt-6 border-t border-slate-800 space-y-3", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300", children: [
+          /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Maaş ve Vergi Dağılım Grafiği" : "Salary & Tax Visual Breakdown" }),
+          /* @__PURE__ */ jsx("span", { className: "text-emerald-400 font-extrabold", children: lang === "tr" ? `Ele Geçen Net: %${(100 - result.effectiveTaxRate).toFixed(1)}` : `Net Take-Home: ${(100 - result.effectiveTaxRate).toFixed(1)}%` })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "w-full bg-slate-900 rounded-2xl h-6 p-1 border border-slate-800 flex overflow-hidden gap-1", children: [
+          /* @__PURE__ */ jsx(
+            "div",
+            {
+              style: { width: `${Math.max(5, 100 - result.effectiveTaxRate)}%` },
+              className: "bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-xl transition-all duration-500 relative group cursor-pointer",
+              title: `Net Pay: ${result.country.symbol}${Math.round(result.netAnnual).toLocaleString()}`
+            }
+          ),
+          result.deductionsDetails.map((d, idx) => {
+            const pct = result.grossAnnual > 0 ? d.amount / result.grossAnnual * 100 : 0;
+            const colors = [
+              "from-rose-500 to-pink-600",
+              "from-amber-500 to-orange-600",
+              "from-purple-500 to-indigo-600"
+            ];
+            return /* @__PURE__ */ jsx(
+              "div",
+              {
+                style: { width: `${pct}%` },
+                className: `bg-gradient-to-r ${colors[idx % colors.length]} h-full rounded-xl transition-all duration-500 relative group cursor-pointer`,
+                title: `${d.name}: ${result.country.symbol}${Math.round(d.amount).toLocaleString()} (${pct.toFixed(1)}%)`
+              },
+              idx
+            );
+          })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap items-center gap-4 text-xs pt-1", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-1.5", children: [
+            /* @__PURE__ */ jsx("span", { className: "w-3 h-3 rounded-full bg-emerald-500 inline-block" }),
+            /* @__PURE__ */ jsxs("span", { className: "text-slate-300 font-medium", children: [
+              lang === "tr" ? "Net Maaş" : "Net Take-Home",
+              " (",
+              result.country.symbol,
+              Math.round(result.netAnnual).toLocaleString(),
+              ")"
+            ] })
+          ] }),
+          result.deductionsDetails.map((d, idx) => {
+            const bgColors = ["bg-rose-500", "bg-amber-500", "bg-purple-500"];
+            return /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-1.5", children: [
+              /* @__PURE__ */ jsx("span", { className: `w-3 h-3 rounded-full ${bgColors[idx % bgColors.length]} inline-block` }),
+              /* @__PURE__ */ jsxs("span", { className: "text-slate-400", children: [
+                d.name,
+                " (",
+                result.country.symbol,
+                Math.round(d.amount).toLocaleString(),
+                ")"
+              ] })
+            ] }, idx);
+          })
+        ] })
+      ] }),
       /* @__PURE__ */ jsxs("div", { className: "space-y-4 pt-4 border-t border-slate-800", children: [
         /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
           /* @__PURE__ */ jsxs("h3", { className: "text-sm font-bold text-white flex items-center space-x-2", children: [
@@ -3949,6 +4093,48 @@ function ContractorVsPermCalculator({ lang = "en" }) {
         /* @__PURE__ */ jsxs("div", { className: "text-[11px] text-slate-400 bg-slate-900/60 p-3 rounded-xl border border-slate-800 flex items-start space-x-2", children: [
           /* @__PURE__ */ jsx(Info, { className: "w-4 h-4 text-cyan-400 shrink-0 mt-0.5" }),
           /* @__PURE__ */ jsx("span", { children: lang === "tr" ? `Contractor çalışanlar kendi muhasebe, bağkur, ekipman ve tatil günlerini kendileri ödediği için tam zamanlı maaşın en az ${result.contractor.contractorMultiplier} katı tutarında fatura kesmelidir.` : `Since contractors pay for their own accounting, taxes, gear, and vacation days, they should bill at least ${result.contractor.contractorMultiplier} times the full-time salaried baseline.` })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "pt-4 border-t border-slate-800 space-y-3", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300", children: [
+            /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Maaş vs Fatura Karşılaştırma Grafiği" : "Salary vs Billing Comparison Chart" }),
+            /* @__PURE__ */ jsxs("span", { className: "text-cyan-400 font-extrabold", children: [
+              result.contractor.contractorMultiplier,
+              "x ",
+              lang === "tr" ? "Çarpan" : "Multiplier"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+            /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+              /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-xs text-slate-400 font-medium", children: [
+                /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Kadrolu Taban Brüt Maaş" : "Salaried Base Pay" }),
+                /* @__PURE__ */ jsxs("span", { className: "font-mono text-slate-200", children: [
+                  "$",
+                  result.baseSalary.toLocaleString()
+                ] })
+              ] }),
+              /* @__PURE__ */ jsx("div", { className: "w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800", children: /* @__PURE__ */ jsx("div", { className: "bg-slate-600 h-full rounded-full transition-all duration-500", style: { width: `${result.baseSalary / result.contractor.requiredGrossAnnual * 100}%` } }) })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+              /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-xs text-slate-400 font-medium", children: [
+                /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Kadrolu Toplam Paket Değeri (+Yan Haklar)" : "Total Employee Package (+Benefits)" }),
+                /* @__PURE__ */ jsxs("span", { className: "font-mono text-cyan-300", children: [
+                  "$",
+                  result.totalEmployeeValue.toLocaleString()
+                ] })
+              ] }),
+              /* @__PURE__ */ jsx("div", { className: "w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800", children: /* @__PURE__ */ jsx("div", { className: "bg-gradient-to-r from-blue-500 to-cyan-400 h-full rounded-full transition-all duration-500", style: { width: `${result.totalEmployeeValue / result.contractor.requiredGrossAnnual * 100}%` } }) })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+              /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-xs text-slate-400 font-medium", children: [
+                /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Gerekli Yıllık Contractor Faturası" : "Required Annual Contractor Billing" }),
+                /* @__PURE__ */ jsxs("span", { className: "font-mono text-emerald-400 font-bold", children: [
+                  "$",
+                  result.contractor.requiredGrossAnnual.toLocaleString()
+                ] })
+              ] }),
+              /* @__PURE__ */ jsx("div", { className: "w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800", children: /* @__PURE__ */ jsx("div", { className: "bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500", style: { width: "100%" } }) })
+            ] })
+          ] })
         ] })
       ] })
     ] }) })
@@ -4183,6 +4369,44 @@ function HiddenFxFeeCalculator({ lang = "en" }) {
           },
           item.provider.id
         )) })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "pt-6 border-t border-slate-800 space-y-4", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300", children: [
+          /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Sağlayıcıya Göre Net Alınan Tutar Grafiği" : "Net Amount Received by Provider Chart" }),
+          /* @__PURE__ */ jsxs("span", { className: "text-emerald-400 font-extrabold", children: [
+            lang === "tr" ? "Potansiyel Tasarruf:" : "Potential Savings:",
+            " ",
+            result.potentialSavings,
+            " ",
+            result.toCurr
+          ] })
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "space-y-3", children: result.comparison.map((item, idx) => {
+          const maxReceived = result.bestOption.recipientReceives;
+          const barWidth = item.recipientReceives / maxReceived * 100;
+          const isBest = idx === 0;
+          return /* @__PURE__ */ jsxs("div", { className: "space-y-1 text-xs", children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center text-slate-300 font-medium", children: [
+              /* @__PURE__ */ jsxs("span", { className: "flex items-center space-x-1.5 font-bold", children: [
+                /* @__PURE__ */ jsx("span", { children: item.provider.flag }),
+                /* @__PURE__ */ jsx("span", { children: item.provider.name }),
+                isBest && /* @__PURE__ */ jsx("span", { className: "text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/30", children: "BEST" })
+              ] }),
+              /* @__PURE__ */ jsxs("span", { className: `font-mono font-bold ${isBest ? "text-emerald-400" : "text-slate-300"}`, children: [
+                item.recipientReceives.toLocaleString(),
+                " ",
+                result.toCurr
+              ] })
+            ] }),
+            /* @__PURE__ */ jsx("div", { className: "w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800", children: /* @__PURE__ */ jsx(
+              "div",
+              {
+                className: `h-full rounded-full transition-all duration-500 ${isBest ? "bg-gradient-to-r from-emerald-500 to-teal-400" : "bg-slate-600"}`,
+                style: { width: `${barWidth}%` }
+              }
+            ) })
+          ] }, item.provider.id);
+        }) })
       ] })
     ] })
   ] });
@@ -4395,23 +4619,66 @@ Generated by GlobalPayCalc.com (Universal Utility Engine)
             ] })
           ] }),
           /* @__PURE__ */ jsxs("div", { className: "bg-slate-950/80 p-5 rounded-xl border border-slate-800", children: [
-            /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: tCalc.grossInvoiceTotal }),
+            /* @__PURE__ */ jsx("span", { className: "text-xs font-bold text-slate-400 uppercase tracking-wider", children: tCalc.grossTotalPayable }),
             /* @__PURE__ */ jsxs("div", { className: "text-2xl font-black text-emerald-400 mt-1", children: [
               "$",
               result.grossAmount.toLocaleString()
             ] })
           ] })
         ] }),
-        /* @__PURE__ */ jsxs("div", { className: "bg-purple-950/20 border border-purple-500/20 p-4 rounded-xl text-xs text-purple-300 flex items-start space-x-2", children: [
-          /* @__PURE__ */ jsx(Info, { className: "w-4 h-4 shrink-0 mt-0.5" }),
-          /* @__PURE__ */ jsxs("span", { children: [
-            /* @__PURE__ */ jsxs("strong", { children: [
-              lang === "tr" ? "Fatura Notu" : "Invoice Note",
-              ":"
+        /* @__PURE__ */ jsxs("div", { className: "pt-4 border-t border-slate-800 space-y-3", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300", children: [
+            /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Fatura Görsel Kırılım Grafiği" : "Invoice Visual Breakdown Chart" }),
+            /* @__PURE__ */ jsxs("span", { className: "text-purple-400 font-extrabold", children: [
+              "% ",
+              result.effectiveVatRatePercent,
+              " ",
+              lang === "tr" ? "KDV/Vergi" : "VAT/Tax"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "w-full bg-slate-950 rounded-2xl h-6 p-1 border border-slate-800 flex overflow-hidden gap-1", children: [
+            /* @__PURE__ */ jsx(
+              "div",
+              {
+                style: { width: `${result.grossAmount > 0 ? result.netAmount / result.grossAmount * 100 : 100}%` },
+                className: "bg-gradient-to-r from-blue-500 to-indigo-600 h-full rounded-xl transition-all duration-500 relative group cursor-pointer",
+                title: `Net: $${result.netAmount.toLocaleString()}`
+              }
+            ),
+            result.vatAmount > 0 && /* @__PURE__ */ jsx(
+              "div",
+              {
+                style: { width: `${result.vatAmount / result.grossAmount * 100}%` },
+                className: "bg-gradient-to-r from-purple-500 to-pink-500 h-full rounded-xl transition-all duration-500 relative group cursor-pointer",
+                title: `VAT: $${result.vatAmount.toLocaleString()}`
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap items-center gap-4 text-xs pt-1", children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-1.5", children: [
+              /* @__PURE__ */ jsx("span", { className: "w-3 h-3 rounded-full bg-indigo-500 inline-block" }),
+              /* @__PURE__ */ jsxs("span", { className: "text-slate-300 font-medium", children: [
+                lang === "tr" ? "Net Tutar" : "Net Subtotal",
+                " ($",
+                result.netAmount.toLocaleString(),
+                ")"
+              ] })
             ] }),
-            " ",
-            result.invoiceNote
+            /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-1.5", children: [
+              /* @__PURE__ */ jsx("span", { className: "w-3 h-3 rounded-full bg-purple-500 inline-block" }),
+              /* @__PURE__ */ jsxs("span", { className: "text-slate-400", children: [
+                lang === "tr" ? "Hesaplanan KDV" : "Calculated VAT",
+                " ($",
+                result.vatAmount.toLocaleString(),
+                ")"
+              ] })
+            ] })
           ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-purple-950/20 border border-purple-500/20 p-4 rounded-xl text-xs text-purple-200", children: [
+          /* @__PURE__ */ jsx("strong", { children: lang === "tr" ? "Yasal Fatura Notu:" : "Statutory Invoice Note:" }),
+          " ",
+          result.invoiceNote
         ] })
       ] })
     ] })
@@ -4576,6 +4843,70 @@ function FreelancerRateCalculator({ lang = "en" }) {
           ] }),
           /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400 mt-1", children: lang === "tr" ? "Yıllık fatura kesmeniz gereken toplam tutar." : "Total gross revenue you need to bill annually." })
         ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "pt-6 border-t border-slate-800 space-y-3", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300", children: [
+          /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Yıllık Gelir & Gider Dağılım Grafiği" : "Annual Billing & Expense Visual Breakdown" }),
+          /* @__PURE__ */ jsxs("span", { className: "text-emerald-400 font-extrabold", children: [
+            "$",
+            result.requiredGrossBeforeTax.toLocaleString()
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "w-full bg-slate-900 rounded-2xl h-6 p-1 border border-slate-800 flex overflow-hidden gap-1", children: [
+          /* @__PURE__ */ jsx(
+            "div",
+            {
+              style: { width: `${result.targetNetAnnual / result.requiredGrossBeforeTax * 100}%` },
+              className: "bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-xl transition-all duration-500 relative group cursor-pointer",
+              title: `Net Target: $${result.targetNetAnnual.toLocaleString()}`
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            "div",
+            {
+              style: { width: `${result.annualTaxAmount / result.requiredGrossBeforeTax * 100}%` },
+              className: "bg-gradient-to-r from-rose-500 to-pink-600 h-full rounded-xl transition-all duration-500 relative group cursor-pointer",
+              title: `Taxes: $${result.annualTaxAmount.toLocaleString()}`
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            "div",
+            {
+              style: { width: `${result.annualExpenses / result.requiredGrossBeforeTax * 100}%` },
+              className: "bg-gradient-to-r from-amber-500 to-orange-500 h-full rounded-xl transition-all duration-500 relative group cursor-pointer",
+              title: `Expenses: $${result.annualExpenses.toLocaleString()}`
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap items-center gap-4 text-xs pt-1", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-1.5", children: [
+            /* @__PURE__ */ jsx("span", { className: "w-3 h-3 rounded-full bg-emerald-500 inline-block" }),
+            /* @__PURE__ */ jsxs("span", { className: "text-slate-300 font-medium", children: [
+              lang === "tr" ? "Net Hedef Gelir" : "Target Net Income",
+              " ($",
+              result.targetNetAnnual.toLocaleString(),
+              ")"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-1.5", children: [
+            /* @__PURE__ */ jsx("span", { className: "w-3 h-3 rounded-full bg-rose-500 inline-block" }),
+            /* @__PURE__ */ jsxs("span", { className: "text-slate-400", children: [
+              lang === "tr" ? "Vergi Ödemesi" : "Tax Burden",
+              " ($",
+              result.annualTaxAmount.toLocaleString(),
+              ")"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-1.5", children: [
+            /* @__PURE__ */ jsx("span", { className: "w-3 h-3 rounded-full bg-amber-500 inline-block" }),
+            /* @__PURE__ */ jsxs("span", { className: "text-slate-400", children: [
+              lang === "tr" ? "İş Giderleri" : "Business Overhead",
+              " ($",
+              result.annualExpenses.toLocaleString(),
+              ")"
+            ] })
+          ] })
+        ] })
       ] })
     ] })
   ] });
@@ -4730,6 +5061,45 @@ function InflationCalculator({ lang = "en" }) {
             result.requiredRaisePercent
           ] }),
           /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400", children: lang === "tr" ? "Maaşınızın erimemesi için yapılması gereken asgari zam." : "Minimum raise required to maintain standard of living." })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "pt-6 border-t border-slate-800 space-y-3", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300", children: [
+          /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Enflasyon Alım Gücü Erozyon Grafiği" : "Inflation Purchasing Power Visual Chart" }),
+          /* @__PURE__ */ jsxs("span", { className: "text-amber-400 font-extrabold", children: [
+            "%",
+            result.inflationRate,
+            " ",
+            lang === "tr" ? "Enflasyon" : "Inflation"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2.5 text-xs", children: [
+          /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-slate-300 font-medium", children: [
+              /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Mevcut Nominal Maaş" : "Current Nominal Salary" }),
+              /* @__PURE__ */ jsxs("span", { className: "font-mono text-slate-200", children: [
+                result.country.symbol,
+                result.salary.toLocaleString()
+              ] })
+            ] }),
+            /* @__PURE__ */ jsx("div", { className: "w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800", children: /* @__PURE__ */ jsx("div", { className: "bg-slate-600 h-full rounded-full transition-all duration-500", style: { width: "100%" } }) })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-slate-300 font-medium", children: [
+              /* @__PURE__ */ jsx("span", { children: lang === "tr" ? `${years} Yıl Sonra Gerçek Alım Gücü` : `Real Value After ${years} Year(s)` }),
+              /* @__PURE__ */ jsxs("span", { className: "font-mono text-rose-400 font-bold", children: [
+                result.country.symbol,
+                result.realPurchasingPower.toLocaleString()
+              ] })
+            ] }),
+            /* @__PURE__ */ jsx("div", { className: "w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800", children: /* @__PURE__ */ jsx(
+              "div",
+              {
+                className: "bg-gradient-to-r from-rose-500 to-pink-600 h-full rounded-full transition-all duration-500",
+                style: { width: `${Math.min(100, result.realPurchasingPower / result.salary * 100)}%` }
+              }
+            ) })
+          ] })
         ] })
       ] })
     ] })
@@ -5019,6 +5389,40 @@ function BeckhamLawCalculator({ lang = "en" }) {
           ] }),
           /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400 mt-1", children: lang === "tr" ? `${result.regime.durationYears} yıllık toplam: $${result.totalDurationSavings.toLocaleString()}` : `${result.regime.durationYears}-year total: $${result.totalDurationSavings.toLocaleString()}` })
         ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "pt-6 border-t border-slate-800 space-y-3", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300", children: [
+          /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Vergi Tasarrufu Görsel Grafiği" : "Expat Tax Savings Visual Chart" }),
+          /* @__PURE__ */ jsxs("span", { className: "text-amber-400 font-extrabold", children: [
+            result.regime.durationYears,
+            " ",
+            lang === "tr" ? "Yıllık Tasarruf:" : "Yr Total:",
+            " $",
+            result.totalDurationSavings.toLocaleString()
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-xs text-slate-400 font-medium", children: [
+              /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Standart Vergi Sonrası Net" : "Standard Net Take-Home" }),
+              /* @__PURE__ */ jsxs("span", { className: "font-mono text-rose-300", children: [
+                "$",
+                result.standardNetTakeHome.toLocaleString()
+              ] })
+            ] }),
+            /* @__PURE__ */ jsx("div", { className: "w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800", children: /* @__PURE__ */ jsx("div", { className: "bg-gradient-to-r from-rose-500 to-pink-600 h-full rounded-full transition-all duration-500", style: { width: `${result.standardNetTakeHome / result.annualGrossSalary * 100}%` } }) })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-xs text-slate-400 font-medium", children: [
+              /* @__PURE__ */ jsx("span", { children: lang === "tr" ? `Expat Yasası Net (${result.regime.name})` : `Expat Regime Net (${result.regime.name})` }),
+              /* @__PURE__ */ jsxs("span", { className: "font-mono text-emerald-400 font-bold", children: [
+                "$",
+                result.expatNetTakeHome.toLocaleString()
+              ] })
+            ] }),
+            /* @__PURE__ */ jsx("div", { className: "w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800", children: /* @__PURE__ */ jsx("div", { className: "bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500", style: { width: `${result.expatNetTakeHome / result.annualGrossSalary * 100}%` } }) })
+          ] })
+        ] })
       ] })
     ] })
   ] });
@@ -5146,6 +5550,50 @@ function CryptoTaxCalculator({ lang = "en" }) {
           ] }),
           /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400 mt-1", children: lang === "tr" ? "Bozdurmadan önceki bekletme süresine göre oran." : "Rate based on holding duration before liquidation." })
         ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "pt-6 border-t border-slate-800 space-y-3", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300", children: [
+          /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Kripto Maaş & Vergi Görsel Grafiği" : "Crypto Salary & Tax Visual Chart" }),
+          /* @__PURE__ */ jsx("span", { className: "text-cyan-400 font-extrabold", children: lang === "tr" ? `Efektif Vergi: %${result.incomeTaxRate}` : `Tax Rate: ${result.incomeTaxRate}%` })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "w-full bg-slate-900 rounded-2xl h-6 p-1 border border-slate-800 flex overflow-hidden gap-1", children: [
+          /* @__PURE__ */ jsx(
+            "div",
+            {
+              style: { width: `${100 - result.incomeTaxRate}%` },
+              className: "bg-gradient-to-r from-cyan-500 to-blue-600 h-full rounded-xl transition-all duration-500 relative group cursor-pointer",
+              title: `Net Pay: $${result.netSalaryAfterIncomeTax.toLocaleString()}`
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            "div",
+            {
+              style: { width: `${result.incomeTaxRate}%` },
+              className: "bg-gradient-to-r from-rose-500 to-pink-600 h-full rounded-xl transition-all duration-500 relative group cursor-pointer",
+              title: `Income Tax: $${result.incomeTaxAmount.toLocaleString()}`
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap items-center gap-4 text-xs pt-1", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-1.5", children: [
+            /* @__PURE__ */ jsx("span", { className: "w-3 h-3 rounded-full bg-cyan-500 inline-block" }),
+            /* @__PURE__ */ jsxs("span", { className: "text-slate-300 font-medium", children: [
+              lang === "tr" ? "Net Kripto Maaş" : "Net Crypto Pay",
+              " ($",
+              result.netSalaryAfterIncomeTax.toLocaleString(),
+              ")"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-1.5", children: [
+            /* @__PURE__ */ jsx("span", { className: "w-3 h-3 rounded-full bg-rose-500 inline-block" }),
+            /* @__PURE__ */ jsxs("span", { className: "text-slate-400", children: [
+              lang === "tr" ? "Gelir Vergisi" : "Income Tax",
+              " ($",
+              result.incomeTaxAmount.toLocaleString(),
+              ")"
+            ] })
+          ] })
+        ] })
       ] })
     ] })
   ] });
@@ -5255,6 +5703,50 @@ function EorCostCalculator({ lang = "en" }) {
           /* @__PURE__ */ jsx("div", { className: "text-2xl font-black text-emerald-400 mt-1", children: lang === "tr" ? `${result.breakevenEmployeeCount} Çalışan Sınırı` : `${result.breakevenEmployeeCount} Employee Threshold` }),
           /* @__PURE__ */ jsx("p", { className: "text-[11px] text-slate-400 mt-1", children: employeeCount >= result.breakevenEmployeeCount ? lang === "tr" ? "Kendi Şirketini Kurmak Daha Ekonomik!" : "Incorporating is more cost-effective!" : lang === "tr" ? "EOR Kullanmak Daha Avantajlı!" : "EOR service is more cost-effective!" })
         ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "pt-6 border-t border-slate-800 space-y-3", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300", children: [
+          /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "EOR vs Şirket Kurulum Yıllık Maliyet Grafiği" : "EOR vs Entity Annual Cost Visual Chart" }),
+          /* @__PURE__ */ jsxs("span", { className: "text-cyan-400 font-extrabold", children: [
+            employeeCount,
+            " ",
+            lang === "tr" ? "Çalışan" : "Employees"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-2.5", children: [
+          /* @__PURE__ */ jsxs("div", { className: "space-y-1 text-xs", children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-slate-300 font-medium", children: [
+              /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "EOR Servis Yıllık Toplamı (Deel/Remote)" : "EOR Platform Annual Total (Deel/Remote)" }),
+              /* @__PURE__ */ jsxs("span", { className: "font-mono text-cyan-300", children: [
+                "$",
+                result.annualEorCost.toLocaleString()
+              ] })
+            ] }),
+            /* @__PURE__ */ jsx("div", { className: "w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800", children: /* @__PURE__ */ jsx(
+              "div",
+              {
+                className: "bg-gradient-to-r from-blue-500 to-cyan-400 h-full rounded-full transition-all duration-500",
+                style: { width: `${Math.min(100, result.annualEorCost / Math.max(result.annualEorCost, result.annualEntityCost) * 100)}%` }
+              }
+            ) })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "space-y-1 text-xs", children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex justify-between text-slate-300 font-medium", children: [
+              /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Yerel Şirket Amorti Edilmiş Yıllık Masrafı" : "Local Entity Amortized Annual Overhead" }),
+              /* @__PURE__ */ jsxs("span", { className: "font-mono text-purple-300", children: [
+                "$",
+                result.annualEntityCost.toLocaleString()
+              ] })
+            ] }),
+            /* @__PURE__ */ jsx("div", { className: "w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800", children: /* @__PURE__ */ jsx(
+              "div",
+              {
+                className: "bg-gradient-to-r from-purple-500 to-indigo-500 h-full rounded-full transition-all duration-500",
+                style: { width: `${Math.min(100, result.annualEntityCost / Math.max(result.annualEorCost, result.annualEntityCost) * 100)}%` }
+              }
+            ) })
+          ] })
+        ] })
       ] })
     ] })
   ] });
@@ -5356,7 +5848,44 @@ function NomadVisaCalculator({ lang = "en" }) {
           },
           visa.id
         );
-      }) })
+      }) }),
+      /* @__PURE__ */ jsxs("div", { className: "pt-6 border-t border-slate-800 space-y-4", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300", children: [
+          /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "Vize Asgari Gelir Karşılaştırma Grafiği" : "Nomad Visa Income Threshold Visual Chart" }),
+          /* @__PURE__ */ jsxs("span", { className: "text-cyan-400 font-extrabold", children: [
+            "$",
+            monthlyIncome.toLocaleString(),
+            " / ",
+            lang === "tr" ? "ay" : "mo"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "space-y-2.5", children: nomadVisaRequirements.map((visa) => {
+          const isEligible = monthlyIncome >= visa.minMonthlyIncomeUsd;
+          const maxVal = 6e3;
+          const barWidth = Math.min(100, visa.minMonthlyIncomeUsd / maxVal * 100);
+          return /* @__PURE__ */ jsxs("div", { className: "space-y-1 text-xs", children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center text-slate-300 font-medium", children: [
+              /* @__PURE__ */ jsxs("span", { className: "flex items-center space-x-1.5", children: [
+                /* @__PURE__ */ jsx("span", { children: visa.flag }),
+                /* @__PURE__ */ jsx("span", { children: visa.country })
+              ] }),
+              /* @__PURE__ */ jsxs("span", { className: "font-mono text-slate-400", children: [
+                "$",
+                visa.minMonthlyIncomeUsd.toLocaleString(),
+                " ",
+                isEligible ? "✅" : "❌"
+              ] })
+            ] }),
+            /* @__PURE__ */ jsx("div", { className: "w-full bg-slate-900 rounded-full h-3 p-0.5 border border-slate-800 relative overflow-hidden", children: /* @__PURE__ */ jsx(
+              "div",
+              {
+                className: `h-full rounded-full transition-all duration-500 ${isEligible ? "bg-gradient-to-r from-emerald-500 to-teal-400" : "bg-rose-500/50"}`,
+                style: { width: `${barWidth}%` }
+              }
+            ) })
+          ] }, visa.id);
+        }) })
+      ] })
     ] })
   ] });
 }

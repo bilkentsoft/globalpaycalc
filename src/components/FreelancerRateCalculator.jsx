@@ -143,6 +143,49 @@ export default function FreelancerRateCalculator({ lang = 'en' }) {
           </div>
         </div>
 
+        {/* Visual Revenue Breakdown Chart */}
+        <div className="pt-6 border-t border-slate-800 space-y-3">
+          <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300">
+            <span>{lang === 'tr' ? 'Yıllık Gelir & Gider Dağılım Grafiği' : 'Annual Billing & Expense Visual Breakdown'}</span>
+            <span className="text-emerald-400 font-extrabold">${result.requiredGrossBeforeTax.toLocaleString()}</span>
+          </div>
+
+          {/* Visual Stacked Bar */}
+          <div className="w-full bg-slate-900 rounded-2xl h-6 p-1 border border-slate-800 flex overflow-hidden gap-1">
+            <div 
+              style={{ width: `${(result.targetNetAnnual / result.requiredGrossBeforeTax) * 100}%` }}
+              className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-xl transition-all duration-500 relative group cursor-pointer"
+              title={`Net Target: $${result.targetNetAnnual.toLocaleString()}`}
+            ></div>
+            <div 
+              style={{ width: `${(result.annualTaxAmount / result.requiredGrossBeforeTax) * 100}%` }}
+              className="bg-gradient-to-r from-rose-500 to-pink-600 h-full rounded-xl transition-all duration-500 relative group cursor-pointer"
+              title={`Taxes: $${result.annualTaxAmount.toLocaleString()}`}
+            ></div>
+            <div 
+              style={{ width: `${(result.annualExpenses / result.requiredGrossBeforeTax) * 100}%` }}
+              className="bg-gradient-to-r from-amber-500 to-orange-500 h-full rounded-xl transition-all duration-500 relative group cursor-pointer"
+              title={`Expenses: $${result.annualExpenses.toLocaleString()}`}
+            ></div>
+          </div>
+
+          {/* Legend */}
+          <div className="flex flex-wrap items-center gap-4 text-xs pt-1">
+            <div className="flex items-center space-x-1.5">
+              <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+              <span className="text-slate-300 font-medium">{lang === 'tr' ? 'Net Hedef Gelir' : 'Target Net Income'} (${result.targetNetAnnual.toLocaleString()})</span>
+            </div>
+            <div className="flex items-center space-x-1.5">
+              <span className="w-3 h-3 rounded-full bg-rose-500 inline-block"></span>
+              <span className="text-slate-400">{lang === 'tr' ? 'Vergi Ödemesi' : 'Tax Burden'} (${result.annualTaxAmount.toLocaleString()})</span>
+            </div>
+            <div className="flex items-center space-x-1.5">
+              <span className="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
+              <span className="text-slate-400">{lang === 'tr' ? 'İş Giderleri' : 'Business Overhead'} (${result.annualExpenses.toLocaleString()})</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );

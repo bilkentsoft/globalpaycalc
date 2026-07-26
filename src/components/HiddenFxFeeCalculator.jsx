@@ -144,6 +144,44 @@ export default function HiddenFxFeeCalculator({ lang = 'en' }) {
           </div>
         </div>
 
+        {/* Visual FX Provider Net Amount Bar Chart */}
+        <div className="pt-6 border-t border-slate-800 space-y-4">
+          <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300">
+            <span>{lang === 'tr' ? 'Sağlayıcıya Göre Net Alınan Tutar Grafiği' : 'Net Amount Received by Provider Chart'}</span>
+            <span className="text-emerald-400 font-extrabold">{lang === 'tr' ? 'Potansiyel Tasarruf:' : 'Potential Savings:'} {result.potentialSavings} {result.toCurr}</span>
+          </div>
+
+          <div className="space-y-3">
+            {result.comparison.map((item, idx) => {
+              const maxReceived = result.bestOption.recipientReceives;
+              const barWidth = (item.recipientReceives / maxReceived) * 100;
+              const isBest = idx === 0;
+
+              return (
+                <div key={item.provider.id} className="space-y-1 text-xs">
+                  <div className="flex justify-between items-center text-slate-300 font-medium">
+                    <span className="flex items-center space-x-1.5 font-bold">
+                      <span>{item.provider.flag}</span>
+                      <span>{item.provider.name}</span>
+                      {isBest && <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/30">BEST</span>}
+                    </span>
+                    <span className={`font-mono font-bold ${isBest ? 'text-emerald-400' : 'text-slate-300'}`}>
+                      {item.recipientReceives.toLocaleString()} {result.toCurr}
+                    </span>
+                  </div>
+
+                  <div className="w-full bg-slate-900 rounded-full h-3.5 p-0.5 border border-slate-800">
+                    <div 
+                      className={`h-full rounded-full transition-all duration-500 ${isBest ? 'bg-gradient-to-r from-emerald-500 to-teal-400' : 'bg-slate-600'}`}
+                      style={{ width: `${barWidth}%` }}
+                    ></div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
       </div>
     </div>
   );

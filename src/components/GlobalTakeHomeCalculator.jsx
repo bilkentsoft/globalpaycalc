@@ -150,6 +150,56 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
           </div>
         </div>
 
+        {/* Visual Salary & Tax Breakdown Bar Chart */}
+        <div className="pt-6 border-t border-slate-800 space-y-3">
+          <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300">
+            <span>{lang === 'tr' ? 'Maaş ve Vergi Dağılım Grafiği' : 'Salary & Tax Visual Breakdown'}</span>
+            <span className="text-emerald-400 font-extrabold">{lang === 'tr' ? `Ele Geçen Net: %${(100 - result.effectiveTaxRate).toFixed(1)}` : `Net Take-Home: ${(100 - result.effectiveTaxRate).toFixed(1)}%`}</span>
+          </div>
+
+          {/* Multi-segmented Stacked Visual Progress Bar */}
+          <div className="w-full bg-slate-900 rounded-2xl h-6 p-1 border border-slate-800 flex overflow-hidden gap-1">
+            <div 
+              style={{ width: `${Math.max(5, 100 - result.effectiveTaxRate)}%` }}
+              className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-xl transition-all duration-500 relative group cursor-pointer"
+              title={`Net Pay: ${result.country.symbol}${Math.round(result.netAnnual).toLocaleString()}`}
+            ></div>
+            {result.deductionsDetails.map((d, idx) => {
+              const pct = result.grossAnnual > 0 ? (d.amount / result.grossAnnual) * 100 : 0;
+              const colors = [
+                'from-rose-500 to-pink-600',
+                'from-amber-500 to-orange-600',
+                'from-purple-500 to-indigo-600'
+              ];
+              return (
+                <div 
+                  key={idx}
+                  style={{ width: `${pct}%` }}
+                  className={`bg-gradient-to-r ${colors[idx % colors.length]} h-full rounded-xl transition-all duration-500 relative group cursor-pointer`}
+                  title={`${d.name}: ${result.country.symbol}${Math.round(d.amount).toLocaleString()} (${pct.toFixed(1)}%)`}
+                ></div>
+              );
+            })}
+          </div>
+
+          {/* Visual Legend */}
+          <div className="flex flex-wrap items-center gap-4 text-xs pt-1">
+            <div className="flex items-center space-x-1.5">
+              <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+              <span className="text-slate-300 font-medium">{lang === 'tr' ? 'Net Maaş' : 'Net Take-Home'} ({result.country.symbol}{Math.round(result.netAnnual).toLocaleString()})</span>
+            </div>
+            {result.deductionsDetails.map((d, idx) => {
+              const bgColors = ['bg-rose-500', 'bg-amber-500', 'bg-purple-500'];
+              return (
+                <div key={idx} className="flex items-center space-x-1.5">
+                  <span className={`w-3 h-3 rounded-full ${bgColors[idx % bgColors.length]} inline-block`}></span>
+                  <span className="text-slate-400">{d.name} ({result.country.symbol}{Math.round(d.amount).toLocaleString()})</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Deductions Breakdown Table */}
         <div className="space-y-4 pt-4 border-t border-slate-800">
           <div className="flex items-center justify-between">

@@ -183,6 +183,40 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
         ))}
       </div>
 
+      {/* Visual LLM API Cost Benchmark Chart */}
+      <div className="glass-card p-6 rounded-2xl border-slate-800 space-y-4 max-w-4xl mx-auto">
+        <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300">
+          <span>{lang === 'tr' ? '12 Model için Aylık API Maliyet Kıyaslama Grafiği' : 'Monthly API Cost Benchmark Chart (12 LLMs)'}</span>
+          <span className="text-cyan-400 font-extrabold">{inputTokens}M In / {outputTokens}M Out</span>
+        </div>
+
+        <div className="space-y-2.5">
+          {results.map((m) => {
+            const maxCost = results[results.length - 1].monthlyTotal || 1;
+            const barWidth = Math.min(100, Math.max(3, (m.monthlyTotal / maxCost) * 100));
+
+            return (
+              <div key={m.id} className="space-y-1 text-xs">
+                <div className="flex justify-between text-slate-300 font-medium">
+                  <span className="flex items-center space-x-2">
+                    <span className="font-bold text-white">{m.name}</span>
+                    <span className="text-[10px] text-slate-500 font-mono">({m.provider})</span>
+                  </span>
+                  <span className="font-mono text-emerald-400 font-bold">${m.monthlyTotal.toFixed(2)} /{lang === 'tr' ? 'ay' : 'mo'}</span>
+                </div>
+
+                <div className="w-full bg-slate-900 rounded-full h-3 p-0.5 border border-slate-800">
+                  <div 
+                    className="bg-gradient-to-r from-cyan-500 to-indigo-600 h-full rounded-full transition-all duration-500"
+                    style={{ width: `${barWidth}%` }}
+                  ></div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Recommendations */}
       <div className="glass-card p-6 rounded-2xl border-slate-800 space-y-4 max-w-4xl mx-auto">
         <h4 className="text-xs font-bold text-white flex items-center space-x-2 uppercase tracking-wide">

@@ -113,6 +113,38 @@ export default function CryptoTaxCalculator({ lang = 'en' }) {
           </div>
         </div>
 
+        {/* Visual Crypto Tax Breakdown Bar Chart */}
+        <div className="pt-6 border-t border-slate-800 space-y-3">
+          <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300">
+            <span>{lang === 'tr' ? 'Kripto Maaş & Vergi Görsel Grafiği' : 'Crypto Salary & Tax Visual Chart'}</span>
+            <span className="text-cyan-400 font-extrabold">{lang === 'tr' ? `Efektif Vergi: %${result.incomeTaxRate}` : `Tax Rate: ${result.incomeTaxRate}%`}</span>
+          </div>
+
+          <div className="w-full bg-slate-900 rounded-2xl h-6 p-1 border border-slate-800 flex overflow-hidden gap-1">
+            <div 
+              style={{ width: `${100 - result.incomeTaxRate}%` }}
+              className="bg-gradient-to-r from-cyan-500 to-blue-600 h-full rounded-xl transition-all duration-500 relative group cursor-pointer"
+              title={`Net Pay: $${result.netSalaryAfterIncomeTax.toLocaleString()}`}
+            ></div>
+            <div 
+              style={{ width: `${result.incomeTaxRate}%` }}
+              className="bg-gradient-to-r from-rose-500 to-pink-600 h-full rounded-xl transition-all duration-500 relative group cursor-pointer"
+              title={`Income Tax: $${result.incomeTaxAmount.toLocaleString()}`}
+            ></div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4 text-xs pt-1">
+            <div className="flex items-center space-x-1.5">
+              <span className="w-3 h-3 rounded-full bg-cyan-500 inline-block"></span>
+              <span className="text-slate-300 font-medium">{lang === 'tr' ? 'Net Kripto Maaş' : 'Net Crypto Pay'} (${result.netSalaryAfterIncomeTax.toLocaleString()})</span>
+            </div>
+            <div className="flex items-center space-x-1.5">
+              <span className="w-3 h-3 rounded-full bg-rose-500 inline-block"></span>
+              <span className="text-slate-400">{lang === 'tr' ? 'Gelir Vergisi' : 'Income Tax'} (${result.incomeTaxAmount.toLocaleString()})</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );
