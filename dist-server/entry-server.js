@@ -2723,9 +2723,9 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
       /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300", children: [
         /* @__PURE__ */ jsx("span", { children: lang === "tr" ? "12 Model için Aylık API Maliyet Kıyaslama Grafiği" : "Monthly API Cost Benchmark Chart (12 LLMs)" }),
         /* @__PURE__ */ jsxs("span", { className: "text-cyan-400 font-extrabold", children: [
-          inputTokens,
+          inputMTokens,
           "M In / ",
-          outputTokens,
+          outputMTokens,
           "M Out"
         ] })
       ] }),

@@ -187,7 +187,7 @@ Powered by GlobalPayCalc.com - 100% Free & Client-Side
       <div className="glass-card p-6 rounded-2xl border-slate-800 space-y-4 max-w-4xl mx-auto">
         <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-300">
           <span>{lang === 'tr' ? '12 Model için Aylık API Maliyet Kıyaslama Grafiği' : 'Monthly API Cost Benchmark Chart (12 LLMs)'}</span>
-          <span className="text-cyan-400 font-extrabold">{inputTokens}M In / {outputTokens}M Out</span>
+          <span className="text-cyan-400 font-extrabold">{inputMTokens}M In / {outputMTokens}M Out</span>
         </div>
 
         <div className="space-y-2.5">
