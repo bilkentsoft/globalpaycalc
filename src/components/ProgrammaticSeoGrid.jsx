@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { generateUnifiedSchema, injectJsonLdSchema } from '../utils/schemaGenerator';
-import { HelpCircle, ChevronDown, ChevronUp, Lock, RefreshCw, Star } from 'lucide-react';
+import { HelpCircle, ChevronDown, ChevronUp, Lock, RefreshCw, Star, Globe, Cpu } from 'lucide-react';
 import { getTranslation } from '../i18n';
+import { generatePseoTaxMatrix, generatePseoLlmMatrix } from '../pseo/matrixEngine';
 
 // Localized FAQ Database for all 8 Languages
 const faqData = {
@@ -134,11 +136,14 @@ export default function ProgrammaticSeoGrid({ lang = 'en' }) {
   const activeFaqs = faqData[lang] || faqData.en;
   const activeUi = uiTexts[lang] || uiTexts.en;
   
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState(0);
 
   const toggleAccordion = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+
+  const featuredTaxCorridors = generatePseoTaxMatrix().slice(0, 12);
+  const featuredLlmBenchmarks = generatePseoLlmMatrix().slice(0, 8);
 
   useEffect(() => {
     const unifiedSchema = generateUnifiedSchema({
@@ -154,7 +159,7 @@ export default function ProgrammaticSeoGrid({ lang = 'en' }) {
   return (
     <div className="space-y-8 max-w-4xl mx-auto my-12">
       
-      {/* Premium Accordion FAQ UI */}
+      {/* Premium Accordion FAQ UI (SSR-friendly DOM rendering) */}
       <div className="glass-card p-6 sm:p-8 rounded-3xl border-slate-800 space-y-6">
         <div className="flex items-center space-x-3 border-b border-slate-800/80 pb-4">
           <HelpCircle className="w-6 h-6 text-purple-400" />
@@ -189,12 +194,10 @@ export default function ProgrammaticSeoGrid({ lang = 'en' }) {
                   )}
                 </div>
 
-                {/* Accordion Body */}
-                {isOpen && (
-                  <div className="px-4 sm:px-5 pb-5 pt-1 text-xs text-slate-300 leading-relaxed border-t border-slate-800/50 animate-float">
-                    {faq.answer}
-                  </div>
-                )}
+                {/* Accordion Body (Rendered in DOM for search crawlers, toggled via CSS) */}
+                <div className={isOpen ? "px-4 sm:px-5 pb-5 pt-1 text-xs text-slate-300 leading-relaxed border-t border-slate-800/50 block" : "hidden"}>
+                  {faq.answer}
+                </div>
               </div>
             );
           })}
@@ -213,6 +216,53 @@ export default function ProgrammaticSeoGrid({ lang = 'en' }) {
           <div className="flex items-center space-x-2 p-3 rounded-xl bg-slate-950/60 border border-slate-800">
             <Star className="w-4 h-4 text-amber-400 flex-shrink-0" />
             <span>{activeUi.badge3}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Crawlable Internal Link Hub for Curated Relocation & AI Cost Corridors */}
+      <div className="glass-card p-6 sm:p-8 rounded-3xl border-slate-800 space-y-6">
+        <div className="space-y-4">
+          <div className="flex items-center space-x-2">
+            <Globe className="w-5 h-5 text-emerald-400" />
+            <h3 className="text-base font-bold text-white">Popular Remote Tax & Living Cost Corridors</h3>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+            {featuredTaxCorridors.map(route => (
+              <Link
+                key={route.slug}
+                to={`/calculator/${route.slug}`}
+                className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-brand-500/40 hover:bg-slate-900 transition text-xs flex items-center justify-between group"
+              >
+                <span className="text-slate-300 group-hover:text-white font-medium truncate">
+                  {route.origin.flag} {route.origin.code} → {route.dest.flag} {route.dest.name}
+                </span>
+                <span className="text-[10px] font-mono text-emerald-400 ml-2 shrink-0">{(route.dest.effTax * 100).toFixed(0)}% Tax</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-4 pt-4 border-t border-slate-800/80">
+          <div className="flex items-center space-x-2">
+            <Cpu className="w-5 h-5 text-amber-400" />
+            <h3 className="text-base font-bold text-white">Popular LLM API Token Cost Benchmarks</h3>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
+            {featuredLlmBenchmarks.map(route => (
+              <Link
+                key={route.slug}
+                to={`/tools/${route.slug}`}
+                className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-brand-500/40 hover:bg-slate-900 transition text-xs block group"
+              >
+                <div className="text-slate-200 group-hover:text-white font-bold truncate">
+                  {route.modelAInfo.name} vs {route.modelBInfo.name}
+                </div>
+                <div className="text-[10px] text-slate-400 truncate mt-0.5">
+                  {route.useCasePreset.label}
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

@@ -21,18 +21,23 @@ if (cssFile) {
 const { render, getRoutes } = await import('file://' + toAbsolute('dist-server/entry-server.js').replace(/\\/g, '/'));
 
 const routesToPrerender = getRoutes();
+const supportedLangCodes = new Set(['en', 'tr', 'es', 'de', 'pt', 'fr', 'id', 'ja']);
 
 console.log(`Starting stable sequential prerender for ${routesToPrerender.length} routes...`);
 
 (async () => {
   let successCount = 0;
-  
+
   for (let i = 0; i < routesToPrerender.length; i++) {
     const url = routesToPrerender[i];
     try {
       const { html, helmet } = render(url);
 
-      let result = template;
+      // Determine page language from URL prefix
+      const firstSegment = url.split('/').filter(Boolean)[0];
+      const pageLang = supportedLangCodes.has(firstSegment) ? firstSegment : 'en';
+
+      let result = template.replace('<html lang="en" class="dark">', `<html lang="${pageLang}" class="dark">`);
 
       // Inject helmet meta tags
       if (helmet) {
@@ -48,22 +53,29 @@ console.log(`Starting stable sequential prerender for ${routesToPrerender.length
       result = result.replace(`<div id="root"></div>`, `<div id="root">${html}</div>`);
 
       // Construct clean file path
-      const absoluteFilePath = url === '/' 
+      const absoluteFilePath = url === '/'
         ? toAbsolute('dist/index.html')
         : toAbsolute(`dist${url}/index.html`);
-      
+
       fs.mkdirSync(path.dirname(absoluteFilePath), { recursive: true });
       fs.writeFileSync(absoluteFilePath, result, 'utf-8');
       successCount++;
     } catch (err) {
       console.error(`[prerender] Error on ${url}:`, err.message);
     }
-    
-    // Log progress every 500 routes to avoid blocking console I/O
-    if (i > 0 && i % 500 === 0) {
-      console.log(`[prerender] Progress: ${successCount}/${routesToPrerender.length} pages generated.`);
-    }
   }
-  
-  console.log(`✅ Prerender complete! Successfully pre-rendered ${successCount} routes.`);
+
+  // Also pre-render 404.html for true 404/410 responses
+  try {
+    const { html } = render('/404-not-found');
+    let notFoundHtml = template
+      .replace('<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />', '<meta name="robots" content="noindex, nofollow" />')
+      .replace('<!--app-head-->', '<title>404 - Page Not Found | GlobalPayCalc</title>')
+      .replace('<div id="root"></div>', `<div id="root">${html}</div>`);
+    fs.writeFileSync(toAbsolute('dist/404.html'), notFoundHtml, 'utf-8');
+  } catch (err) {
+    console.error('[prerender] Error generating 404.html:', err.message);
+  }
+
+  console.log(`✅ Prerender complete! Successfully pre-rendered ${successCount} routes + 404.html.`);
 })();

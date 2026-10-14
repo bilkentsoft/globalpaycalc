@@ -43,7 +43,7 @@ export default async function handler(req, res) {
   }
 
   if (totalUrlCount === 0) {
-    totalUrlCount = 3672; // Fallback to actual pre-rendered sitemap page count
+    totalUrlCount = 324; // Curated pre-rendered sitemap page count
   }
 
   const results = [];

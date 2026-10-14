@@ -28,11 +28,8 @@ import ToolSeoArticle from './components/ToolSeoArticle';
 
 const AdminDashboard = React.lazy(() => import('./components/AdminDashboard'));
 
-// Legal pages split loading
-const PrivacyPolicy = React.lazy(() => import('./pages/Legal').then(m => ({ default: m.PrivacyPolicy })));
-const TermsOfService = React.lazy(() => import('./pages/Legal').then(m => ({ default: m.TermsOfService })));
-const AboutUs = React.lazy(() => import('./pages/Legal').then(m => ({ default: m.AboutUs })));
-const Contact = React.lazy(() => import('./pages/Legal').then(m => ({ default: m.Contact })));
+// Direct imports for Legal/Trust pages so SSR pre-renders full E-E-A-T content
+import { PrivacyPolicy, TermsOfService, AboutUs, Contact } from './pages/Legal';
 
 import { CookieConsent } from './components/CookieConsent';
 import { getTranslation, supportedLanguages } from './i18n';
@@ -124,38 +121,59 @@ function ContentWrapper({ lang, t }) {
   } else if (activeTab === 'ai') {
     pageTitle = "LLM API Token Cost Simulator | GlobalPayCalc";
     pageDesc = "Compare monthly token costs for OpenAI, Anthropic, and open-source models (GPT-4o, Claude 3.5, LLaMA 3) across RAG pipelines and agent implementations.";
+  } else if (activeTab === 'privacy') {
+    pageTitle = "Privacy Policy | GlobalPayCalc";
+    pageDesc = "Learn how GlobalPayCalc protects your privacy with 100% client-side in-browser calculations and zero personal data storage.";
+  } else if (activeTab === 'terms') {
+    pageTitle = "Terms of Service | GlobalPayCalc";
+    pageDesc = "Review the Terms of Service and usage guidelines for GlobalPayCalc financial, tax, and AI cost calculators.";
+  } else if (activeTab === 'about') {
+    pageTitle = "About Us | GlobalPayCalc";
+    pageDesc = "Discover how GlobalPayCalc builds accurate, privacy-first global salary, remote tax, FX markup, and LLM API cost calculators.";
+  } else if (activeTab === 'contact') {
+    pageTitle = "Contact Us | GlobalPayCalc";
+    pageDesc = "Get in touch with the GlobalPayCalc engineering and editorial team for feedback, partnerships, or tax data updates.";
   }
+
+  const isPseoPage = location.pathname.includes('/calculator/') || location.pathname.includes('/tools/');
+  const canonicalSlug = (activeTab === 'take-home' || activeTab === 'video') ? '' : activeTab;
+  const canonicalPath = hasLangPrefix
+    ? `/${pathSegments[0]}${canonicalSlug ? '/' + canonicalSlug : ''}`
+    : (canonicalSlug ? `/${canonicalSlug}` : '/');
+  const canonicalHref = `https://globalpaycalc.com${canonicalPath}`;
 
   return (
     <>
-      <Helmet>
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDesc} />
-        {/* Dynamic Canonical */}
-        <link rel="canonical" href={`https://globalpaycalc.com${location.pathname.replace(/\/+$/, '') || '/'}`} />
+      {!isPseoPage && (
+        <Helmet>
+          <title>{pageTitle}</title>
+          <meta name="description" content={pageDesc} />
+          {/* Dynamic Canonical (consolidates /take-home into /) */}
+          <link rel="canonical" href={canonicalHref} />
 
-        {/* hreflang Alternates for all supported languages */}
-        <link rel="alternate" hreflang="en" href={`https://globalpaycalc.com/${activeTab === 'take-home' ? '' : activeTab}`} />
-        {['tr','es','de','pt','fr','id','ja'].map(lc => (
-          <link key={lc} rel="alternate" hreflang={lc} href={`https://globalpaycalc.com/${lc}/${activeTab === 'take-home' ? '' : activeTab}`} />
-        ))}
-        <link rel="alternate" hreflang="x-default" href={`https://globalpaycalc.com/${activeTab === 'take-home' ? '' : activeTab}`} />
-        
-        {/* Open Graph / Facebook / LinkedIn */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://globalpaycalc.com${location.pathname}`} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDesc} />
-        <meta property="og:image" content="https://globalpaycalc.com/og-image.png" />
+          {/* hreflang Alternates for all supported languages */}
+          <link rel="alternate" hreflang="en" href={`https://globalpaycalc.com/${canonicalSlug}`} />
+          {['tr','es','de','pt','fr','id','ja'].map(lc => (
+            <link key={lc} rel="alternate" hreflang={lc} href={`https://globalpaycalc.com/${lc}${canonicalSlug ? '/' + canonicalSlug : ''}`} />
+          ))}
+          <link rel="alternate" hreflang="x-default" href={`https://globalpaycalc.com/${canonicalSlug}`} />
+          
+          {/* Open Graph / Facebook / LinkedIn */}
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content={canonicalHref} />
+          <meta property="og:title" content={pageTitle} />
+          <meta property="og:description" content={pageDesc} />
+          <meta property="og:image" content="https://globalpaycalc.com/og-image.png" />
 
-        {/* Twitter Card */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={`https://globalpaycalc.com${location.pathname}`} />
-        <meta property="twitter:title" content={pageTitle} />
-        <meta property="twitter:description" content={pageDesc} />
-      </Helmet>
+          {/* Twitter Card */}
+          <meta property="twitter:card" content="summary_large_image" />
+          <meta property="twitter:url" content={canonicalHref} />
+          <meta property="twitter:title" content={pageTitle} />
+          <meta property="twitter:description" content={pageDesc} />
+        </Helmet>
+      )}
 
-      {activeTab !== 'admin' && !location.pathname.includes('/calculator/') && !location.pathname.includes('/tools/') && (
+      {activeTab !== 'admin' && !isPseoPage && (
         <div className="text-center max-w-4xl mx-auto space-y-6 pt-4">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-brand-500/10 via-purple-500/10 to-pink-500/10 border border-brand-500/20 text-xs font-semibold text-brand-300 animate-float">
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
@@ -288,10 +306,10 @@ function ContentWrapper({ lang, t }) {
               </ProtectedRoute>
             } />
             
-            <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/terms" element={<TermsOfService />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<PrivacyPolicy lang={lang} />} />
+            <Route path="/terms" element={<TermsOfService lang={lang} />} />
+            <Route path="/about" element={<AboutUs lang={lang} />} />
+            <Route path="/contact" element={<Contact lang={lang} />} />
             
             {/* Lang Routes */}
             {supportedLanguages.map(l => (
@@ -336,7 +354,7 @@ function ContentWrapper({ lang, t }) {
         </React.Suspense>
       </div>
 
-      {activeTab !== 'admin' && !location.pathname.includes('/calculator/') && !location.pathname.includes('/tools/') && (
+      {activeTab !== 'admin' && !['privacy', 'terms', 'about', 'contact'].includes(activeTab) && !isPseoPage && (
         <ToolSeoArticle activeTool={activeTab} lang={lang} />
       )}
 
@@ -357,24 +375,18 @@ export default function App() {
   const pathSegments = location.pathname.split('/').filter(Boolean);
   const urlLang = supportedLanguages.find(l => l.code === pathSegments[0]);
 
-  // Always use the URL prefix if present, otherwise default to 'en' during initial hydration
+  // Deterministic URL-based language prevents SSR hydration mismatch and mixed-language indexing
   const [lang, setLang] = useState(urlLang ? urlLang.code : 'en');
 
   useEffect(() => {
     // Setup lazy analytics load on interaction
     initializeAnalytics();
 
-    if (urlLang) {
-      setLang(urlLang.code);
-      try { localStorage.setItem('gpc_lang', urlLang.code); } catch (_) {}
-    } else {
-      let preferred = null;
-      try { preferred = localStorage.getItem('gpc_lang'); } catch (_) {}
-      const detected = preferred || detectUserLanguage();
-      if (detected && detected !== lang) {
-        setLang(detected);
-      }
+    const targetLang = urlLang ? urlLang.code : 'en';
+    if (lang !== targetLang) {
+      setLang(targetLang);
     }
+
     // Analytics Tracking (Dynamically loaded to prevent initial bundle bloat)
     import('./utils/analyticsTracker').then(({ trackPageView }) => {
        trackPageView(location.pathname);

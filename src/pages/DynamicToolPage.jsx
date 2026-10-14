@@ -1,34 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { generateUnifiedSchema } from '../utils/schemaGenerator';
-import { ArrowLeftRight, ShieldAlert, TrendingUp, Info, Link as LinkIcon } from 'lucide-react';
+import { ArrowLeftRight, ShieldAlert, TrendingUp, Info, Link as LinkIcon, CheckCircle2, AlertTriangle, DollarSign, Wifi, Building2, Cpu, Sliders } from 'lucide-react';
 import { getTranslation } from '../i18n';
 import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { generatePseoTaxMatrix, generatePseoLlmMatrix } from '../pseo/matrixEngine';
+import { generatePseoTaxMatrix, generatePseoLlmMatrix, llmModelsCatalog, useCasePresets } from '../pseo/matrixEngine';
 import pseoTemplates from '../data/pseoTemplates';
+import NotFoundPage from './NotFoundPage';
 
-// Translation dictionary for DynamicToolPage UI elements in 8 languages
 const pageTranslations = {
   en: {
     disclaimer: "Disclaimer",
     disclaimerTax: "Tax laws change frequently and individual circumstances vary. Do not base financial or legal decisions solely on this calculator.",
     disclaimerLlm: "API prices and tokenizer rules are subject to change by the respective providers.",
-    estimatesNote: "Calculations are estimations based on standard digital nomad tax schemes (e.g. {perk}) and general cost index multipliers. For official advice, please consult an accountant.",
-    summaryTitle: "Tax & Relocation Summary",
-    originBase: "Origin Base",
-    destinationTarget: "Destination Target",
+    estimatesNote: "Calculations are estimations based on verified expat/nomad regimes ({perk}) and city-level living cost benchmarks. Consult a qualified cross-border CPA for formal filings.",
+    summaryTitle: "Tax, Rent & Relocation Breakdown ($85k Baseline)",
+    originBase: "Origin Hub",
+    destinationTarget: "Destination Hub",
     effectiveTax: "Effective Tax",
-    applicableTaxScheme: "Applicable Tax Scheme",
-    realPurchasingPowerBoost: "Real Purchasing Power Boost",
-    apiCostBenchmark: "{modelA} vs {modelB} API Cost Benchmark",
-    remoteNetSalary: "{origin} → {dest} Remote {status} Net Salary"
+    applicableTaxScheme: "Applicable Tax Regime",
+    realPurchasingPowerBoost: "Purchasing Power Multiplier",
+    apiCostBenchmark: "{modelA} vs {modelB} API Cost & Architecture Guide",
+    remoteNetSalary: "{origin} → {dest} Remote Tax, Rent & Net Savings Analysis"
   },
   tr: {
     disclaimer: "Yasal Uyarı",
     disclaimerTax: "Vergi kanunları sıklıkla değişir ve bireysel durumlar farklılık gösterir. Finansal veya yasal kararlarınızı yalnızca bu hesaplayıcıya dayandırmayın.",
     disclaimerLlm: "API fiyatları ve tokenizer kuralları ilgili sağlayıcılar tarafından değiştirilebilir.",
-    estimatesNote: "Hesaplamalar standart dijital göçebe vergi rejimlerine (örn. {perk}) ve genel yaşam maliyeti endekslerine dayanan tahminlerdir. Resmi tavsiye için lütfen bir mali müşavirle görüşün.",
-    summaryTitle: "Vergi ve Taşınma Özeti",
+    estimatesNote: "Hesaplamalar doğrulanmış dijital göçebe vergi rejimlerine ({perk}) ve şehir bazlı kira/yaşam maliyeti verilerine dayanır.",
+    summaryTitle: "Vergi, Kira ve Taşınma Özeti",
     originBase: "Kaynak Şehir",
     destinationTarget: "Hedef Şehir",
     effectiveTax: "Efektif Vergi",
@@ -36,229 +36,21 @@ const pageTranslations = {
     realPurchasingPowerBoost: "Alım Gücü Çarpanı",
     apiCostBenchmark: "{modelA} ve {modelB} API Maliyet Karşılaştırması",
     remoteNetSalary: "{origin} → {dest} Uzaktan {status} Net Maaş Analizi"
-  },
-  es: {
-    disclaimer: "Descargo de responsabilidad",
-    disclaimerTax: "Las leyes fiscales cambian con frecuencia y las circunstancias individuales varían. No base sus decisiones financieras o legales únicamente en esta calculadora.",
-    disclaimerLlm: "Los precios de las API y las reglas de tokenización están sujetos a cambios por parte de los respectivos proveedores.",
-    estimatesNote: "Los cálculos son estimaciones basadas en esquemas fiscales estándar para nómadas digitales (por ejemplo, {perk}) y multiplicadores de índice de costo de vida general. Para obtener asesoramiento oficial, consulte a un contable.",
-    summaryTitle: "Resumen de Impuestos y Reubicación",
-    originBase: "Base de Origen",
-    destinationTarget: "Destino de Destino",
-    effectiveTax: "Impuesto Efectivo",
-    applicableTaxScheme: "Esquema Fiscal Aplicable",
-    realPurchasingPowerBoost: "Aumento Real del Poder Adquisitivo",
-    apiCostBenchmark: "Comparación de Costos de API de {modelA} vs {modelB}",
-    remoteNetSalary: "Salario Neto Remoto de {origin} → {dest} como {status}"
-  },
-  de: {
-    disclaimer: "Haftungsausschluss",
-    disclaimerTax: "Steuergesetze ändern sich häufig und die individuellen Umstände variieren. Treffen Sie finanzielle oder rechtliche Entscheidungen nicht ausschließlich auf der Grundlage dieses Rechners.",
-    disclaimerLlm: "API-Preise und Tokenizer-Regeln können von den jeweiligen Anbietern geändert werden.",
-    estimatesNote: "Die Berechnungen sind Schätzungen, die auf Standardsteuersystemen für digitale Nomaden (z. B. {perk}) und allgemeinen Lebenshaltungskostenindizes basieren. Für eine offizielle Beratung wenden Sie sich bitte an einen Steuerberater.",
-    summaryTitle: "Steuer- & Umzugszusammenfassung",
-    originBase: "Herkunftsort",
-    destinationTarget: "Zielort",
-    effectiveTax: "Effektiver Steuersatz",
-    applicableTaxScheme: "Anwendbares Steuersystem",
-    realPurchasingPowerBoost: "Realer Kaufkraftgewinn",
-    apiCostBenchmark: "{modelA} vs {modelB} API-Kostenvergleich",
-    remoteNetSalary: "{origin} → {dest} Remote-{status}-Nettogehalt"
-  },
-  pt: {
-    disclaimer: "Aviso de Isenção",
-    disclaimerTax: "As leis fiscais mudam frequentemente e as circunstâncias individuais variam. Não baseie as decisões financeiras ou legais exclusivamente nesta calculadora.",
-    disclaimerLlm: "Os preços da API e as regras do tokenizador estão sujeitos a alterações pelos respectivos provedores.",
-    estimatesNote: "Os cálculos são estimativas baseadas em regimes fiscais padrão para nômades digitais (por exemplo, {perk}) e multiplicadores gerais de custo de vida. Para conselhos oficiais, consulte um contador.",
-    summaryTitle: "Resumo de Impostos e Relocação",
-    originBase: "Base de Origem",
-    destinationTarget: "Destino de Destino",
-    effectiveTax: "Imposto Efetivo",
-    applicableTaxScheme: "Regime Fiscal Aplicável",
-    realPurchasingPowerBoost: "Aumento Real do Poder Aquisitivo",
-    apiCostBenchmark: "Comparação de Custos de API {modelA} vs {modelB}",
-    remoteNetSalary: "Salário Líquido Remoto de {origin} → {dest} como {status}"
-  },
-  fr: {
-    disclaimer: "Clause de non-responsabilité",
-    disclaimerTax: "Les lois fiscales changent fréquemment et les situations individuelles varient. Ne fondez pas vos décisions financières ou juridiques uniquement sur ce calculateur.",
-    disclaimerLlm: "Les prix des API et les règles de tokenisation sont sujets à modification par les fournisseurs respectifs.",
-    estimatesNote: "Les calculs sont des estimations basées sur les régimes fiscaux standards des nomades digitaux (ex. {perk}) et les indices de coût de la vie. Pour un conseil officiel, veuillez consulter un comptable.",
-    summaryTitle: "Résumé des Impôts & Relocalisation",
-    originBase: "Base d'Origine",
-    destinationTarget: "Destination Cible",
-    effectiveTax: "Impôt Effectif",
-    applicableTaxScheme: "Régime Fiscal Applicable",
-    realPurchasingPowerBoost: "Augmentation Réelle du Pouvoir d'Achat",
-    apiCostBenchmark: "Comparatif des Coûts API {modelA} vs {modelB}",
-    remoteNetSalary: "Salaire Net Distant de {origin} → {dest} en tant que {status}"
-  },
-  id: {
-    disclaimer: "Penafian",
-    disclaimerTax: "Undang-undang perpajakan sering berubah dan keadaan individu berbeda-beda. Jangan mendasarkan keputusan keuangan atau hukum semata-mata pada kalkulator ini.",
-    disclaimerLlm: "Harga API dan aturan tokenisasi dapat berubah sewaktu-waktu oleh masing-masing penyedia.",
-    estimatesNote: "Perhitungan adalah perkiraan berdasarkan skema pajak nomad digital standar (misalnya {perk}) dan indeks biaya hidup umum. Untuk saran resmi, silakan hubungi akuntan.",
-    summaryTitle: "Ringkasan Pajak & Relokasi",
-    originBase: "Basis Asal",
-    destinationTarget: "Target Tujuan",
-    effectiveTax: "Pajak Efektif",
-    applicableTaxScheme: "Skema Pajak yang Berlaku",
-    realPurchasingPowerBoost: "Peningkatan Daya Beli Nyata",
-    apiCostBenchmark: "Tolok Ukur Biaya API {modelA} vs {modelB}",
-    remoteNetSalary: "Gaji Bersih Remote {origin} → {dest} sebagai {status}"
-  },
-  ja: {
-    disclaimer: "免責事項",
-    disclaimerTax: "税法は頻繁に変更され、個々の状況によって異なります。この計算機のみに基づいて財務上または法律上の決定を下さないでください。",
-    disclaimerLlm: "API価格およびトークナイザーのルールは、各プロバイダーによって変更される場合があります。",
-    estimatesNote: "計算は、標準的なデジタルノマド税制（例：{perk}）および一般的な生活費指数に基づく見積もりです。公式なアドバイスについては、税理士にご相談ください。",
-    summaryTitle: "税金と移住の概要",
-    originBase: "元の拠点",
-    destinationTarget: "目的地のターゲット",
-    effectiveTax: "実効税率",
-    applicableTaxScheme: "適用される税制",
-    realPurchasingPowerBoost: "実質購買力の向上",
-    apiCostBenchmark: "{modelA} と {modelB} の API コスト比較",
-    remoteNetSalary: "{origin} から {dest} へのリモート {status} のネット給与"
   }
-};
-
-const localizeCity = (cityName, lang) => {
-  if (!cityName) return '';
-  let result = cityName;
-  const countryMap = {
-    ' (US)': { tr: ' (ABD)', es: ' (EE. UU.)', de: ' (USA)', pt: ' (EUA)', fr: ' (États-Unis)', id: ' (AS)', ja: ' (米国)', en: ' (US)' },
-    ' (Germany)': { tr: ' (Almanya)', es: ' (Alemania)', de: ' (Deutschland)', pt: ' (Alemanha)', fr: ' (Allemagne)', id: ' (Jerman)', ja: ' (ドイツ)', en: ' (Germany)' },
-    ' (France)': { tr: ' (Fransa)', es: ' (Francia)', de: ' (Frankreich)', pt: ' (França)', fr: ' (France)', id: ' (Prancis)', ja: ' (フランス)', en: ' (France)' },
-    ' (Turkey)': { tr: ' (Türkiye)', es: ' (Turquía)', de: ' (Türkei)', pt: ' (Turquia)', fr: ' (Turquie)', id: ' (Turki)', ja: ' (トルコ)', en: ' (Turkey)' },
-    ' (UAE)': { tr: ' (BAE)', es: ' (EAU)', de: ' (VAE)', pt: ' (EAU)', fr: ' (Émirats arabes unis)', id: ' (UEA)', ja: ' (UAE)', en: ' (UAE)' },
-    ' (Canada)': { tr: ' (Kanada)', es: ' (Canadá)', de: ' (Kanada)', pt: ' (Canadá)', fr: ' (Canada)', id: ' (Kanada)', ja: ' (カナダ)', en: ' (Canada)' },
-    ' (Australia)': { tr: ' (Avustralya)', es: ' (Australia)', de: ' (Australien)', pt: ' (Austrália)', fr: ' (Australie)', id: ' (Australia)', ja: ' (オーストラリア)', en: ' (Australia)' },
-    ' (Switzerland)': { tr: ' (İsviçre)', es: ' (Suiza)', de: ' (Schweiz)', pt: ' (Suíça)', fr: ' (Suisse)', id: ' (Swiss)', ja: ' (スイス)', en: ' (Switzerland)' },
-    ' (Netherlands)': { tr: ' (Hollanda)', es: ' (Países Bajos)', de: ' (Niederlande)', pt: ' (Países Baixos)', fr: ' (Pays-Bas)', id: ' (Belanda)', ja: ' (オランダ)', en: ' (Netherlands)' },
-    ' (South Korea)': { tr: ' (Güney Kore)', es: ' (Corea del Sur)', de: ' (Südkorea)', pt: ' (Corea del Sur)', fr: ' (Corée du Sud)', id: ' (Korea Selatan)', ja: ' (韓国)', en: ' (South Korea)' },
-    ' (Poland)': { tr: ' (Polonya)', es: ' (Polonia)', de: ' (Polen)', pt: ' (Polónia)', fr: ' (Pologne)', id: ' (Polandia)', ja: ' (ポーランド)', en: ' (Poland)' },
-    ' (Austria)': { tr: ' (Avusturya)', es: ' (Austria)', de: ' (Österreich)', pt: ' (Áustria)', fr: ' (Autriche)', id: ' (Austria)', ja: ' (オーストリア)', en: ' (Austria)' },
-    ' (Ireland)': { tr: ' (İrlanda)', es: ' (Irlanda)', de: ' (Irland)', pt: ' (Irlanda)', fr: ' (Irlande)', id: ' (Irlandia)', ja: ' (アイルランド)', en: ' (Ireland)' },
-    ' (Sweden)': { tr: ' (İsveç)', es: ' (Suecia)', de: ' (Schweden)', pt: ' (Suécia)', fr: ' (Suède)', id: ' (Swedia)', ja: ' (Stokholm)', en: ' (Sweden)' },
-    ' (Denmark)': { tr: ' (Danimarka)', es: ' (Dinamarca)', de: ' (Dänemark)', pt: ' (Dinamarca)', fr: ' (Danemark)', id: ' (Denmark)', ja: ' (デンマーク)', en: ' (Denmark)' },
-    ' (Norway)': { tr: ' (Norveç)', es: ' (Noruega)', de: ' (Norwegen)', pt: ' (Noruega)', fr: ' (Norvège)', id: ' (Norwegia)', ja: ' (ノルウェー)', en: ' (Norway)' },
-    ' (Belgium)': { tr: ' (Belçika)', es: ' (Bélgica)', de: ' (Belgien)', pt: ' (Bélgica)', fr: ' (Belgique)', id: ' (Belgia)', ja: ' (ベルギー)', en: ' (Belgium)' },
-    ' (Italy)': { tr: ' (İtalya)', es: ' (Italia)', de: ' (Italien)', pt: ' (Itália)', fr: ' (Italie)', id: ' (Italia)', ja: ' (イタリア)', en: ' (Italy)' },
-    ' (Taiwan)': { tr: ' (Tayvan)', es: ' (Taiwán)', de: ' (Taiwan)', pt: ' (Taiwan)', fr: ' (Taïwan)', id: ' (Taiwan)', ja: ' (台湾)', en: ' (Taiwan)' },
-    ' (Spain)': { tr: ' (İspanya)', es: ' (España)', de: ' (Spanien)', pt: ' (Espanha)', fr: ' (Espagne)', id: ' (Spanyol)', ja: ' (スペイン)', en: ' (Spain)' },
-    ' (Portugal)': { tr: ' (Portekiz)', es: ' (Portugal)', de: ' (Portugal)', pt: ' (Portugal)', fr: ' (Portugal)', id: ' (Portugal)', ja: ' (ポルトガル)', en: ' (Portugal)' },
-    ' (Indonesia)': { tr: ' (Endonezya)', es: ' (Indonesia)', de: ' (Indonesien)', pt: ' (Indonésia)', fr: ' (Indonésie)', id: ' (Indonesia)', ja: ' (インドネシア)', en: ' (Indonesia)' },
-    ' (Japan)': { tr: ' (Japonya)', es: ' (Japón)', de: ' (Japan)', pt: ' (Japão)', fr: ' (Japon)', id: ' (Jepang)', ja: ' (日本)', en: ' (Japan)' },
-    ' (Thailand)': { tr: ' (Tayland)', es: ' (Tailandia)', de: ' (Thailand)', pt: ' (Tailândia)', fr: ' (Thaïlande)', id: ' (Thailand)', ja: ' (タイ)', en: ' (Thailand)' },
-    ' (Colombia)': { tr: ' (Kolombiya)', es: ' (Colombia)', de: ' (Kolumbien)', pt: ' (Colômbia)', fr: ' (Colombie)', id: ' (Kolombia)', ja: ' (コロンビア)', en: ' (Colombia)' },
-    ' (Argentina)': { tr: ' (Arjantin)', es: ' (Argentina)', de: ' (Argentinien)', pt: ' (Argentina)', fr: ' (Argentine)', id: ' (Argentina)', ja: ' (アルゼンチン)', en: ' (Argentina)' },
-    ' (South Africa)': { tr: ' (Güney Afrika)', es: ' (Sudáfrica)', de: ' (Südafrika)', pt: ' (África do Sul)', fr: ' (Afrique du Sud)', id: ' (Afrika Selatan)', ja: ' (南アフリカ)', en: ' (South Africa)' },
-    ' (Mexico)': { tr: ' (Meksika)', es: ' (México)', de: ' (Mexiko)', pt: ' (México)', fr: ' (Mexique)', id: ' (Meksiko)', ja: ' (メキシコ)', en: ' (Mexico)' },
-    ' (Estonia)': { tr: ' (Estonya)', es: ' (Estonia)', de: ' (Estland)', pt: ' (Estónia)', fr: ' (Estonie)', id: ' (Estonia)', ja: ' (Estonia)', en: ' (Estonia)' },
-    ' (Greece)': { tr: ' (Yunanistan)', es: ' (Grecia)', de: ' (Griechenland)', pt: ' (Grécia)', fr: ' (Grèce)', id: ' (Yunani)', ja: ' (ギリシャ)', en: ' (Greece)' },
-    ' (Vietnam)': { tr: ' (Vietnam)', es: ' (Vietnam)', de: ' (Vietnam)', pt: ' (Vietname)', fr: ' (Viêt Nam)', id: ' (Vietnam)', ja: ' (ベトナム)', en: ' (Vietnam)' },
-    ' (Malaysia)': { tr: ' (Malezya)', es: ' (Malasia)', de: ' (Malaysia)', pt: ' (Malásia)', fr: ' (Malaisie)', id: ' (Malaysia)', ja: ' (マレーシア)', en: ' (Malaysia)' },
-    ' (Hungary)': { tr: ' (Macaristan)', es: ' (Hungría)', de: ' (Ungarn)', pt: ' (Hungria)', fr: ' (Hongrie)', id: ' (Hongaria)', ja: ' (ハンガリー)', en: ' (Hungary)' },
-    ' (Czechia)': { tr: ' (Çekya)', es: ' (República Checa)', de: ' (Tschechien)', pt: ' (Chéquia)', fr: ' (Tchéquie)', id: ' (Ceko)', ja: ' (チェコ)', en: ' (Czechia)' },
-    ' (Brazil)': { tr: ' (Brezilya)', es: ' (Brasil)', de: ' (Brasilien)', pt: ' (Brasil)', fr: ' (Brésil)', id: ' (Brasil)', ja: ' (ブラジル)', en: ' (Brazil)' },
-    ' (Chile)': { tr: ' (Şili)', es: ' (Chile)', de: ' (Chile)', pt: ' (Chile)', fr: ' (Chili)', id: ' (Chili)', ja: ' (チリ)', en: ' (Chile)' },
-    ' (Costa Rica)': { tr: ' (Kosta Rika)', es: ' (Costa Rica)', de: ' (Costa Rica)', pt: ' (Costa Rica)', fr: ' (Costa Rica)', id: ' (Kosta Rika)', ja: ' (コスタリカ)', en: ' (Costa Rica)' },
-    ' (Georgia)': { tr: ' (Gürcistan)', es: ' (Georgia)', de: ' (Georgien)', pt: ' (Geórgia)', fr: ' (Géorgie)', id: ' (Georgia)', ja: ' (ジョージア)', en: ' (Georgia)' }
-  };
-  for (const [key, valueMap] of Object.entries(countryMap)) {
-    if (result.includes(key)) {
-      result = result.replace(key, valueMap[lang] || valueMap.en);
-    }
-  }
-
-  // Translate specific city names
-  const cityMap = {
-    'New York City': { tr: 'New York', es: 'Nueva York', de: 'New York', pt: 'Nova Iorque', fr: 'New York', id: 'New York', ja: 'ニューヨーク' },
-    'London': { tr: 'Londra', es: 'Londres', de: 'London', pt: 'Londres', fr: 'Londres', id: 'London', ja: 'ロンドン' },
-    'Zurich': { tr: 'Zürih', es: 'Zúrich', fr: 'Zurich', ja: 'チューリッヒ' },
-    'Seoul': { tr: 'Seul', es: 'Seúl', pt: 'Seul', ja: 'ソウル' },
-    'Warsaw': { tr: 'Varşova', es: 'Varsovia', de: 'Warschau', pt: 'Varsóvia', fr: 'Varsovie', id: 'Warsawa', ja: 'ワルシャワ' },
-    'Vienna': { tr: 'Viyana', es: 'Viena', de: 'Wien', pt: 'Viena', fr: 'Vienne', id: 'Wina', ja: 'ウィーン' },
-    'Stockholm': { tr: 'Stokholm', es: 'Estocolmo', pt: 'Estocolmo', ja: 'ストックホルム' },
-    'Copenhagen': { tr: 'Kopenhag', es: 'Copenhague', de: 'Kopenhagen', pt: 'Copenhaga', fr: 'Copenhague', id: 'Kopenhagen', ja: 'コペンハーゲン' },
-    'Brussels': { tr: 'Brüksel', es: 'Bruselas', de: 'Brüssel', pt: 'Bruxelas', fr: 'Bruxelles', id: 'Brussel', ja: 'ブリュッセル' },
-    'Milan': { tr: 'Milano', es: 'Milán', de: 'Mailand', pt: 'Milão', fr: 'Milan', id: 'Milan', ja: 'ミラノ' },
-    'Sydney': { tr: 'Sidney', ja: 'シドニー' },
-    'Austin': { ja: 'オースティン' },
-    'Lisbon': { tr: 'Lizbon', es: 'Lisboa', de: 'Lissabon', pt: 'Lisboa', fr: 'Lisbonne', id: 'Lisbon', ja: 'リスボン' },
-    'Tokyo': { tr: 'Tokyo', es: 'Tokio', pt: 'Tóquio', ja: '東京' },
-    'Singapore': { tr: 'Singapur', es: 'Singapur', de: 'Singapur', pt: 'Singapura', fr: 'Singapour', id: 'Singapura', ja: 'シンガポール' },
-    'Cape Town': { tr: 'Cape Town', es: 'Ciudad del Cabo', de: 'Kapstadt', pt: 'Cidade do Cabo', fr: 'Le Cap', id: 'Cape Town', ja: 'ケープタウン' },
-    'Mexico City': { tr: 'Meksiko', es: 'Ciudad de México', de: 'Mexiko-Stadt', pt: 'Cidade do México', fr: 'Mexico', id: 'Mexico City', ja: 'メキシコシティ' },
-    'Athens': { tr: 'Atina', es: 'Grecia', de: 'Athen', pt: 'Atenas', fr: 'Athènes', id: 'Athena', ja: 'アテネ' },
-    'Barcelona': { tr: 'Barselona', ja: 'バルセロナ' },
-    'Porto': { ja: 'ポルト' },
-    'Ho Chi Minh City': { tr: 'Ho Chi Minh', es: 'Ciudad Ho Chi Minh', de: 'Ho-Chi-Minh-Stadt', pt: 'Cidade de Ho Chi Minh', fr: 'Hô-Chi-Minh-Ville', id: 'Kota Ho Chi Minh', ja: 'ホーチミン' },
-    'Kuala Lumpur': { ja: 'クアラルンプール' },
-    'Budapest': { tr: 'Budapeşte', ja: 'ブダペスト' },
-    'Prague': { tr: 'Prag', es: 'Praga', de: 'Prag', pt: 'Praga', fr: 'Prague', id: 'Prag', ja: 'プラハ' },
-    'Krakow': { tr: 'Krakow', es: 'Cracovia', de: 'Krakau', pt: 'Cracovie', fr: 'Cracovie', id: 'Krakow', ja: 'クラクフ' },
-    'Sao Paulo': { tr: 'Sao Paulo', es: 'São Paulo', pt: 'São Paulo', ja: 'サンパウロ' },
-    'Santiago': { ja: 'サンティアゴ' },
-    'San Jose': { tr: 'San Jose', es: 'San José', pt: 'San José', ja: 'サンホセ' },
-    'Valencia': { tr: 'Valensiya', ja: 'バレンシア' },
-    'Cagliari / Sardinia': { tr: 'Cagliari / Sardinya', es: 'Cagliari / Cerdeña', de: 'Cagliari / Sardinien', pt: 'Cagliari / Sardenha', fr: 'Cagliari / Sardaigne', id: 'Cagliari / Sardinia', ja: 'カリアリ / サルデーニャ' },
-    'Tbilisi': { tr: 'Tiflis', es: 'Tiflis', de: 'Tiflis', pt: 'Tbilisi', fr: 'Tbilissi', id: 'Tbilisi', ja: 'トビリシ' }
-  };
-  for (const [key, valueMap] of Object.entries(cityMap)) {
-    if (result.startsWith(key)) {
-      result = result.replace(key, valueMap[lang] || key);
-    }
-  }
-
-  return result;
-};
-
-const localizeStatus = (label, lang) => {
-  const statusMap = {
-    'Digital Nomad': { tr: 'Dijital Göçebe', es: 'Nómada Digital', de: 'Digitaler Nomade', pt: 'Nômade Digital', fr: 'Nomade Digital', id: 'Nomaden Digital', ja: 'デジタルノマド', en: 'Digital Nomad' },
-    'Freelancer': { tr: 'Serbest Çalışan', es: 'Autónomo', de: 'Freiberufler', pt: 'Freelancer', fr: 'Freelance', id: 'Pekerja Lepas', ja: 'フリーランサー', en: 'Freelancer' }
-  };
-  return statusMap[label]?.[lang] || statusMap[label]?.en || label;
-};
-
-const localizePerk = (perk, lang) => {
-  const perkMap = {
-    'Special Tax Scheme / Beckham Law': {
-      tr: 'Özel Vergi Rejimi / Beckham Yasası',
-      es: 'Régimen Fiscal Especial / Ley Beckham',
-      de: 'Sondersteuerregelung / Beckham-Gesetz',
-      pt: 'Regime Fiscal Especial / Lei Beckham',
-      fr: 'Régime fiscal spécial / Loi Beckham',
-      id: 'Skema Pajak Khusus / Undang-Undang Beckham',
-      ja: '特別税制（ベッカム法）',
-      en: 'Special Tax Scheme / Beckham Law'
-    },
-    'Independent Contractor Exemption': {
-      tr: 'Bağımsız Yüklenici Muafiyeti',
-      es: 'Exención de Contratista Independiente',
-      de: 'Freiberufler-Steuerbefreiung',
-      pt: 'Isenção de Contratador Independente',
-      fr: 'Exonération pour entrepreneur indépendant',
-      id: 'Pengecualian Kontraktor Independen',
-      ja: '独立契約者免除',
-      en: 'Independent Contractor Exemption'
-    }
-  };
-  return perkMap[perk]?.[lang] || perkMap[perk]?.en || perk;
 };
 
 let taxMatrixMap = null;
 let llmMatrixMap = null;
 
-const getRouteData = (slug, type) => {
+export const getRouteData = (slug, type) => {
   if (type === 'tax') {
     if (!taxMatrixMap) {
       taxMatrixMap = new Map();
       generatePseoTaxMatrix().forEach(r => taxMatrixMap.set(r.slug, r));
     }
-    return taxMatrixMap.get(slug);
+    // Also gracefully resolve legacy -freelancer-tax-parity slugs in client router if hit
+    const normalizedSlug = slug ? slug.replace('-freelancer-tax-parity', '-nomad-tax-parity') : slug;
+    return taxMatrixMap.get(normalizedSlug);
   } else {
     if (!llmMatrixMap) {
       llmMatrixMap = new Map();
@@ -276,43 +68,77 @@ export default function DynamicToolPage({ pageData, routeData, type, lang = 'en'
   if (!data && slug) {
     data = getRouteData(slug, type);
   }
-  if (!data) return null;
+
+  // Interactive states for Tax & Relocation Simulator
+  const [grossSalary, setGrossSalary] = useState(95000);
+  const [housingTier, setHousingTier] = useState('standard'); // 'budget' | 'standard' | 'family'
+  const [workMode, setWorkMode] = useState('nomad'); // 'nomad' | 'b2b'
+
+  // Interactive states for LLM Token Simulator
+  const preset = data?.useCasePreset || useCasePresets[data?.useCase] || useCasePresets['rag-pipeline'];
+  const [reqsPerDay, setReqsPerDay] = useState(preset?.defaultReqsPerDay || 5000);
+  const [inputTokens, setInputTokens] = useState(preset?.defaultInputTokens || 4000);
+  const [outputTokens, setOutputTokens] = useState(preset?.defaultOutputTokens || 600);
+  const [cacheHitPct, setCacheHitPct] = useState(preset?.defaultCacheHit || 50);
+
+  if (!data) {
+    return <NotFoundPage />;
+  }
 
   const isLlmTool = !!data.modelA;
-  const { title, description, origin, dest, status, modelA, modelB, useCase } = data;
+  const { origin, dest, status, modelA, modelB, useCase } = data;
+  const modelAInfo = data.modelAInfo || llmModelsCatalog[modelA] || { name: modelA?.toUpperCase(), provider: 'API', inputPer1M: 2.5, outputPer1M: 10.0, cachedInputPer1M: 1.25, contextWindow: '128K', speedTokSec: 100 };
+  const modelBInfo = data.modelBInfo || llmModelsCatalog[modelB] || { name: modelB?.toUpperCase(), provider: 'API', inputPer1M: 3.0, outputPer1M: 15.0, cachedInputPer1M: 0.30, contextWindow: '200K', speedTokSec: 85 };
 
   const activePageText = pageTranslations[lang] || pageTranslations.en;
 
-  let taxContext = '';
-  if (!isLlmTool && dest?.effTax) {
-    if (dest.effTax > 0.25) taxContext = t('dynamic.taxHigh');
-    else if (dest.effTax < 0.15) taxContext = t('dynamic.taxLow');
-    else taxContext = t('dynamic.taxMid');
-  }
+  const canonicalUrl = `https://globalpaycalc.com/${isLlmTool ? 'tools' : 'calculator'}/${data.slug}`;
+  const dynamicTitle = data.title;
+  const dynamicDesc = data.description;
 
-  // Localized values
-  const localizedOriginName = isLlmTool ? '' : localizeCity(origin?.name, lang);
-  const localizedDestName = isLlmTool ? '' : localizeCity(dest?.name, lang);
-  const localizedStatusLabel = isLlmTool ? '' : localizeStatus(status?.label, lang);
-  const localizedStatusPerk = isLlmTool ? '' : localizePerk(status?.perk, lang);
+  // Tax & Relocation Interactive Math
+  const housingMultipliers = { budget: 0.72, standard: 1.0, family: 1.65 };
+  const rentMult = housingMultipliers[housingTier] || 1.0;
 
-  const dynamicTitle = isLlmTool 
-    ? t('dynamic.llmTitle').replace('{{modelA}}', modelA).replace('{{modelB}}', modelB).replace('{{useCase}}', useCase.replace('-', ' '))
-    : t('dynamic.taxTitle').replace('{{origin}}', localizedOriginName).replace('{{dest}}', localizedDestName).replace('{{status}}', localizedStatusLabel);
+  const originEffTax = !isLlmTool ? (workMode === 'b2b' ? Math.max(0.15, origin.effTax - 0.04) : origin.effTax) : 0;
+  const destEffTax = !isLlmTool ? (workMode === 'b2b' ? Math.max(0.0, dest.effTax - 0.03) : dest.effTax) : 0;
 
-  const dynamicDesc = isLlmTool 
-    ? t('dynamic.llmDesc').replace('{{modelA}}', modelA).replace('{{modelB}}', modelB).replace('{{useCase}}', useCase.replace('-', ' '))
-    : t('dynamic.taxDesc').replace('{{origin}}', localizedOriginName).replace('{{dest}}', localizedDestName).replace('{{status}}', localizedStatusLabel).replace('{{taxContext}}', taxContext);
+  const originNetAnnual = isLlmTool ? 0 : grossSalary * (1 - originEffTax);
+  const destNetAnnual = isLlmTool ? 0 : grossSalary * (1 - destEffTax);
+  const originNetMonthly = Math.round(originNetAnnual / 12);
+  const destNetMonthly = Math.round(destNetAnnual / 12);
 
-  // Render dynamic calculation results
-  const originNet = isLlmTool ? 0 : 85000 * (1 - origin.effTax);
-  const destNet = isLlmTool ? 0 : 85000 * (1 - dest.effTax);
-  const purchasingPowerBoost = isLlmTool ? '1.0' : (destNet / originNet * (100 / dest.costIndex)).toFixed(2);
+  const originMonthlyCost = isLlmTool ? 0 : Math.round((origin.avgRent1Br || 2200) * rentMult + (origin.avgLivingExRent || 1300));
+  const destMonthlyCost = isLlmTool ? 0 : Math.round((dest.avgRent1Br || 1000) * rentMult + (dest.avgLivingExRent || 800));
 
-  // Load appropriate language templates (fall back to 'en')
+  const originMonthlySavings = originNetMonthly - originMonthlyCost;
+  const destMonthlySavings = destNetMonthly - destMonthlyCost;
+  const annualSavingsDelta = (destMonthlySavings - originMonthlySavings) * 12;
+
+  const purchasingPowerBoost = isLlmTool ? '1.00' : (destNetAnnual / originNetAnnual * (100 / (dest.costIndex || 50))).toFixed(2);
+  const grossMonthly = Math.round(grossSalary / 12);
+  const meetsVisaMin = !isLlmTool && grossMonthly >= (dest.visaMinIncomeMonthly || 2500);
+
+  // LLM Interactive Math
+  const monthlyRequests = reqsPerDay * 30;
+  const totalInputM = (monthlyRequests * inputTokens) / 1_000_000;
+  const totalOutputM = (monthlyRequests * outputTokens) / 1_000_000;
+  const cachedRatio = cacheHitPct / 100;
+
+  const calcModelMonthlyCost = (mInfo) => {
+    const uncachedInputCost = totalInputM * (1 - cachedRatio) * mInfo.inputPer1M;
+    const cachedInputCost = totalInputM * cachedRatio * mInfo.cachedInputPer1M;
+    const outputCost = totalOutputM * mInfo.outputPer1M;
+    return uncachedInputCost + cachedInputCost + outputCost;
+  };
+
+  const modelAMonthlyCost = isLlmTool ? calcModelMonthlyCost(modelAInfo) : 0;
+  const modelBMonthlyCost = isLlmTool ? calcModelMonthlyCost(modelBInfo) : 0;
+  const cheaperModel = modelAMonthlyCost <= modelBMonthlyCost ? modelAInfo : modelBInfo;
+  const llmMonthlySavings = Math.abs(modelAMonthlyCost - modelBMonthlyCost);
+
+  // Load templates
   const activeTemplates = pseoTemplates[lang] || pseoTemplates['en'];
-
-  // Construct dynamic content body paragraphs
   let introText = '';
   let body1Text = '';
   let body2Text = '';
@@ -322,75 +148,95 @@ export default function DynamicToolPage({ pageData, routeData, type, lang = 'en'
     const replacer = (text) => {
       if (!text) return '';
       return text
-        .replace(/{origin}/g, localizedOriginName)
-        .replace(/{dest}/g, localizedDestName)
-        .replace(/{status}/g, localizedStatusLabel)
-        .replace(/{perk}/g, localizedStatusPerk)
-        .replace(/{destTax}/g, (dest?.effTax * 100).toFixed(0))
-        .replace(/{originTax}/g, (origin?.effTax * 100).toFixed(0))
-        .replace(/{destNetMonthly}/g, Math.round(destNet / 12).toLocaleString())
-        .replace(/{originNetMonthly}/g, Math.round(originNet / 12).toLocaleString())
-        .replace(/{destCostIndex}/g, dest?.costIndex || '')
+        .replace(/{origin}/g, origin.name)
+        .replace(/{dest}/g, dest.name)
+        .replace(/{status}/g, status.label)
+        .replace(/{perk}/g, dest.taxSchemeName)
+        .replace(/{destTax}/g, (dest.effTax * 100).toFixed(0))
+        .replace(/{originTax}/g, (origin.effTax * 100).toFixed(0))
+        .replace(/{destNetMonthly}/g, destNetMonthly.toLocaleString('en-US'))
+        .replace(/{originNetMonthly}/g, originNetMonthly.toLocaleString('en-US'))
+        .replace(/{destCostIndex}/g, dest.costIndex)
         .replace(/{purchasingPower}/g, purchasingPowerBoost);
     };
 
     introText = replacer(activeTemplates.taxIntro);
-    body1Text = replacer(activeTemplates.taxBody1);
-    body2Text = replacer(activeTemplates.taxBody2);
-    faqs = (activeTemplates.taxFaqs || []).map(f => ({
-      question: replacer(f.q),
-      answer: replacer(f.a)
-    }));
+    body1Text = `${replacer(activeTemplates.taxBody1)} ${dest.taxSchemeSummary || ''}`;
+    body2Text = `${replacer(activeTemplates.taxBody2)} Typical 1-bedroom city-center rent in ${dest.name} averages $${dest.avgRent1Br}/month (plus ~$${dest.avgLivingExRent}/month in groceries, coworking, and utilities), compared to $${origin.avgRent1Br}/month rent in ${origin.name}.`;
+    faqs = [
+      {
+        question: `What is the remote worker tax rate and visa requirement in ${dest.name}?`,
+        answer: `${dest.taxSchemeSummary} To qualify for the ${dest.visaType}, applicants generally need to demonstrate at least $${dest.visaMinIncomeMonthly.toLocaleString('en-US')}/month in remote earnings.`
+      },
+      {
+        question: `How much can I save moving from ${origin.name} to ${dest.name} on a $${grossSalary.toLocaleString('en-US')} salary?`,
+        answer: `On a $${grossSalary.toLocaleString('en-US')} gross salary, your estimated net take-home pay shifts from $${originNetMonthly.toLocaleString('en-US')}/mo in ${origin.name} (~${(originEffTax * 100).toFixed(0)}% tax) to $${destNetMonthly.toLocaleString('en-US')}/mo in ${dest.name} (~${(destEffTax * 100).toFixed(0)}% tax). Factoring in rent ($${dest.avgRent1Br}/mo vs $${origin.avgRent1Br}/mo) and living costs, your net annual savings changes by ${annualSavingsDelta >= 0 ? '+' : ''}$${annualSavingsDelta.toLocaleString('en-US')}/year.`
+      },
+      {
+        question: `How fast is fiber internet and coworking infrastructure in ${dest.name}?`,
+        answer: `${dest.name} offers an average fixed broadband speed of ${dest.internetMbps} Mbps with widespread fiber coverage and dedicated international coworking hubs suitable for low-latency video calls and engineering workflows.`
+      }
+    ];
   } else {
-    const replacer = (text) => {
-      if (!text) return '';
-      return text
-        .replace(/{modelA}/g, modelA || '')
-        .replace(/{modelB}/g, modelB || '')
-        .replace(/{useCase}/g, (useCase || '').replace('-', ' '));
-    };
-
-    introText = replacer(activeTemplates.llmIntro);
-    body1Text = replacer(activeTemplates.llmBody1);
-    body2Text = replacer(activeTemplates.llmBody2);
-    faqs = (activeTemplates.llmFaqs || []).map(f => ({
-      question: replacer(f.q),
-      answer: replacer(f.a)
-    }));
+    const useCaseLabel = preset?.label || useCase.replace('-', ' ');
+    introText = `Selecting between ${modelAInfo.name} (${modelAInfo.provider}) and ${modelBInfo.name} (${modelBInfo.provider}) for production ${useCaseLabel} workloads requires balancing token pricing, prompt caching discounts, context window capacity (${modelAInfo.contextWindow} vs ${modelBInfo.contextWindow}), and streaming throughput (${modelAInfo.speedTokSec} vs ${modelBInfo.speedTokSec} tok/s).`;
+    body1Text = `${modelAInfo.name} is priced at $${modelAInfo.inputPer1M.toFixed(2)} per 1M input tokens ($${modelAInfo.cachedInputPer1M.toFixed(3)}/1M with prompt caching) and $${modelAInfo.outputPer1M.toFixed(2)} per 1M output tokens. By comparison, ${modelBInfo.name} charges $${modelBInfo.inputPer1M.toFixed(2)} per 1M input tokens ($${modelBInfo.cachedInputPer1M.toFixed(3)}/1M cached) and $${modelBInfo.outputPer1M.toFixed(2)} per 1M output tokens.`;
+    body2Text = `At ${reqsPerDay.toLocaleString('en-US')} requests/day (${(totalInputM).toFixed(1)}M monthly input tokens and ${(totalOutputM).toFixed(1)}M monthly output tokens with a ${cacheHitPct}% cache hit rate), ${modelAInfo.name} costs $${modelAMonthlyCost.toFixed(2)}/month whereas ${modelBInfo.name} costs $${modelBMonthlyCost.toFixed(2)}/month—a monthly variance of $${llmMonthlySavings.toFixed(2)} ($${(llmMonthlySavings * 12).toFixed(0)}/year).`;
+    faqs = [
+      {
+        question: `Is ${modelAInfo.name} or ${modelBInfo.name} cheaper for ${useCaseLabel}?`,
+        answer: `Under standard ${useCaseLabel} parameters (${reqsPerDay.toLocaleString('en-US')} reqs/day, ${inputTokens} input tokens, ${outputTokens} output tokens, ${cacheHitPct}% cache hit), ${cheaperModel.name} is more cost-effective, saving $${llmMonthlySavings.toFixed(2)} per month ($${(llmMonthlySavings * 12).toFixed(2)} annually).`
+      },
+      {
+        question: `How does prompt caching affect ${modelAInfo.name} vs ${modelBInfo.name} pricing?`,
+        answer: `${modelAInfo.name} reduces cached input costs to $${modelAInfo.cachedInputPer1M}/1M tokens, while ${modelBInfo.name} charges $${modelBInfo.cachedInputPer1M}/1M cached input tokens. High system-prompt reuse in ${useCaseLabel} pipelines can cut total input token spend by 50%–90%.`
+      },
+      {
+        question: `What are the context window and speed differences between ${modelAInfo.name} and ${modelBInfo.name}?`,
+        answer: `${modelAInfo.name} supports a ${modelAInfo.contextWindow} token context window at ~${modelAInfo.speedTokSec} tokens/sec, while ${modelBInfo.name} provides a ${modelBInfo.contextWindow} token context window at ~${modelBInfo.speedTokSec} tokens/sec.`
+      }
+    ];
   }
 
   const unifiedSchema = generateUnifiedSchema({
-    url: `https://globalpaycalc.com/${isLlmTool ? 'tools' : 'calculator'}/${slug}`,
+    url: canonicalUrl,
     name: dynamicTitle,
     description: dynamicDesc,
-    faqs
+    faqs,
+    breadcrumbs: [
+      { name: 'GlobalPayCalc', url: 'https://globalpaycalc.com/' },
+      { name: isLlmTool ? 'AI API Cost Calculators' : 'Remote Tax & Relocation Calculators', url: `https://globalpaycalc.com/${isLlmTool ? 'ai' : 'salary'}` },
+      { name: dynamicTitle, url: canonicalUrl }
+    ]
   });
 
-  // Internal Linking Logic
   const allRoutes = isLlmTool ? generatePseoLlmMatrix() : generatePseoTaxMatrix();
   const relatedRoutes = allRoutes
-    .filter(r => r.slug !== slug && (isLlmTool ? r.modelA === modelA : r.origin.code === origin.code))
-    .slice(0, 3);
-
-  const faqTitle = {
-    en: 'Frequently Asked Questions',
-    tr: 'Sıkça Sorulan Sorular',
-    es: 'Preguntas Frecuentes',
-    de: 'Häufig gestellte Fragen',
-    pt: 'Perguntas Frequentes',
-    fr: 'Questions Fréquemment Posées',
-    id: 'Pertanyaan yang Sering Diajukan',
-    ja: 'よくある質問'
-  }[lang] || 'Frequently Asked Questions';
+    .filter(r => r.slug !== data.slug && (isLlmTool ? (r.modelA === modelA || r.modelB === modelB) : (r.origin.code === origin.code || r.dest.code === dest.code)))
+    .slice(0, 6);
 
   return (
     <div className="space-y-8 max-w-4xl mx-auto my-8 animate-in fade-in duration-300">
-      
+      <Helmet>
+        <title>{dynamicTitle} | GlobalPayCalc</title>
+        <meta name="description" content={dynamicDesc} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:title" content={`${dynamicTitle} | GlobalPayCalc`} />
+        <meta property="og:description" content={dynamicDesc} />
+        <meta property="og:image" content="https://globalpaycalc.com/og-image.png" />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={canonicalUrl} />
+        <meta property="twitter:title" content={`${dynamicTitle} | GlobalPayCalc`} />
+        <meta property="twitter:description" content={dynamicDesc} />
+      </Helmet>
+
       {/* Header */}
       <div className="space-y-3 text-center">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-semibold">
           <ArrowLeftRight className="w-3.5 h-3.5" />
-          <span>{isLlmTool ? t('dynamic.llmHeader') : t('dynamic.taxHeader')}</span>
+          <span>{isLlmTool ? 'Interactive LLM API Token Cost Simulator' : 'Interactive Relocation Tax & Living Cost Simulator'}</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
           {dynamicTitle}
@@ -400,107 +246,381 @@ export default function DynamicToolPage({ pageData, routeData, type, lang = 'en'
         </p>
       </div>
 
-      {/* Dynamic Comparison Card */}
-      <div className="glass-card glass-card-hover p-6 sm:p-8 rounded-2xl border-brand-500/20 space-y-6">
-        <h3 className="text-sm font-bold text-white flex items-center space-x-2">
-          <TrendingUp className="w-4.5 h-4.5 text-brand-400" />
-          <span className="gradient-text">{isLlmTool ? t('dynamic.llmHeader') : t('dynamic.taxHeader')}</span>
-        </h3>
+      {/* Interactive Calculator Controls & Comparison Card */}
+      <div className="glass-card p-6 sm:p-8 rounded-2xl border-brand-500/20 space-y-6">
+        {!isLlmTool ? (
+          <>
+            {/* Interactive Salary & Lifestyle Controls */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                    <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Annual Gross Income (USD)</span>
+                  </label>
+                  <span className="text-sm font-mono font-extrabold text-emerald-400">${grossSalary.toLocaleString('en-US')}</span>
+                </div>
+                <input
+                  type="range"
+                  min="30000"
+                  max="350000"
+                  step="5000"
+                  value={grossSalary}
+                  onChange={(e) => setGrossSalary(Number(e.target.value))}
+                  aria-label="Annual Gross Income in USD"
+                  className="w-full accent-brand-500 cursor-pointer"
+                />
+                <div className="flex justify-between text-[10px] text-slate-500 font-mono">
+                  <span>$30k/yr</span>
+                  <span>$150k/yr</span>
+                  <span>$350k/yr</span>
+                </div>
+              </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {/* Origin Net / Model A */}
-          <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2 relative overflow-hidden group">
-            <div className="text-[10px] text-slate-400 font-semibold uppercase">{isLlmTool ? modelA : t('dynamic.originNet').replace('{{origin}}', origin?.flag + ' ' + localizedOriginName)}</div>
-            <div className="text-2xl font-mono font-extrabold text-white">${isLlmTool ? 'N/A' : `${Math.round(originNet / 12).toLocaleString()}/mo`}</div>
-            {!isLlmTool && (
-              <>
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                  <Building2 className="w-3.5 h-3.5 text-brand-400" />
+                  <span>Tax & Legal Setup</span>
+                </label>
+                <div className="grid grid-cols-2 gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => setWorkMode('nomad')}
+                    className={`py-2 px-2.5 rounded-lg text-xs font-bold border transition ${workMode === 'nomad' ? 'bg-brand-600 text-white border-brand-500' : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'}`}
+                  >
+                    Nomad Scheme
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setWorkMode('b2b')}
+                    className={`py-2 px-2.5 rounded-lg text-xs font-bold border transition ${workMode === 'b2b' ? 'bg-brand-600 text-white border-brand-500' : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'}`}
+                  >
+                    B2B Contractor
+                  </button>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                  <Sliders className="w-3.5 h-3.5 text-purple-400" />
+                  <span>Housing Tier</span>
+                </label>
+                <div className="grid grid-cols-3 gap-1">
+                  {[
+                    { id: 'budget', label: 'Shared/Suburb' },
+                    { id: 'standard', label: '1BR Center' },
+                    { id: 'family', label: '3BR Family' }
+                  ].map(tier => (
+                    <button
+                      key={tier.id}
+                      type="button"
+                      onClick={() => setHousingTier(tier.id)}
+                      className={`py-2 px-1.5 rounded-lg text-[11px] font-bold border transition ${housingTier === tier.id ? 'bg-purple-600 text-white border-purple-500' : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'}`}
+                    >
+                      {tier.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Side-by-Side City Comparison Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {/* Origin City */}
+              <div className="p-5 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-slate-400 font-bold uppercase">{origin.flag} {origin.name}</span>
+                  <span className="text-xs font-mono text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20">
+                    {(originEffTax * 100).toFixed(0)}% Eff. Tax
+                  </span>
+                </div>
+                <div>
+                  <div className="text-[11px] text-slate-400">Net Take-Home Pay</div>
+                  <div className="text-2xl font-mono font-extrabold text-white">${originNetMonthly.toLocaleString('en-US')}<span className="text-xs text-slate-400 font-normal">/mo</span></div>
+                </div>
                 <div className="w-full bg-slate-800 rounded-full h-2">
-                  <div className="bg-slate-500 h-2 rounded-full transition-all duration-1000" style={{ width: `${(1 - origin?.effTax) * 100}%` }}></div>
+                  <div className="bg-slate-500 h-2 rounded-full transition-all duration-300" style={{ width: `${(1 - originEffTax) * 100}%` }}></div>
                 </div>
-                <span className="text-[10px] text-slate-500 font-mono">{t('dynamic.taxRate').replace('{{rate}}', (origin?.effTax * 100).toFixed(0))}</span>
-              </>
-            )}
-          </div>
+                <div className="pt-2 border-t border-slate-800/80 space-y-1 text-xs">
+                  <div className="flex justify-between text-slate-400">
+                    <span>Est. Rent + Living:</span>
+                    <span className="font-mono text-slate-200">-${originMonthlyCost.toLocaleString('en-US')}/mo</span>
+                  </div>
+                  <div className="flex justify-between font-bold">
+                    <span className="text-slate-300">Net Monthly Savings:</span>
+                    <span className={`font-mono ${originMonthlySavings >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                      ${originMonthlySavings.toLocaleString('en-US')}/mo
+                    </span>
+                  </div>
+                </div>
+              </div>
 
-          {/* Destination Net / Model B */}
-          <div className="p-4 rounded-xl bg-brand-500/10 border border-brand-500/20 space-y-2 relative overflow-hidden group">
-            <div className="text-[10px] text-brand-300 font-semibold uppercase">{isLlmTool ? modelB : t('dynamic.destNet').replace('{{dest}}', dest?.flag + ' ' + localizedDestName)}</div>
-            <div className="text-2xl font-mono font-extrabold text-white">${isLlmTool ? 'N/A' : `${Math.round(destNet / 12).toLocaleString()}/mo`}</div>
-            {!isLlmTool && (
-              <>
+              {/* Destination City */}
+              <div className="p-5 rounded-xl bg-brand-500/10 border border-brand-500/30 space-y-3 relative overflow-hidden">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-brand-300 font-bold uppercase">{dest.flag} {dest.name}</span>
+                  <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                    {(destEffTax * 100).toFixed(0)}% Eff. Tax
+                  </span>
+                </div>
+                <div>
+                  <div className="text-[11px] text-brand-200">Net Take-Home Pay</div>
+                  <div className="text-2xl font-mono font-extrabold text-white">${destNetMonthly.toLocaleString('en-US')}<span className="text-xs text-brand-300 font-normal">/mo</span></div>
+                </div>
                 <div className="w-full bg-slate-800 rounded-full h-2">
-                  <div className="bg-brand-500 h-2 rounded-full transition-all duration-1000 delay-300" style={{ width: `${(1 - dest?.effTax) * 100}%` }}></div>
+                  <div className="bg-brand-500 h-2 rounded-full transition-all duration-300" style={{ width: `${(1 - destEffTax) * 100}%` }}></div>
                 </div>
-                <div className="flex justify-between items-center mt-1">
-                  <span className="text-[10px] text-brand-400/70 font-mono">{t('dynamic.taxRate').replace('{{rate}}', (dest?.effTax * 100).toFixed(0))}</span>
-                  <span className="text-[10px] text-brand-400 font-bold bg-brand-500/20 px-2 rounded-full py-0.5">{purchasingPowerBoost}x {t('dynamic.purchasingPower')}</span>
+                <div className="pt-2 border-t border-brand-500/20 space-y-1 text-xs">
+                  <div className="flex justify-between text-slate-300">
+                    <span>Est. Rent + Living:</span>
+                    <span className="font-mono text-white">-${destMonthlyCost.toLocaleString('en-US')}/mo</span>
+                  </div>
+                  <div className="flex justify-between font-bold">
+                    <span className="text-brand-200">Net Monthly Savings:</span>
+                    <span className={`font-mono ${destMonthlySavings >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                      ${destMonthlySavings.toLocaleString('en-US')}/mo
+                    </span>
+                  </div>
                 </div>
-              </>
-            )}
-            
-            {/* Background Glow */}
-            <div className="absolute -inset-4 bg-brand-500/5 blur-xl group-hover:bg-brand-500/10 transition duration-500 opacity-0 group-hover:opacity-100"></div>
-          </div>
-        </div>
+              </div>
+            </div>
 
-        {!isLlmTool && (
-          <div className="pt-4 border-t border-slate-800/60 flex items-start space-x-3">
-            <ShieldAlert className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
-            <p className="text-xs text-slate-400 leading-relaxed">
-              * {activePageText.estimatesNote.replace('{perk}', localizedStatusPerk)}
-            </p>
-          </div>
+            {/* Key Relocation Metrics Banner */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+              <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                <div>
+                  <div className="text-[10px] uppercase font-bold text-slate-400">Annual Savings Impact</div>
+                  <div className={`text-lg font-mono font-extrabold ${annualSavingsDelta >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                    {annualSavingsDelta >= 0 ? '+' : ''}${annualSavingsDelta.toLocaleString('en-US')}/yr
+                  </div>
+                </div>
+                <TrendingUp className="w-5 h-5 text-emerald-400" />
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                <div>
+                  <div className="text-[10px] uppercase font-bold text-slate-400">Purchasing Power Parity</div>
+                  <div className="text-lg font-mono font-extrabold text-brand-400">{purchasingPowerBoost}x Boost</div>
+                </div>
+                <Wifi className="w-5 h-5 text-brand-400" title={`${dest.internetMbps} Mbps Avg Fiber`} />
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                <div>
+                  <div className="text-[10px] uppercase font-bold text-slate-400">Nomad Visa Min. Income</div>
+                  <div className="text-xs font-bold text-white flex items-center gap-1 mt-0.5">
+                    {meetsVisaMin ? (
+                      <><CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> <span>Eligible (${dest.visaMinIncomeMonthly.toLocaleString('en-US')}/mo req)</span></>
+                    ) : (
+                      <><AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" /> <span>Needs ${dest.visaMinIncomeMonthly.toLocaleString('en-US')}/mo</span></>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-slate-800/60 flex items-start space-x-3">
+              <ShieldAlert className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+              <p className="text-xs text-slate-400 leading-relaxed">
+                * {activePageText.estimatesNote.replace('{perk}', dest.taxSchemeName)}
+              </p>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Interactive LLM API Workload Controls */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+              <div className="space-y-1.5">
+                <div className="flex justify-between text-xs">
+                  <span className="font-bold text-slate-300">Requests / Day</span>
+                  <span className="font-mono font-bold text-brand-400">{reqsPerDay.toLocaleString('en-US')}</span>
+                </div>
+                <input
+                  type="range"
+                  min="500"
+                  max="100000"
+                  step="500"
+                  value={reqsPerDay}
+                  onChange={(e) => setReqsPerDay(Number(e.target.value))}
+                  aria-label="Requests Per Day"
+                  className="w-full accent-brand-500 cursor-pointer"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <div className="flex justify-between text-xs">
+                  <span className="font-bold text-slate-300">Input Tokens / Req</span>
+                  <span className="font-mono font-bold text-emerald-400">{inputTokens.toLocaleString('en-US')}</span>
+                </div>
+                <input
+                  type="range"
+                  min="200"
+                  max="32000"
+                  step="200"
+                  value={inputTokens}
+                  onChange={(e) => setInputTokens(Number(e.target.value))}
+                  aria-label="Input Tokens Per Request"
+                  className="w-full accent-brand-500 cursor-pointer"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <div className="flex justify-between text-xs">
+                  <span className="font-bold text-slate-300">Output Tokens / Req</span>
+                  <span className="font-mono font-bold text-purple-400">{outputTokens.toLocaleString('en-US')}</span>
+                </div>
+                <input
+                  type="range"
+                  min="100"
+                  max="8000"
+                  step="100"
+                  value={outputTokens}
+                  onChange={(e) => setOutputTokens(Number(e.target.value))}
+                  aria-label="Output Tokens Per Request"
+                  className="w-full accent-purple-500 cursor-pointer"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <div className="flex justify-between text-xs">
+                  <span className="font-bold text-slate-300">Prompt Cache Hit %</span>
+                  <span className="font-mono font-bold text-amber-400">{cacheHitPct}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="90"
+                  step="5"
+                  value={cacheHitPct}
+                  onChange={(e) => setCacheHitPct(Number(e.target.value))}
+                  aria-label="Prompt Cache Hit Percentage"
+                  className="w-full accent-brand-500 cursor-pointer"
+                />
+              </div>
+            </div>
+
+            {/* Side-by-Side LLM Cost Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="p-5 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-300 uppercase">{modelAInfo.name} ({modelAInfo.provider})</span>
+                  <span className="text-[11px] font-mono text-slate-400">{modelAInfo.contextWindow} Context</span>
+                </div>
+                <div>
+                  <div className="text-[11px] text-slate-400">Estimated Monthly API Spend</div>
+                  <div className="text-2xl font-mono font-extrabold text-white">${modelAMonthlyCost.toFixed(2)}<span className="text-xs text-slate-400 font-normal">/mo</span></div>
+                </div>
+                <div className="pt-2 border-t border-slate-800 text-xs space-y-1 text-slate-400">
+                  <div className="flex justify-between"><span>Input / Cached (1M):</span><span className="font-mono text-slate-200">${modelAInfo.inputPer1M.toFixed(2)} / ${modelAInfo.cachedInputPer1M.toFixed(3)}</span></div>
+                  <div className="flex justify-between"><span>Output (1M):</span><span className="font-mono text-slate-200">${modelAInfo.outputPer1M.toFixed(2)}</span></div>
+                  <div className="flex justify-between"><span>Avg Speed:</span><span className="font-mono text-emerald-400">~{modelAInfo.speedTokSec} tok/s</span></div>
+                </div>
+              </div>
+
+              <div className="p-5 rounded-xl bg-brand-500/10 border border-brand-500/30 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-brand-300 uppercase">{modelBInfo.name} ({modelBInfo.provider})</span>
+                  <span className="text-[11px] font-mono text-brand-300">{modelBInfo.contextWindow} Context</span>
+                </div>
+                <div>
+                  <div className="text-[11px] text-brand-200">Estimated Monthly API Spend</div>
+                  <div className="text-2xl font-mono font-extrabold text-white">${modelBMonthlyCost.toFixed(2)}<span className="text-xs text-brand-300 font-normal">/mo</span></div>
+                </div>
+                <div className="pt-2 border-t border-brand-500/20 text-xs space-y-1 text-slate-300">
+                  <div className="flex justify-between"><span>Input / Cached (1M):</span><span className="font-mono text-white">${modelBInfo.inputPer1M.toFixed(2)} / ${modelBInfo.cachedInputPer1M.toFixed(3)}</span></div>
+                  <div className="flex justify-between"><span>Output (1M):</span><span className="font-mono text-white">${modelBInfo.outputPer1M.toFixed(2)}</span></div>
+                  <div className="flex justify-between"><span>Avg Speed:</span><span className="font-mono text-emerald-400">~{modelBInfo.speedTokSec} tok/s</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
+              <div className="flex items-center space-x-2 text-emerald-300 font-semibold">
+                <Cpu className="w-4 h-4 shrink-0" />
+                <span>Cost Winner for {preset?.label}: <strong>{cheaperModel.name}</strong> saves <strong>${llmMonthlySavings.toFixed(2)}/month</strong> (${(llmMonthlySavings * 12).toFixed(0)}/year) at current token volume.</span>
+              </div>
+              <Link to="/ai" className="text-brand-400 hover:underline font-bold shrink-0">Open Full Multi-Model Simulator →</Link>
+            </div>
+          </>
         )}
       </div>
 
-      {/* Localized Rich Educational Content Block */}
+      {/* Rich Educational Guide & Breakdown */}
       <article className="glass-card p-6 sm:p-10 rounded-2xl border-slate-800 space-y-8 mt-12">
         <header className="space-y-2 border-b border-slate-800 pb-6">
           <h2 className="text-2xl font-bold text-white flex items-center space-x-3">
             <Info className="w-6 h-6 text-brand-400 flex-shrink-0" />
             <span>
-              {isLlmTool 
-                ? activePageText.apiCostBenchmark.replace('{modelA}', modelA.toUpperCase()).replace('{modelB}', modelB.toUpperCase())
-                : activePageText.remoteNetSalary.replace('{origin}', localizedOriginName).replace('{dest}', localizedDestName).replace('{status}', localizedStatusLabel)
+              {isLlmTool
+                ? activePageText.apiCostBenchmark.replace('{modelA}', modelAInfo.name).replace('{modelB}', modelBInfo.name)
+                : activePageText.remoteNetSalary.replace('{origin}', origin.name).replace('{dest}', dest.name).replace('{status}', status.label)
               }
             </span>
           </h2>
-          <p className="text-slate-400 text-sm font-medium">
-            {isLlmTool ? t('dynamic.relatedLlmDesc') : t('dynamic.relatedTaxDesc')}
-          </p>
         </header>
 
-        {/* 300+ Word Dynamic & Localized Educational Guide */}
         <div className="space-y-4 text-slate-300 text-sm leading-relaxed">
           <p>{introText}</p>
           <p>{body1Text}</p>
           {!isLlmTool && (
-            <div className="bg-slate-900 border border-slate-800 p-4 rounded-xl my-4">
-              <h4 className="font-bold text-white mb-2">{activePageText.summaryTitle}</h4>
-              <ul className="list-disc list-inside space-y-1 text-slate-400 text-xs">
-                <li><strong>{activePageText.originBase} ({localizedOriginName}):</strong> {activePageText.effectiveTax} ~{(origin?.effTax * 100).toFixed(0)}%</li>
-                <li><strong>{activePageText.destinationTarget} ({localizedDestName}):</strong> {activePageText.effectiveTax} ~{(dest?.effTax * 100).toFixed(0)}%</li>
-                <li><strong>{activePageText.applicableTaxScheme}:</strong> {localizedStatusPerk}</li>
-                <li><strong>{activePageText.realPurchasingPowerBoost}:</strong> {purchasingPowerBoost}x</li>
-              </ul>
+            <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl my-4">
+              <h3 className="font-bold text-white mb-3 text-base">Relocation Tax, Visa & Living Cost Matrix</h3>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr className="border-b border-slate-800 text-slate-400">
+                      <th className="py-2 pr-4">Metric</th>
+                      <th className="py-2 px-4">{origin.flag} {origin.name}</th>
+                      <th className="py-2 pl-4">{dest.flag} {dest.name}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-800/60 text-slate-300">
+                    <tr>
+                      <td className="py-2.5 pr-4 font-semibold">Tax Regime / Rules</td>
+                      <td className="py-2.5 px-4">{origin.taxNotes}</td>
+                      <td className="py-2.5 pl-4 text-brand-300 font-medium">{dest.taxSchemeName}</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2.5 pr-4 font-semibold">Effective Tax Rate</td>
+                      <td className="py-2.5 px-4 font-mono">{(origin.effTax * 100).toFixed(0)}%</td>
+                      <td className="py-2.5 pl-4 font-mono text-emerald-400">{(dest.effTax * 100).toFixed(0)}%</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2.5 pr-4 font-semibold">Avg 1BR City-Center Rent</td>
+                      <td className="py-2.5 px-4 font-mono">${origin.avgRent1Br.toLocaleString('en-US')}/mo</td>
+                      <td className="py-2.5 pl-4 font-mono">${dest.avgRent1Br.toLocaleString('en-US')}/mo</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2.5 pr-4 font-semibold">Living Expenses (Ex-Rent)</td>
+                      <td className="py-2.5 px-4 font-mono">${origin.avgLivingExRent.toLocaleString('en-US')}/mo</td>
+                      <td className="py-2.5 pl-4 font-mono">${dest.avgLivingExRent.toLocaleString('en-US')}/mo</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2.5 pr-4 font-semibold">Digital Nomad Visa</td>
+                      <td className="py-2.5 px-4">Domestic Residency</td>
+                      <td className="py-2.5 pl-4">{dest.visaType} (Min. ${dest.visaMinIncomeMonthly.toLocaleString('en-US')}/mo)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
           <p>{body2Text}</p>
         </div>
 
-        <div className="space-y-8 pt-4 border-t border-slate-800">
-          <h3 className="text-xl font-bold text-white">{faqTitle}</h3>
+        <div className="space-y-6 pt-4 border-t border-slate-800">
+          <h3 className="text-xl font-bold text-white">Frequently Asked Questions</h3>
           {faqs.map((faq, index) => (
-            <section key={index} className="space-y-2">
-              <h4 className="text-base font-semibold text-slate-200">{faq.question}</h4>
-              <p className="text-sm text-slate-400 leading-relaxed">{faq.answer}</p>
+            <section key={index} className="space-y-1.5 bg-slate-900/50 p-4 rounded-xl border border-slate-800/80">
+              <h4 className="text-sm font-bold text-slate-100">{faq.question}</h4>
+              <p className="text-xs text-slate-400 leading-relaxed">{faq.answer}</p>
             </section>
           ))}
         </div>
 
         <footer className="pt-6 border-t border-slate-800 text-xs text-slate-500">
           <p>
-            <strong>{activePageText.disclaimer}:</strong> 
+            <strong>{activePageText.disclaimer}:</strong>
             {isLlmTool ? ` ${activePageText.disclaimerLlm}` : ` ${activePageText.disclaimerTax}`}
           </p>
         </footer>
@@ -511,41 +631,28 @@ export default function DynamicToolPage({ pageData, routeData, type, lang = 'en'
         <section className="mt-12 space-y-4">
           <h3 className="text-xl font-bold text-white flex items-center space-x-2">
             <LinkIcon className="w-5 h-5 text-brand-400" />
-            <span>{t('dynamic.relatedComparisons')}</span>
+            <span>Related Calculators & Comparisons</span>
           </h3>
-          <p className="text-sm text-slate-400 mb-6">
-            {isLlmTool ? t('dynamic.relatedLlmDesc') : t('dynamic.relatedTaxDesc')}
-          </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {relatedRoutes.map(route => {
-              const relOrigin = isLlmTool ? '' : localizeCity(route.origin.name, lang);
-              const relDest = isLlmTool ? '' : localizeCity(route.dest.name, lang);
-              return (
-                <Link 
-                  key={route.slug} 
-                  to={`/${lang === 'en' ? '' : lang + '/'}${isLlmTool ? 'tools' : 'calculator'}/${route.slug}`}
-                  className="p-4 rounded-xl border border-slate-800 bg-slate-900/50 hover:bg-slate-800 transition block group"
-                >
-                  <div className="text-xs text-brand-400 mb-1">
-                    {isLlmTool ? route.useCase.replace('-', ' ') : `${relOrigin} → ${relDest}`}
-                  </div>
-                  <div className="text-sm font-semibold text-slate-200 group-hover:text-white line-clamp-2">
-                    {route.title}
-                  </div>
-                </Link>
-              );
-            })}
+            {relatedRoutes.map(route => (
+              <Link
+                key={route.slug}
+                to={`/${isLlmTool ? 'tools' : 'calculator'}/${route.slug}`}
+                className="p-4 rounded-xl border border-slate-800 bg-slate-900/50 hover:bg-slate-800 transition block group"
+              >
+                <div className="text-xs text-brand-400 mb-1 font-semibold">
+                  {isLlmTool ? `${route.modelAInfo.name} vs ${route.modelBInfo.name}` : `${route.origin.flag} ${route.origin.name} → ${route.dest.flag} ${route.dest.name}`}
+                </div>
+                <div className="text-xs font-medium text-slate-300 group-hover:text-white line-clamp-2">
+                  {route.title}
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
       )}
 
-      {/* Static JSON-LD Schema Injection for SSR */}
-      <Helmet>
-        <title>{dynamicTitle} | GlobalPayCalc</title>
-        <meta name="description" content={dynamicDesc} />
-      </Helmet>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(unifiedSchema) }} />
-
     </div>
   );
 }

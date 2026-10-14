@@ -10,6 +10,7 @@
     "build:server": "vite build --ssr src/entry-server.jsx --outDir dist-server",
     "build": "npm run clean && node scripts/generateSitemap.js && npm run build:client && npm run build:server && node scripts/prerender.js",
     "vercel-build": "echo 'Skipping build, serving pre-built dist folder'",
+    "start": "node server.js",
     "lint": "eslint .",
     "preview": "vite preview --outDir dist"
   },

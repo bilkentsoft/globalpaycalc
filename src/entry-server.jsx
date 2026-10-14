@@ -3,10 +3,12 @@ import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App.jsx';
+import { generatePseoTaxMatrix, generatePseoLlmMatrix } from './pseo/matrixEngine';
+import { supportedLanguages } from './i18n';
 
 export function render(url) {
   const helmetContext = {};
-  
+
   const html = ReactDOMServer.renderToString(
     <React.StrictMode>
       <HelmetProvider context={helmetContext}>
@@ -16,50 +18,56 @@ export function render(url) {
       </HelmetProvider>
     </React.StrictMode>
   );
-  
+
   return { html, helmet: helmetContext.helmet };
 }
 
-import { generatePseoTaxMatrix, generatePseoLlmMatrix } from './pseo/matrixEngine';
-import { supportedLanguages } from './i18n';
-
 export function getRoutes() {
-  const routes = ['', '/take-home', '/contractor', '/hourly-rate', '/beckham-law', '/crypto-tax', '/eor-cost', '/nomad-visa', '/salary', '/inflation', '/fx-fees', '/vat', '/timezone', '/wasm', '/ai', '/privacy', '/terms', '/about', '/contact'];
-  
-  for (const lang of supportedLanguages) {
-    routes.push(`/${lang.code}`);
-    routes.push(`/${lang.code}/take-home`);
-    routes.push(`/${lang.code}/contractor`);
-    routes.push(`/${lang.code}/hourly-rate`);
-    routes.push(`/${lang.code}/beckham-law`);
-    routes.push(`/${lang.code}/crypto-tax`);
-    routes.push(`/${lang.code}/eor-cost`);
-    routes.push(`/${lang.code}/nomad-visa`);
-    routes.push(`/${lang.code}/salary`);
-    routes.push(`/${lang.code}/inflation`);
-    routes.push(`/${lang.code}/fx-fees`);
-    routes.push(`/${lang.code}/vat`);
-    routes.push(`/${lang.code}/timezone`);
-    routes.push(`/${lang.code}/wasm`);
-    routes.push(`/${lang.code}/ai`);
-    routes.push(`/${lang.code}/privacy`);
-    routes.push(`/${lang.code}/terms`);
-    routes.push(`/${lang.code}/about`);
-    routes.push(`/${lang.code}/contact`);
+  const coreSlugs = [
+    '',
+    '/take-home',
+    '/contractor',
+    '/hourly-rate',
+    '/beckham-law',
+    '/crypto-tax',
+    '/eor-cost',
+    '/nomad-visa',
+    '/salary',
+    '/inflation',
+    '/fx-fees',
+    '/vat',
+    '/timezone',
+    '/wasm',
+    '/ai',
+    '/privacy',
+    '/terms',
+    '/about',
+    '/contact'
+  ];
+
+  const routes = [];
+
+  // 1. Root English core routes
+  for (const slug of coreSlugs) {
+    routes.push(slug === '' ? '/' : slug);
   }
 
+  // 2. Localized core routes (tr, es, de, pt, fr, id, ja)
+  for (const lang of supportedLanguages) {
+    if (lang.code === 'en') continue;
+    for (const slug of coreSlugs) {
+      routes.push(`/${lang.code}${slug}`);
+    }
+  }
+
+  // 3. Curated canonical pSEO Tax & Relocation corridors (144 pages)
   for (const route of generatePseoTaxMatrix()) {
     routes.push(`/calculator/${route.slug}`);
-    for (const lang of supportedLanguages) {
-      routes.push(`/${lang.code}/calculator/${route.slug}`);
-    }
   }
-  
+
+  // 4. Curated canonical pSEO LLM API Token Cost benchmarks (36 pages)
   for (const route of generatePseoLlmMatrix()) {
     routes.push(`/tools/${route.slug}`);
-    for (const lang of supportedLanguages) {
-      routes.push(`/${lang.code}/tools/${route.slug}`);
-    }
   }
 
   return routes;
