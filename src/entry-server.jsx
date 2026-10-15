@@ -25,7 +25,6 @@ export function render(url) {
 export function getRoutes() {
   const coreSlugs = [
     '',
-    '/take-home',
     '/contractor',
     '/hourly-rate',
     '/beckham-law',

@@ -1,22 +1,35 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Shield, FileText, Info, Mail } from 'lucide-react';
 import { getTranslation } from '../i18n';
+import { generateUnifiedSchema } from '../utils/schemaGenerator';
+
+const LAST_UPDATED_DATE = '2026-10-15';
+
+function buildLegalSchema(lang, slug, title, description) {
+  const pathPrefix = lang === 'en' ? '' : `/${lang}`;
+  const fullUrl = `https://globalpaycalc.com${pathPrefix}/${slug}`;
+  return generateUnifiedSchema({
+    url: fullUrl,
+    name: `${title} | GlobalPayCalc`,
+    description,
+    breadcrumbs: [
+      { name: 'GlobalPayCalc', url: `https://globalpaycalc.com${pathPrefix || '/'}` },
+      { name: title, url: fullUrl }
+    ]
+  });
+}
 
 export const PrivacyPolicy = ({ lang = 'en' }) => {
   const t = (path) => getTranslation(lang, path);
+  const schema = buildLegalSchema(lang, 'privacy', t('legal.privacy.title'), t('legal.privacy.desc'));
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
-      <Helmet>
-        <title>{t('legal.privacy.title')} | GlobalPayCalc</title>
-        <meta name="description" content={t('legal.privacy.desc')} />
-      </Helmet>
       <div className="flex items-center space-x-3 mb-8">
         <Shield className="w-8 h-8 text-brand-500" />
         <h1 className="text-4xl font-black text-white">{t('legal.privacy.title')}</h1>
       </div>
       <div className="prose prose-invert max-w-none text-slate-300 space-y-6">
-        <p>{t('legal.lastUpdated')}: {new Date().toLocaleDateString()}</p>
+        <p>{t('legal.lastUpdated')}: {LAST_UPDATED_DATE}</p>
         <h2 className="text-2xl font-bold text-white mt-8">{t('legal.privacy.h1')}</h2>
         <p>{t('legal.privacy.p1')}</p>
         
@@ -29,24 +42,22 @@ export const PrivacyPolicy = ({ lang = 'en' }) => {
         <h2 className="text-2xl font-bold text-white mt-8">{t('legal.privacy.h4')}</h2>
         <p>{t('legal.privacy.p4')}</p>
       </div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     </div>
   );
 };
 
 export const TermsOfService = ({ lang = 'en' }) => {
   const t = (path) => getTranslation(lang, path);
+  const schema = buildLegalSchema(lang, 'terms', t('legal.terms.title'), t('legal.terms.desc'));
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
-      <Helmet>
-        <title>{t('legal.terms.title')} | GlobalPayCalc</title>
-        <meta name="description" content={t('legal.terms.desc')} />
-      </Helmet>
       <div className="flex items-center space-x-3 mb-8">
         <FileText className="w-8 h-8 text-brand-500" />
         <h1 className="text-4xl font-black text-white">{t('legal.terms.title')}</h1>
       </div>
       <div className="prose prose-invert max-w-none text-slate-300 space-y-6">
-        <p>{t('legal.lastUpdated')}: {new Date().toLocaleDateString()}</p>
+        <p>{t('legal.lastUpdated')}: {LAST_UPDATED_DATE}</p>
         <h2 className="text-2xl font-bold text-white mt-8">{t('legal.terms.h1')}</h2>
         <p>{t('legal.terms.p1')}</p>
         
@@ -56,12 +67,14 @@ export const TermsOfService = ({ lang = 'en' }) => {
         <h2 className="text-2xl font-bold text-white mt-8">{t('legal.terms.h3')}</h2>
         <p>{t('legal.terms.p3')}</p>
       </div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     </div>
   );
 };
 
 export const AboutUs = ({ lang = 'en' }) => {
   const t = (path) => getTranslation(lang, path);
+  const schema = buildLegalSchema(lang, 'about', t('legal.about.title'), t('legal.about.desc'));
 
   const complianceData = {
     en: {
@@ -86,7 +99,7 @@ export const AboutUs = ({ lang = 'en' }) => {
     },
     pt: {
       title: "Precisão dos Dados e Conformidade Financeira (EEAT)",
-      text: "Todos os cálculos fiscais, alíquotas de imposto de renda e contribuições de seguridade social são baseados em dados oficiais divulgados pelas autoridades fiscais nacionais (incluindo a Receita Federal, IRS, HMRC, BMF e OCDE). Os custos de API de IA são atualizados com base nas tabelas oficiais de preços. Todos os modelos matemáticos são verificados por analistas financeiros qualificados e engenheiros de software. Esta ferramenta é apenas para fins informativos e não constitui consultoria fiscal formal."
+      text: "Todos os cálculos fiscais, alíquotas de imposto de renda e contribuições de seguridade social são baseados em dados oficiais divulgados pelas autoridades fiscais nacionais (incluyendo a Receita Federal, IRS, HMRC, BMF e OCDE). Os custos de API de IA são atualizados com base nas tabelas oficiais de preços. Todos os modelos matemáticos são verificados por analistas financeiros qualificados e engenheiros de software. Esta ferramenta é apenas para fins informativos e não constitui consultoria fiscal formal."
     },
     id: {
       title: "Akurasi Data & Kepatuhan Keuangan (EEAT)",
@@ -102,10 +115,6 @@ export const AboutUs = ({ lang = 'en' }) => {
 
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
-      <Helmet>
-        <title>{t('legal.about.title')} | GlobalPayCalc</title>
-        <meta name="description" content={t('legal.about.desc')} />
-      </Helmet>
       <div className="flex items-center space-x-3 mb-8">
         <Info className="w-8 h-8 text-brand-500" />
         <h1 className="text-4xl font-black text-white">{t('legal.about.title')}</h1>
@@ -123,18 +132,16 @@ export const AboutUs = ({ lang = 'en' }) => {
           {comp.text}
         </p>
       </div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     </div>
   );
 };
 
 export const Contact = ({ lang = 'en' }) => {
   const t = (path) => getTranslation(lang, path);
+  const schema = buildLegalSchema(lang, 'contact', t('legal.contact.title'), t('legal.contact.desc'));
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
-      <Helmet>
-        <title>{t('legal.contact.title')} | GlobalPayCalc</title>
-        <meta name="description" content={t('legal.contact.desc')} />
-      </Helmet>
       <div className="flex items-center space-x-3 mb-8">
         <Mail className="w-8 h-8 text-brand-500" />
         <h1 className="text-4xl font-black text-white">{t('legal.contact.title')}</h1>
@@ -149,6 +156,7 @@ export const Contact = ({ lang = 'en' }) => {
           <p className="text-sm text-slate-400 mt-8">{t('legal.contact.response')}</p>
         </div>
       </div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     </div>
   );
 };

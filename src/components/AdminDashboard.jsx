@@ -5,9 +5,20 @@ import { triggerInstantIndexPing } from '../utils/indexingPing';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell, PieChart, Pie, Legend } from 'recharts';
 import { LayoutDashboard, Globe2, Activity, Database, LogOut, TrendingUp, Zap, Server, CheckCircle2, Map, Target, DollarSign, Wallet, AlertCircle, Search, AlertTriangle, CheckCircle, XCircle, Sparkles, BarChart2 } from 'lucide-react';
 
+const adminFetch = async (url, options = {}) => {
+  const { data } = await supabase.auth.getSession();
+  const token = data?.session?.access_token || '';
+  const headers = {
+    ...(options.headers || {}),
+    'X-GPC-Admin': '1',
+    ...(token ? { Authorization: `Bearer ${token}` } : {})
+  };
+  return fetch(url, { ...options, headers });
+};
+
 const fetchAllSitemapUrls = async () => {
   try {
-    const response = await fetch('/sitemap.xml');
+    const response = await fetch('/sitemap.xml', { cache: 'no-store' });
     const text = await response.text();
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(text, "text/xml");
@@ -22,7 +33,7 @@ const fetchAllSitemapUrls = async () => {
           const url = locNode.textContent;
           const path = '/' + url.split('/').pop();
           try {
-            const subRes = await fetch(path);
+            const subRes = await fetch(path, { cache: 'no-store' });
             const subText = await subRes.text();
             const subDoc = parser.parseFromString(subText, "text/xml");
             const subLocs = subDoc.getElementsByTagName("loc");
@@ -117,7 +128,7 @@ function RankTrackerTab() {
     setIsScanningId(item.id);
     
     try {
-      const res = await fetch(`/api/rank-scrape?keyword=${encodeURIComponent(item.keyword)}&domain=globalpaycalc.com`);
+      const res = await adminFetch(`/api/rank-scrape?keyword=${encodeURIComponent(item.keyword)}&domain=globalpaycalc.com`);
       if (res.status === 429) {
         alert('Google Rate Limit! Biraz bekleyip tekrar deneyin.');
         return;
@@ -464,7 +475,7 @@ function SeoAuditTab() {
 
     let urlsToAudit = [];
     if (auditGroup === 'core') {
-      urlsToAudit = ['/', '/video', '/wasm', '/salary', '/ai'];
+      urlsToAudit = ['/', '/contractor', '/wasm', '/salary', '/ai'];
     } else if (auditGroup === 'tax') {
       urlsToAudit = sitemapUrls.filter(u => u.includes('tax-parity'));
     } else if (auditGroup === 'llm') {
@@ -490,7 +501,7 @@ function SeoAuditTab() {
       setLogs([...newLogs]);
 
       try {
-        const res = await fetch('/api/seo-audit', {
+        const res = await adminFetch('/api/seo-audit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url })
@@ -766,12 +777,12 @@ function OverviewTab({ realPageViews, dbError, googleStats }) {
           <div className="flex justify-between items-start">
             <div className="space-y-1">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Indexlenen Toplam Sayfa</span>
-              <div className="text-4xl font-black text-white">{sitemapUrls.length > 0 ? sitemapUrls.length.toLocaleString('tr-TR') : '11.232'}</div>
+              <div className="text-4xl font-black text-white">{sitemapUrls.length > 0 ? sitemapUrls.length.toLocaleString('tr-TR') : '324'}</div>
             </div>
             <div className="p-2.5 bg-purple-500/20 rounded-xl"><Globe2 className="w-5 h-5 text-purple-400" /></div>
           </div>
           <div className="flex justify-between text-xs text-slate-400">
-            <span>8 Dilde 11.232+ SSG HTML</span>
+            <span>8 Dilde 324 Küratörlü SSG HTML</span>
             <span className="text-emerald-400 font-bold">%100 Pre-rendered</span>
           </div>
         </div>
@@ -946,7 +957,7 @@ function PseoTab({ realIndexCount }) {
     setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `Ping servisi başlatılıyor... Gerçek Sitemap adresiniz taranıyor.` }, ...prev]);
     
     try {
-      const res = await fetch('/api/mass-ping', { method: 'POST' });
+      const res = await adminFetch('/api/mass-ping', { method: 'POST' });
       const data = await res.json();
       
       if (data.success) {
@@ -963,7 +974,7 @@ function PseoTab({ realIndexCount }) {
         });
 
         setTimeout(() => {
-          const count = data.urlCount || sitemapUrlCount || 13851;
+          const count = data.urlCount || sitemapUrlCount || 324;
           setLog(prev => [{ time: new Date().toLocaleTimeString(), msg: `🚀 Evrensel Ping İşlemi Tamamlandı: Toplam ${count} sayfa tüm ağlara bildirildi.` }, ...prev]);
           setIsPinging(false);
         }, data.results.length * 800 + 500);
@@ -1011,7 +1022,7 @@ function PseoTab({ realIndexCount }) {
         <div className="md:col-span-1 glass-card p-6 rounded-2xl border-blue-500/30 bg-blue-950/10 flex flex-col">
           <h3 className="text-lg font-bold text-white mb-2">Evrensel Ping Sistemi</h3>
           <p className="text-[11px] text-slate-400 mb-4">
-            Sitemap'teki <span className="font-bold text-blue-300">{(sitemapUrlCount || 13851).toLocaleString('tr-TR')} URL</span>'in tamamını limitsiz olarak tüm arama motorlarına ve AI ağlarına bildirir.
+            Sitemap'teki <span className="font-bold text-blue-300">{(sitemapUrlCount || 324).toLocaleString('tr-TR')} URL</span>'in tamamını limitsiz olarak tüm arama motorlarına ve AI ağlarına bildirir.
           </p>
           <div className="grid grid-cols-2 gap-2 mb-4">
             <div className="text-xs text-slate-300 flex items-center space-x-1"><span className="w-2 h-2 rounded-full bg-emerald-500"></span><span>Google</span></div>
@@ -1112,7 +1123,7 @@ function VitalsTab({ vitals }) {
       // 2. Measure Server Latency & Health
       const serverStart = performance.now();
       try {
-        const res = await fetch('/api/system-health');
+        const res = await adminFetch('/api/system-health');
         const data = await res.json();
         const serverEnd = performance.now();
         setServerLatency(Math.round(serverEnd - serverStart) + 'ms');
@@ -1132,10 +1143,10 @@ function VitalsTab({ vitals }) {
 
   const handleClearCache = async () => {
     setIsClearing(true);
-    setCacheLog('Vercel Edge ağı önbelleği (Cache) temizleniyor...');
+    setCacheLog('Sunucu önbelleği (Cache) temizleniyor...');
     
     try {
-      const res = await fetch('/api/clear-cache', { method: 'POST' });
+      const res = await adminFetch('/api/clear-cache', { method: 'POST' });
       const data = await res.json();
       
       if (data.success) {
@@ -1218,7 +1229,7 @@ function VitalsTab({ vitals }) {
           <span>Sistem Önbellek (Cache) Yönetimi</span>
         </h3>
         <p className="text-xs text-slate-400 mb-4">
-          Sayfalardaki veya ayarlardaki güncellemeler anında yansımazsa, Vercel CDN ve Edge Network önbelleğini buradan zorla temizleyebilirsiniz.
+          Sayfalardaki veya ayarlardaki güncellemeler anında yansımazsa, sunucu önbelleğini buradan temizleyebilirsiniz.
         </p>
         <div className="flex items-center space-x-4">
           <button 
@@ -1305,7 +1316,7 @@ export default function AdminDashboard() {
 
     const fetchGoogleStats = async () => {
       try {
-        const res = await fetch('/api/google-stats', { cache: 'no-store' });
+        const res = await adminFetch('/api/google-stats', { cache: 'no-store' });
         if (!res.ok) throw new Error('API Bulunamadı veya Ayarlanmadı');
         const data = await res.json();
         setGoogleStats(data);

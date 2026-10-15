@@ -1,13 +1,13 @@
 // Node.js Sitemap Generator Script
-// Generates clean, penalty-free sitemap.xml index and sub-sitemaps
-// Excludes duplicate /take-home alias (canonicalized to /) and pruned doorway combinations.
+// Generates a flat, direct <urlset> in sitemap.xml (324 canonical URLs) so Google Search Console
+// immediately reads the exact 324 URLs without summing stale cached child sub-sitemaps.
 import fs from 'fs';
 import path from 'path';
 import { generatePseoTaxMatrix, generatePseoLlmMatrix } from '../src/pseo/matrixEngine.js';
 
 const supportedLanguages = ['en', 'tr', 'es', 'de', 'pt', 'fr', 'id', 'ja'];
 
-console.log('[Sitemap Engine] Generating curated sitemap index and sub-sitemaps...');
+console.log('[Sitemap Engine] Generating flat canonical sitemap.xml and language sub-sitemaps...');
 
 const baseDomain = 'https://globalpaycalc.com';
 // Canonical core routes (/take-home is omitted from sitemap because its canonical is /)
@@ -51,7 +51,7 @@ const generateSitemapXml = (urls) => {
   return xml;
 };
 
-const sitemapFiles = [];
+const allCanonicalUrls = [];
 
 // 1. Core English Sitemap (18 core routes + 144 tax corridors + 36 LLM benchmarks = 198 URLs)
 const enUrls = [];
@@ -72,10 +72,10 @@ llmRoutes.forEach(r => enUrls.push({
 }));
 
 fs.writeFileSync(path.join(publicDir, 'sitemap-en.xml'), generateSitemapXml(enUrls), 'utf8');
-sitemapFiles.push('sitemap-en.xml');
+allCanonicalUrls.push(...enUrls);
 console.log(`[Sitemap Engine] Created sitemap-en.xml with ${enUrls.length} canonical URLs.`);
 
-// 2. Localized Core Tool Sitemaps (18 translated interactive tools per language, zero spun doorway bloat)
+// 2. Localized Core Tool Sitemaps (18 translated interactive tools per language)
 for (const lang of supportedLanguages) {
   if (lang === 'en') continue;
 
@@ -88,18 +88,13 @@ for (const lang of supportedLanguages) {
 
   const filename = `sitemap-${lang}.xml`;
   fs.writeFileSync(path.join(publicDir, filename), generateSitemapXml(langUrls), 'utf8');
-  sitemapFiles.push(filename);
+  allCanonicalUrls.push(...langUrls);
   console.log(`[Sitemap Engine] Created ${filename} with ${langUrls.length} canonical URLs.`);
 }
 
-// 3. Sitemap Index (sitemap.xml)
-let indexXml = `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
-sitemapFiles.forEach(file => {
-  indexXml += `\n  <sitemap>\n    <loc>${baseDomain}/${file}</loc>\n    <lastmod>${new Date().toISOString()}</lastmod>\n  </sitemap>`;
-});
-indexXml += '\n</sitemapindex>\n';
+// 3. Direct Flat <urlset> in sitemap.xml AND sitemap-clean.xml (prevents GSC from caching old sub-sitemap counts)
+const masterXml = generateSitemapXml(allCanonicalUrls);
+fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), masterXml, 'utf8');
+fs.writeFileSync(path.join(publicDir, 'sitemap-clean.xml'), masterXml, 'utf8');
 
-const indexPath = path.join(publicDir, 'sitemap.xml');
-fs.writeFileSync(indexPath, indexXml, 'utf8');
-
-console.log(`[Sitemap Engine] Sitemap Index generated successfully (${enUrls.length + (supportedLanguages.length - 1) * staticRoutes.length} total high-value URLs across ${sitemapFiles.length} sitemaps).`);
+console.log(`[Sitemap Engine] Direct <urlset> sitemap.xml & sitemap-clean.xml generated with ${allCanonicalUrls.length} canonical URLs.`);

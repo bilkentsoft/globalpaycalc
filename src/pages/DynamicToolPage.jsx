@@ -226,10 +226,11 @@ export default function DynamicToolPage({ pageData, routeData, type, lang = 'en'
         <meta property="og:title" content={`${dynamicTitle} | GlobalPayCalc`} />
         <meta property="og:description" content={dynamicDesc} />
         <meta property="og:image" content="https://globalpaycalc.com/og-image.png" />
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={canonicalUrl} />
-        <meta property="twitter:title" content={`${dynamicTitle} | GlobalPayCalc`} />
-        <meta property="twitter:description" content={dynamicDesc} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={canonicalUrl} />
+        <meta name="twitter:title" content={`${dynamicTitle} | GlobalPayCalc`} />
+        <meta name="twitter:description" content={dynamicDesc} />
+        <meta name="twitter:image" content="https://globalpaycalc.com/og-image.png" />
       </Helmet>
 
       {/* Header */}

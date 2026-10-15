@@ -1,5 +1,5 @@
 // Standalone Production Server for GlobalPayCalc.com
-// Serves pre-rendered static pages, /api/* endpoints, 301 canonical redirects,
+// Serves pre-rendered static pages, secured /api/* endpoints, 301 canonical redirects,
 // and 410 Gone responses for pruned programmatic SEO doorway URLs.
 import http from 'node:http';
 import fs from 'node:fs';
@@ -33,6 +33,24 @@ const validTaxSlugs = new Set(generatePseoTaxMatrix().map(r => r.slug));
 const validLlmSlugs = new Set(generatePseoLlmMatrix().map(r => r.slug));
 const supportedLangs = new Set(['en', 'tr', 'es', 'de', 'pt', 'fr', 'id', 'ja']);
 
+// Per-IP Rate Limiter for /api/* endpoints
+const rateLimitMap = new Map();
+function checkApiRateLimit(ip, apiName) {
+  const now = Date.now();
+  const windowMs = 60_000;
+  const maxReqs = (apiName === 'rank-scrape' || apiName === 'mass-ping') ? 10 : 120;
+  const key = `${ip}:${apiName}`;
+  const record = rateLimitMap.get(key) || { count: 0, resetAt: now + windowMs };
+  if (now > record.resetAt) {
+    record.count = 1;
+    record.resetAt = now + windowMs;
+  } else {
+    record.count += 1;
+  }
+  rateLimitMap.set(key, record);
+  return record.count <= maxReqs;
+}
+
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'application/javascript; charset=utf-8',
@@ -52,9 +70,18 @@ const MIME_TYPES = {
   '.wasm': 'application/wasm'
 };
 
+function setSecurityHeaders(res) {
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+}
+
 // Cache API handlers dynamically
 const apiHandlers = new Map();
 async function getApiHandler(name) {
+  if (!/^[a-z0-9-]+$/i.test(name)) return null;
   if (apiHandlers.has(name)) return apiHandlers.get(name);
   const filePath = path.join(apiDir, `${name}.js`);
   if (!fs.existsSync(filePath)) return null;
@@ -64,14 +91,13 @@ async function getApiHandler(name) {
   return handler;
 }
 
-// Helper to wrap Node req/res with Express/Vercel compatibility
 async function parseBody(req) {
   return new Promise((resolve) => {
     if (req.method === 'GET' || req.method === 'HEAD') return resolve({});
     let raw = '';
     req.on('data', chunk => {
       raw += chunk;
-      if (raw.length > 2 * 1024 * 1024) req.destroy();
+      if (raw.length > 1024 * 1024) req.destroy();
     });
     req.on('end', () => {
       if (!raw) return resolve({});
@@ -150,20 +176,47 @@ function sendRedirect(res, location, code = 301) {
 
 const server = http.createServer(async (req, res) => {
   try {
+    setSecurityHeaders(res);
+
     const parsedUrl = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
     let pathname = decodeURIComponent(parsedUrl.pathname);
 
     // Strip trailing slashes (except root /)
     if (pathname.length > 1 && pathname.endsWith('/')) {
       pathname = pathname.replace(/\/+$/, '');
-      if (!pathname.startsWith('/yonetim')) {
-        return sendRedirect(res, pathname + parsedUrl.search, 301);
-      }
+      return sendRedirect(res, pathname + parsedUrl.search, 301);
     }
 
-    // 1. Handle /api/* serverless endpoints natively
+    // Redirect legacy /yonetim and /og-preview.jpg
+    if (pathname === '/yonetim') return sendRedirect(res, '/admin', 301);
+    if (pathname === '/og-preview.jpg') return sendRedirect(res, '/og-image.png', 301);
+
+    // 1. Handle /api/* serverless endpoints with Admin Guard & Rate Limiting
     if (pathname.startsWith('/api/')) {
       const apiName = pathname.slice(5).replace(/\/+$/, '');
+      if (apiName === 'download') {
+        return send410Gone(res);
+      }
+
+      const clientIp = req.headers['x-real-ip'] || req.socket.remoteAddress || '127.0.0.1';
+      if (!checkApiRateLimit(clientIp, apiName)) {
+        res.statusCode = 429;
+        res.setHeader('Content-Type', 'application/json');
+        return res.end(JSON.stringify({ error: 'Too many requests. Please try again later.' }));
+      }
+
+      // Admin API Guard: Require X-GPC-Admin header or Bearer token (except OAuth callback /api/google-auth)
+      if (apiName !== 'google-auth') {
+        const hasAdminHeader = req.headers['x-gpc-admin'] === '1';
+        const hasBearer = typeof req.headers['authorization'] === 'string' && req.headers['authorization'].startsWith('Bearer ');
+        const isInternalAudit = req.headers['user-agent']?.includes('GlobalPayCalc-Internal');
+        if (!hasAdminHeader && !hasBearer && !isInternalAudit) {
+          res.statusCode = 401;
+          res.setHeader('Content-Type', 'application/json; charset=utf-8');
+          return res.end(JSON.stringify({ error: 'Unauthorized: Admin authentication required.' }));
+        }
+      }
+
       const handler = await getApiHandler(apiName);
       if (!handler) {
         res.statusCode = 404;
@@ -185,11 +238,11 @@ const server = http.createServer(async (req, res) => {
       return sendRedirect(res, target || '/', 301);
     }
 
-    // 2b. Consolidate /take-home and /:lang/take-home into / and /:lang
-    if (pathname === '/take-home') {
+    // 2b. Consolidate /take-home, /video and /:lang/take-home, /:lang/video into / and /:lang
+    if (pathname === '/take-home' || pathname === '/video') {
       return sendRedirect(res, '/', 301);
     }
-    if (segments.length === 2 && supportedLangs.has(segments[0]) && segments[1] === 'take-home') {
+    if (segments.length === 2 && supportedLangs.has(segments[0]) && (segments[1] === 'take-home' || segments[1] === 'video')) {
       return sendRedirect(res, `/${segments[0]}`, 301);
     }
 
@@ -243,7 +296,7 @@ const server = http.createServer(async (req, res) => {
 
     // 3. Static Asset & Pre-rendered HTML Serving from dist/
     const safePath = path.normalize(pathname).replace(/^(\.\.[/\\])+/, '');
-    let candidateFile = path.join(distDir, safePath);
+    const candidateFile = path.join(distDir, safePath);
 
     // Check if exact file exists (e.g. /assets/..., /sitemap.xml, /robots.txt)
     if (fs.existsSync(candidateFile) && fs.statSync(candidateFile).isFile()) {
@@ -252,8 +305,11 @@ const server = http.createServer(async (req, res) => {
       res.setHeader('Content-Type', MIME_TYPES[ext] || 'application/octet-stream');
       if (pathname.startsWith('/assets/')) {
         res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      } else if (ext === '.xml') {
+        // Never cache sitemaps so Google Search Console always reads fresh URL counts immediately
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
       } else {
-        res.setHeader('Cache-Control', 'public, max-age=3600');
+        res.setHeader('Cache-Control', 'public, max-age=86400');
       }
       return fs.createReadStream(candidateFile).pipe(res);
     }
@@ -267,7 +323,7 @@ const server = http.createServer(async (req, res) => {
       return fs.createReadStream(indexHtmlCandidate).pipe(res);
     }
 
-    // Admin SPA fallback (/admin or /yonetim)
+    // Admin SPA fallback (/admin)
     if (pathname === '/admin' || pathname.startsWith('/admin/')) {
       const rootIndex = path.join(distDir, 'index.html');
       if (fs.existsSync(rootIndex)) {

@@ -142,19 +142,23 @@ export default function ProgrammaticSeoGrid({ lang = 'en' }) {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const featuredTaxCorridors = generatePseoTaxMatrix().slice(0, 12);
-  const featuredLlmBenchmarks = generatePseoLlmMatrix().slice(0, 8);
+  const allTaxCorridors = generatePseoTaxMatrix();
+  const allLlmBenchmarks = generatePseoLlmMatrix();
+  const featuredTaxCorridors = allTaxCorridors.slice(0, 12);
+  const remainingTaxCorridors = allTaxCorridors.slice(12);
+  const featuredLlmBenchmarks = allLlmBenchmarks.slice(0, 8);
+  const remainingLlmBenchmarks = allLlmBenchmarks.slice(8);
+
+  const unifiedSchema = generateUnifiedSchema({
+    url: `https://globalpaycalc.com${lang === 'en' ? '/' : '/' + lang}`,
+    name: getTranslation(lang, 'hero.title') || 'Global Net Salary, Tax, FX & AI Cost Simulator',
+    description: getTranslation(lang, 'hero.subtitle') || 'Calculate net take-home salary, contractor equivalency, hidden bank FX fees and B2B VAT.',
+    faqs: activeFaqs
+  });
 
   useEffect(() => {
-    const unifiedSchema = generateUnifiedSchema({
-      url: 'https://globalpaycalc.com',
-      name: getTranslation(lang, 'hero.title') || 'Global Net Salary, Tax, FX & AI Cost Simulator',
-      description: getTranslation(lang, 'hero.subtitle') || 'Calculate net take-home salary, contractor equivalency, hidden bank FX fees and B2B VAT.',
-      faqs: activeFaqs
-    });
-
     injectJsonLdSchema('json-ld-unified', unifiedSchema);
-  }, [lang, activeFaqs]);
+  }, [lang, unifiedSchema]);
 
   return (
     <div className="space-y-8 max-w-4xl mx-auto my-12">
@@ -241,6 +245,24 @@ export default function ProgrammaticSeoGrid({ lang = 'en' }) {
               </Link>
             ))}
           </div>
+
+          <details className="group pt-2">
+            <summary className="cursor-pointer text-xs font-bold text-brand-400 hover:text-brand-300 select-none flex items-center gap-1.5">
+              <span>Explore All {allTaxCorridors.length} City-to-City Tax & Relocation Corridors</span>
+              <ChevronDown className="w-3.5 h-3.5 transition-transform group-open:rotate-180" />
+            </summary>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 pt-3 mt-2 border-t border-slate-800/60">
+              {remainingTaxCorridors.map(route => (
+                <Link
+                  key={route.slug}
+                  to={`/calculator/${route.slug}`}
+                  className="px-2.5 py-1.5 rounded-lg bg-slate-950/60 border border-slate-800/60 hover:border-brand-500/40 text-[11px] text-slate-400 hover:text-white truncate transition"
+                >
+                  {route.origin.code} → {route.dest.name}
+                </Link>
+              ))}
+            </div>
+          </details>
         </div>
 
         <div className="space-y-4 pt-4 border-t border-slate-800/80">
@@ -264,9 +286,28 @@ export default function ProgrammaticSeoGrid({ lang = 'en' }) {
               </Link>
             ))}
           </div>
+
+          <details className="group pt-2">
+            <summary className="cursor-pointer text-xs font-bold text-amber-400 hover:text-amber-300 select-none flex items-center gap-1.5">
+              <span>Explore All {allLlmBenchmarks.length} LLM Token Pricing Comparisons</span>
+              <ChevronDown className="w-3.5 h-3.5 transition-transform group-open:rotate-180" />
+            </summary>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 pt-3 mt-2 border-t border-slate-800/60">
+              {remainingLlmBenchmarks.map(route => (
+                <Link
+                  key={route.slug}
+                  to={`/tools/${route.slug}`}
+                  className="px-2.5 py-1.5 rounded-lg bg-slate-950/60 border border-slate-800/60 hover:border-amber-500/40 text-[11px] text-slate-400 hover:text-white truncate transition"
+                >
+                  {route.modelAInfo.name} vs {route.modelBInfo.name} ({route.useCasePreset.label})
+                </Link>
+              ))}
+            </div>
+          </details>
         </div>
       </div>
 
     </div>
   );
 }
+
