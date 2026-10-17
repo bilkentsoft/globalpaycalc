@@ -24,7 +24,8 @@ export default async function handler(req, res) {
     const scopes = [
       'https://www.googleapis.com/auth/analytics.readonly',
       'https://www.googleapis.com/auth/adsense.readonly',
-      'https://www.googleapis.com/auth/webmasters.readonly'
+      'https://www.googleapis.com/auth/webmasters',
+      'https://www.googleapis.com/auth/indexing'
     ];
 
     const url = oauth2Client.generateAuthUrl({

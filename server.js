@@ -142,29 +142,19 @@ function enhanceRes(res) {
 }
 
 function send410Gone(res) {
-  const notFoundFile = path.join(distDir, '404.html');
   res.statusCode = 410;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow');
-  res.setHeader('Cache-Control', 'public, max-age=3600');
-  if (fs.existsSync(notFoundFile)) {
-    res.end(fs.readFileSync(notFoundFile));
-  } else {
-    res.end('<!DOCTYPE html><html><head><meta name="robots" content="noindex"/><title>410 Gone</title></head><body><h1>410 Gone</h1><p>This page has been permanently removed.</p></body></html>');
-  }
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  res.end('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="robots" content="noindex, nofollow"/><title>410 Gone | GlobalPayCalc</title></head><body><h1>410 Gone</h1><p>This outdated calculator URL has been permanently removed. Visit <a href="https://globalpaycalc.com/">GlobalPayCalc.com</a>.</p></body></html>');
 }
 
 function send404NotFound(res) {
-  const notFoundFile = path.join(distDir, '404.html');
   res.statusCode = 404;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow');
   res.setHeader('Cache-Control', 'no-cache');
-  if (fs.existsSync(notFoundFile)) {
-    res.end(fs.readFileSync(notFoundFile));
-  } else {
-    res.end('<!DOCTYPE html><html><head><meta name="robots" content="noindex"/><title>404 Not Found</title></head><body><h1>404 Not Found</h1></body></html>');
-  }
+  res.end('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="robots" content="noindex, nofollow"/><title>404 Not Found | GlobalPayCalc</title></head><body><h1>404 Not Found</h1><p>The requested page was not found. Visit <a href="https://globalpaycalc.com/">GlobalPayCalc.com</a>.</p></body></html>');
 }
 
 function sendRedirect(res, location, code = 301) {

@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     console.log(`[Index-Ping API] Preparing submission for URL: ${targetUrl}`);
 
     // 1. Submit to IndexNow Protocol (Bing, Yandex, Naver)
-    const indexNowKey = process.env.INDEXNOW_KEY || 'placeholder_indexnow_key_102030';
+    const indexNowKey = process.env.INDEXNOW_KEY || 'globalpaycalcindexnowkey';
     const indexNowPayload = {
       host: 'globalpaycalc.com',
       key: indexNowKey,

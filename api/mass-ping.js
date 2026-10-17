@@ -22,20 +22,18 @@ export default async function handler(req, res) {
             const subRes = await fetch(match[1]);
             if (subRes.ok) {
               const subText = await subRes.text();
-              const urlMatches = subText.match(/<loc>/g);
-              if (urlMatches) {
-                totalUrlCount += urlMatches.length;
-              }
+              const locs = [...subText.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+              allUrls.push(...locs);
+              totalUrlCount += locs.length;
             }
           } catch (e) {
             console.error('Sub-sitemap fetch error:', e.message);
           }
         }
       } else {
-        const urlMatches = smText.match(/<loc>/g);
-        if (urlMatches) {
-          totalUrlCount = urlMatches.length;
-        }
+        const locs = [...smText.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+        allUrls.push(...locs);
+        totalUrlCount = locs.length;
       }
     }
   } catch (e) {
@@ -43,17 +41,41 @@ export default async function handler(req, res) {
   }
 
   if (totalUrlCount === 0) {
-    totalUrlCount = 324; // Curated pre-rendered sitemap page count
+    totalUrlCount = 324;
   }
 
   const results = [];
 
-  // 1. Google (Note: Google deprecated /ping endpoint in Dec 2023, sitemap is synced via Search Console API)
-  results.push({
-    engine: 'Google (Search Console)',
-    status: 'success',
-    message: `Sitemap.xml (${totalUrlCount} sayfa) Search Console API ve robots.txt uzerinden otomatik taranmaktadir.`
-  });
+  // 1. Google Search Console API Sitemap Submission (if OAuth configured)
+  if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET && process.env.GOOGLE_REFRESH_TOKEN) {
+    try {
+      const { google } = await import('googleapis');
+      const oauth2Client = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET);
+      oauth2Client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
+      const searchConsole = google.searchconsole({ version: 'v1', auth: oauth2Client });
+      const sitesList = await searchConsole.sites.list();
+      const siteUrl = sitesList.data.siteEntry?.[0]?.siteUrl || 'https://globalpaycalc.com/';
+      await searchConsole.sitemaps.submit({ siteUrl, feedpath: 'https://globalpaycalc.com/sitemap.xml' });
+      await searchConsole.sitemaps.submit({ siteUrl, feedpath: 'https://globalpaycalc.com/sitemap-clean.xml' });
+      results.push({
+        engine: 'Google (Search Console API)',
+        status: 'success',
+        message: `sitemap.xml ve sitemap-clean.xml (${totalUrlCount} sayfa) resmi Search Console API ile Google'a gönderildi.`
+      });
+    } catch (e) {
+      results.push({
+        engine: 'Google (Search Console)',
+        status: 'info',
+        message: `Google Aralık 2023'te açık /ping servisini kapattı. Lütfen Search Console panelinden sitemap-clean.xml dosyasını manuel gönderin.`
+      });
+    }
+  } else {
+    results.push({
+      engine: 'Google (Search Console)',
+      status: 'info',
+      message: `Google Aralık 2023'te açık /ping servisini kapattı. Sitemap.xml (${totalUrlCount} sayfa) için Search Console panelinden sitemap-clean.xml ekleyin veya Ana Sayfa için 'Dizine Eklenmesini İste' butonunu kullanın.`
+    });
+  }
 
   // 2. Yandex Ping (Webmaster Ping endpoint)
   try {
@@ -71,8 +93,9 @@ export default async function handler(req, res) {
     });
   }
 
-  // 3. IndexNow (Bing, Seznam, Naver, Yandex ortak motoru)
+  // 3. IndexNow (Bing, Seznam, Naver, Yandex ortak motoru) - tüm 324 kanonik URL'yi doğrudan gönderir
   try {
+    const urlBatch = allUrls.length > 0 ? allUrls : [`https://${host}/`];
     const indexNowRes = await fetch('https://api.indexnow.org/indexnow', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
@@ -80,20 +103,20 @@ export default async function handler(req, res) {
         host: host,
         key: 'globalpaycalcindexnowkey',
         keyLocation: `https://${host}/globalpaycalcindexnowkey.txt`,
-        urlList: [sitemapUrl]
+        urlList: urlBatch
       })
     });
     
     results.push({
       engine: 'Bing / IndexNow Ağı',
-      status: indexNowRes.status === 200 || indexNowRes.status === 202 ? 'success' : 'success',
-      message: `IndexNow protokolü ile ${totalUrlCount} sayfa Bing ve ortak ağlara bildirildi.`
+      status: indexNowRes.status === 200 || indexNowRes.status === 202 ? 'success' : 'info',
+      message: `IndexNow protokolü ile ${urlBatch.length} kanonik URL doğrudan Bing, Yandex, Seznam ve Naver indeksine iletildi (HTTP ${indexNowRes.status}).`
     });
   } catch (e) {
     results.push({
       engine: 'Bing / IndexNow Ağı',
-      status: 'success',
-      message: `Sitemap.xml (${totalUrlCount} sayfa) IndexNow protokolüne iletildi.`
+      status: 'info',
+      message: `IndexNow bağlantı hatası: ${e.message}`
     });
   }
 
