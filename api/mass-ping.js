@@ -101,8 +101,8 @@ export default async function handler(req, res) {
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
       body: JSON.stringify({
         host: host,
-        key: 'globalpaycalcindexnowkey',
-        keyLocation: `https://${host}/globalpaycalcindexnowkey.txt`,
+        key: '7dfaa81dc82f44d6ab563cc96310085a',
+        keyLocation: `https://${host}/7dfaa81dc82f44d6ab563cc96310085a.txt`,
         urlList: urlBatch
       })
     });
