@@ -164,20 +164,20 @@ const uiTexts = {
 };
 
 const coreCalculatorsList = [
-  { path: '', title: 'Global Net Salary & Income Tax Calculator', badge: '40+ Countries' },
-  { path: '/beckham-law', title: 'Spain Beckham Law Calculator (Art. 93 LIRPF)', badge: '24% Flat Tax' },
-  { path: '/contractor', title: 'W-2 vs 1099, UK IR35 & DE Freelancer Calculator', badge: 'B2B vs Perm' },
-  { path: '/eor-cost', title: 'Employer of Record (EOR) & Hiring Cost Calculator', badge: 'Employer Burden' },
-  { path: '/hourly-rate', title: 'Freelancer Billable Hourly Rate & Utilization Engine', badge: 'Freelance' },
-  { path: '/nomad-visa', title: 'Digital Nomad Visa Minimum Income Eligibility Checker', badge: 'Visa Rules' },
-  { path: '/crypto-tax', title: 'Crypto Capital Gains & Expat Tax Calculator', badge: 'FIFO / Holding' },
-  { path: '/salary', title: 'Digital Nomad Relocation Tax & Cost of Living Simulator', badge: 'PPP & Tax' },
-  { path: '/fx-fees', title: 'Hidden Bank FX Markup & Cross-Border Wire Calculator', badge: 'Mid-Market FX' },
-  { path: '/vat', title: 'Global B2B Invoice VAT, GST & Reverse-Charge Calculator', badge: 'EU VIES / GST' },
-  { path: '/inflation', title: 'Multi-Currency CPI Inflation & Purchasing Power Engine', badge: 'Real Value' },
-  { path: '/timezone', title: 'Global Distributed Team Timezone Overlap Planner', badge: 'Async Work' },
-  { path: '/ai', title: 'LLM API Token Cost & Prompt Caching Simulator', badge: 'AI FinOps' },
-  { path: '/wasm', title: 'Client-Side WebAssembly Image Compressor & Optimizer', badge: 'Local RAM' }
+  { path: '', navKey: 'nav.takeHome', fallback: 'Global Net Salary & Income Tax Calculator', badge: '40+ Countries' },
+  { path: '/beckham-law', navKey: 'nav.beckhamLaw', fallback: 'Spain Beckham Law Calculator (Art. 93 LIRPF)', badge: '24% Flat Tax' },
+  { path: '/contractor', navKey: 'nav.contractor', fallback: 'W-2 vs 1099, UK IR35 & DE Freelancer Calculator', badge: 'B2B vs Perm' },
+  { path: '/eor-cost', navKey: 'nav.eorCost', fallback: 'Employer of Record (EOR) & Hiring Cost Calculator', badge: 'EOR vs Entity' },
+  { path: '/hourly-rate', navKey: 'nav.hourlyRate', fallback: 'Freelancer Billable Hourly Rate & Utilization Engine', badge: 'Freelance' },
+  { path: '/nomad-visa', navKey: 'nav.nomadVisa', fallback: 'Digital Nomad Visa Minimum Income Eligibility Checker', badge: 'Visa Rules' },
+  { path: '/crypto-tax', navKey: 'nav.cryptoTax', fallback: 'Crypto Capital Gains & Expat Tax Calculator', badge: 'FIFO / Holding' },
+  { path: '/salary', navKey: 'nav.salary', fallback: 'Digital Nomad Relocation Tax & Cost of Living Simulator', badge: 'PPP & Tax' },
+  { path: '/fx-fees', navKey: 'nav.fxFees', fallback: 'Hidden Bank FX Markup & Cross-Border Wire Calculator', badge: 'Mid-Market FX' },
+  { path: '/vat', navKey: 'nav.vat', fallback: 'Global B2B Invoice VAT, GST & Reverse-Charge Calculator', badge: 'EU VIES / GST' },
+  { path: '/inflation', navKey: 'nav.inflation', fallback: 'Multi-Currency CPI Inflation & Purchasing Power Engine', badge: 'Real Value' },
+  { path: '/timezone', navKey: 'nav.timezone', fallback: 'Global Distributed Team Timezone Overlap Planner', badge: 'Async Work' },
+  { path: '/ai', navKey: 'nav.aiCost', fallback: 'LLM API Token Cost & Prompt Caching Simulator', badge: 'AI FinOps' },
+  { path: '/wasm', navKey: 'nav.bgRemover', fallback: 'Client-Side WebAssembly Image Compressor & Optimizer', badge: 'Local RAM' }
 ];
 
 const officialSources = [
@@ -286,6 +286,7 @@ export default function ProgrammaticSeoGrid({ lang = 'en' }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
             {coreCalculatorsList.map((tool) => {
               const targetUrl = `${langPrefix}${tool.path === '' ? (lang === 'en' ? '/' : '') : tool.path}`;
+              const localizedLabel = lang === 'en' ? tool.fallback : (getTranslation(lang, tool.navKey) || tool.fallback);
               return (
                 <Link
                   key={tool.path}
@@ -293,7 +294,7 @@ export default function ProgrammaticSeoGrid({ lang = 'en' }) {
                   className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-brand-500/40 hover:bg-slate-900 transition text-xs flex items-center justify-between group"
                 >
                   <span className="text-slate-200 group-hover:text-white font-semibold truncate pr-2">
-                    {tool.title}
+                    {localizedLabel}
                   </span>
                   <span className="text-[10px] font-mono text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded-md border border-brand-500/20 shrink-0">
                     {tool.badge}

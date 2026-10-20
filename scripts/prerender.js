@@ -43,10 +43,12 @@ console.log(`Starting stable sequential prerender for ${routesToPrerender.length
       if (helmet) {
         const metaStr = helmet.meta.toString();
         if (metaStr.includes('noindex')) {
-          result = result.replace(
-            '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />',
-            ''
-          );
+          result = result
+            .replace(
+              '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />',
+              ''
+            )
+            .replace(/<script[^>]*adsbygoogle\.js[^>]*><\/script>/g, '');
         }
         const headInjection = `
           ${helmet.title.toString()}
