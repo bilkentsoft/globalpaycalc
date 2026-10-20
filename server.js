@@ -29,9 +29,50 @@ if (fs.existsSync(envPath)) {
 }
 
 // Build lookup sets of valid curated pSEO slugs
-const validTaxSlugs = new Set(generatePseoTaxMatrix().map(r => r.slug));
-const validLlmSlugs = new Set(generatePseoLlmMatrix().map(r => r.slug));
+const taxRoutesList = generatePseoTaxMatrix();
+const llmRoutesList = generatePseoLlmMatrix();
+const validTaxSlugs = new Set(taxRoutesList.map(r => r.slug));
+const validLlmSlugs = new Set(llmRoutesList.map(r => r.slug));
 const supportedLangs = new Set(['en', 'tr', 'es', 'de', 'pt', 'fr', 'id', 'ja']);
+
+// Legacy pSEO City Code Mapping -> Closest Canonical Hub (preserves 100% of GSC impressions/clicks & guides Googlebot into canonical pages)
+const legacyOriginMap = {
+  sf: 'sf', nyc: 'nyc', lon: 'lon', ber: 'ber', par: 'par', ist: 'ist',
+  tor: 'tor', syd: 'syd', aus: 'aus', zrh: 'zrh', ams: 'ams', dub: 'dub',
+  van: 'tor', mia: 'aus', mil: 'par', cph: 'ams', osl: 'ams', sto: 'ams',
+  bru: 'ams', vie: 'ber', war: 'ber', hkg: 'syd', seo: 'syd', tpe: 'syd', dxb: 'lon'
+};
+
+const legacyDestMap = {
+  mad: 'mad', lis: 'lis', bali: 'bali', tok: 'tok', sng: 'sng', bkk: 'bkk',
+  med: 'med', mex: 'mex', tal: 'tal', ath: 'ath', bcn: 'bcn', tbs: 'tbs',
+  opo: 'lis', vlc: 'bcn', sgn: 'sng', kl: 'bkk', bud: 'tal', prg: 'tal',
+  krk: 'tal', cag: 'ath', sjo: 'mex', sp: 'mex', bue: 'med', scl: 'med', cpt: 'tbs'
+};
+
+export function resolveCanonicalTaxSlug(rawSlug) {
+  const norm = rawSlug.toLowerCase().replace('-freelancer-tax-parity', '-nomad-tax-parity');
+  if (validTaxSlugs.has(norm)) return norm;
+  const m = rawSlug.toLowerCase().match(/^([a-z]{2,4})-to-([a-z]{2,4})-(?:nomad|freelancer)-tax-parity$/);
+  if (!m) return null;
+  const mappedOrigin = legacyOriginMap[m[1]] || 'lon';
+  const mappedDest = legacyDestMap[m[2]] || 'lis';
+  const candidate = `${mappedOrigin}-to-${mappedDest}-nomad-tax-parity`;
+  return validTaxSlugs.has(candidate) ? candidate : 'lon-to-lis-nomad-tax-parity';
+}
+
+export function resolveCanonicalLlmSlug(rawSlug) {
+  const clean = rawSlug.toLowerCase();
+  if (validLlmSlugs.has(clean)) return clean;
+  if (!clean.includes('-vs-') || !clean.endsWith('-cost')) return null;
+  // Find closest curated LLM comparison matching either model or use case
+  const matchByBoth = llmRoutesList.find(r => clean.includes(r.modelA) && clean.includes(r.modelB));
+  if (matchByBoth) return matchByBoth.slug;
+  const matchByModelAndUse = llmRoutesList.find(r => (clean.includes(r.modelA) || clean.includes(r.modelB)) && clean.includes(r.useCase));
+  if (matchByModelAndUse) return matchByModelAndUse.slug;
+  const matchByModel = llmRoutesList.find(r => clean.includes(r.modelA) || clean.includes(r.modelB));
+  return matchByModel ? matchByModel.slug : 'gpt4o-vs-claude35-rag-pipeline-cost';
+}
 
 // Per-IP Rate Limiter for /api/* endpoints
 const rateLimitMap = new Map();
@@ -244,19 +285,20 @@ const server = http.createServer(async (req, res) => {
       if (segments[1] === 'tools') return sendRedirect(res, `/${segments[0]}/ai`, 301);
     }
 
-    // 2d. Localized pSEO routes /:lang/calculator/:slug and /:lang/tools/:slug -> 301 to EN canonical or 410 Gone
+    // 2d. Localized pSEO routes /:lang/calculator/:slug and /:lang/tools/:slug -> 301 to EN canonical
     if (segments.length === 3 && supportedLangs.has(segments[0])) {
       const [, section, rawSlug] = segments;
       if (section === 'calculator') {
-        const normalizedSlug = rawSlug.replace('-freelancer-tax-parity', '-nomad-tax-parity');
-        if (validTaxSlugs.has(normalizedSlug)) {
-          return sendRedirect(res, `/calculator/${normalizedSlug}`, 301);
+        const canonicalTaxSlug = resolveCanonicalTaxSlug(rawSlug);
+        if (canonicalTaxSlug) {
+          return sendRedirect(res, `/calculator/${canonicalTaxSlug}`, 301);
         }
         return send410Gone(res);
       }
       if (section === 'tools') {
-        if (validLlmSlugs.has(rawSlug)) {
-          return sendRedirect(res, `/tools/${rawSlug}`, 301);
+        const canonicalLlmSlug = resolveCanonicalLlmSlug(rawSlug);
+        if (canonicalLlmSlug) {
+          return sendRedirect(res, `/tools/${canonicalLlmSlug}`, 301);
         }
         return send410Gone(res);
       }
@@ -265,14 +307,11 @@ const server = http.createServer(async (req, res) => {
     // 2e. Root pSEO routes /calculator/:slug and /tools/:slug
     if (segments.length === 2 && segments[0] === 'calculator') {
       const rawSlug = segments[1];
-      if (rawSlug.endsWith('-freelancer-tax-parity')) {
-        const nomadSlug = rawSlug.replace('-freelancer-tax-parity', '-nomad-tax-parity');
-        if (validTaxSlugs.has(nomadSlug)) {
-          return sendRedirect(res, `/calculator/${nomadSlug}`, 301);
-        }
-        return send410Gone(res);
-      }
       if (!validTaxSlugs.has(rawSlug)) {
+        const canonicalTaxSlug = resolveCanonicalTaxSlug(rawSlug);
+        if (canonicalTaxSlug) {
+          return sendRedirect(res, `/calculator/${canonicalTaxSlug}`, 301);
+        }
         return send410Gone(res);
       }
     }
@@ -280,6 +319,10 @@ const server = http.createServer(async (req, res) => {
     if (segments.length === 2 && segments[0] === 'tools') {
       const rawSlug = segments[1];
       if (!validLlmSlugs.has(rawSlug)) {
+        const canonicalLlmSlug = resolveCanonicalLlmSlug(rawSlug);
+        if (canonicalLlmSlug) {
+          return sendRedirect(res, `/tools/${canonicalLlmSlug}`, 301);
+        }
         return send410Gone(res);
       }
     }
