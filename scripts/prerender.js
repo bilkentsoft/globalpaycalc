@@ -41,9 +41,16 @@ console.log(`Starting stable sequential prerender for ${routesToPrerender.length
 
       // Inject helmet meta tags
       if (helmet) {
+        const metaStr = helmet.meta.toString();
+        if (metaStr.includes('noindex')) {
+          result = result.replace(
+            '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />',
+            ''
+          );
+        }
         const headInjection = `
           ${helmet.title.toString()}
-          ${helmet.meta.toString()}
+          ${metaStr}
           ${helmet.link.toString()}
         `;
         result = result.replace(`<!--app-head-->`, headInjection);
@@ -65,11 +72,12 @@ console.log(`Starting stable sequential prerender for ${routesToPrerender.length
     }
   }
 
-  // Also pre-render 404.html for true 404/410 responses
+  // Also pre-render 404.html for true 404/410 responses (strip AdSense script per Google Publisher Policy against ads on error pages)
   try {
     const { html } = render('/404-not-found');
     let notFoundHtml = template
       .replace('<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />', '<meta name="robots" content="noindex, nofollow" />')
+      .replace(/<script[^>]*adsbygoogle\.js[^>]*><\/script>/g, '')
       .replace('<!--app-head-->', '<title>404 - Page Not Found | GlobalPayCalc</title>')
       .replace('<div id="root"></div>', `<div id="root">${html}</div>`);
     fs.writeFileSync(toAbsolute('dist/404.html'), notFoundHtml, 'utf-8');

@@ -7,6 +7,7 @@
     
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="Y2lk2ZmHw2b9bRz01GpP2LiKJK9PmXviZAIur89EUr4" />
+    <meta name="google-adsense-account" content="ca-pub-5039398843550426" />
     <meta name="author" content="GlobalPayCalc" />
     <meta name="publisher" content="GlobalPayCalc" />
     <link rel="publisher" href="https://globalpaycalc.com" />
@@ -45,6 +46,29 @@
     </style>
     
     <!--app-head-->
+
+    <!-- Google Consent Mode v2: privacy-first defaults (denied) until the visitor chooses -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      (function () {
+        var stored = null;
+        try { stored = localStorage.getItem('globalpaycalc_cookie_consent'); } catch (e) {}
+        var granted = stored === 'granted' || stored === 'true';
+        gtag('consent', 'default', {
+          ad_storage: granted ? 'granted' : 'denied',
+          ad_user_data: granted ? 'granted' : 'denied',
+          ad_personalization: granted ? 'granted' : 'denied',
+          analytics_storage: granted ? 'granted' : 'denied',
+          wait_for_update: 500
+        });
+        gtag('set', 'ads_data_redaction', !granted);
+        gtag('set', 'url_passthrough', true);
+      })();
+    </script>
+
+    <!-- Google AdSense (Auto ads) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5039398843550426" crossorigin="anonymous"></script>
 
 
 

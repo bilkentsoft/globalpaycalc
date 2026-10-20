@@ -1,13 +1,13 @@
 // Node.js Sitemap Generator Script
-// Generates a flat, direct <urlset> in sitemap.xml (324 canonical URLs) so Google Search Console
-// immediately reads the exact 324 URLs without summing stale cached child sub-sitemaps.
+// Generates a flat, direct <urlset> in sitemap.xml (144 canonical core tool & legal URLs across 8 languages).
+// Templated pSEO pages (/calculator/* and /tools/*) are marked noindex,follow and omitted from sitemaps
+// to maintain maximum domain authority and Google AdSense editorial compliance.
 import fs from 'fs';
 import path from 'path';
-import { generatePseoTaxMatrix, generatePseoLlmMatrix } from '../src/pseo/matrixEngine.js';
 
 const supportedLanguages = ['en', 'tr', 'es', 'de', 'pt', 'fr', 'id', 'ja'];
 
-console.log('[Sitemap Engine] Generating flat canonical sitemap.xml and language sub-sitemaps...');
+console.log('[Sitemap Engine] Generating flat canonical sitemap.xml and language sub-sitemaps (144 indexable routes)...');
 
 const baseDomain = 'https://globalpaycalc.com';
 // Canonical core routes (/take-home is omitted from sitemap because its canonical is /)
@@ -32,9 +32,6 @@ const staticRoutes = [
   '/contact'
 ];
 
-const taxRoutes = generatePseoTaxMatrix();
-const llmRoutes = generatePseoLlmMatrix();
-
 const publicDir = path.resolve('public');
 if (!fs.existsSync(publicDir)) {
   fs.mkdirSync(publicDir);
@@ -53,29 +50,19 @@ const generateSitemapXml = (urls) => {
 
 const allCanonicalUrls = [];
 
-// 1. Core English Sitemap (18 core routes + 144 tax corridors + 36 LLM benchmarks = 198 URLs)
+// 1. Core English Sitemap (18 canonical core routes)
 const enUrls = [];
 staticRoutes.forEach(r => enUrls.push({
   loc: `${baseDomain}${r === '' ? '/' : r}`,
   changefreq: r === '' ? 'daily' : 'weekly',
   priority: r === '' ? '1.0' : '0.9'
 }));
-taxRoutes.forEach(r => enUrls.push({
-  loc: `${baseDomain}/calculator/${r.slug}`,
-  changefreq: 'weekly',
-  priority: '0.8'
-}));
-llmRoutes.forEach(r => enUrls.push({
-  loc: `${baseDomain}/tools/${r.slug}`,
-  changefreq: 'weekly',
-  priority: '0.8'
-}));
 
 fs.writeFileSync(path.join(publicDir, 'sitemap-en.xml'), generateSitemapXml(enUrls), 'utf8');
 allCanonicalUrls.push(...enUrls);
 console.log(`[Sitemap Engine] Created sitemap-en.xml with ${enUrls.length} canonical URLs.`);
 
-// 2. Localized Core Tool Sitemaps (18 translated interactive tools per language)
+// 2. Localized Core Tool Sitemaps (18 translated interactive tools & legal pages per language)
 for (const lang of supportedLanguages) {
   if (lang === 'en') continue;
 
@@ -92,7 +79,7 @@ for (const lang of supportedLanguages) {
   console.log(`[Sitemap Engine] Created ${filename} with ${langUrls.length} canonical URLs.`);
 }
 
-// 3. Direct Flat <urlset> in sitemap.xml AND sitemap-clean.xml (prevents GSC from caching old sub-sitemap counts)
+// 3. Direct Flat <urlset> in sitemap.xml AND sitemap-clean.xml (144 total indexable canonical URLs)
 const masterXml = generateSitemapXml(allCanonicalUrls);
 fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), masterXml, 'utf8');
 fs.writeFileSync(path.join(publicDir, 'sitemap-clean.xml'), masterXml, 'utf8');

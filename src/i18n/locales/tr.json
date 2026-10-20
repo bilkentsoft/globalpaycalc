@@ -125,7 +125,7 @@
       "h3": "3. Üçüncü Taraf Hizmetleri",
       "p3": "Google Analytics ve Google AdSense gibi üçüncü taraf hizmetleri kullanıyoruz. Bu hizmetler, size alakalı reklamlar sunmak için çerezleri ve web işaretçilerini kullanabilir. Google Reklam Ayarları'nı ziyaret ederek kişiselleştirilmiş reklamlardan çıkabilirsiniz.",
       "h4": "4. Veri Güvenliği",
-      "p4": "Tüm hesaplamalar (maaş, vergi, video işleme) tarayıcınızda yerel olarak yapılır. Hassas finansal girişlerinizi sunucularımızda saklamaz veya sunucularımıza iletmeyiz."
+      "p4": "Tüm hesaplamalar (maaş, vergi, B2B sözleşmeli çalışan kıyası, döviz komisyonları ve istemci taraflı WebAssembly görsel sıkıştırma) tarayıcınızda yerel olarak yapılır. Hassas finansal girişlerinizi sunucularımızda saklamaz veya sunucularımıza iletmeyiz."
     },
     "terms": {
       "title": "Kullanım Koşulları",

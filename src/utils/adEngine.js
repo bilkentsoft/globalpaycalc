@@ -1,29 +1,8 @@
-// Smart Lazy Ad Injection Engine (requestIdleCallback + DOM Injection)
-let scriptInjected = false;
+// Analytics loader.
+// NOTE: The Google AdSense script is loaded statically in index.html <head> (required for AdSense review).
+// Google Consent Mode v2 defaults are also declared in index.html before any Google tag runs,
+// so GA4 only sets cookies after the visitor grants consent via the cookie banner / CMP.
 let analyticsInjected = false;
-
-export const initializeAdSense = () => {
-  if (scriptInjected || typeof window === 'undefined') return;
-
-  const injectScript = () => {
-    if (scriptInjected) return;
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5039398843550426';
-    script.crossOrigin = 'anonymous';
-    document.head.appendChild(script);
-    scriptInjected = true;
-    console.log('[AdSenseEngine] Google Ads script injected on user interaction.');
-    cleanup();
-  };
-
-  const events = ['pointerdown', 'touchstart', 'scroll', 'mousemove', 'keydown'];
-  const cleanup = () => {
-    events.forEach(event => window.removeEventListener(event, injectScript));
-  };
-
-  events.forEach(event => window.addEventListener(event, injectScript, { passive: true }));
-};
 
 export const initializeAnalytics = () => {
   if (analyticsInjected || typeof window === 'undefined') return;
@@ -36,14 +15,13 @@ export const initializeAnalytics = () => {
     document.head.appendChild(script);
 
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function() { window.dataLayer.push(arguments); };
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
     window.gtag('js', new Date());
     window.gtag('config', 'G-N383BLFQH5', {
       page_path: window.location.pathname
     });
 
     analyticsInjected = true;
-    console.log('[AnalyticsEngine] Google Analytics script injected on user interaction.');
     cleanup();
   };
 
@@ -53,4 +31,19 @@ export const initializeAnalytics = () => {
   };
 
   events.forEach(event => window.addEventListener(event, injectAnalytics, { passive: true }));
+};
+
+// Updates Google Consent Mode v2 signals after the visitor makes a choice.
+export const updateConsent = (granted) => {
+  if (typeof window === 'undefined') return;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+  const value = granted ? 'granted' : 'denied';
+  window.gtag('consent', 'update', {
+    ad_storage: value,
+    ad_user_data: value,
+    ad_personalization: value,
+    analytics_storage: value
+  });
+  window.gtag('set', 'ads_data_redaction', !granted);
 };

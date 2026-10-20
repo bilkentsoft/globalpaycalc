@@ -3,7 +3,7 @@ import { Routes, Route, useLocation, Link, useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import AdSenseSlot from './components/AdSenseSlot';
+
 import NotFoundPage from './pages/NotFoundPage';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -469,7 +469,7 @@ function ContentWrapper({ lang, t }) {
 
       {activeTab !== 'admin' && (
         <div className="space-y-8 mt-12">
-          <AdSenseSlot slotId="content-bottom" />
+
           <ProgrammaticSeoGrid lang={lang} />
         </div>
       )}

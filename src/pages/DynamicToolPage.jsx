@@ -220,6 +220,7 @@ export default function DynamicToolPage({ pageData, routeData, type, lang = 'en'
       <Helmet>
         <title>{dynamicTitle} | GlobalPayCalc</title>
         <meta name="description" content={dynamicDesc} />
+        <meta name="robots" content="noindex, follow" />
         <link rel="canonical" href={canonicalUrl} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={canonicalUrl} />

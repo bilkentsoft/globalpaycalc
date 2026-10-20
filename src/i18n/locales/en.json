@@ -125,7 +125,7 @@
       "h3": "3. Third-Party Services",
       "p3": "We use third-party services like Google Analytics and Google AdSense. These services may use cookies and web beacons to collect data about your visits to this and other websites in order to provide relevant advertisements. You can opt out of personalized advertising by visiting Google Ads Settings.",
       "h4": "4. Data Security",
-      "p4": "All calculations (salary, tax, video processing) are performed locally in your browser. We do not store or transmit your sensitive financial inputs to our servers."
+      "p4": "All calculations (salary, tax, contractor equivalency, FX fees, and client-side WebAssembly image compression) are performed locally in your browser. We do not store or transmit your sensitive financial inputs to our servers."
     },
     "terms": {
       "title": "Terms of Service",

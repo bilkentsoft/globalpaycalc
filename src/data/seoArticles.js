@@ -43,7 +43,7 @@ const articles = {
       title: "Expat Tax Regimes: Beckham Law, NHR 2.0, and Impatriati Guide",
       subtitle: "Fixed-Rate Tax Advantages in Spain, Portugal, Italy, and Dubai",
       paragraphs: [
-        "Europe's governments offer powerful expat tax regimes to attract high-earning remote workers and founders. Spain's Beckham Law (Royal Decree 687/2005) allows qualifying foreign workers to pay a flat 24% rate on Spanish-sourced income for six years, instead of the progressive rate reaching 47%. Applicants must not have been Spanish tax residents in the prior five years.",
+        "Europe's governments offer powerful expat tax regimes to attract high-earning remote workers and founders. Spain's Beckham Law (Article 93 of Ley 35/2006 LIRPF, reformed by Ley 28/2022 and Ley 7/2024) allows qualifying foreign workers to pay a flat 24% rate on Spanish-sourced income for six years, instead of the progressive rate reaching 47%. Applicants must not have been Spanish tax residents in the prior five years.",
         "Portugal's NHR / IFICI regime offers 20% flat tax on qualifying tech and creative roles, while Italy's Impatriati law exempts 50%–70% of income from the tax base. Dubai (UAE) levies zero income tax and zero capital gains tax, making it the most tax-efficient destination for remote founders. Our calculator models net savings across all four regimes simultaneously."
       ],
       faqs: [
@@ -153,7 +153,7 @@ const articles = {
       title: "LLM API Cost Simulator: GPT-4o, Claude 3.5 & Gemini 1.5 Guide",
       subtitle: "Compare Monthly Token Costs for RAG, Customer Support & Agent Workloads",
       paragraphs: [
-        "LLM API costs vary enormously across providers and models. GPT-4o charges $5/million input tokens and $15/million output tokens, while Claude 3.5 Sonnet is priced at $3/$15 per million. For a high-volume production deployment processing 50 million tokens monthly, the choice of model can mean a difference of $100,000+ per year in API costs.",
+        "LLM API costs vary enormously across providers and models. GPT-4o charges $2.50/million input tokens and $10/million output tokens, while Claude 3.5 Sonnet is priced at $3/$15 per million. For a high-volume production deployment processing 50 million tokens monthly, the choice of model can mean a difference of $100,000+ per year in API costs.",
         "Our simulator lets you input monthly input and output token volumes, select any combination of models, and see exact cost projections for 1 month, 6 months, and 1 year. It also calculates the break-even point between using a managed API and self-hosting open-source models like LLaMA 3 on cloud GPU instances."
       ],
       faqs: [
@@ -361,7 +361,7 @@ const articles = {
       title: "Regímenes Fiscales para Expatriados: Ley Beckham, NHR 2.0 e Impatriati",
       subtitle: "Ventajas Fiscales de Tipo Fijo en España, Portugal, Italia y Dubái",
       paragraphs: [
-        "Los gobiernos europeos ofrecen regímenes fiscales especiales para atraer a trabajadores remotos de altos ingresos. La Ley Beckham de España (Real Decreto 687/2005) permite a los trabajadores extranjeros elegibles pagar un tipo fijo del 24% sobre rentas de fuente española durante seis años, en lugar del tipo progresivo que puede alcanzar el 47%.",
+        "Los gobiernos europeos ofrecen regímenes fiscales especiales para atraer a trabajadores remotos de altos ingresos. La Ley Beckham de España (Artículo 93 de la Ley 35/2006 del IRPF, reformado por la Ley 28/2022 y la Ley 7/2024) permite a los trabajadores extranjeros elegibles pagar un tipo fijo del 24% sobre rentas de fuente española durante seis años, en lugar del tipo progresivo que puede alcanzar el 47%.",
         "El régimen NHR / IFICI de Portugal ofrece un tipo fijo del 20% en roles tecnológicos y creativos cualificados. La ley italiana Impatriati exime del 50% al 70% de la base imponible. Dubái (EAU) no aplica impuesto sobre la renta ni sobre las plusvalías, siendo el destino más eficiente fiscalmente para fundadores y nómadas digitales."
       ],
       faqs: [
