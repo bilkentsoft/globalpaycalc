@@ -6,6 +6,8 @@ import { getTranslation } from '../i18n';
 export default function Footer({ lang = 'en' }) {
   const [modalType, setModalType] = useState(null);
   const t = (path) => getTranslation(lang, path);
+  const isTr = lang === 'tr';
+  const langPrefix = isTr ? '/tr' : '';
 
   const [isMobile, setIsMobile] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -35,16 +37,19 @@ export default function Footer({ lang = 'en' }) {
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-semibold text-slate-400">
-              <Link to={lang === 'en' ? '/about' : `/${lang}/about`} title={t('footer.aboutUs') || 'About Us'} className="hover:text-white transition decoration-slate-600 hover:underline">
+              <Link to={`${langPrefix}/guides`} className="text-brand-300 hover:text-white transition decoration-brand-500 hover:underline">
+                {isTr ? 'Vergi & Maaş Rehberleri' : 'Tax & Salary Guides'}
+              </Link>
+              <Link to={`${langPrefix}/about`} title={t('footer.aboutUs') || 'About Us'} className="hover:text-white transition decoration-slate-600 hover:underline">
                 {t('footer.aboutUs') || 'About Us'}
               </Link>
-              <Link to={lang === 'en' ? '/contact' : `/${lang}/contact`} title={t('footer.contact') || 'Contact'} className="hover:text-white transition decoration-slate-600 hover:underline">
+              <Link to={`${langPrefix}/contact`} title={t('footer.contact') || 'Contact'} className="hover:text-white transition decoration-slate-600 hover:underline">
                 {t('footer.contact') || 'Contact'}
               </Link>
-              <Link to={lang === 'en' ? '/privacy' : `/${lang}/privacy`} title={t('footer.privacy')} className="hover:text-white transition decoration-slate-600 hover:underline">
+              <Link to={`${langPrefix}/privacy`} title={t('footer.privacy')} className="hover:text-white transition decoration-slate-600 hover:underline">
                 {t('footer.privacy')}
               </Link>
-              <Link to={lang === 'en' ? '/terms' : `/${lang}/terms`} title={t('footer.terms')} className="hover:text-white transition decoration-slate-600 hover:underline">
+              <Link to={`${langPrefix}/terms`} title={t('footer.terms')} className="hover:text-white transition decoration-slate-600 hover:underline">
                 {t('footer.terms')}
               </Link>
             </div>
@@ -54,16 +59,19 @@ export default function Footer({ lang = 'en' }) {
         {showMobile && (
           <div className="flex flex-col items-center space-y-4 pb-4 border-b border-slate-800/60">
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] font-semibold text-slate-400">
-              <Link to={lang === 'en' ? '/about' : `/${lang}/about`} title={t('footer.aboutUs') || 'About Us'} className="hover:text-white transition">
+              <Link to={`${langPrefix}/guides`} className="text-brand-300 hover:text-white transition">
+                {isTr ? 'Vergi & Maaş Rehberleri' : 'Tax & Salary Guides'}
+              </Link>
+              <Link to={`${langPrefix}/about`} title={t('footer.aboutUs') || 'About Us'} className="hover:text-white transition">
                 {t('footer.aboutUs') || 'About Us'}
               </Link>
-              <Link to={lang === 'en' ? '/contact' : `/${lang}/contact`} title={t('footer.contact') || 'Contact'} className="hover:text-white transition">
+              <Link to={`${langPrefix}/contact`} title={t('footer.contact') || 'Contact'} className="hover:text-white transition">
                 {t('footer.contact') || 'Contact'}
               </Link>
-              <Link to={lang === 'en' ? '/privacy' : `/${lang}/privacy`} title={t('footer.privacy')} className="hover:text-white transition">
+              <Link to={`${langPrefix}/privacy`} title={t('footer.privacy')} className="hover:text-white transition">
                 {t('footer.privacy')}
               </Link>
-              <Link to={lang === 'en' ? '/terms' : `/${lang}/terms`} title={t('footer.terms')} className="hover:text-white transition">
+              <Link to={`${langPrefix}/terms`} title={t('footer.terms')} className="hover:text-white transition">
                 {t('footer.terms')}
               </Link>
             </div>

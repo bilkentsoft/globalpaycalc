@@ -1,11 +1,10 @@
 // Standalone Production Server for GlobalPayCalc.com
-// Serves pre-rendered static pages, secured /api/* endpoints, 301 canonical redirects,
-// and 410 Gone responses for pruned programmatic SEO doorway URLs.
+// Serves pre-rendered static pages (56 canonical EN + TR routes), secured /api/* endpoints,
+// and single-hop 301 canonical redirects for retired locales, off-topic tools, and legacy pSEO URLs.
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { generatePseoTaxMatrix, generatePseoLlmMatrix } from './src/pseo/matrixEngine.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.join(__dirname, 'dist');
@@ -28,50 +27,27 @@ if (fs.existsSync(envPath)) {
   }
 }
 
-// Build lookup sets of valid curated pSEO slugs
-const taxRoutesList = generatePseoTaxMatrix();
-const llmRoutesList = generatePseoLlmMatrix();
-const validTaxSlugs = new Set(taxRoutesList.map(r => r.slug));
-const validLlmSlugs = new Set(llmRoutesList.map(r => r.slug));
-const supportedLangs = new Set(['en', 'tr', 'es', 'de', 'pt', 'fr', 'id', 'ja']);
+// Language sets: Only 'en' (root) and 'tr' (/tr) are active canonical languages.
+// Retired auto-translated locales redirect in a single 301 hop to their English canonical equivalent.
+const retiredLangs = new Set(['en', 'es', 'de', 'pt', 'fr', 'id', 'ja']);
+const retiredSitemaps = new Set([
+  '/sitemap-es.xml',
+  '/sitemap-de.xml',
+  '/sitemap-pt.xml',
+  '/sitemap-fr.xml',
+  '/sitemap-id.xml',
+  '/sitemap-ja.xml'
+]);
 
-// Legacy pSEO City Code Mapping -> Closest Canonical Hub (preserves 100% of GSC impressions/clicks & guides Googlebot into canonical pages)
-const legacyOriginMap = {
-  sf: 'sf', nyc: 'nyc', lon: 'lon', ber: 'ber', par: 'par', ist: 'ist',
-  tor: 'tor', syd: 'syd', aus: 'aus', zrh: 'zrh', ams: 'ams', dub: 'dub',
-  van: 'tor', mia: 'aus', mil: 'par', cph: 'ams', osl: 'ams', sto: 'ams',
-  bru: 'ams', vie: 'ber', war: 'ber', hkg: 'syd', seo: 'syd', tpe: 'syd', dxb: 'lon'
-};
-
-const legacyDestMap = {
-  mad: 'mad', lis: 'lis', bali: 'bali', tok: 'tok', sng: 'sng', bkk: 'bkk',
-  med: 'med', mex: 'mex', tal: 'tal', ath: 'ath', bcn: 'bcn', tbs: 'tbs',
-  opo: 'lis', vlc: 'bcn', sgn: 'sng', kl: 'bkk', bud: 'tal', prg: 'tal',
-  krk: 'tal', cag: 'ath', sjo: 'mex', sp: 'mex', bue: 'med', scl: 'med', cpt: 'tbs'
-};
-
-export function resolveCanonicalTaxSlug(rawSlug) {
-  const norm = rawSlug.toLowerCase().replace('-freelancer-tax-parity', '-nomad-tax-parity');
-  if (validTaxSlugs.has(norm)) return norm;
-  const m = rawSlug.toLowerCase().match(/^([a-z]{2,4})-to-([a-z]{2,4})-(?:nomad|freelancer)-tax-parity$/);
-  if (!m) return null;
-  const mappedOrigin = legacyOriginMap[m[1]] || 'lon';
-  const mappedDest = legacyDestMap[m[2]] || 'lis';
-  const candidate = `${mappedOrigin}-to-${mappedDest}-nomad-tax-parity`;
-  return validTaxSlugs.has(candidate) ? candidate : 'lon-to-lis-nomad-tax-parity';
-}
-
-export function resolveCanonicalLlmSlug(rawSlug) {
-  const clean = rawSlug.toLowerCase();
-  if (validLlmSlugs.has(clean)) return clean;
-  if (!clean.includes('-vs-') || !clean.endsWith('-cost')) return null;
-  // Find closest curated LLM comparison matching either model or use case
-  const matchByBoth = llmRoutesList.find(r => clean.includes(r.modelA) && clean.includes(r.modelB));
-  if (matchByBoth) return matchByBoth.slug;
-  const matchByModelAndUse = llmRoutesList.find(r => (clean.includes(r.modelA) || clean.includes(r.modelB)) && clean.includes(r.useCase));
-  if (matchByModelAndUse) return matchByModelAndUse.slug;
-  const matchByModel = llmRoutesList.find(r => clean.includes(r.modelA) || clean.includes(r.modelB));
-  return matchByModel ? matchByModel.slug : 'gpt4o-vs-claude35-rag-pipeline-cost';
+function resolveLegacyCalculatorRedirect(rawSlug = '', langPrefix = '') {
+  const slug = String(rawSlug).toLowerCase();
+  if (slug.includes('-to-mad-') || slug.includes('-to-bcn-') || slug.includes('-to-vlc-')) {
+    return `${langPrefix}/beckham-law`;
+  }
+  if (slug.includes('-to-lis-') || slug.includes('-to-opo-') || slug.includes('-to-bali-') || slug.includes('-to-bkk-') || slug.includes('-to-tal-') || slug.includes('-to-ath-')) {
+    return `${langPrefix}/nomad-visa`;
+  }
+  return `${langPrefix}/salary`;
 }
 
 // Per-IP Rate Limiter for /api/* endpoints
@@ -187,7 +163,7 @@ function send410Gone(res) {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow');
   res.setHeader('Cache-Control', 'public, max-age=86400');
-  res.end('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="robots" content="noindex, nofollow"/><title>410 Gone | GlobalPayCalc</title></head><body><h1>410 Gone</h1><p>This outdated calculator URL has been permanently removed. Visit <a href="https://globalpaycalc.com/">GlobalPayCalc.com</a>.</p></body></html>');
+  res.end('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="robots" content="noindex, nofollow"/><title>410 Gone | GlobalPayCalc</title></head><body><h1>410 Gone</h1><p>This outdated endpoint has been permanently removed. Visit <a href="https://globalpaycalc.com/">GlobalPayCalc.com</a>.</p></body></html>');
 }
 
 function send404NotFound(res) {
@@ -195,6 +171,10 @@ function send404NotFound(res) {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow');
   res.setHeader('Cache-Control', 'no-cache');
+  const custom404 = path.join(distDir, '404.html');
+  if (fs.existsSync(custom404)) {
+    return fs.createReadStream(custom404).pipe(res);
+  }
   res.end('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="robots" content="noindex, nofollow"/><title>404 Not Found | GlobalPayCalc</title></head><body><h1>404 Not Found</h1><p>The requested page was not found. Visit <a href="https://globalpaycalc.com/">GlobalPayCalc.com</a>.</p></body></html>');
 }
 
@@ -218,9 +198,10 @@ const server = http.createServer(async (req, res) => {
       return sendRedirect(res, pathname + parsedUrl.search, 301);
     }
 
-    // Redirect legacy /yonetim and /og-preview.jpg
+    // Redirect legacy /yonetim, /og-preview.jpg, and retired language sitemaps
     if (pathname === '/yonetim') return sendRedirect(res, '/admin', 301);
     if (pathname === '/og-preview.jpg') return sendRedirect(res, '/og-image.png', 301);
+    if (retiredSitemaps.has(pathname)) return sendRedirect(res, '/sitemap.xml', 301);
 
     // 1. Handle /api/* serverless endpoints with Admin Guard & Rate Limiting
     if (pathname.startsWith('/api/')) {
@@ -260,78 +241,53 @@ const server = http.createServer(async (req, res) => {
       return await handler(req, res);
     }
 
-    // 2. Canonical & SEO Recovery Redirects / 410 Gone Rules
+    // 2. Single-Hop Canonical Redirects (Retired Locales, Off-Topic Tools, and Legacy pSEO Routes)
     const segments = pathname.split('/').filter(Boolean);
 
-    // 2a. Redirect /en or /en/* to root canonical
-    if (segments[0] === 'en') {
-      const target = '/' + segments.slice(1).join('/');
-      return sendRedirect(res, target || '/', 301);
+    // 2a. Handle retired language prefixes (/en, /es, /de, /pt, /fr, /id, /ja) -> single-hop 301 to root EN canonical
+    if (segments.length > 0 && retiredLangs.has(segments[0])) {
+      const rest = segments.slice(1);
+      if (rest.length === 0 || rest[0] === 'take-home' || rest[0] === 'video' || rest[0] === 'wasm') {
+        return sendRedirect(res, '/', 301);
+      }
+      if (rest[0] === 'calculator') {
+        return sendRedirect(res, resolveLegacyCalculatorRedirect(rest[1] || '', ''), 301);
+      }
+      if (rest[0] === 'tools') {
+        return sendRedirect(res, '/ai', 301);
+      }
+      return sendRedirect(res, '/' + rest.join('/'), 301);
     }
 
-    // 2b. Consolidate /take-home, /video and /:lang/take-home, /:lang/video into / and /:lang
-    if (pathname === '/take-home' || pathname === '/video') {
+    // 2b. Handle Turkish (/tr/*) legacy & consolidated routes
+    if (segments[0] === 'tr') {
+      if (segments.length === 2 && (segments[1] === 'take-home' || segments[1] === 'video' || segments[1] === 'wasm')) {
+        return sendRedirect(res, '/tr', 301);
+      }
+      if (segments[1] === 'calculator') {
+        return sendRedirect(res, resolveLegacyCalculatorRedirect(segments[2] || '', '/tr'), 301);
+      }
+      if (segments[1] === 'tools') {
+        return sendRedirect(res, '/tr/ai', 301);
+      }
+    }
+
+    // 2c. Handle Root English (/take-home, /video, /wasm, /calculator/*, /tools/*)
+    if (pathname === '/take-home' || pathname === '/video' || pathname === '/wasm') {
       return sendRedirect(res, '/', 301);
     }
-    if (segments.length === 2 && supportedLangs.has(segments[0]) && (segments[1] === 'take-home' || segments[1] === 'video')) {
-      return sendRedirect(res, `/${segments[0]}`, 301);
+    if (segments[0] === 'calculator') {
+      return sendRedirect(res, resolveLegacyCalculatorRedirect(segments[1] || '', ''), 301);
     }
-
-    // 2c. Rescue legacy broken hreflang endpoints (/calculator, /:lang/calculator, /tools, /:lang/tools)
-    if (pathname === '/calculator') return sendRedirect(res, '/salary', 301);
-    if (pathname === '/tools') return sendRedirect(res, '/ai', 301);
-    if (segments.length === 2 && supportedLangs.has(segments[0])) {
-      if (segments[1] === 'calculator') return sendRedirect(res, `/${segments[0]}/salary`, 301);
-      if (segments[1] === 'tools') return sendRedirect(res, `/${segments[0]}/ai`, 301);
-    }
-
-    // 2d. Localized pSEO routes /:lang/calculator/:slug and /:lang/tools/:slug -> 301 to EN canonical
-    if (segments.length === 3 && supportedLangs.has(segments[0])) {
-      const [, section, rawSlug] = segments;
-      if (section === 'calculator') {
-        const canonicalTaxSlug = resolveCanonicalTaxSlug(rawSlug);
-        if (canonicalTaxSlug) {
-          return sendRedirect(res, `/calculator/${canonicalTaxSlug}`, 301);
-        }
-        return send410Gone(res);
-      }
-      if (section === 'tools') {
-        const canonicalLlmSlug = resolveCanonicalLlmSlug(rawSlug);
-        if (canonicalLlmSlug) {
-          return sendRedirect(res, `/tools/${canonicalLlmSlug}`, 301);
-        }
-        return send410Gone(res);
-      }
-    }
-
-    // 2e. Root pSEO routes /calculator/:slug and /tools/:slug
-    if (segments.length === 2 && segments[0] === 'calculator') {
-      const rawSlug = segments[1];
-      if (!validTaxSlugs.has(rawSlug)) {
-        const canonicalTaxSlug = resolveCanonicalTaxSlug(rawSlug);
-        if (canonicalTaxSlug) {
-          return sendRedirect(res, `/calculator/${canonicalTaxSlug}`, 301);
-        }
-        return send410Gone(res);
-      }
-    }
-
-    if (segments.length === 2 && segments[0] === 'tools') {
-      const rawSlug = segments[1];
-      if (!validLlmSlugs.has(rawSlug)) {
-        const canonicalLlmSlug = resolveCanonicalLlmSlug(rawSlug);
-        if (canonicalLlmSlug) {
-          return sendRedirect(res, `/tools/${canonicalLlmSlug}`, 301);
-        }
-        return send410Gone(res);
-      }
+    if (segments[0] === 'tools') {
+      return sendRedirect(res, '/ai', 301);
     }
 
     // 3. Static Asset & Pre-rendered HTML Serving from dist/
     const safePath = path.normalize(pathname).replace(/^(\.\.[/\\])+/, '');
     const candidateFile = path.join(distDir, safePath);
 
-    // Check if exact file exists (e.g. /assets/..., /sitemap.xml, /robots.txt)
+    // Check if exact file exists (e.g. /assets/..., /sitemap.xml, /robots.txt, /ads.txt)
     if (fs.existsSync(candidateFile) && fs.statSync(candidateFile).isFile()) {
       const ext = path.extname(candidateFile).toLowerCase();
       res.statusCode = 200;
@@ -347,15 +303,12 @@ const server = http.createServer(async (req, res) => {
       return fs.createReadStream(candidateFile).pipe(res);
     }
 
-    // Check if pre-rendered directory index.html exists (e.g. dist/calculator/.../index.html)
+    // Check if pre-rendered directory index.html exists (e.g. dist/guides/.../index.html)
     const indexHtmlCandidate = path.join(distDir, safePath, 'index.html');
     if (fs.existsSync(indexHtmlCandidate) && fs.statSync(indexHtmlCandidate).isFile()) {
       res.statusCode = 200;
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
-      if (segments[0] === 'calculator' || segments[0] === 'tools') {
-        res.setHeader('X-Robots-Tag', 'noindex, follow');
-      }
       return fs.createReadStream(indexHtmlCandidate).pipe(res);
     }
 
@@ -385,5 +338,5 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, '127.0.0.1', () => {
   console.log(`✅ GlobalPayCalc production server listening on http://127.0.0.1:${PORT}`);
-  console.log(`   Curated Tax Corridors: ${validTaxSlugs.size} | Curated LLM Benchmarks: ${validLlmSlugs.size}`);
+  console.log(`   Canonical Architecture: 56 High-Value Pre-Rendered Routes (28 EN + 28 TR)`);
 });

@@ -3,8 +3,8 @@ import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App.jsx';
-import { generatePseoTaxMatrix, generatePseoLlmMatrix } from './pseo/matrixEngine';
 import { supportedLanguages } from './i18n';
+import { editorialGuides } from './data/editorialGuidesData';
 
 export function render(url) {
   const helmetContext = {};
@@ -36,8 +36,9 @@ export function getRoutes() {
     '/fx-fees',
     '/vat',
     '/timezone',
-    '/wasm',
     '/ai',
+    '/guides',
+    ...editorialGuides.map(g => `/guides/${g.slug}`),
     '/privacy',
     '/terms',
     '/about',
@@ -46,27 +47,17 @@ export function getRoutes() {
 
   const routes = [];
 
-  // 1. Root English core routes
+  // 1. Root English canonical routes (28 high-value routes)
   for (const slug of coreSlugs) {
     routes.push(slug === '' ? '/' : slug);
   }
 
-  // 2. Localized core routes (tr, es, de, pt, fr, id, ja)
+  // 2. Localized Turkish canonical routes (28 high-value routes)
   for (const lang of supportedLanguages) {
     if (lang.code === 'en') continue;
     for (const slug of coreSlugs) {
       routes.push(`/${lang.code}${slug}`);
     }
-  }
-
-  // 3. Curated canonical pSEO Tax & Relocation corridors (144 pages)
-  for (const route of generatePseoTaxMatrix()) {
-    routes.push(`/calculator/${route.slug}`);
-  }
-
-  // 4. Curated canonical pSEO LLM API Token Cost benchmarks (36 pages)
-  for (const route of generatePseoLlmMatrix()) {
-    routes.push(`/tools/${route.slug}`);
   }
 
   return routes;

@@ -21,7 +21,7 @@ if (cssFile) {
 const { render, getRoutes } = await import('file://' + toAbsolute('dist-server/entry-server.js').replace(/\\/g, '/'));
 
 const routesToPrerender = getRoutes();
-const supportedLangCodes = new Set(['en', 'tr', 'es', 'de', 'pt', 'fr', 'id', 'ja']);
+const supportedLangCodes = new Set(['en', 'tr']);
 
 console.log(`Starting stable sequential prerender for ${routesToPrerender.length} routes...`);
 

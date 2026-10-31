@@ -115,6 +115,45 @@ export const toolDeepGuides = {
         { q: "Can I exit the Beckham Law early if my salary drops?", a: "Yes. You may voluntarily renounce the special regime during November or December of any year via Modelo 149, taking effect on January 1 of the following tax year. Once renounced, you cannot re-enter the regime." }
       ]
     },
+    tr: {
+      formulaTitle: "İspanya Beckham Yasası (Madde 93 LIRPF) vs. Genel Kademeli IRPF Hesaplama Formülü",
+      formulaCode: "Beckham Vergisi (Modelo 151) = (min(Brüt, 600.000 €) × %24) + (max(0, Brüt − 600.000 €) × %47) | Çalışan Sosyal Güv. (2026) = min(Brüt, 61.214,40 €) × %6,50 (Maks. 3.979 €/yıl)",
+      formulaNotes: "Ley 35/2006 (LIRPF) Madde 93, Ley 28/2022 ('Startup Yasası') ve Ley 7/2024 uyarınca: İspanya'ya taşınan nitelikli çalışanlar, taşındıkları takvim yılı ve takip eden 5 yıl boyunca (toplam 6 vergi yılı) 600.000 €'ya kadar olan çalışma gelirleri üzerinden %24 sabit vergi öderler. Özel rejimde 5.550 € kişisel muafiyet uygulanmaz.",
+      tableTitle: "2026 İspanya Beckham Yasası (Madde 93 LIRPF) vs. Standart IRPF Karşılaştırma Tablosu",
+      tableHeaders: ["Yıllık Brüt Maaş (€)", "2026 Çalışan SGK", "Standart IRPF Vergisi", "Beckham Yasası (%24)", "Beckham Net Maaş", "Yıllık Vergi Tasarrufu", "6 Yıllık Toplam Avantaj"],
+      tableRows: [
+        ["€60,000", "€3,900", "€14,510 (%24.2)", "€14,400 (%24.0)", "€41,700 (€3,475/ay)", "+€110/yıl", "+€660"],
+        ["€90,000", "€3,979 (Tavan)", "€26,590 (%29.5)", "€21,600 (%24.0)", "€64,421 (€5,368/ay)", "+€4,990/yıl", "+€29,940"],
+        ["€120,000", "€3,979 (Tavan)", "€40,090 (%33.4)", "€28,800 (%24.0)", "€87,221 (€7,268/ay)", "+€11,290/yıl", "+€67,740"],
+        ["€200,000", "€3,979 (Tavan)", "€76,090 (%38.0)", "€48,000 (%24.0)", "€148,021 (€12,335/ay)", "+€28,090/yıl", "+€168,540"],
+        ["€350,000", "€3,979 (Tavan)", "€144,550 (%41.3)", "€84,000 (%24.0)", "€262,021 (€21,835/ay)", "+€60,550/yıl", "+€363,300"],
+        ["€650,000", "€3,979 (Tavan)", "€285,550 (%43.9)", "€167,500 (%25.8)*", "€478,521 (€39,877/ay)", "+€118,050/yıl", "+€708,300"]
+      ],
+      sections: [
+        {
+          heading: "İspanya Beckham Yasası (Régimen Especial de Trabajadores Desplazados — Madde 93 LIRPF) 2026'da Nasıl Çalışır?",
+          body: "Resmi adıyla 'İspanya Topraklarına Gönderilen Çalışanlar, Profesyoneller, Girişimciler ve Yatırımcılar İçin Özel Vergi Rejimi' (Ley 35/2006 Madde 93), Ley 28/2022 ('Startup Yasası') ile modernize edilmiştir. Bu rejim, İspanya'ya taşınarak vergi mukimi olan nitelikli profesyonellerin 6 vergi yılı boyunca (taşınma yılı + takip eden 5 yıl) Yerleşik Olmayanlar Gelir Vergisi (IRNR) kurallarına göre vergilendirilmesini sağlar. Özerk bölgelere göre %45–%54'e ulaşan kademeli IRPF dilimleri yerine, 600.000 €'ya kadar olan çalışma gelirleri %24 sabit orandan, aşan kısım ise %47'den vergilendirilir."
+        },
+        {
+          heading: "Startup Yasası (Ley 28/2022) Sonrası Kimler Beckham Yasasına Başvurabilir?",
+          body: "2026 yılında bu rejimden yararlanabilmek için önceki 5 vergi yılı boyunca İspanya'da vergi mukimi olmamanız (eski 10 yıl şartı 5 yıla düşürüldü) ve İspanya'ya taşınmanızın şu dört yasal nedenden birine dayanması gerekir: (1) İspanyol bir işverenle yeni iş sözleşmesi veya uluslararası şirket içi görevlendirme; (2) yabancı bir şirkette tamamen bilgisayar/telekomünikasyon sistemleriyle uzaktan çalışanlar (Dijital Göçebe Vizesi sahipleri); (3) bir şirkete yönetici (administrador) olarak atanma (aktif ticari şirketlerde %25 hisse sınırı kaldırılmıştır, yalnızca pasif varlık yönetim şirketlerinde %25 altı şartı aranır); veya (4) ENISA onaylı yenilikçi girişimciler ve Ar-Ge profesyonelleri."
+        },
+        {
+          heading: "Yurt Dışı Temettü, Sermaye Kazancı (Ley 7/2024 Tarifesi) ve Servet Vergisi Muafiyeti",
+          body: "Beckham Yasasının en büyük avantajlarından biri pasif yatırım gelirlerinde bölgesellik (territoriality) ilkesidir: İspanya dışındaki yabancı hisse senetlerinden elde edilen temettüler, yurt dışı banka faizleri ve İspanya dışındaki gayrimenkul veya portföy satış kazançları İspanya'da %0 vergiye tabidir. Yalnızca İspanya kaynaklı yatırım gelirleri Ley 7/2024 ile güncellenen tasarruf tarifesine (%19 ile %30 arası) tabidir. Benzer şekilde Servet Vergisi yalnızca İspanya sınırları içindeki varlıklar için geçerlidir."
+        },
+        {
+          heading: "Başvuru Süreci: Modelo 149 İçin 6 Aylık Kesin Süre ve Yıllık Modelo 151 Beyannamesi",
+          body: "Beckham Yasası otomatik uygulanmaz. İspanyol Sosyal Güvenlik Kurumuna (Seguridad Social) kayıt tarihinizden itibaren en geç 6 ay içinde İspanya Vergi Dairesine (AEAT) elektronik olarak Modelo 149 formuyla başvurmanız gerekir. Onay sertifikası çıktıktan sonra işvereniniz bordro stopajını %24 olarak uygular ve her yıl bahar döneminde standart Modelo 100 yerine Modelo 151 formuyla beyanname verirsiniz."
+        }
+      ],
+      extraFaqs: [
+        { q: "İspanya'da hangi maaş seviyesinden itibaren Beckham Yasası avantajlı olur?", a: "Başabaş noktası yıllık yaklaşık 55.000 € – 60.000 € brüt maaştır. 55.000 € altında standart kademeli IRPF genellikle daha avantajlıdır; çünkü standart mukimler 5.550 € kişisel muafiyet, 2.000 € çalışma gideri indirimi ve 3.979 € SGK kesintisini vergi matrahından düşebilirken, %24 sabit Beckham rejiminde hiçbir indirim uygulanmaz." },
+        { q: "Beckham Yasası kapsamında İspanya'da Sosyal Güvenlik (SGK) primi ödenir mi?", a: "Evet. Beckham Yasası yalnızca gelir vergisini (IRPF) sabitler. İkili sosyal güvenlik anlaşması kapsamında A1 / görevlendirme belgeniz yoksa, İspanya'da %6,50 çalışan sosyal güvenlik primi (2026 aylık tavan matrahı olan 5.101,20 € üzerinden yıllık maksimum 3.979 €) ödenir." },
+        { q: "Serbest çalışanlar (Autónomo) Beckham Yasasından yararlanabilir mi?", a: "Standart bir serbest çalışan (autónomo) yalnızca kendi adına fatura keserek bu rejime giremez. Ancak Ley 28/2022 uyarınca ENISA'dan yenilikçi girişimcilik sertifikası alanlar veya tescilli startup/Ar-Ge projelerine yüksek nitelikli hizmet veren profesyoneller başvurabilir." },
+        { q: "6 aylık Modelo 149 başvuru süresini kaçırırsam ne olur?", a: "Sosyal güvenlik tescilinden itibaren başlayan 6 aylık süre hak düşürücü süredir (plazo de caducidad). Süre kaçırıldığında AEAT başvuruyu otomatik reddeder ve standart kademeli IRPF rejimine tabi olursunuz." }
+      ]
+    },
     es: {
       formulaTitle: "Fórmula Oficial de la Ley Beckham (Art. 93 LIRPF) vs. IRPF General Progresivo",
       formulaCode: "Cuota Ley Beckham (Modelo 151) = (mín(Bruto, 600.000 €) × 24%) + (máx(0, Bruto − 600.000 €) × 47%) | Seg. Social Trabajador (2026) = mín(Bruto, 61.214,40 €) × 6,50% (Máx. 3.979 €/año)",
@@ -192,6 +231,39 @@ export const toolDeepGuides = {
         { q: "Why is my Umbrella company deduction so high on an Inside IR35 contract?", a: "Because UK law forbids passing Employer National Insurance directly to the worker, Umbrella rates are quoted as an 'assignment rate' that includes the employer's 15% NI contribution and holiday pay accrual before your personal PAYE tax is even calculated." }
       ]
     },
+    tr: {
+      formulaTitle: "Bordrolu Çalışan (Maaşlı) vs. B2B Bağımsız Yüklenici Eşdeğerlik Formülü",
+      formulaCode: "Gereken Saatlik Fatura Ücreti = (Hedef Net Gelir + Serbest Meslek Vergisi + Bağ-Kur/SECA + Özel Sağlık/Emeklilik + İşletme Giderleri) ÷ Yıllık Faturalandırılabilir Saat",
+      formulaNotes: "Yıllık Faturalandırılabilir Saat = (52 Hafta − Yıllık İzin − Resmi Tatiller − Hastalık/Boşta Kalma) × Haftalık Faturalandırılabilir Saat (idari işler ve satış süresi düşüldüğünde yılda ortalama 1.250 ila 1.650 saat).",
+      tableTitle: "2026 Bordrolu Maaş Teklifi vs. B2B Sözleşmeli (Freelance) Başabaş Karşılaştırma Matrisi",
+      tableHeaders: ["Bordrolu Teklif (Brüt)", "Ülke ve Vergi Rejimi", "Bordrolu Net Maaş", "Eşdeğer B2B Yıllık Fatura", "Min. Günlük Ücret (220 Gün)", "Min. Saatlik Ücret (1.540 Saat)"],
+      tableRows: [
+        ["$120,000 (W-2)", "🇺🇸 ABD W-2 vs 1099 (SECA %15.3)", "$89,400", "$158,000 (+%31.7)", "$718/gün", "$103/saat"],
+        ["£85,000 (PAYE)", "🇬🇧 İngiltere Inside IR35 (Umbrella)", "£59,690", "£114,500 (+%34.7)", "£520/gün", "£74/saat"],
+        ["£85,000 (PAYE)", "🇬🇧 İngiltere Outside IR35 (Ltd Şti)", "£59,690", "£98,000 (+%15.3)", "£445/gün", "£64/saat"],
+        ["€90,000 (Brutto)", "🇩🇪 Almanya Bordrolu vs Freiberufler", "€53,200", "€124,000 (+%37.8)", "€564/gün", "€81/saat"],
+        ["$80,000 (Yurt Dışı)", "🇹🇷 Türkiye GVK Md. 89/13 (%80 İstisna)", "$68,900 (B2B Avantajlı)", "$72,000 (-%10.0)", "$327/gün", "$47/saat"]
+      ],
+      sections: [
+        {
+          heading: "Türkiye'den Yurt Dışına B2B Hizmet İhracatı: GVK Madde 89/13 (%80 Kazanç İstisnası)",
+          body: "Türkiye'de yerleşik yazılım, mühendislik, tasarım, veri analizi ve mimarlık profesyonelleri, yurt dışındaki bir şirkete B2B sözleşmeli (şahıs şirketi veya limited şirket üzerinden) hizmet verdiklerinde Gelir Vergisi Kanunu Madde 89/13 uyarınca elde ettikleri net kazancın %80'ini gelir vergisi matrahından indirebilirler. Fatura bedelinin döviz olarak Türkiye'deki banka hesabına getirilmesi ve hizmetten yurt dışında yararlanılması şartıyla efektif gelir vergisi yükü %4–%7 bandına düşer; ayrıca 3065 sayılı KDV Kanunu Madde 11/1-a kapsamında %0 KDV ile fatura kesilir."
+        },
+        {
+          heading: "ABD W-2 vs. 1099-NEC: %15,3 SECA Vergisi ve Yan Hak Maliyetleri",
+          body: "ABD'de W-2 bordrolu çalışanlar %15,3'lük FICA sosyal güvenlik vergisini işverenle yarı yarıya (%7,65 işçi + %7,65 işveren) paylaşır. 1099 bağımsız yükleniciye (contractor) geçtiğinizde ise net kârınızın %92,35'i üzerinden %15,3 SECA vergisinin tamamını siz ödersiniz. Buna ek olarak özel sağlık sigortası (yıllık 6.000$–18.000$), 401(k) işveren eşleşmesi ve 4–5 haftalık ücretsiz izin kaybını telafi etmek için W-2 maaş teklifinin en az %30–%40 üzerinde brüt fatura kesmeniz gerekir."
+        },
+        {
+          heading: "İngiltere IR35 (Inside vs. Outside IR35) ve Almanya Freiberufler Kuralları",
+          body: "İngiltere'de ITEPA 2003 Bölüm 10 (IR35) uyarınca sözleşmeniz 'Inside IR35' olarak sınıflandırılırsa, Umbrella şirket üzerinden hem %15 işveren NI primini hem de çalışan PAYE vergisini üstlenirsiniz. 'Outside IR35' statüsünde ise kendi Limited Şirketiniz üzerinden %19–%25 kurumlar vergisi ve düşük oranlı temettü ile çok daha yüksek net gelir elde edersiniz. Almanya'da ise § 18 EStG kapsamındaki serbest meslek erbapları (Freiberufler) ticaret vergisinden (Gewerbesteuer) muaftır ancak aylık ~1.050 €'ya varan sağlık sigortası primini kendileri öder."
+        }
+      ],
+      extraFaqs: [
+        { q: "Kadrolu maaştan B2B sözleşmeli çalışmaya geçerken yüzde kaç fark istemeliyim?", a: "ABD, İngiltere ve Batı Avrupa'da işveren sosyal güvenlik payı, ücretli izinler, sağlık sigortası ve sözleşme arası boşlukları karşılamak için brüt maaşın en az %30 ila %45 üzerinde B2B bütçe talep edilmelidir." },
+        { q: "Türkiye'de Genç Girişimci İstisnası ile %80 yazılım ihracatı istisnası birlikte kullanılır mı?", a: "Evet. 29 yaş altı ilk kez şahıs şirketi kuranlar 3 vergi yılı boyunca yıllık gelir vergisi istisnasından ve 1 yıl boyunca Bağ-Kur prim desteğinden yararlanırken, istisna sınırını aşan yurt dışı yazılım/tasarım kazançlarına %80 GVK 89/13 indirimi uygulayabilir." },
+        { q: "Tek bir yabancı müşteriye tam zamanlı B2B fatura kesmek yasal risk taşır mı?", a: "Almanya (Scheinselbstständigkeit) ve İspanya (Falso Autónomo) gibi ülkelerde tek müşteriye bağımlı çalışmak örtülü istihdam incelemesine yol açabilir. Sözleşmenizde sabit mesai saati yerine teslimat odaklı (deliverable-based) maddeler bulunmalı ve kendi ekipmanınızla çalışmalısınız." }
+      ]
+    },
     de: {
       formulaTitle: "Berechnungsformel: Freelancer-Stundensatz vs. Brutto-Netto in Festanstellung",
       formulaCode: "Erforderlicher Freelancer-Umsatz = (Ziel-Netto + Einkommensteuer § 32a EStG + Kranken-/Pflegeversicherung + Altersvorsorge + Betriebskosten) ÷ Fakturierbare Jahresstunden",
@@ -260,6 +332,40 @@ export const toolDeepGuides = {
         { q: "Can an EOR grant stock options (ISOs / ESOPs / RSUs) to international employees?", a: "Yes, the parent company can grant equity or RSUs directly to workers employed via an EOR, though upon vesting or exercise, tax withholding and employer social security reporting must be coordinated through the EOR's local payroll." },
         { q: "What happens when we graduate from an EOR to our own local subsidiary?", a: "Transitioning employees from an EOR to your newly incorporated subsidiary requires either a formal transfer of undertakings (such as TUPE in the UK/EU, preserving seniority) or mutual termination and re-hire contracts." }
       ]
+    },
+    tr: {
+      formulaTitle: "Employer of Record (EOR) vs. Yerel Şirket Kurulumu Toplam Sahip Olma Maliyeti (TCO) Formülü",
+      formulaCode: "Yıllık EOR TCO = Çalışan Sayısı × (Brüt Maaş × (1 + İşveren SGK Yükü %) + (Aylık EOR Ücreti × 12)) | Şirket TCO = Çalışan Sayısı × (Brüt Maaş × (1 + İşveren Yükü %)) + Kurulum Amortismanı + Yıllık Muhasebe/Hukuk",
+      formulaNotes: "Zorunlu işveren sosyal güvenlik payı ve kıdem karşılıkları hem EOR hem de yerel şirkette birebir aynıdır; başabaş noktasını belirleyen unsur çalışan başı aylık 499$–599$ EOR platform ücreti ile yerel şirket sabit yönetim giderlerinin karşılaştırmasıdır.",
+      tableTitle: "2026 Ülkelere Göre İşveren Bordro Yükü ve EOR vs. Yerel Şirket Başabaş Tablosu",
+      tableHeaders: ["Ülke", "İşveren Zorunlu SGK Yükü %", "Temel İşveren Kesintileri", "Şirket Kurulum + Yıllık Bakım", "EOR Başabaş Çalışan Sayısı"],
+      tableRows: [
+        ["🇺🇸 ABD", "%8.5 – %12.0", "FICA (%7.65), FUTA/SUTA, İş Kazası Sigortası", "$2,500 + $6,000/yıl", "2 – 3 Çalışan"],
+        ["🇬🇧 İngiltere", "%15.5 – %18.0", "İşveren Class 1 NI (%15), Otomatik Emeklilik (%3)", "$1,500 + $5,500/yıl", "2 – 3 Çalışan"],
+        ["🇩🇪 Almanya", "%20.5 – %22.0", "Sağlık, Emeklilik, İşsizlik, Bakım + Umlage U1/U2", "$8,500 + $14,000/yıl", "4 – 5 Çalışan"],
+        ["🇪🇸 İspanya", "%30.5 – %32.5", "Contingencias Comunes (%23.6), İşsizlik (%5.5), FOGASA", "$6,500 + $12,000/yıl", "3 – 4 Çalışan"],
+        ["🇹🇷 Türkiye", "%20.75 – %22.75", "SGK İşveren Payı (%15.75–%20.75) + İşsizlik (%2)", "$2,000 + $4,800/yıl", "2 – 3 Çalışan"],
+        ["🇧🇷 Brezilya (CLT)", "%65.0 – %80.0", "INSS (%20), FGTS (%8), 13. Maaş, Tatil İkramiyesi", "$9,000 + $18,000/yıl", "4 – 6 Çalışan"]
+      ],
+      sections: [
+        {
+          heading: "Toplam İşveren Maliyetinin Anatomisi: Brüt Maaş + İşveren SGK Payı + EOR Ücreti",
+          body: "Uluslararası bir işe alım bütçelenirken iş teklifindeki brüt maaş yalnızca başlangıç noktasıdır. Her ülke işverene ek sosyal güvenlik primi yükler: ABD'de %7,65 FICA, İngiltere'de %15 İşveren NI, Türkiye'de %5 peşin ödeme indirimli %17,75–%22,75 SGK işveren primi, İspanya'da ~%31,5 Seguridad Social ve Fransa'da ~%45 URSSAF kesintisi uygulanır. Deel, Remote veya Oyster gibi bir EOR sağlayıcısı bu yasal işveren vergilerini birebir yansıtır ve üzerine çalışan başına aylık 399$ ila 599$ sabit platform ücreti ekler."
+        },
+        {
+          heading: "Kaç Çalışandan Sonra Yerel Şirket (GmbH, Ltd, A.Ş.) Kurmak Daha Ekonomiktir?",
+          body: "Yeni bir ülkede 1 ila 3 çalışan istihdam ederken EOR neredeyse her zaman daha ucuz ve çok daha hızlıdır (şirket kurulumu için 3–6 ay beklemek yerine 48 saatte yasal sözleşme imzalanır). Ancak EOR ücretleri çalışan sayısıyla doğrusal arttığı için (599$/ay × 12 = çalışan başı yıllık 7.188$), 5 kişilik bir ekip için yılda ~36.000$ yalnızca platform komisyonu ödenir. Avrupa ve Türkiye dahil çoğu pazarda 3 ila 5 tam zamanlı çalışana ulaşıldığında yerel şube veya limited şirket kurmak başabaş noktasını geçerek maliyet avantajı sağlar."
+        },
+        {
+          heading: "Gizli EOR Maliyetleri: Bordro Döviz Kuru Farkları (FX) ve Fikri Mülkiyet (IP) Devri",
+          body: "Aylık koltuk ücretinin ötesinde, finans ekiplerinin en çok gözden kaçırdığı gider EOR faturalarındaki döviz çevrim marjıdır. USD veya EUR ile fonlanan bordronun yerel para birimine (TRY, GBP, PLN, BRL) çevrilmesi sırasında uygulanan %1,5–%2,5 kur farkı, yıllık 100.000$ maliyetli bir mühendiste yılda 1.500$–2.500$ ek gizli maliyet yaratır."
+        }
+      ],
+      extraFaqs: [
+        { q: "EOR kullanmak İşyeri Oluşturma (Permanent Establishment - PE) kurumlar vergisi riskini tamamen sıfırlar mı?", a: "EOR iş hukuku ve bordro uyum riskini üstlenir; ancak EOR üzerinden çalıştırdığınız kişi o ülkede ana şirket adına doğrudan satış sözleşmeleri imzalayan üst düzey bir yöneticiyse, yerel vergi dairesi ana şirketin o ülkede daimi işyeri (PE) oluşturduğuna hükmedebilir." },
+        { q: "EOR üzerinden çalışan personele hisse senedi opsiyonu (ESOP / RSU) verilebilir mi?", a: "Evet. Ana şirket kendi ESOP planı kapsamında EOR çalışanlarına doğrudan opsiyon veya RSU tanımlayabilir; ancak hisselerin hak edilmesi (vesting) veya satışı anında doğan bordro vergilerinin EOR üzerinden beyan edilmesi gerekir." },
+        { q: "EOR'dan kendi kurduğumuz yerel şirkete çalışanları nasıl devrederiz?", a: "Yeni şirketiniz kurulduğunda çalışanlar kıdem hakları korunarak (AB/İngiltere'de TUPE devri veya karşılıklı ikale ve yeni sözleşme protokolü ile) kendi bordronuza geçirilir." }
+      ]
     }
   },
 
@@ -294,6 +400,38 @@ export const toolDeepGuides = {
         { q: "What is a realistic billable utilization rate for a solo software consultant?", a: "Between 60% and 70% (roughly 24 to 28 billable hours out of a 40-hour workweek). Utilization above 80% is usually only achievable on long-term 6–12 month staff-augmentation contracts." },
         { q: "Should I charge clients for discovery calls and project scoping?", a: "Initial 30-minute introductory calls are absorbed into your unbilled overhead rate, but multi-day architectural audits or specification roadmaps should be billed as paid discovery sprints." },
         { q: "How do I adjust my hourly rate for short-term urgent projects?", a: "Apply a 25% to 50% rush/short-duration multiplier on engagements shorter than 4 weeks to compensate for the higher client onboarding and sales cost per billable hour." }
+      ]
+    },
+    tr: {
+      formulaTitle: "Freelancer Minimum Sürdürülebilir Saatlik Ücret (MVHR) Formülü",
+      formulaCode: "Min. Saatlik Ücret = ((Hedef Yıllık Net Gelir ÷ (1 − Efektif Vergi Oranı)) + Yıllık İşletme Giderleri + Bağ-Kur/Sağlık) ÷ (Çalışılan Hafta × Haftalık Saat × Faturalama Oranı %)",
+      formulaNotes: "Faturalama Oranı (Utilization %), toplam çalışma saatinizin doğrudan müşteriye fatura edilebilen kısmını ifade eder (satış, teklif hazırlama, muhasebe ve revizyonlar düşüldüğünde genellikle %55–%68 arasıdır).",
+      tableTitle: "2026 Hedef Yıllık Net Gelire Göre Freelancer Saatlik ve Günlük Ücret Tablosu",
+      tableHeaders: ["Hedef Yıllık Net Gelir", "Tahmini Vergi + Gider", "Gereken Yıllık Brüt Ciro", "Yılda 1.000 Fatura Saatinde", "Yılda 1.350 Fatura Saatinde", "Yılda 1.600 Fatura Saatinde"],
+      tableRows: [
+        ["$60,000 Net ($5,000/ay)", "$32,000", "$92,000", "$92 / saat ($736/gün)", "$68 / saat ($545/gün)", "$58 / saat ($460/gün)"],
+        ["$90,000 Net ($7,500/ay)", "$48,500", "$138,500", "$139 / saat ($1,108/gün)", "$103 / saat ($820/gün)", "$87 / saat ($693/gün)"],
+        ["$120,000 Net ($10,000/ay)", "$66,000", "$186,000", "$186 / saat ($1,488/gün)", "$138 / saat ($1,102/gün)", "$116 / saat ($930/gün)"],
+        ["$160,000 Net ($13,333/ay)", "$91,000", "$251,000", "$251 / saat ($2,008/gün)", "$186 / saat ($1,487/gün)", "$157 / saat ($1,255/gün)"]
+      ],
+      sections: [
+        {
+          heading: "2.080 Saat Yanılgısı: Neden Her Saatinizi Fatura Edemezsiniz?",
+          body: "Bordrolu çalışanlar yılda 2.080 saat (52 hafta × 40 saat) üzerinden ücretlendirilir ve bu süreye ücretli yıllık izinler, resmi tatiller ve şirket içi toplantılar dahildir. Oysa bağımsız bir freelancer yalnızca müşteriye doğrudan fatura ettiği saatlerde gelir üretir. Yılda 4 hafta tatil, 2 hafta resmi tatil/hastalık ve haftada 12–15 saatlik müşteri bulma, teklif yazma, faturalama ve kişisel gelişim süreleri düşüldüğünde tam zamanlı bir danışman yılda ortalama 1.150 ila 1.450 saat fatura kesebilir."
+        },
+        {
+          heading: "Gizli İşletme Giderleri ve Projeler Arası Boşluk (Bench Time) Maliyeti",
+          body: "Saatlik ücret hesaplanırken iki proje arasındaki 2 ila 6 haftalık geçiş süreleri ('bench time') mutlaka fiyata dahil edilmelidir. Ayrıca bulut sunucu giderleri, yapay zeka/yazılım abonelikleri, mali müşavir ücretleri, Bağ-Kur/sosyal güvenlik primleri ve 3 yıllık bilgisayar yenileme amortismanı, kişisel hesabınıza tek kuruş geçmeden önce yılda 4.500$ ila 12.000$ sabit gider oluşturur."
+        },
+        {
+          heading: "Saatlik Ücretten Haftalık Sprint ve Aylık Retainer Modelini Geçiş",
+          body: "Minimum saatlik taban ücretinizi (floor rate) hesapladıktan sonra, karmaşık mühendislik veya danışmanlık projelerinde tekil saat fiyatı vermek yerine haftalık sprint veya aylık sabit danışmanlık (retainer) paketleri sunmak hem gelir öngörülebilirliğini artırır hem de bağlam değiştirme (context-switching) kayıplarını önler."
+        }
+      ],
+      extraFaqs: [
+        { q: "Bağımsız bir yazılımcı veya tasarımcı için gerçekçi faturalama oranı (utilization) kaçtır?", a: "Haftalık 40 saatlik çalışmanın yaklaşık %60 ila %70'i (haftada 24–28 saat) doğrudan faturalandırılabilir. %80 üzeri oranlar yalnızca 6–12 aylık tam zamanlı tek müşteri sözleşmelerinde mümkündür." },
+        { q: "Ön görüşme ve proje kapsamı çıkarma (discovery) saatleri için ücret alınmalı mı?", a: "İlk 30 dakikalık tanışma görüşmeleri genel işletme gideri payınızdan karşılanır; ancak birkaç gün süren teknik mimari analiz ve yol haritası çalışmaları ücretli 'Discovery Sprint' olarak faturalandırılmalıdır." },
+        { q: "Acil ve kısa süreli projelerde saatlik ücretime ne kadar fark eklemeliyim?", a: "4 haftadan kısa süreli veya acil teslimatlı projelerde müşteri kabul (onboarding) maliyetini dengelemek için taban saatlik ücretinize %25 ila %50 aciliyet çarpanı eklemeniz önerilir." }
       ]
     }
   },
@@ -331,6 +469,40 @@ export const toolDeepGuides = {
         { q: "What happens if the crypto I received as salary crashes before I pay my taxes?", a: "This is the biggest trap in crypto compensation: your ordinary income tax liability is locked in at the high price on the day you received the tokens. If the token drops 60% in the next tax year before you sell, capital losses in many countries (like the US, capped at $3,000/yr against ordinary income) cannot fully offset prior ordinary salary tax. Always convert your tax percentage to fiat or stablecoins immediately upon receipt." },
         { q: "Is swapping BTC for USDT or USDC a taxable event?", a: "In the US, UK, Germany, and Spain, crypto-to-crypto swaps (including swapping into stablecoins) are taxable disposals that realize capital gains or losses immediately." },
         { q: "What is Spain's Modelo 721 for crypto holders?", a: "Spanish tax residents holding more than €50,000 in crypto assets on overseas exchanges or custodial platforms as of December 31 must file informative declaration Modelo 721 between January 1 and March 31." }
+      ]
+    },
+    tr: {
+      formulaTitle: "İki Aşamalı Kripto Maaş ve Değer Artış Kazancı (Capital Gains) Vergi Formülü",
+      formulaCode: "Toplam Kripto Vergisi = (Cüzdana Yattığı Andaki Piyasa Değeri × Gelir Vergisi + SGK) + (max(0, Satış Değeri − Maliyet Bedeli) × Sermaye Kazancı Vergisi)",
+      formulaNotes: "Maaş veya serbest meslek faturasının BTC, ETH, USDT veya USDC olarak tahsil edilmesi, tokenların cüzdanınıza geçtiği saniyedeki yerel para birimi karşılığını hem gelir vergisi matrahınız hem de gelecekteki satışlar için FIFO maliyet bedeliniz (cost basis) yapar.",
+      tableTitle: "2026 Ülkelere Göre Kripto Maaş ve Sermaye Kazancı Vergilendirme Karşılaştırması",
+      tableHeaders: ["Ülke", "Maaş Alındığı Anda Vergi", "Kısa Vadeli Satış (<1 Yıl)", "Uzun Vadeli Satış (>1 Yıl)", "Önemli Yasal Kural / İstisna"],
+      tableRows: [
+        ["🇺🇸 ABD", "Normal Gelir Vergisi + FICA/SECA", "%10 – %37 (Gelir Dilimi)", "%0, %15 veya %20 (+%3.8 NIIT)", "Form 8949 / Schedule D; her takas vergiye tabidir"],
+        ["🇬🇧 İngiltere", "PAYE Gelir Vergisi + NI", "%18 (Temel) / %24 (Üst)", "%18 (Temel) / %24 (Üst)", "Yıllık £3.000 CGT muafiyeti; Section 104 havuz maliyeti"],
+        ["🇩🇪 Almanya", "Gelir Vergisi (%14 – %45)", "%14 – %45 (<1.000€ kâr muaf)", "%0 Vergisiz (>365 Gün Elde Tutma)", "§ 23 EStG uyarınca 1 yıldan uzun tutulan kripto satışı %0 vergilidir"],
+        ["🇵🇹 Portekiz", "IRS Maaş / Kategori B Vergisi", "%28 Sabit Vergi (<365 Gün)", "%0 Vergisiz (>365 Gün Elde Tutma)", "365 günü aşan kripto yatırımlarında sermaye kazancı vergisi %0"],
+        ["🇹🇷 Türkiye", "Ticari/Mesleki Kazanç (%15–%40)", "Bireysel alım-satım %0 (Stopajsız)", "Bireysel alım-satım %0", "Hizmet karşılığı alınan USDT/kripto serbest meslek kazancıdır"],
+        ["🇦🇪 BAE / Dubai", "%0 Bireysel Gelir Vergisi", "%0 Sermaye Kazancı", "%0 Sermaye Kazancı", "Bireysel kripto maaş ve yatırım kazançlarında %0 vergi"]
+      ],
+      sections: [
+        {
+          heading: "1. Vergi Olayı: Maaş veya B2B Hizmet Bedelinin Kripto / Stablecoin Olarak Alınması",
+          body: "Ödemenizi ister Bitcoin/Ethereum gibi değişken varlıklarla ister USDT/USDC gibi dolara endeksli stablecoinlerle alın; ABD (IRS), İngiltere (HMRC), Almanya (BMF) ve Türkiye (GİB) dahil tüm vergi idareleri, verilen bir emek veya hizmet karşılığında alınan kripto varlıkları 'normal ücret veya serbest meslek kazancı' olarak kabul eder. Vergi matrahınız, tokenların kontrolünüzdeki cüzdana ulaştığı tarihteki resmi döviz/fiat karşılığıdır."
+        },
+        {
+          heading: "2. Vergi Olayı: Kriptonun Satılması, Takas Edilmesi veya Harcanması (365 Gün Kuralı)",
+          body: "Maaş olarak aldığınız kripto parayı daha sonra sattığınızda, başka bir token ile takas ettiğinizde (swap) veya kripto kartla harcadığınızda ikinci bir vergi olayı (Sermaye Kazancı / Capital Gains) doğar. Almanya (§ 23 EStG) ve Portekiz'de kripto varlıkları cüzdanda 365 günden uzun süre tuttuktan sonra satarsanız değer artış kazancı vergisi %0'dır."
+        },
+        {
+          heading: "Türkiye'den Yurt Dışına Çalışanlarda USDT/USDC Tahsilatı ve %80 İstisna Şartı",
+          body: "Türkiye'de yerleşik bir yazılımcı veya danışmanın GVK Madde 89/13 kapsamındaki %80 kazanç istisnasından yararlanabilmesi için fatura bedelinin Türkiye'deki bir banka hesabına döviz olarak transfer edilmesi şarttır. Doğrudan soğuk cüzdana alınan ve banka sistemi üzerinden döviz bedeli olarak Türkiye'ye getirilmeyen ödemelerde %80 istisna hakkı kaybedilebilir."
+        }
+      ],
+      extraFaqs: [
+        { q: "Maaş olarak aldığım kripto para vergi döneminden önce değer kaybederse ne olur?", a: "Kripto maaşlardaki en büyük risk budur: Gelir verginiz tokenı aldığınız gündeki yüksek fiyat üzerinden kesinleşir. Token yıl sonunda %60 düşse bile birçok ülkede sermaye zararı geçmiş maaş vergisinden mahsup edilemez. Bu nedenle vergi payınızı ödemeyi alır almaz nakde veya stablecoine ayırmanız önerilir." },
+        { q: "BTC'yi nakde çevirmeden USDT veya ETH'ye dönüştürmek (swap) vergiye tabi midir?", a: "ABD, İngiltere, Almanya ve İspanya'da kriptodan kriptoya yapılan tüm takaslar (stablecoin geçişleri dahil) satış hükmündedir ve o andaki kâr/zararı realize eder." },
+        { q: "İspanya'da Modelo 721 kripto beyannamesi nedir?", a: "İspanya'da vergi mukimi olup yurt dışı kripto borsalarında 31 Aralık itibarıyla 50.000 € üzerinde kripto varlık tutanlar, her yıl 1 Ocak – 31 Mart arasında Modelo 721 bilgi beyannamesi vermekle yükümlüdür." }
       ]
     }
   },
@@ -371,6 +543,42 @@ export const toolDeepGuides = {
         { q: "Can I use savings in my bank account instead of monthly income to qualify?", a: "Croatia allows applicants to qualify via a lump-sum bank balance (12× or 18× the monthly requirement) in lieu of monthly paystubs, and Portugal considers savings deposits alongside active remote income, whereas Spain and Greece strictly require ongoing monthly remote work income." },
         { q: "Do I need an apostilled criminal background check and private health insurance?", a: "Yes. Virtually all Digital Nomad Visas require an apostilled background check (FBI check for US citizens, ACRO for UK citizens) from every country lived in during the past 2–5 years, plus comprehensive zero-copay private health insurance." }
       ]
+    },
+    tr: {
+      formulaTitle: "Dijital Göçebe Vizesi Minimum Gelir Şartı ve Aile Çarpanı Formülü",
+      formulaCode: "Gereken Aylık Gelir = Ülke Yasal Taban Geliri (Örn. İspanya SMI × %200) × (1 + Eş Çarpanı % + (Çocuk Sayısı × Çocuk Çarpanı %))",
+      formulaNotes: "Avrupa'daki pek çok dijital göçebe vizesi minimum gelir şartını doğrudan ülkenin resmi asgari ücretine (SMI) endeksler; asgari ücret arttığında vize gelir eşiği de otomatik güncellenir.",
+      tableTitle: "2026 Resmi Dijital Göçebe Vizesi Aylık Minimum Gelir Şartları ve Vergi Kuralları (8 Popüler Ülke)",
+      tableHeaders: ["Ülke ve Vize Programı", "Tek Kişi Aylık Min. Gelir", "Eş İle Birlikte (+1)", "Maks. Süre", "Yerel Vergi Rejimi Özeti"],
+      tableRows: [
+        ["🇪🇸 İspanya (Teletrabajo Internacional)", "€2,760 / ay (%200 SMI)", "€3,795 / ay (+%75 SMI)", "3 Yıl (5 Yıla Uzatılır)", "Bordrolu/ENISA ise %24 Beckham Yasası (Madde 93) uygunluğu"],
+        ["🇵🇹 Portekiz (D8 Dijital Göçebe Vizesi)", "€3,480 / ay (4× Asg. Ücret)", "€5,220 / ay (+%50)", "2 Yıl (5 Yılda Kalıcı Oturum)", "Kademeli IRS veya nitelikli mesleklerde %20 IFICI rejimi"],
+        ["🇮🇹 İtalya (Digital Nomad / Remote Worker)", "€2,400 / ay (~€28,000/yıl)", "€3,200 / ay", "1 Yıl (Her Yıl Yenilenir)", "Vergi mukimi olunduğunda %50 Impatriati matrah muafiyeti"],
+        ["🇦🇪 BAE / Dubai (Virtual Working Program)", "$3,500 / ay", "$3,500 / ay", "1 Yıl (Yenilenebilir)", "%0 Bireysel Gelir Vergisi ve %0 Sermaye Kazancı Vergisi"],
+        ["🇯🇵 Japonya (Specified Visa — Digital Nomad)", "¥833,000 / ay (~$5,500/ay)", "¥833,000 / ay", "6 Ay (Uzatılamaz)", "Vergi mukimi sayılmaz; 6 ay boyunca yabancı gelir Japonya'da vergisizdir"],
+        ["🇭🇷 Hırvatistan (Digital Nomad Geçici İkamet)", "€2,870 / ay", "€3,157 / ay (+%10)", "18 Ay", "Yurt dışı uzaktan çalışma geliri Hırvatistan gelir vergisinden %100 muaftır"],
+        ["🇬🇷 Yunanistan (Yasa 4825/2021 Göçebe Vizesi)", "€3,500 / ay (Net)", "€4,200 / ay (+%20)", "2 Yıl", "Madde 5G kapsamında 7 yıla kadar %50 gelir vergisi indirimi"],
+        ["🇨🇷 Kosta Rika (Estancia Trabajador Remoto)", "$3,000 / ay", "$4,000 / ay (Aile)", "1 Yıl (2 Yıla Uzatılır)", "Yabancı kaynaklı gelirler Kosta Rika gelir vergisinden %100 muaftır"]
+      ],
+      sections: [
+        {
+          heading: "Brüt vs. Net Gelir İspatı: Konsolosluklar Banka Dökümlerini Nasıl İnceler?",
+          body: "Konsolosluklar ve göç idareleri Dijital Göçebe Vizesi başvurularında iki temel kanıt arar: (1) yurt dışındaki şirketle en az 3 ila 12 aydır devam eden ve uzaktan çalışmaya açıkça izin veren iş veya B2B hizmet sözleşmesi, (2) son 3 ila 6 aya ait kaşeli banka hesap dökümleri. İspanya UGE birimi sözleşmedeki brüt tutarı İspanya asgari ücretinin %200'ü ile kıyaslarken, Yunanistan (3.500 €/ay) ve Hırvatistan (2.870 €/ay) vergiler düşüldükten sonra banka hesabınıza yatan net tutarı baz alır."
+        },
+        {
+          heading: "Sosyal Güvenlik Görevlendirme Belgesi (A1 / İkili Anlaşma) vs. B2B Sözleşme",
+          body: "İspanya ve İtalya dijital göçebe vizelerinde en kritik teknik aşama sosyal güvenlik (SGK) kapsamıdır. Yabancı bir şirketin bordrolu çalışanıysanız, ülkenizdeki sosyal güvenlik kurumundan ikili sözleşme belgesi (AB içinde A1 formu) almanız veya işvereninizin İspanya'da sosyal güvenlik dosyası açması gerekir. Bu nedenle Türkiye ve ABD'den başvuran profesyonellerin büyük çoğunluğu B2B sözleşmeli (freelancer/şirket sahibi) statüsüyle başvurup İspanya'da RETA (autónomo) kaydı açmayı tercih eder."
+        },
+        {
+          heading: "Göçmenlik İkameti ile Vergi Mukimliğini Ayırmak (183 Gün Kuralı)",
+          body: "Dijital göçebe vizesi almak otomatik olarak sıfır vergi anlamına gelmez. Hırvatistan, Kosta Rika ve Japonya (6 aylık vize) yabancı uzaktan çalışma gelirini yerel vergiden açıkça muaf tutarken; İspanya, Portekiz veya İtalya'da bir takvim yılında 183 günden fazla kaldığınızda vergi mukimi (tax resident) olursunuz."
+        }
+      ],
+      extraFaqs: [
+        { q: "İspanya Dijital Göçebe Vizesinde eş ve çocuklar için gelir şartı nasıl artar?", a: "Ana başvuru sahibi için İspanya asgari ücretinin (SMI) %200'ü (yaklaşık 2.760 €/ay), beraberindeki ilk aile üyesi (eş) için +%75 SMI (~1.035 €/ay) ve her bir çocuk için +%25 SMI (~345 €/ay) ek gelir ispatı gerekir." },
+        { q: "Aylık maaş yerine bankadaki toplu birikim (mevduat) ile başvuru yapılabilir mi?", a: "Hırvatistan aylık gelir yerine 12 veya 18 aylık tutarın bankada toplu gösterilmesini kabul ederken, İspanya ve Yunanistan mutlaka aktif ve düzenli aylık uzaktan çalışma geliri şartı arar." },
+        { q: "Apostilli adli sicil kaydı ve özel sağlık sigortası zorunlu mu?", a: "Evet. Tüm dijital göçebe vizelerinde son 2–5 yılda yaşadığınız ülkelerden alınmış apostilli adli sicil kaydı, diploma veya en az 3 yıllık mesleki deneyim kanıtı ve muafiyetsiz (tam kapsamlı) özel sağlık sigortası zorunludur." }
+      ]
     }
   },
 
@@ -406,6 +614,39 @@ export const toolDeepGuides = {
         { q: "What is the difference between SWIFT OUR, SHA, and BEN instructions?", a: "Under 'OUR', the sender pays all intermediary correspondent bank fees so the exact invoice amount arrives. Under 'SHA' (Shared), intermediary banks deduct $15–$35 lifting fees from the principal amount in transit. Always specify 'OUR' or use local ACH/SEPA rails in your B2B contract." },
         { q: "Are FX conversion fees and bank wire charges tax-deductible for freelancers?", a: "Yes. Both explicit wire fees and realized foreign exchange losses between invoice date and settlement date are deductible business financial expenses for independent contractors." },
         { q: "Why are weekend FX rates higher on fintech cards and apps?", a: "Global interbank FX markets close between Friday 5:00 PM EST and Sunday 5:00 PM EST. Many providers add a 0.5% to 1.0% weekend buffer markup to protect against Monday market gaps—always convert large invoices between Tuesday and Thursday." }
+      ]
+    },
+    tr: {
+      formulaTitle: "Gizli Banka Döviz Kuru Makası (FX Spread) ve SWIFT Maliyet Formülü",
+      formulaCode: "Toplam FX Kaybı = SWIFT/Havale Ücreti + (Transfer Tutarı × ((Piyasa Ortası Reel Kur − Banka Gişe Kuru) ÷ Piyasa Ortası Reel Kur))",
+      formulaNotes: "Piyasa ortası kur (mid-market rate), küresel bankalararası döviz piyasasındaki alış ve satış fiyatlarının tam ortasıdır. Bankalar '0$ havale ücreti' reklamı yaptığında bile kurun içine %1,5 ila %4,5 gizli makas (spread) yerleştirir.",
+      tableTitle: "2026 Yıllık 100.000$ Uzaktan Gelirde ($8.333/Ay) Ödeme Yöntemi Maliyet Karşılaştırması",
+      tableHeaders: ["Ödeme Yöntemi / Platform", "Görünür Transfer Ücreti", "Ortalama Kur Makası (Spread)", "100.000$'da Yıllık Kesinti", "Ele Geçen Net (EUR Karşılığı)", "Reel Kura Göre Yıllık Kayıp"],
+      tableRows: [
+        ["Bankalararası Reel Kur (Referans)", "$0", "%0.00 (Referans)", "$0", "€92,000", "$0 (Sıfır Kayıp)"],
+        ["Wise / Revolut Business (Reel Kur)", "$45 – $90/yıl", "%0.35 – %0.45", "~$420/yıl", "€91,614", "-$420 / yıl"],
+        ["Deel / Remote B2B Çekim", "$0 – $120/yıl", "%1.00 – %1.75", "~$1,350/yıl", "€90,758", "-$1,350 / yıl"],
+        ["Geleneksel Banka SWIFT Transferi", "$300 – $540/yıl", "%2.50 – %3.50", "~$3,300/yıl", "€88,964", "-$3,300 / yıl"],
+        ["PayPal / Standart Kart Çevrimi", "$0 – $180/yıl", "%3.50 – %4.50", "~$4,100/yıl", "€88,228", "-$4,100 / yıl"]
+      ],
+      sections: [
+        {
+          heading: "'Komisyonsuz Havale' Reklamları %3 Kur Makasını Nasıl Gizler?",
+          body: "Yurt dışındaki bir müşteriniz 10.000$ tutarındaki faturanızı EUR veya TRY hesabınıza gönderdiğinde, alıcı banka çoğu zaman 'Gelen havale ücreti yok' der. Ancak 10.000 dolarınızı gerçek piyasa kurundan (örneğin 1 USD = 0,9200 EUR) bozmak yerine kendi gişe alış kuru olan 0,8920 EUR üzerinden bozar ve tek bir aylık maaş ödemesinde 280 € (~304 $) tutarı gizli kur makası olarak keser."
+        },
+        {
+          heading: "Muhabir Banka Kesintileri (SWIFT SHA vs. OUR) ve Çifte Dönüşüm Tuzağı",
+          body: "SWIFT transferleri 'SHA' (masraflar paylaşımlı) koduyla gönderildiğinde, para hesabınıza ulaşana kadar 1 ila 3 aracı muhabir bankadan (correspondent bank) geçer ve her aracı banka ana paradan 15$–35$ kesinti yapar. Ayrıca ABD'li bir müşteri Türkiye veya Avrupa'daki USD hesabınıza para gönderirken kendi bankasında otomatik döviz dönüşümü kutucuğunu açık bırakırsa, para USD → yerel para → USD şeklinde çifte kur makasına girerek %5–%7 değer kaybeder."
+        },
+        {
+          heading: "En Doğru Yöntem: Yerel Tahsilat Hesapları (ACH, SEPA) ve İhracat Bedeli Bozdurma",
+          body: "SWIFT kesintilerini sıfırlamak için müşterinin para biriminde yerel hesap bilgileri (USD için ABD ACH yönlendirme numarası, EUR için SEPA IBAN, GBP için UK Sort Code) kullanın. Türkiye'den yazılım/hizmet ihracatı yapanlar ise dövizi Türkiye'deki USD/EUR vadesiz döviz hesaplarına SWIFT 'OUR' olarak alıp, banka hazine masasından özel kur talep ederek bozdurmalıdır."
+        }
+      ],
+      extraFaqs: [
+        { q: "SWIFT transferlerinde OUR, SHA ve BEN kodları ne anlama gelir?", a: "'OUR' seçeneğinde tüm aracı muhabir banka masraflarını gönderici öder ve fatura tutarı eksiksiz hesabınıza yatar. 'SHA' seçeneğinde aracı bankalar ana paradan 15$–35$ keser. B2B sözleşmelerinize mutlaka ödemelerin 'SWIFT OUR' veya yerel ACH/SEPA ile yapılacağı maddesini ekleyin." },
+        { q: "Banka SWIFT masrafları ve kur farkı zararları vergiden düşülebilir mi?", a: "Evet. Şahıs veya sermaye şirketiniz üzerinden kestiğiniz hizmet ihracatı faturalarında banka komisyonları ve oluşan negatif kur farkları finansman gideri olarak muhasebeleştirilebilir." },
+        { q: "Hafta sonu döviz bozdurmak neden daha pahalıdır?", a: "Küresel bankalararası döviz piyasaları Cuma akşamı kapanıp Pazar gecesi açılır. Bankalar ve fintek uygulamaları hafta sonu kur riskine karşı makası %0,5 ila %1,5 açar; yüksek tutarlı döviz dönüşümlerini Salı–Perşembe günleri mesai saatlerinde yapın." }
       ]
     }
   },
@@ -443,6 +684,39 @@ export const toolDeepGuides = {
         { q: "Can I reclaim input VAT on my business purchases if 100% of my invoices are 0% export/reverse-charge?", a: "Yes! Cross-border B2B service exports and EU Reverse Charge supplies are 'taxable supplies with right of deduction' (unlike exempt healthcare or financial services). Many exporters receive net quarterly or annual VAT refunds from their tax office." },
         { q: "How do I calculate the net price from a VAT-inclusive gross amount?", a: "Divide the gross amount by (1 + VAT Rate). For example, to extract 20% VAT from a €1,200 gross invoice, divide €1,200 by 1.20 = €1,000 net + €200 VAT (never multiply €1,200 by 20%, which would wrongly give €240)." }
       ]
+    },
+    tr: {
+      formulaTitle: "Uluslararası B2B Hizmet İhracatı KDV / VAT ve Reverse Charge Formülü",
+      formulaCode: "Yurt İçi Fatura Toplamı = Net Tutar × (1 + Yasal KDV %) | Yurt Dışı B2B Hizmet İhracatı / AB Reverse Charge Toplamı = Net Tutar × 1,00 (%0 KDV)",
+      formulaNotes: "3065 Sayılı KDV Kanunu Madde 11/1-a ve AB KDV Direktifi 2006/112/EC Madde 44 & 196 uyarınca, yurt dışındaki kurumsal müşterilere sunulan ve yurt dışında yararlanılan B2B hizmetlerde faturada %0 KDV uygulanır.",
+      tableTitle: "2026 Küresel KDV / VAT Oranları ve Yurt Dışı B2B Fatura İstisna Tablosu",
+      tableHeaders: ["Hizmet Veren Bölge", "Standart Yurt İçi KDV", "AB Şirketine B2B Fatura (VIES)", "ABD / İngiltere / AB Dışı B2B", "Faturaya Yazılması Zorunlu Yasal İbare"],
+      tableRows: [
+        ["🇹🇷 Türkiye (Hizmet İhracatı)", "%20 (Genel KDV)", "%0 (KDV Kanunu Md. 11/1-a)", "%0 (KDV Kanunu Md. 11/1-a)", "'3065 S.K. Md. 11/1-a Hizmet İhracatı kapsamında KDV'den istisnadır'"],
+        ["🇪🇺 AB Üyesi (Örn. Almanya %19, İspanya %21)", "%19 – %27", "%0 (AB İçi Reverse Charge)", "%0 (İfa Yeri AB Dışı)", "'Reverse Charge — Art. 44 & 196 EU VAT Directive 2006/112/EC'"],
+        ["🇬🇧 İngiltere (Birleşik Krallık)", "%20 (Standart Oran)", "%0 (İngiltere KDV Kapsamı Dışı)", "%0 (İngiltere KDV Kapsamı Dışı)", "'Outside the scope of UK VAT — B2B Place of Supply Rules'"],
+        ["🇦🇺 Avustralya / 🇨🇦 Kanada", "%10 GST / %5–%15 HST", "%0 (GST Muaf İhracat)", "%0 (Sıfır Oranlı İhracat)", "'Zero-rated export of services to non-resident recipient'"],
+        ["🇺🇸 ABD", "%0 Federal KDV", "%0 Hizmet İhracatı", "%0 Eyalet Dışı B2B Hizmet", "Federal KDV yoktur; yalnızca ekonomik bağ (nexus) varsa eyalet satış vergisi doğar"]
+      ],
+      sections: [
+        {
+          heading: "Türkiye'de Hizmet İhracatı %0 KDV İstisnasının (3065 S.K. Md. 11/1-a) 4 Yasal Şartı",
+          body: "Türkiye'deki bir şahıs veya sermaye şirketinin yurt dışındaki müşterisine kestiği faturada %0 KDV (tam istisna) uygulayabilmesi için Maliye Bakanlığı tebliğlerine göre şu dört şartın birlikte sağlanması gerekir: (1) Hizmetin Türkiye'den yurt dışındaki bir müşteri için yapılması, (2) Fatura veya benzeri belgenin yurt dışındaki müşteri adına düzenlenmesi, (3) Hizmetten yurt dışında yararlanılması ve (4) Hizmet bedelinin döviz olarak Türkiye'ye getirilmesi (banka dekontu/DAB ile tevsik). Bu şartlar sağlandığında faturada KDV hesaplanmaz."
+        },
+        {
+          heading: "AB İçi B2B Faturalarda Ters Ödeme Yükümlülüğü (Reverse Charge) ve VIES Sorgulaması",
+          body: "Avrupa Birliği içindeki bir ülkede (örneğin Almanya, İspanya veya Estonya e-Residency şirketiyle) faaliyet gösterirken başka bir AB ülkesindeki kurumsal müşteriye B2B hizmet faturası kestiğinizde, müşterinin AB KDV numarasını (VAT ID) Avrupa Komisyonu VIES sisteminden doğrulamanız ve faturaya hem kendi VAT numaranızı hem de alıcının VAT numarasını yazarak 'Reverse Charge' şerhi düşmeniz gerekir. Vergiyi alıcı şirket kendi ülkesinde beyan eder."
+        },
+        {
+          heading: "Yurt İçi Harcamalarda Ödenen KDV'nin İadesi veya Mahsubu (Tam İstisna Avantajı)",
+          body: "Hizmet ihracatı 'tam istisna' kapsamındadır. Yani gelirlerinizin %100'ü yurt dışına kestiğiniz %0 KDV'li faturalardan oluşsa bile, Türkiye'de veya AB'de işiniz için aldığınız bilgisayar, ofis kirası, mali müşavirlik ve yazılım faturalarında ödediğiniz %20 KDV'yi indirim konusu yapabilir ve biriken yüklenilen KDV'yi vergi dairesinden nakden veya mahsuben (vergi/SGK borçlarınıza saydırarak) iade alabilirsiniz."
+        }
+      ],
+      extraFaqs: [
+        { q: "ABD'deki müşterimin VAT (KDV) numarası yok, faturaya ne yazmalıyım?", a: "ABD'de federal KDV sistemi olmadığı için Amerikan LLC veya C-Corp şirketlerinin VAT numarası bulunmaz. Faturaya müşterinin ABD şirket unvanını, açık adresini ve varsa EIN (Employer Identification Number) numarasını yazmanız hizmet ihracatı tevsiki için yeterlidir." },
+        { q: "KDV dahil (Brüt) tutardan KDV hariç (Net) tutar nasıl hesaplanır?", a: "Brüt tutarı (1 + KDV Oranı) değerine bölmeniz gerekir. Örneğin %20 KDV dahil 1.200 € tutarındaki faturanın net matrahı 1.200 ÷ 1,20 = 1.000 € net ve 200 € KDV'dir (1.200'ün %20'sini almak 240 € gibi hatalı bir sonuç verir)." },
+        { q: "Yurt dışına SaaS veya mobil uygulama (B2C bireysel kullanıcıya) satışı yaparken KDV uygulanır mı?", a: "Müşteriniz şirket (B2B) değil de AB içindeki bireysel tüketicilerse (B2C), yıllık 10.000 € sınırını aştığınızda AB One-Stop-Shop (OSS) sistemi üzerinden tüketicinin bulunduğu ülkenin KDV oranını tahsil etmeniz gerekir; Stripe Tax veya Paddle gibi Merchant of Record yapıları bu yükümlülüğü otomatik üstlenir." }
+      ]
     }
   },
 
@@ -475,6 +749,35 @@ export const toolDeepGuides = {
         { q: "How do global tech companies use location-based pay bands?", a: "Companies using location-tiered compensation typically benchmark against local labor market percentiles (cost of labor) rather than consumer price indices (cost of living), grouping cities into Tier 1 (SF/NYC/Zurich), Tier 2 (London/Amsterdam/Austin), and Tier 3 (Madrid/Warsaw/LATAM)." },
         { q: "Should I hold my emergency fund in my local living currency or my earning currency?", a: "Keep 3 to 6 months of local rent and living expenses in your local spending currency (e.g., EUR, THB, MXN) to eliminate short-term FX volatility, while investing long-term surplus in globally diversified assets." }
       ]
+    },
+    tr: {
+      formulaTitle: "Satın Alma Gücü Paritesi (PPP) ve Coğrafi Arbitraj Eşdeğer Maaş Formülü",
+      formulaCode: "Reel PPP Eşdeğer Maaş = Hedef Şehir Net Maaşı × (Mevcut Şehir Yaşam Maliyeti Endeksi ÷ Hedef Şehir Yaşam Maliyeti Endeksi)",
+      formulaNotes: "Vergi sonrası net maaşı kira ağırlıklı yerel tüketici fiyat sepetleriyle birleştirerek, uzaktan kazanılan bir maaşın farklı şehirlerde ne kadar yaşam standardı ve net nakit tasarruf sağladığını ölçer.",
+      tableTitle: "2026 Uzaktan Çalışma Coğrafi Arbitraj Karşılaştırması (110.000$ Yıllık Brüt Uzaktan Gelir)",
+      tableHeaders: ["Şehir ve Vergi Rejimi", "Efektif Vergi", "Aylık Net Gelir", "1+1 Merkez Kira + Yaşam", "Aylık Net Nakit Birikim", "PPP Eşdeğer Yaşam Gücü"],
+      tableRows: [
+        ["🇺🇸 San Francisco (ABD Mukimi)", "%31", "$6,325 / ay", "$4,850 / ay", "+$1,475 / ay ($17.7k/yıl)", "$110,000 (Baz Şehir)"],
+        ["🇬🇧 Londra (İngiltere Mukimi)", "%29", "$6,508 / ay", "$4,100 / ay", "+$2,408 / ay ($28.9k/yıl)", "$124,500 Eşdeğeri"],
+        ["🇪🇸 Madrid / Valensiya (Beckham %24)", "%24", "$6,967 / ay", "$2,450 / ay", "+$4,517 / ay ($54.2k/yıl)", "$168,000 Eşdeğeri"],
+        ["🇹🇷 İstanbul (GVK 89/13 %80 İstisna)", "%9", "$8,340 / ay", "$2,150 / ay", "+$6,190 / ay ($74.2k/yıl)", "$198,000 Eşdeğeri"],
+        ["🇦🇪 Dubai (%0 Gelir Vergisi)", "%0", "$9,167 / ay", "$3,600 / ay", "+$5,567 / ay ($66.8k/yıl)", "$195,000 Eşdeğeri"],
+        ["🇹🇭 Bangkok / Chiang Mai (LTR)", "%10–%17", "$7,800 / ay", "$1,650 / ay", "+$6,150 / ay ($73.8k/yıl)", "$235,000 Eşdeğeri"]
+      ],
+      sections: [
+        {
+          heading: "Standart PPP Hesaplayıcıları Neden Vergi Rejimlerini Gözden Kaçırır?",
+          body: "Klasik satın alma gücü paritesi araçları yalnızca iki şehir arasındaki market ve kira fiyatlarını karşılaştırır; ancak yüksek gelirli bir uzaktan çalışanın en büyük gider kalemi olan gelir vergisi ve sosyal güvenlik kesintilerini hesaba katmaz. Yaşam maliyeti ucuz görünen bir Avrupa ülkesine özel expat vergi rejimi (Beckham Yasası veya IFICI gibi) olmadan taşındığınızda %45–%48'lik vergi dilimi kira avantajınızın tamamını eritebilir."
+        },
+        {
+          heading: "Coğrafi Arbitrajın (Geo-Arbitrage) Net Tasarruf Çarpanı Etkisi",
+          body: "Dolar veya Euro cinsinden küresel gelir elde ederken sabit konut ve yaşam giderlerinizi aylık 4.800$'dan 2.200$'a düşürmek ve efektif vergi oranınızı yasal teşviklerle %31'den %9–%24 bandına indirmek, aylık yatırım yapılabilir net nakit akışınızı 3 katına çıkararak finansal bağımsızlık sürenizi 10 yıl öne çeker."
+        }
+      ],
+      extraFaqs: [
+        { q: "Küresel teknoloji şirketleri lokasyon bazlı maaş bantlarını nasıl belirler?", a: "Şirketler genellikle yaşam maliyetini (cost of living) değil, o şehirdeki yazılımcı/mühendis işgücü piyasası maliyetini (cost of labor) baz alarak şehirleri Tier 1 (SF/NYC/Zürih), Tier 2 (Londra/Amsterdam) ve Tier 3 (Madrid/Varşova/İstanbul) olarak gruplandırır." },
+        { q: "Acil durum fonumu hangi para biriminde tutmalıyım?", a: "Kısa vadeli kur dalgalanmalarından etkilenmemek için 3 ila 6 aylık kira ve yaşam giderinizi yaşadığınız ülkenin yerel para biriminde, uzun vadeli birikimlerinizi ise küresel döviz/yatırım sepetinde tutmanız önerilir." }
+      ]
     }
   },
 
@@ -504,6 +807,33 @@ export const toolDeepGuides = {
       extraFaqs: [
         { q: "What is the exact formula for my real (inflation-adjusted) pay raise?", a: "Use the Fisher equation: Real Raise = ((1 + Nominal Raise Rate) ÷ (1 + Inflation Rate)) − 1. For example, a 6% raise during 4% inflation gives (1.06 ÷ 1.04) − 1 = +1.92% real purchasing power growth." },
         { q: "How should freelancers index multi-year retainer contracts against inflation?", a: "Include an automatic annual rate adjustment clause tied to the official national CPI index (or a fixed 3.5%–5% annual escalator) effective on each contract anniversary." }
+      ]
+    },
+    tr: {
+      formulaTitle: "Bileşik TÜFE Enflasyonu ve Reel Satın Alma Gücü Erimesi Formülü",
+      formulaCode: "N Yıl Sonraki Reel Değer = Nominal Maaş ÷ (1 + Yıllık Enflasyon Oranı)^N | Alım Gücünü Korumak İçin Gereken Maaş = Mevcut Maaş × (1 + Enflasyon)^N",
+      formulaNotes: "Enflasyon her yıl bir önceki yılın fiyat seviyesinin üzerine geometrik (bileşik) olarak eklendiği için, yıllık %15 enflasyon sadece 5 yılda maaşınızın alım gücünün %50,3'ünü yok eder.",
+      tableTitle: "Zam Yapılmayan 100.000$ (veya 100.000 Birim) Maaşın Bileşik Enflasyon Karşısında Erimesi",
+      tableHeaders: ["Yıllık TÜFE Enflasyon Oranı", "3 Yıl Sonra Reel Değer", "5 Yıl Sonra Reel Değer", "10 Yıl Sonra Reel Değer", "5. Yılda Alım Gücünü Koruyan Maaş"],
+      tableRows: [
+        ["%2.5 (Merkez Bankası Hedefi)", "$92,860 (-%7.1)", "$88,385 (-%11.6)", "$78,120 (-%21.9)", "$113,141 (+%13.1 Zam)"],
+        ["%4.5 (Ilımlı Enflasyon)", "$87,630 (-%12.4)", "$80,245 (-%19.8)", "$64,393 (-%35.6)", "$124,618 (+%24.6 Zam)"],
+        ["%7.0 (Yüksek Küresel Enflasyon)", "$81,630 (-%18.4)", "$71,299 (-%28.7)", "$50,835 (-%49.2)", "$140,255 (+%40.3 Zam)"],
+        ["%15.0 (Gelişen Piyasa Şoku)", "$65,752 (-%34.2)", "$49,718 (-%50.3)", "$24,718 (-%75.3)", "$201,136 (+%101.1 Zam)"]
+      ],
+      sections: [
+        {
+          heading: "Vergi Dilimi Kayması (Fiscal Drag): Enflasyon Vergi Oranınızı Nasıl Gizlice Artırır?",
+          body: "Yıllık enflasyonun %20 olduğu bir dönemde işvereniniz maaşınıza %20 zam yaptığında brüt alım gücünüz korunmuş gibi görünür. Ancak gelir vergisi dilimleri (yeniden değerleme oranı) gerçek enflasyonun altında güncellenirse, nominal olarak artan maaşınız yılın çok daha erken aylarında %27, %35 veya %40'lık üst vergi dilimlerine girer ve net reel maaşınız enflasyonun gerisinde kalır."
+        },
+        {
+          heading: "Döviz (USD/EUR) Kazanan Uzaktan Çalışanlarda Kur vs. Yerel Enflasyon Makası",
+          body: "Türkiye veya Arjantin gibi yüksek enflasyonlu ülkelerde yaşayıp USD veya EUR cinsinden gelir elde eden profesyoneller, yerel TÜFE enflasyonu ile döviz kurunun artış hızı arasındaki farkı takip etmelidir. Yerel enflasyonun döviz kuru artışını geçtiği dönemlerde dolar bazında yaşam maliyetiniz yükselir; buna ek olarak ABD/Avrupa'daki %3–%4'lük dolar/euro enflasyonu da küresel alım gücünüzü aşındırır."
+        }
+      ],
+      extraFaqs: [
+        { q: "Gerçek (reel) maaş zammı oranı matematiksel olarak nasıl hesaplanır?", a: "Reel zam oranı şu Fisher denklemiyle bulunur: Reel Zam = ((1 + Nominal Zam Oranı) ÷ (1 + Enflasyon Oranı)) − 1. Örneğin %40 enflasyon olan bir yılda %50 zam aldıysanız reel artışınız %10 değil, (1,50 ÷ 1,40) − 1 = +%7,14'tür." },
+        { q: "Uzun süreli B2B danışmanlık sözleşmelerini enflasyona karşı nasıl korumalıyım?", a: "Yurt dışı B2B sözleşmelerinize her 12 ayda bir ABD/Euro Bölgesi resmi TÜFE (CPI/HICP) oranında veya sabit %4–%6 oranında otomatik saatlik ücret güncelleme (annual rate escalator) maddesi ekleyin." }
       ]
     }
   },
@@ -536,35 +866,33 @@ export const toolDeepGuides = {
         { q: "Which global hubs offer the best timezone bridge between US clients and European/Asian teams?", a: "Lisbon/London (UTC+0), Madrid/Berlin (UTC+1), Istanbul (UTC+3), and Dubai (UTC+4) allow professionals to work normal daytime hours with Europe and Asia while holding afternoon/early-evening sync calls with US East and West Coast teams." },
         { q: "How can a team with zero 9-to-5 overlap collaborate without burnout?", a: "Adopt written RFCs, Loom video handovers at the end of each shift, and alternating meeting times so neither side is permanently forced into late-night calls." }
       ]
-    }
-  },
-
-  wasm: {
-    en: {
-      formulaTitle: "Client-Side Canvas & WebAssembly Pixel Processing Pipeline",
-      formulaCode: "Euclidean Color Distance d = √((R − R₀)² + (G − G₀)² + (B − B₀)²) | If d < Threshold τ ⇒ Alpha Channel A = 0 (Transparent)",
-      formulaNotes: "All RGBA pixel matrix operations execute directly inside your browser's local ArrayBuffer / HTML5 Canvas memory without uploading bytes over HTTP.",
-      tableTitle: "Client-Side Browser RAM Processing vs. Cloud Image Processing Comparison",
-      tableHeaders: ["Processing Metric", "GlobalPayCalc Local WASM / Canvas Studio", "Traditional Cloud Upload Compressors"],
+    },
+    tr: {
+      formulaTitle: "Senkronize Ekip Mesai Çakışması ve Altın Saat (Golden Window) Formülü",
+      formulaCode: "Ortak Mesai Saati = max(0, min(Bitiş_UTC_ŞehirA, Bitiş_UTC_ŞehirB) − max(Başlangıç_UTC_ŞehirA, Başlangıç_UTC_ŞehirB))",
+      formulaNotes: "Kuzey Amerika (Mart'ın 2. Pazarı), Avrupa (Mart'ın son Pazarı) ve sabit saat uygulayan Türkiye (UTC+3) / Asya merkezleri arasındaki yaz-kış saati (DST) geçiş farklarını hesaba katar.",
+      tableTitle: "Küresel Mühendislik Ekipleri Zaman Dilimi Çakışma Matrisi (Standart 09:00–18:00 Mesaisi)",
+      tableHeaders: ["Ekip Koridoru", "Saat Farkı", "Günlük 09-18 Çakışması", "En Uygun Toplantı Aralığı (TSİ / UTC)", "Çalışma Modeli"],
       tableRows: [
-        ["Data Privacy & GDPR Compliance", "100% Local RAM (Files Never Leave Device)", "Uploaded to Third-Party Cloud Storage Buckets"],
-        ["Network Upload / Download Latency", "0 ms (Instant Memory Buffer Access)", "2 – 15 Seconds per High-Res Image"],
-        ["File Count & Daily Usage Limits", "Unlimited (Uses Your Own CPU/GPU)", "Typically Capped at 5–20 Free Files/Day"],
-        ["Output Format & Transparency", "Lossless RGBA PNG with Alpha Transparency", "Often Paywalled for Full-Resolution PNGs"]
+        ["🇹🇷 İstanbul (UTC+3) ↔ 🇩🇪 Berlin / 🇬🇧 Londra", "1 – 3 Saat", "6 – 8 Saat / gün", "11:00 – 17:00 TSİ", "Tam Senkronize Avrupa Mesaisi"],
+        ["🇹🇷 İstanbul (UTC+3) ↔ 🇺🇸 New York (UTC-5)", "7 – 8 Saat", "1 – 2 Saat / gün", "16:00 – 18:30 TSİ", "Öğleden Sonra Transatlantik Köprü"],
+        ["🇺🇸 New York (UTC-5) ↔ 🇬🇧 Londra (UTC+0)", "5 Saat", "4 Saat / gün", "14:00 – 18:00 UTC", "Yüksek Senkronizasyonlu Koridor"],
+        ["🇺🇸 San Francisco (UTC-8) ↔ 🇬🇧 Londra / 🇪🇸 Madrid", "8 – 9 Saat", "1 Saat / gün", "16:30 – 17:30 UTC", "Asenkron Odaklı + Akşam Standup"],
+        ["🇬🇧 Londra / 🇩🇪 Berlin ↔ 🇸🇬 Singapur / 🇯🇵 Tokyo", "7 – 8 Saat", "1 – 2 Saat / gün", "08:00 – 10:00 UTC", "Avrupa Sabah / Asya Akşamüstü"]
       ],
       sections: [
         {
-          heading: "Why Zero-Upload Client-Side Image Processing Matters for Confidential Documents",
-          body: "When preparing visa applications, passport scans, product mockups, or corporate financial presentations, uploading sensitive images to free cloud compression websites exposes your files to external server logs and third-party storage buckets. By executing pixel segmentation and PNG/WebP encoding directly inside your browser's local memory via the HTML5 Canvas and WebAssembly runtime, your files remain 100% on your machine."
+          heading: "Yaz-Kış Saati (DST) Geçiş Haftalarında Yaşanan Senkronizasyon Tuzağı",
+          body: "Türkiye (UTC+3), BAE (UTC+4), Japonya ve Singapur yıl boyunca sabit saat dilimi kullanırken; ABD Mart ayının ikinci Pazar günü, Avrupa Birliği ve İngiltere ise Mart ayının son Pazar günü ileri saat uygulamasına geçer. Bu nedenle Türkiye ile Almanya arasındaki saat farkı kışın 2 saat iken yazın 1 saate düşer; ABD Doğu Yakası (New York) ile fark ise kışın 8 saat, yazın 7 saat ve Mart/Kasım geçiş haftalarında 15 günlüğüne farklılaşır."
         },
         {
-          heading: "Optimizing Images for Core Web Vitals (LCP & Page Weight)",
-          body: "Uncompressed hero images and transparent assets are the primary cause of slow Largest Contentful Paint (LCP) scores above 2.5 seconds. Removing uniform backgrounds and exporting clean, optimized assets reduces payload sizes by 50%–80% while preserving crisp edge contrast."
+          heading: "Altın Çakışma Saatleri (Golden Window) ve Kesintisiz Odaklanma (Deep Work) Blokları",
+          body: "Yüksek verimli dağıtık yazılım ekipleri günlük standup, kod incelemesi ve mimari toplantılarını tüm zaman dilimlerinin kesiştiği 2–3 saatlik 'Altın Pencere' içine sabitler. Günün kalan 5–6 saatlik bölümünü ise toplantısız asenkron geliştirme (deep work) için korur."
         }
       ],
       extraFaqs: [
-        { q: "Can I use this tool offline once the page has loaded?", a: "Yes. Because the entire image processing pipeline runs inside your browser's JavaScript and Canvas engine, no internet connection is required to process and download your images." },
-        { q: "Why does browser-based processing have no daily file limits?", a: "Because your own device's CPU and RAM perform the computation, it costs zero server compute per image, allowing us to offer unlimited usage." }
+        { q: "Hem ABD hem Avrupa ekipleriyle çalışmak için en avantajlı saat dilimleri hangileridir?", a: "Lizbon/Londra (UTC+0), Madrid/Berlin (UTC+1) ve İstanbul (UTC+3) koridoru, sabah ve öğle saatlerinde Avrupa/Asya ekipleriyle tam zamanlı çalışıp akşamüstü 16:00–19:00 arasında ABD Doğu Yakası (New York/Boston) ile gece mesaisine kalmadan toplantı yapma imkanı sunar." },
+        { q: "9-18 mesai çakışması sıfır olan iki şehir (örneğin San Francisco ve Singapur) nasıl çalışmalıdır?", a: "Yazılı teknik dokümantasyon (RFC), vardiya sonunda kaydedilen kısa ekran videoları (Loom) ve iki haftada bir dönüşümlü esnek toplantı saatleri uygulanarak tükenmişlik (burnout) önlenmelidir." }
       ]
     }
   },
@@ -604,6 +932,42 @@ export const toolDeepGuides = {
         { q: "Why are output tokens 3x to 8x more expensive than input tokens?", a: "Input tokens are processed in parallel during a single 'prefill' pass across GPU tensor cores, whereas output tokens are generated sequentially one token at a time ('autoregressive decoding'), requiring the entire model weights to be read from HBM memory for every single token." },
         { q: "How do 'thinking' or 'reasoning' tokens affect my API bill?", a: "Reasoning models (such as Gemini 2.5 Pro, Claude Sonnet 4.6 extended thinking, OpenAI o-series/GPT-5.4 reasoning, and DeepSeek Reasoner) bill internal chain-of-thought tokens at the model's output token rate even if only the final summary is displayed to the user." },
         { q: "What is the Batch API discount?", a: "OpenAI, Anthropic, and Google offer a 50% discount on both input and output tokens for asynchronous workloads (such as overnight data labeling, evaluations, or bulk embeddings) completed within a 24-hour window." }
+      ]
+    },
+    tr: {
+      formulaTitle: "LLM API Aylık Bütçe ve Prompt Caching (Önbellek) FinOps Formülü",
+      formulaCode: "Aylık Maliyet = ((Girdi_M × (1 − ÖnbellekOranı%) × GirdiFiyatı) + (Girdi_M × ÖnbellekOranı% × ÖnbellekFiyatı)) + (Çıktı_M × ÇıktıFiyatı)",
+      formulaNotes: "1 token yaklaşık 0,75 İngilizce kelimeye (~4 karakter; Türkçe eklemeli yapıda ~2,5–3 karakter) karşılık gelir. Çıktı (output) tokenları GPU bellek bant genişliği darboğazı nedeniyle girdi tokenlarından 3 ila 8 kat daha pahalıdır.",
+      tableTitle: "2026 Resmi LLM API Birim Fiyatları ve Prompt Caching Karşılaştırması (1 Milyon Token Başına)",
+      tableHeaders: ["Model ve Sağlayıcı", "Girdi ($/1M)", "Önbellek Girdi ($/1M)", "Çıktı ($/1M)", "Bağlam Penceresi", "50M Girdi (%50 Cache) + 10M Çıktı"],
+      tableRows: [
+        ["Anthropic Claude Sonnet 4.6", "$3.00", "$0.30 (%90 İndirim)", "$15.00", "1,000,000", "$232.50 / ay"],
+        ["OpenAI GPT-5.4 Flagship", "$2.50", "$0.25 (%90 İndirim)", "$15.00", "1,050,000", "$218.75 / ay"],
+        ["OpenAI GPT-4.1", "$2.00", "$0.50 (%75 İndirim)", "$8.00", "1,000,000", "$142.50 / ay"],
+        ["Google Gemini 2.5 Pro", "$1.25", "$0.125 (%90 İndirim)", "$10.00", "1,000,000", "$134.38 / ay"],
+        ["Anthropic Claude Haiku 4.5", "$1.00", "$0.10 (%90 İndirim)", "$5.00", "200,000", "$77.50 / ay"],
+        ["Google Gemini 2.5 Flash", "$0.30", "$0.03 (%90 İndirim)", "$2.50", "1,000,000", "$33.25 / ay"],
+        ["DeepSeek V3.2 (Chat/Reasoner)", "$0.28", "$0.028 (%90 İndirim)", "$0.42", "128,000", "$11.90 / ay"],
+        ["OpenAI GPT-4o-mini", "$0.15", "$0.075 (%50 İndirim)", "$0.60", "128,000", "$11.63 / ay"]
+      ],
+      sections: [
+        {
+          heading: "Prompt Caching (Önbellekleme) ile RAG ve Ajan Maliyetlerini %90 Düşürmek",
+          body: "Çok adımlı kodlama ajanları, hukuk/finans doküman analizörleri ve RAG müşteri destek sistemlerinde aynı sistem komutları (system prompt), araç şemaları ve referans belgeler her API çağrısında tekrar tekrar gönderilir. Anthropic, OpenAI, Google Gemini ve DeepSeek tarafından sunulan KV-Cache ('Prompt Caching') özelliği, önbellekten okunan girdi tokenlarında %75 ila %90 indirim sağlar. Sabit yönergeleri ve örnekleri promptun en başına yerleştirmek önbellek isabet oranını maksimuma çıkarır."
+        },
+        {
+          heading: "Model Yönlendirme (Model Routing): Akıl Yürütme Modelleri ile Hızlı Alt Modelleri Eşleştirmek",
+          body: "Üretim ortamındaki tüm trafiği en pahalı amiral gemisi modelden ($2.50–$3.00 girdi / $15.00 çıktı) geçirmek sınıflandırma, özetleme ve veri ayrıştırma işlemlerinde bütçe israfına yol açar. Rutin isteklerin %80'ini Gemini 2.5 Flash, Claude Haiku 4.5 veya GPT-4o-mini gibi hızlı modellere yönlendirip yalnızca karmaşık mimari ve akıl yürütme adımlarında Claude Sonnet 4.6 veya GPT-5.4 kullanmak aylık API faturasını %65–%80 oranında düşürür."
+        },
+        {
+          heading: "Kendi GPU Sunucunuzda Açık Ağırlıklı Model (Llama 4 / DeepSeek) Barındırmak Ne Zaman Avantajlıdır?",
+          body: "Bulut sağlayıcılarda kiralanan 8×H100 GPU sunucusunun aylık maliyeti DevOps giderleri hariç 14.000$ – 20.000$ seviyesindedir. Bu nedenle günlük kesintisiz token hacminiz 150–300 milyon tokenı aşmadığı veya verinin şirket dışına çıkmasını yasaklayan kapalı devre (on-premise) regülasyonlar bulunmadığı sürece kullandıkça-öde API servisleri çok daha ekonomiktir."
+        }
+      ],
+      extraFaqs: [
+        { q: "Çıktı (output) tokenları neden girdi (input) tokenlarından 3 ila 8 kat daha pahalıdır?", a: "Girdi tokenları GPU üzerinde tek bir paralel matris çarpımıyla ('prefill') işlenirken, çıktı tokenları kelime kelime sırayla ('autoregressive decoding') üretilir ve her bir token için milyarlarca parametrenin HBM bellekten tekrar okunması gerekir." },
+        { q: "Düşünme (Reasoning / Thinking) tokenları faturaya nasıl yansır?", a: "Gemini 2.5 Pro, Claude Sonnet 4.6 Extended Thinking, OpenAI o-serisi ve DeepSeek Reasoner gibi modellerde modelin yanıt üretmeden önce arka planda yürüttüğü içsel düşünce zinciri tokenları da çıktı (output) tarifesinden faturalandırılır." },
+        { q: "Batch API %50 indirimi hangi iş yüklerinde kullanılmalıdır?", a: "Anlık yanıt gerektirmeyen gece boyu veri etiketleme, toplu doküman çevirisi, içerik sınıflandırma ve test değerlendirme (eval) işlemlerinde Batch API kullanarak hem girdi hem çıktı maliyetini %50 indirebilirsiniz." }
       ]
     }
   }

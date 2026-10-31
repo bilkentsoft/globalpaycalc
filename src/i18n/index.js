@@ -1,21 +1,9 @@
 import en from './locales/en.json';
 import tr from './locales/tr.json';
-import es from './locales/es.json';
-import de from './locales/de.json';
-import pt from './locales/pt.json';
-import fr from './locales/fr.json';
-import id from './locales/id.json';
-import ja from './locales/ja.json';
 
 const translations = {
   en,
-  tr,
-  es,
-  de,
-  pt,
-  fr,
-  id,
-  ja
+  tr
 };
 
 export const getTranslation = (lang, path) => {
@@ -44,11 +32,5 @@ export const getTranslation = (lang, path) => {
 
 export const supportedLanguages = [
   { code: 'en', label: 'English 🇺🇸' },
-  { code: 'tr', label: 'Türkçe 🇹🇷' },
-  { code: 'es', label: 'Español 🇪🇸' },
-  { code: 'de', label: 'Deutsch 🇩🇪' },
-  { code: 'pt', label: 'Português 🇧🇷' },
-  { code: 'fr', label: 'Français 🇫🇷' },
-  { code: 'id', label: 'Bahasa Indonesia 🇮🇩' },
-  { code: 'ja', label: '日本語 🇯🇵' }
+  { code: 'tr', label: 'Türkçe 🇹🇷' }
 ];
