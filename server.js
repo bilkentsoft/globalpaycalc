@@ -1,6 +1,7 @@
 // Standalone Production Server for GlobalPayCalc.com
 // Serves pre-rendered static pages (56 canonical EN + TR routes), secured /api/* endpoints,
-// and single-hop 301 canonical redirects for retired locales, off-topic tools, and legacy pSEO URLs.
+// immediate single-request 410 Gone responses for purged pSEO doorway URLs & retired auto-translated locales,
+// and single-hop 301 canonical redirects for legitimate aliases.
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -27,10 +28,10 @@ if (fs.existsSync(envPath)) {
   }
 }
 
-// Language sets: Only 'en' (root) and 'tr' (/tr) are active canonical languages.
-// Retired auto-translated locales redirect in a single 301 hop to their English canonical equivalent.
-const retiredLangs = new Set(['en', 'es', 'de', 'pt', 'fr', 'id', 'ja']);
-const retiredSitemaps = new Set([
+// Retired auto-translated locales & legacy sitemaps -> Immediate 410 Gone so Googlebot
+// purges all legacy pSEO doorway URLs from the crawl queue in 1 request instead of burning crawl budget on redirects.
+const purgedLangs = new Set(['es', 'de', 'pt', 'fr', 'id', 'ja']);
+const purgedSitemaps = new Set([
   '/sitemap-es.xml',
   '/sitemap-de.xml',
   '/sitemap-pt.xml',
@@ -38,17 +39,7 @@ const retiredSitemaps = new Set([
   '/sitemap-id.xml',
   '/sitemap-ja.xml'
 ]);
-
-function resolveLegacyCalculatorRedirect(rawSlug = '', langPrefix = '') {
-  const slug = String(rawSlug).toLowerCase();
-  if (slug.includes('-to-mad-') || slug.includes('-to-bcn-') || slug.includes('-to-vlc-')) {
-    return `${langPrefix}/beckham-law`;
-  }
-  if (slug.includes('-to-lis-') || slug.includes('-to-opo-') || slug.includes('-to-bali-') || slug.includes('-to-bkk-') || slug.includes('-to-tal-') || slug.includes('-to-ath-')) {
-    return `${langPrefix}/nomad-visa`;
-  }
-  return `${langPrefix}/salary`;
-}
+const purgedSections = new Set(['calculator', 'tools', 'wasm', 'video']);
 
 // Per-IP Rate Limiter for /api/* endpoints
 const rateLimitMap = new Map();
@@ -163,7 +154,7 @@ function send410Gone(res) {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow');
   res.setHeader('Cache-Control', 'public, max-age=86400');
-  res.end('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="robots" content="noindex, nofollow"/><title>410 Gone | GlobalPayCalc</title></head><body><h1>410 Gone</h1><p>This outdated endpoint has been permanently removed. Visit <a href="https://globalpaycalc.com/">GlobalPayCalc.com</a>.</p></body></html>');
+  res.end('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="robots" content="noindex, nofollow"/><title>410 Gone | GlobalPayCalc</title></head><body><h1>410 Gone</h1><p>This legacy URL has been permanently removed. Explore our active tax calculators and research guides at <a href="https://globalpaycalc.com/">GlobalPayCalc.com</a>.</p></body></html>');
 }
 
 function send404NotFound(res) {
@@ -190,20 +181,52 @@ const server = http.createServer(async (req, res) => {
     setSecurityHeaders(res);
 
     const parsedUrl = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
-    let pathname = decodeURIComponent(parsedUrl.pathname);
+    let rawPath;
+    try {
+      rawPath = decodeURIComponent(parsedUrl.pathname);
+    } catch {
+      return send404NotFound(res);
+    }
 
-    // Strip trailing slashes (except root /)
-    if (pathname.length > 1 && pathname.endsWith('/')) {
-      pathname = pathname.replace(/\/+$/, '');
+    // Normalized path without trailing slash for single-request 410 Gone & redirect matching
+    // (Eliminates 2-hop trailing-slash redirect chains on legacy URLs)
+    const pathname = rawPath.length > 1 ? rawPath.replace(/\/+$/, '') : rawPath;
+    const segments = pathname.split('/').filter(Boolean);
+
+    // 0. IMMEDIATE 410 GONE FOR PURGED pSEO DOORWAY PAGES, RETIRED LOCALES & RETIRED SITEMAPS
+    // Evaluated BEFORE trailing-slash redirects so Googlebot drops them in 1 single request.
+    if (purgedSitemaps.has(pathname)) {
+      return send410Gone(res);
+    }
+    if (segments.length > 0 && purgedLangs.has(segments[0])) {
+      return send410Gone(res);
+    }
+    if (segments.length > 0 && purgedSections.has(segments[0])) {
+      return send410Gone(res);
+    }
+    if ((segments[0] === 'tr' || segments[0] === 'en') && segments.length > 1 && purgedSections.has(segments[1])) {
+      return send410Gone(res);
+    }
+
+    // 1. Single-hop 301 canonical redirects for legitimate aliases (evaluated before trailing-slash strip)
+    if (pathname === '/yonetim') return sendRedirect(res, '/admin', 301);
+    if (pathname === '/og-preview.jpg') return sendRedirect(res, '/og-image.png', 301);
+    if (pathname === '/take-home') return sendRedirect(res, '/', 301);
+    if (pathname === '/tr/take-home') return sendRedirect(res, '/tr', 301);
+    if (segments[0] === 'en') {
+      const rest = segments.slice(1);
+      if (rest.length === 0 || rest[0] === 'take-home') {
+        return sendRedirect(res, '/', 301);
+      }
+      return sendRedirect(res, '/' + rest.join('/'), 301);
+    }
+
+    // Strip trailing slashes on remaining active canonical routes
+    if (rawPath.length > 1 && rawPath.endsWith('/')) {
       return sendRedirect(res, pathname + parsedUrl.search, 301);
     }
 
-    // Redirect legacy /yonetim, /og-preview.jpg, and retired language sitemaps
-    if (pathname === '/yonetim') return sendRedirect(res, '/admin', 301);
-    if (pathname === '/og-preview.jpg') return sendRedirect(res, '/og-image.png', 301);
-    if (retiredSitemaps.has(pathname)) return sendRedirect(res, '/sitemap.xml', 301);
-
-    // 1. Handle /api/* serverless endpoints with Admin Guard & Rate Limiting
+    // 2. Handle /api/* serverless endpoints with Admin Guard & Rate Limiting
     if (pathname.startsWith('/api/')) {
       const apiName = pathname.slice(5).replace(/\/+$/, '');
       if (apiName === 'download') {
@@ -239,48 +262,6 @@ const server = http.createServer(async (req, res) => {
       req.body = await parseBody(req);
       enhanceRes(res);
       return await handler(req, res);
-    }
-
-    // 2. Single-Hop Canonical Redirects (Retired Locales, Off-Topic Tools, and Legacy pSEO Routes)
-    const segments = pathname.split('/').filter(Boolean);
-
-    // 2a. Handle retired language prefixes (/en, /es, /de, /pt, /fr, /id, /ja) -> single-hop 301 to root EN canonical
-    if (segments.length > 0 && retiredLangs.has(segments[0])) {
-      const rest = segments.slice(1);
-      if (rest.length === 0 || rest[0] === 'take-home' || rest[0] === 'video' || rest[0] === 'wasm') {
-        return sendRedirect(res, '/', 301);
-      }
-      if (rest[0] === 'calculator') {
-        return sendRedirect(res, resolveLegacyCalculatorRedirect(rest[1] || '', ''), 301);
-      }
-      if (rest[0] === 'tools') {
-        return sendRedirect(res, '/ai', 301);
-      }
-      return sendRedirect(res, '/' + rest.join('/'), 301);
-    }
-
-    // 2b. Handle Turkish (/tr/*) legacy & consolidated routes
-    if (segments[0] === 'tr') {
-      if (segments.length === 2 && (segments[1] === 'take-home' || segments[1] === 'video' || segments[1] === 'wasm')) {
-        return sendRedirect(res, '/tr', 301);
-      }
-      if (segments[1] === 'calculator') {
-        return sendRedirect(res, resolveLegacyCalculatorRedirect(segments[2] || '', '/tr'), 301);
-      }
-      if (segments[1] === 'tools') {
-        return sendRedirect(res, '/tr/ai', 301);
-      }
-    }
-
-    // 2c. Handle Root English (/take-home, /video, /wasm, /calculator/*, /tools/*)
-    if (pathname === '/take-home' || pathname === '/video' || pathname === '/wasm') {
-      return sendRedirect(res, '/', 301);
-    }
-    if (segments[0] === 'calculator') {
-      return sendRedirect(res, resolveLegacyCalculatorRedirect(segments[1] || '', ''), 301);
-    }
-    if (segments[0] === 'tools') {
-      return sendRedirect(res, '/ai', 301);
     }
 
     // 3. Static Asset & Pre-rendered HTML Serving from dist/
@@ -338,5 +319,5 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, '127.0.0.1', () => {
   console.log(`✅ GlobalPayCalc production server listening on http://127.0.0.1:${PORT}`);
-  console.log(`   Canonical Architecture: 56 High-Value Pre-Rendered Routes (28 EN + 28 TR)`);
+  console.log(`   Canonical Architecture: 56 Pre-Rendered Routes (28 EN + 28 TR) | 410 Gone Purge Active`);
 });
